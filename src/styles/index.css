@@ -1,0 +1,48 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  /* React root div */
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.main,
+.header,
+.footer {
+  padding: 0.25em;
+  margin: 0 1em;
+}
+
+.main {
+  display: flex;
+  gap: 1rem;
+  flex-grow: 1;
+  background-color: aqua;
+}
+
+.header {
+  background-color: #000;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid #ff0000;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer {
+  background-color: #000;
+  color: #fff;
+  border-top: 1px solid #ff0000;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-end;
+}
+
+
