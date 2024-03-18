@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "productId": "1",
+      "name": "Mistery",
+      "prodcutType": "board game",
+      "price": "29.99",
+      "image": "mistery.jpg",
+      "details": {
+        "author": "Lukáš Masařík",
+        "releaseDate": "2023-09-18T12:35:04.734Z",
+        "description": "Board game - family friendly, based on books and games, 2-6 players, average game length 45 minutes, languages EN/CZ, suitable from 12 years"
+      }
+    },
+    {
+      "productId": "2",
+      "name": "Lizbeth",
+      "prodcutType": "comic",
+      "price": "9.99",
+      "image": "lizbeth.jpg",
+      "details": {
+        "author": "Michal Landa",
+        "releaseDate": "2024-01-15T12:35:04.734Z",
+        "description": "Fantasy comic book following mystical sorceress Lizbeth and her adventures beyond the Mist"
+      }
+    },
+    {
+      "productId": "3",
+      "name": "Legends of the Mist",
+      "prodcutType": "book",
+      "price": "19.99",
+      "image": "legends.jpg",
+      "details": {
+        "author": "Martin Justa",
+        "releaseDate": "2022-03-22T12:35:04.734Z",
+        "description": "Best selling book of the year 2022. Dark fantasy adventures following heroes exploring magical Mist which will change the Istea world"
+      }
+    },
+    {
+      "productId": "4",
+      "name": "Mystery of the Mist",
+      "prodcutType": "game",
+      "price": "59.99",
+      "image": "mysetry.jpg",
+      "details": {
+        "author": "Mist Gate Studios",
+        "releaseDate": "2024-03-18T12:44:35.749Z",
+        "description": "Fantasy RPG game from Mist universe, platforms: PC, PlayStation, Xbox"
+      }
+    }
+  ]
+}
