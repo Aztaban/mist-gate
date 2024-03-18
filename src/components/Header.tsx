@@ -2,10 +2,10 @@ import Nav from "./Nav"
 
 const Header = () => {
   return (
-    <div className="header">
+    <header>
       <h2>Mist Gate</h2>
       <Nav />
-    </div>
+    </header>
   )
 }
 

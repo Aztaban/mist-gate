@@ -1,8 +1,10 @@
 const Footer = () => {
+  const date = new Date().getFullYear();
+
   return (
-    <div className="footer">
-      <h2>Footer</h2>
-    </div>
+    <footer>
+      <p>&copy; {date} Copyright: Mist Gate Studios s.r.o.</p>
+    </footer>
   )
 }
 
