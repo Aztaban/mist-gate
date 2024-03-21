@@ -68,8 +68,9 @@ nav a:hover, nav a:focus {
   background-color: blue;
   flex-grow: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items:center
 }
 
 aside {
@@ -77,8 +78,120 @@ aside {
   width: 30%;
   flex-shrink: 0;
   display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+aside h2 {
+  background-color: white;
+  display: flex;
+  padding: 10px;
   justify-content: center;
+}
+
+aside article {
+  background-color: green;
+  margin-top: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+aside article p:last-child {
+  font-size: smaller;
+}
+
+.news_link {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.posts_list h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.posts_lists__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+}
+
+.single-post {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 800px;
+  border: 1px solid;
+  border-radius: 10px;
+  background-color:rgb(188, 219, 116);
+  margin: 10px;
+}
+
+.single-post p:nth-child(3) {
+  font-size: smaller;
+  margin-top: 20px;
+}
+
+.edit-section {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  width: 100%;
+}
+
+.edit-section h2 {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.edit-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+  width: 60%
+}
+
+.edit-section form textarea {
+  height: 400px;
+}
+
+.edit-section form div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.addButton {
+  border-radius: 15%;
+  padding: 10px;
+  max-width: 150px;
+  background-color: rgb(210, 211, 161);
+}
+
+.addButton:hover {
+  border-radius: 15%;
+  padding: 10px;
+  background-color: rgb(14, 219, 14);
+}
+
+.deleteButton {
+  border-radius: 15%;
+  padding: 10px;
+  max-width: 150px;
+  background-color: rgb(224, 48, 48);
+}
+
+.deleteButton:hover {
+  border-radius: 15%;
+  padding: 10px;
+  background-color: rgb(219, 147, 14);
 }
 
 footer {

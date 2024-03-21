@@ -1,0 +1,88 @@
+{
+  "products": [
+    {
+      "productId": "1",
+      "name": "Mistery",
+      "prodcutType": "board game",
+      "price": "29.99",
+      "image": "mistery.jpg",
+      "details": {
+        "author": "Lukáš Masařík",
+        "releaseDate": "2023-09-18T12:35:04.734Z",
+        "description": "Board game - family friendly, based on books and games, 2-6 players, average game length 45 minutes, languages EN/CZ, suitable from 12 years"
+      },
+      "id": "78c0"
+    },
+    {
+      "productId": "2",
+      "name": "Lizbeth",
+      "prodcutType": "comic",
+      "price": "9.99",
+      "image": "lizbeth.jpg",
+      "details": {
+        "author": "Michal Landa",
+        "releaseDate": "2024-01-15T12:35:04.734Z",
+        "description": "Fantasy comic book following mystical sorceress Lizbeth and her adventures beyond the Mist"
+      },
+      "id": "2544"
+    },
+    {
+      "productId": "3",
+      "name": "Legends of the Mist",
+      "prodcutType": "book",
+      "price": "19.99",
+      "image": "legends.jpg",
+      "details": {
+        "author": "Martin Justa",
+        "releaseDate": "2022-03-22T12:35:04.734Z",
+        "description": "Best selling book of the year 2022. Dark fantasy adventures following heroes exploring magical Mist which will change the Istea world"
+      },
+      "id": "14fe"
+    },
+    {
+      "productId": "4",
+      "name": "Mystery of the Mist",
+      "prodcutType": "game",
+      "price": "59.99",
+      "image": "mysetry.jpg",
+      "details": {
+        "author": "Mist Gate Studios",
+        "releaseDate": "2024-03-18T12:44:35.749Z",
+        "description": "Fantasy RPG game from Mist universe, platforms: PC, PlayStation, Xbox"
+      },
+      "id": "c256"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "New website launched",
+      "body": "We proudly anounce launching a new website after months in development",
+      "date": "2024-03-18T12:35:04.734Z"
+    },
+    {
+      "id": "2",
+      "title": "Mystery of the Mist release",
+      "body": "Today is the day. Mystery of the Mist role playing game has been released acros PlayStation, Xbox and PC. Don't wait and claim your copy now!",
+      "date": "2024-03-18T12:44:35.749Z"
+    },
+    {
+      "id": "3",
+      "title": "MMO release date",
+      "body": "After years in development, we've made a major progress and release of our upcoming MMORPG game Eternal Mist is closer than ever. Release date has been set up to 15.3.2025!",
+      "date": "2024-03-18T12:49:05.839Z"
+    },
+    {
+      "id": "4",
+      "title": "New comic is out",
+      "body": "New comic series mapping events before Eternal Mist is starting now. First part of the series is out! Next part will be released on monthly bases.",
+      "date": "2024-03-18T12:49:05.839Z"
+    },
+    {
+      "id": "fbc7",
+      "title": "asdasd",
+      "body": "asdasdas",
+      "date": "2024-03-21T14:02:00.524Z"
+    }
+  ]
+}
