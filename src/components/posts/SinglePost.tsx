@@ -1,7 +1,7 @@
 import { Post } from '../../features/posts/postsSlice';
 import { MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDateFormatter } from '../../hooks/useDateFormatter';
+import { dateFormat } from '../../utils/utils';
 
 type PropsType = {
   post: Post;
@@ -19,7 +19,7 @@ const SinglePost = ({ post }: PropsType) => {
     <article className='single-post'>
       <h3>{post.title}</h3>
       <p>{post.body}</p>
-      <p>{useDateFormatter(post.date)}</p>
+      <p>{dateFormat(post.date)}</p>
       <button type="button" className="addButton" onClick={onEditPostClicked}>
         Edit Post
       </button>

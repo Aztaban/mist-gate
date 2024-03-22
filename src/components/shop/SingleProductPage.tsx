@@ -1,12 +1,10 @@
 import { MouseEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../features/shop/productSlice';
-import { useEurFormatter } from '../../hooks/useEurFormatter';
-import { useDateFormatter } from '../../hooks/useDateFormatter';
+import { dateFormat, eurFormat } from '../../utils/utils';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
-  const eurCurrency = useEurFormatter();
   const navigate = useNavigate();
 
   const {
@@ -42,8 +40,8 @@ const SingleProductPage = () => {
           <h3>{product.name}</h3>
           <p>{product.details.description}</p>
           <p>Author: {product.details.author}</p>
-          <p>Release Date: {useDateFormatter(product.details.releaseDate)}</p>
-          <p>{eurCurrency(product.price)}</p>
+          <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
+          <p>{eurFormat(product.price)}</p>
         </div>
       </article>
     );

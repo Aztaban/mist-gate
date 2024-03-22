@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetPostByIdQuery } from '../../features/posts/postsSlice';
-import { useDateFormatter } from '../../hooks/useDateFormatter';
+import { dateFormat } from '../../utils/utils';
 
 const SinglePostPage = () => {
   const { postId } = useParams();
@@ -41,7 +41,7 @@ const SinglePostPage = () => {
       <article className='single-post'>
         <h3>{post.title}</h3>
         <p>{post.body}</p>
-        <p>{useDateFormatter(post.date)}</p>
+        <p>{dateFormat(post.date)}</p>
         <button type="button" className="addButton" onClick={onEditPostClicked}>
           Edit Post
         </button>
