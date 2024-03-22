@@ -194,6 +194,24 @@ aside article p:last-child {
   background-color: rgb(219, 147, 14);
 }
 
+.product-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.product-page img {
+  max-height: 400px;
+  margin: 40px
+}
+
+.product-page div {
+  margin: 40px;
+}
+
+.product-page p {
+  margin-top: 20px;
+}
+
 footer {
   background-color: #000;
   color: #fff;
