@@ -73,7 +73,7 @@ const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
       </div>
 
       <button
-        className="cart__button"
+        className="deleteButton"
         aria-label="Remove Item From Cart"
         title="Remove Item From Cart"
         onClick={onRemoveFromCart}

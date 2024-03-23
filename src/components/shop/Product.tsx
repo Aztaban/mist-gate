@@ -19,8 +19,9 @@ const Product = ({
   const img: string = new URL(`../../images/${product.image}`, import.meta.url)
     .href;
 
-  const onAddToCart = () =>
+  const onAddToCart = () =>{
     dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
+  }
 
   const itemInCart = inCart ? ' → Item in Cart: ✔️' : null;
 

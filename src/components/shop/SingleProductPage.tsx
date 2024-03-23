@@ -1,11 +1,11 @@
-import { MouseEvent } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../features/shop/productSlice';
 import { dateFormat, eurFormat } from '../../utils/utils';
+import useCart from '../../hooks/useCart';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
-  const navigate = useNavigate();
+  const { dispatch, REDUCER_ACTIONS } = useCart();
 
   const {
     data: product,
@@ -27,6 +27,10 @@ const SingleProductPage = () => {
   }
 
   if (isSuccess) {
+    const onAddToCart = () => {
+      dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
+    };
+
     const img: string = new URL(
       `../../images/${product.image}`,
       import.meta.url
@@ -42,6 +46,9 @@ const SingleProductPage = () => {
           <p>Author: {product.details.author}</p>
           <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
           <p>{eurFormat(product.price)}</p>
+          <button className="addButton" onClick={onAddToCart}>
+            Add to Cart
+          </button>
         </div>
       </article>
     );
