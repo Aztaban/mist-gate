@@ -33,7 +33,7 @@ const reducer = (
   switch (action.type) {
     case REDUCER_ACTION_TYPE.ADD: {
       if (!action.payload) {
-        throw new Error('actioon.payload missing in ADD action');
+        throw new Error('action.payload missing in ADD action');
       }
       const { id, name, price } = action.payload;
       const filteredCart: CartItemType[] = state.cart.filter(
@@ -129,9 +129,13 @@ export const CartContext =
 type ChildrenType = { children?: ReactElement | ReactElement[] };
 
 export const CartProvider = ({ children }: ChildrenType): ReactElement => {
-  return (
+  const isShopRoute = window.location.pathname.startsWith('/shop');
+  
+  return isShopRoute ? (
     <CartContext.Provider value={useCartContext(initCartState)}>
-      {children}
+      <>{children}</>
     </CartContext.Provider>
-  );
+  ) : (
+    <>{children}</>
+  )
 };

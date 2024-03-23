@@ -13,6 +13,10 @@
   background-color: #ff0000;
 }
 
+.offscreen {
+  position: absolute;
+  left: -10000px;
+}
 
 main,
 header,
@@ -210,6 +214,79 @@ aside article p:last-child {
 
 .product-page p {
   margin-top: 20px;
+}
+
+.cart {
+  padding: 0;
+  margin-top: 0.5em;
+}
+
+.cart__item {
+  display: grid;
+  grid-template-columns: 4fr 3fr 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.5em;
+}
+
+.cart__img {
+  display: none;
+  min-width: 68px;
+}
+
+.cart__select {
+  max-height: 48px;
+}
+
+.cart__item-subtotal {
+  display: none;
+  text-align: center;
+}
+
+.cart__button {
+  max-height: 48px;
+  justify-self: flex-end;
+}
+
+.cart__totals {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+.main-products {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 5px;
+  gap: 10PX;
+}
+
+.product img {
+  width: 250px; /* Adjust the width as needed */
+  height: 250px; /* Adjust the height as needed */
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.product a {
+  font-weight: bold;
+  margin: 5px;
+}
+
+.productBuy {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 footer {

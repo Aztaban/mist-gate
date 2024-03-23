@@ -1,6 +1,6 @@
 import { apiSlice } from '../api/apiSlice';
 
-interface Product {
+export interface ProductType {
   id: string;
   name: string;
   productType: string;
@@ -13,23 +13,19 @@ interface Product {
   };
 }
 
-interface ProductList {
-  products: Product[];
-}
-
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<ProductList, void>({
+    getProducts: builder.query<ProductType[], void>({
       query: () => '/products',
       providesTags: (result) =>
         result
-          ? result.products.map((product) => ({
+          ? result.map((product) => ({
               type: 'Product',
               id: product.id,
             }))
           : [{ type: 'Product', id: 'List' }],
     }),
-    getProductById: builder.query<Product, string>({
+    getProductById: builder.query<ProductType, string>({
       query: (productId) => `/products/${productId}`,
     }),
   }),
