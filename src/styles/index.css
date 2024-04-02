@@ -18,6 +18,24 @@
   left: -10000px;
 }
 
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
 main,
 header,
 footer {
@@ -59,12 +77,14 @@ nav ul li {
   margin-right: 1rem;
 }
 
-nav a, nav a:visited {
+nav a,
+nav a:visited {
   color: #fff;
   text-decoration: none;
 }
 
-nav a:hover, nav a:focus {
+nav a:hover,
+nav a:focus {
   text-decoration: underline;
 }
 
@@ -74,7 +94,7 @@ nav a:hover, nav a:focus {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items:center
+  align-items: center;
 }
 
 aside {
@@ -132,7 +152,7 @@ aside article p:last-child {
   width: 800px;
   border: 1px solid;
   border-radius: 10px;
-  background-color:rgb(188, 219, 116);
+  background-color: rgb(188, 219, 116);
   margin: 10px;
 }
 
@@ -159,7 +179,7 @@ aside article p:last-child {
   flex-direction: column;
   gap: 10px;
   max-width: 600px;
-  width: 60%
+  width: 60%;
 }
 
 .edit-section form textarea {
@@ -205,7 +225,7 @@ aside article p:last-child {
 
 .product-page img {
   max-height: 400px;
-  margin: 40px
+  margin: 40px;
 }
 
 .product-page div {
@@ -221,7 +241,7 @@ aside article p:last-child {
   gap: 1rem;
   flex-flow: column nowrap;
   max-width: 800px;
-  justify-content:flex-start;
+  justify-content: flex-start;
   background-color: darkcyan;
 }
 
@@ -276,7 +296,7 @@ aside article p:last-child {
   border: 1px solid black;
   padding: 20px;
   border-radius: 5px;
-  gap: 10PX;
+  gap: 10px;
 }
 
 .product img {
@@ -298,6 +318,14 @@ aside article p:last-child {
   flex-direction: row;
 }
 
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 640px;
+  width: 100%;
+}
+
 footer {
   background-color: #000;
   color: #fff;
@@ -306,5 +334,3 @@ footer {
   flex-flow: row nowrap;
   justify-content: center;
 }
-
-

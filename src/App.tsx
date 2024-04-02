@@ -13,6 +13,7 @@ import EditPostForm from './components/posts/EditPostForm';
 import SinglePostPage from './components/posts/SinglePostPage';
 import SingleProductPage from './components/shop/SingleProductPage';
 import Cart from './components/shop/Cart';
+import Register from './components/auth/Register';
 
 function App() {
   const content = (
@@ -32,10 +33,11 @@ function App() {
           <Route path="shop">
             <Route index element={<Shop />} />
             <Route path="product/:productId" element={<SingleProductPage />} />
-            <Route path="cart" element={<Cart />}/>
+            <Route path="cart" element={<Cart />} />
           </Route>
 
           <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
 
           <Route path="account" element={<Account />} />
 
