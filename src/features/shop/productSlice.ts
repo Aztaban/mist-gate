@@ -17,6 +17,13 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<ProductType[], void>({
       query: () => '/products',
+      transformResponse: (response: any) => {
+        const products: ProductType[] = response.map((product: any) => {
+          product.id = product._id;
+          return product;
+        })
+        return products;
+      },
       providesTags: (result) =>
         result
           ? result.map((product) => ({
