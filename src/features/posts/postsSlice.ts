@@ -5,14 +5,18 @@ export interface Post {
   title: string;
   body: string;
   date: string;
-};
+}
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query<Post[], void>({
       query: () => '/posts',
-      transformResponse: (responseData: Post[]) => {
-        const sortedData = responseData
+      transformResponse: (responseData: any) => {
+        const data: Post[] = responseData.map((post: any) => {
+          post.id = post._id;
+          return post;
+        });
+        const sortedData = data
           .slice()
           .sort((a, b) => b.date.localeCompare(a.date));
         return sortedData;
@@ -47,7 +51,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
     }),
-    deletePost: builder.mutation<void, { id: string}>({
+    deletePost: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
         url: `/posts/${id}`,
         method: 'DELETE',
