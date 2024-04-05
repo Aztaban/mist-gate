@@ -28,6 +28,11 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     getPostById: builder.query<Post, string>({
       query: (postId) => `/posts/${postId}`,
+      transformResponse: (responseData: any) => {
+        responseData.id = responseData._id;
+        return responseData;
+      },
+      providesTags: (result, error, id) => [{ type: 'Post', id }],
     }),
     addNewPost: builder.mutation<Post, Partial<Post>>({
       query: (initialPost) => ({
@@ -53,7 +58,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     deletePost: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
-        url: `/posts/${id}`,
+        url: `/posts`,
         method: 'DELETE',
         body: { id },
       }),

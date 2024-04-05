@@ -15,7 +15,7 @@ const EditPostForm = () => {
 
   const {
     data: post,
-    isLoading: isLoadingPosts,
+    isLoading: isLoadingPost,
     isSuccess,
   } = useGetPostByIdQuery(postId || '');
 
@@ -29,7 +29,7 @@ const EditPostForm = () => {
     }
   }, [isSuccess, post?.title, post?.body]);
 
-  if (isLoadingPosts) return <p>Loading...</p>;
+  if (isLoadingPost) return <p>Loading...</p>;
 
   if (!post) {
     return (
@@ -50,7 +50,7 @@ const EditPostForm = () => {
     if (canSave) {
       try {
         await updatePost({
-          id: post.id,
+          id: postId,
           title: title!,
           body: content!,
         }).unwrap();
@@ -66,7 +66,7 @@ const EditPostForm = () => {
 
   const onDeletePostClicked = async () => {
     try {
-      await deletePost({ id: post.id }).unwrap();
+      await deletePost({ id: postId || '' }).unwrap();
 
       setTitle('');
       setContent('');
