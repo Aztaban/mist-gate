@@ -1,5 +1,4 @@
-import { apiSlice } from "../api/apiSlice";
-import { SetCredentialsPayload } from "./authSlice";
+import { apiSlice } from "../../app/api/apiSlice";
 
 export interface LoginCredentialsType {
   user: string;
@@ -8,7 +7,7 @@ export interface LoginCredentialsType {
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<LoginCredentialsType, SetCredentialsPayload>({
+    login: builder.mutation<LoginCredentialsType, string>({
       query: (credentials) => ({
         url: '/auth',
         method: 'POST',
