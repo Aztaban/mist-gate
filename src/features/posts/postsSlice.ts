@@ -32,7 +32,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         responseData.id = responseData._id;
         return responseData;
       },
-      providesTags: (result, error, id) => [{ type: 'Post', id }],
+      providesTags: (_result, _error, id) => [{ type: 'Post', id }],
     }),
     addNewPost: builder.mutation<Post, Partial<Post>>({
       query: (initialPost) => ({
@@ -54,7 +54,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           date: new Date().toISOString(),
         },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [{ type: 'Post', id: arg.id }],
     }),
     deletePost: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
@@ -62,7 +62,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         method: 'DELETE',
         body: { id },
       }),
-      invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+      invalidatesTags: (_result, _error, arg) => [{ type: 'Post', id: arg.id }],
     }),
   }),
 });
