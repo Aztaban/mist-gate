@@ -1,4 +1,4 @@
-import { apiSlice } from '../api/apiSlice';
+import { apiSlice } from "../../app/api/apiSlice";
 
 export interface ProductType {
   id: string;
