@@ -1,8 +1,67 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryApi,
+  BaseQueryFn,
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
+import { setCredentials } from '../../features/auth/authSlice';
+
+interface AccessTokenResponse {
+  accessToken: string;
+}
+
+type refreshResponse = AccessTokenResponse | unknown;
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:3500',
+  credentials: 'include',
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.token;
+
+    if (token) {
+      headers.set('authorization', `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
+const baseQueryWithReauth: BaseQueryFn<string, refreshResponse, FetchBaseQueryError> = async (
+  args: string,
+  api: BaseQueryApi,
+  extraOptions
+) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result?.error?.status === 403) {
+    console.log('sending refresh token');
+
+    // send refresh token to get new access token
+    const refreshResult = await baseQuery(
+      '/auth/refresh',
+      api,
+      extraOptions
+    );
+
+    if ('accessToken' in refreshResult) {
+      const accessTokenResponse = refreshResult as AccessTokenResponse;
+      // store the new token
+      api.dispatch(
+        setCredentials({ accessToken: accessTokenResponse.accessToken })
+      );
+
+      // retry original query with new access token
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      return refreshResult;
+    }
+  }
+  return result;
+};
 
 export const apiSlice = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3500'}),
-  tagTypes: ['Post', 'Product', 'Auth'],
-  endpoints: builder => ({})
-})
+  baseQuery: baseQueryWithReauth,
+  tagTypes: ['Post', 'Product'],
+  endpoints: (builder) => ({}),
+});
