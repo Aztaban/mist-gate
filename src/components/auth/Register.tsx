@@ -8,20 +8,20 @@ const Register = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
-  const [user, setUser] = useState('');
-  const [validName, setValidName] = useState(false);
-  const [userFocus, setUserFocus] = useState(false);
+  const [user, setUser] = useState<string>('');
+  const [validName, setValidName] = useState<boolean>(false);
+  const [userFocus, setUserFocus] = useState<boolean>(false);
 
-  const [pwd, setPwd] = useState('');
-  const [validPwd, setValidPwd] = useState(false);
-  const [pwdFocus, setPwdFocus] = useState(false);
+  const [pwd, setPwd] = useState<string>('');
+  const [validPwd, setValidPwd] = useState<boolean>(false);
+  const [pwdFocus, setPwdFocus] = useState<boolean>(false);
 
-  const [matchPwd, setMatchPwd] = useState('');
-  const [validMatch, setValidMatch] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
+  const [matchPwd, setMatchPwd] = useState<string>('');
+  const [validMatch, setValidMatch] = useState<boolean>(false);
+  const [matchFocus, setMatchFocus] = useState<boolean>(false);
 
-  const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [errMsg, setErrMsg] = useState<string>('');
+  const [success, setSuccess] = useState<boolean>(false);
 
   const [registerMutation] = useRegisterMutation();
 
