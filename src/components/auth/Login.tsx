@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/auth/authSlice';
@@ -9,15 +9,15 @@ const Login = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
-  const [username, setUsername] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [errMsg, setErrMsg] = useState<string>('')
+  const [user, setUser] = useState<string>('');
+  const [pwd, setPwd] = useState<string>('');
+  const [errMsg, setErrMsg] = useState<string>('');
   const [persist, setPersist] = usePersist();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [login] = useLoginMutation();
 
   useEffect(() => {
     if (userRef.current) userRef.current.focus();
@@ -25,7 +25,7 @@ const Login = () => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [username, password]);
+  }, [user, pwd]);
 
   const errClass = errMsg ? 'errmsg' : 'offscreen';
 
@@ -34,30 +34,77 @@ const Login = () => {
     try {
       const { accessToken } = await login({ user, pwd }).unwrap();
       dispatch(setCredentials({ accessToken }));
-      setUsername('');
-      setPassword('');
-      navigate('/dash');
+      setUser('');
+      setPwd('');
+      navigate('/account'); //specify where to navigate later
     } catch (error: any) {
-      if (!error.status) {
+      if (!error.originalStatus) {
         setErrMsg('No Server Response');
-      } else if (error.status === 400) {
+      } else if (error.originalStatus === 400) {
         setErrMsg('Missing Username or Password');
-      } else if (error.status === 401) {
+      } else if (error.originalStatus === 401) {
         setErrMsg('Unauthorized');
       } else {
-        setErrMsg(error.data?.message);
+        setErrMsg(error.data);
       }
     }
-  }
+  };
 
-  return (
-    <main>
-      <h2>Login</h2>
-      <p>
-        <a href="/register">register</a>
-      </p>
-    </main>
-  )
-}
+  const handleUserInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setUser(e.target.value);
+  const handlePwdInput = (e: ChangeEvent<HTMLInputElement>) =>
+    setPwd(e.target.value);
+  const handleToggle = () => setPersist((prev: boolean) => !prev);
 
-export default Login
+  const content = (
+    <section>
+      <header>
+        <h2>Login</h2>
+      </header>
+      <main>
+        <p ref={errRef} className={errClass} aria-live="assertive">
+          {errMsg}
+        </p>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            ref={userRef}
+            value={user}
+            onChange={handleUserInput}
+            autoComplete="off"
+            required
+          />
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={pwd}
+            onChange={handlePwdInput}
+            autoComplete="off"
+            required
+          />
+          <button className="add_button">Sign In</button>
+
+          <label htmlFor="persist" className="form__persist">
+            <input
+              type="checkbox"
+              className="form__checkbox"
+              id="persist"
+              onChange={handleToggle}
+              checked={persist}
+            />
+          </label>
+        </form>
+      </main>
+      <footer>
+        <Link to="/register">Register</Link>
+      </footer>
+    </section>
+  );
+
+  return content;
+};
+
+export default Login;
