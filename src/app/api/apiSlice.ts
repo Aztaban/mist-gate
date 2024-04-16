@@ -27,22 +27,18 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-const baseQueryWithReauth: BaseQueryFn<string, refreshResponse, FetchBaseQueryError> = async (
-  args: string,
-  api: BaseQueryApi,
-  extraOptions
-) => {
+const baseQueryWithReauth: BaseQueryFn<
+  any,
+  refreshResponse,
+  FetchBaseQueryError
+> = async (args: any, api: BaseQueryApi, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
   if (result?.error?.status === 403) {
     console.log('sending refresh token');
 
     // send refresh token to get new access token
-    const refreshResult = await baseQuery(
-      '/auth/refresh',
-      api,
-      extraOptions
-    );
+    const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
 
     if ('accessToken' in refreshResult) {
       const accessTokenResponse = refreshResult as AccessTokenResponse;
@@ -54,7 +50,7 @@ const baseQueryWithReauth: BaseQueryFn<string, refreshResponse, FetchBaseQueryEr
       // retry original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
-      return refreshResult;
+      throw new Error('Refresh token failed');
     }
   }
   return result;
