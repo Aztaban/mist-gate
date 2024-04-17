@@ -9,7 +9,7 @@ type PropsType = {
   REDUCER_ACTIONS: ReducerActionType;
 };
 
-const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType) => {
+const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType): ReactElement => {
   const {
     data: product,
   } = useGetProductByIdQuery( item.id || '')

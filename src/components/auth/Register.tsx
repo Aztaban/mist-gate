@@ -1,10 +1,10 @@
-import { useRef, useState, useEffect, FormEvent } from 'react';
+import { useRef, useState, useEffect, FormEvent, ReactElement } from 'react';
 import { useRegisterMutation } from '../../features/auth/authApiSlice';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-const Register = () => {
+const Register = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 

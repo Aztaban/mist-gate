@@ -1,8 +1,8 @@
 import useCart from '../../hooks/useCart';
-import { useState } from 'react';
+import { useState, ReactElement } from 'react';
 import CartLineItem from './CartLineItem';
 
-const Cart = () => {
+const Cart = (): ReactElement => {
   const [confirm, setConfirm] = useState<boolean>(false);
   const { dispatch, REDUCER_ACTIONS, totalItems, totalPrice, cart } = useCart();
 
