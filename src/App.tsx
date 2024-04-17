@@ -6,7 +6,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Login from './components/auth/Login';
 import Shop from './components/shop/Shop';
-import Account from './components/Account';
+import Account from './components/auth/Account';
 import PostsList from './components/posts/PostsList';
 import AddPostForm from './components/posts/AddPostForm';
 import EditPostForm from './components/posts/EditPostForm';
@@ -14,6 +14,8 @@ import SinglePostPage from './components/posts/SinglePostPage';
 import SingleProductPage from './components/shop/SingleProductPage';
 import Cart from './components/shop/Cart';
 import Register from './components/auth/Register';
+import RequireAuth from './components/auth/RequireAuth';
+import { ROLES } from './config/roles';
 
 function App() {
   const content = (
@@ -39,7 +41,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
 
-          <Route path="account" element={<Account />} />
+          <Route
+            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+          >
+            <Route path="account" element={<Account />} />
+          </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
