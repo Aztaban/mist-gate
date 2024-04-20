@@ -15,6 +15,7 @@ import SingleProductPage from './components/shop/SingleProductPage';
 import Cart from './components/shop/Cart';
 import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
+import PersistLogin from './components/auth/PersistLogin';
 import { ROLES } from './config/roles';
 
 function App() {
@@ -41,10 +42,12 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
 
-          <Route
-            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
-          >
-            <Route path="account" element={<Account />} />
+          <Route element={<PersistLogin />}>
+            <Route
+              element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+            >
+              <Route path="account" element={<Account />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
