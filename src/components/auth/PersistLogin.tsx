@@ -7,7 +7,7 @@ import { selectCurrentToken } from '../../features/auth/authSlice';
 import { RootState } from '../../app/store';
 import { RingLoader } from 'react-spinners';
 
-const PersistLogin = (): ReactElement => {
+const PersistLogin = (): ReactElement | null => {
   const [persist] = usePersist();
   const token: string | null = useSelector((state: RootState) =>
     selectCurrentToken(state)
@@ -31,11 +31,11 @@ const PersistLogin = (): ReactElement => {
         }
       };
       if (!token && persist) verifyRefreshToken();
-      effectRan.current = true;
     }
+    effectRan.current = true;
   }, []);
 
-  let content: ReactElement = <p>Empty</p>;
+  let content: ReactElement | null = null;
 
   if (!persist) {
     // persist: no
@@ -64,7 +64,7 @@ const PersistLogin = (): ReactElement => {
     console.log(isUninitialized);
     content = <Outlet />;
   }
-  
+
   return content;
 };
 
