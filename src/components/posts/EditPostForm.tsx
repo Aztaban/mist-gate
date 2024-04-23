@@ -5,6 +5,7 @@ import {
   useDeletePostMutation,
   useGetPostByIdQuery,
 } from '../../features/posts/postsSlice';
+import useAuth from '../../hooks/useAuth';
 
 const EditPostForm = () => {
   const { postId } = useParams();
@@ -12,6 +13,7 @@ const EditPostForm = () => {
 
   const [updatePost, { isLoading }] = useUpdatePostMutation();
   const [deletePost] = useDeletePostMutation();
+  const { isAdmin } = useAuth();
 
   const {
     data: post,
@@ -105,13 +107,15 @@ const EditPostForm = () => {
           >
             Save Post
           </button>
-          <button
-            className="deleteButton"
-            type="button"
-            onClick={onDeletePostClicked}
-          >
-            Delete Post
-          </button>
+          {isAdmin ? (
+            <button
+              className="deleteButton"
+              type="button"
+              onClick={onDeletePostClicked}
+            >
+              Delete Post
+            </button>
+          ) : null}
         </div>
       </form>
     </section>

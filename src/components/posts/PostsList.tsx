@@ -1,4 +1,5 @@
 import { Post, useGetPostsQuery } from '../../features/posts/postsSlice';
+import useAuth from '../../hooks/useAuth';
 import SinglePost from './SinglePost';
 import { ReactElement, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +14,7 @@ const PostsList = () => {
   } = useGetPostsQuery();
 
   const navigate = useNavigate();
+  const { isAdmin, isEditor } = useAuth();
 
   const onAddPostClicked = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -25,9 +27,12 @@ const PostsList = () => {
     pageContent = <p>Loading...</p>;
   } else if (isSuccess && posts) {
     pageContent = posts.map((post: Post) => (
-      <>
-        <SinglePost key={post.id} post={post} />
-      </>
+      <SinglePost
+        key={post.id}
+        post={post}
+        isAdmin={isAdmin}
+        isEditor={isEditor}
+      />
     ));
   } else if (isError) {
     if ('status' in error) {
@@ -43,9 +48,15 @@ const PostsList = () => {
     <section className="posts_list">
       <div className="posts_lists__header">
         <h2>Mist News</h2>
-        <button type="button" onClick={onAddPostClicked} className="addButton">
-          Add Post
-        </button>
+        {isAdmin || isEditor ? (
+          <button
+            type="button"
+            onClick={onAddPostClicked}
+            className="addButton"
+          >
+            Add Post
+          </button>
+        ) : null}
       </div>
       {pageContent}
     </section>

@@ -5,9 +5,11 @@ import { dateFormat } from '../../utils/utils';
 
 type PropsType = {
   post: Post;
+  isAdmin: boolean;
+  isEditor: boolean;
 };
 
-const SinglePost = ({ post }: PropsType) => {
+const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
   const navigate = useNavigate();
 
   const onEditPostClicked = (e: MouseEvent<HTMLButtonElement>) => {
@@ -16,13 +18,15 @@ const SinglePost = ({ post }: PropsType) => {
   };
 
   let content = (
-    <article className='single-post'>
+    <article className="single-post">
       <h3>{post.title}</h3>
       <p>{post.body}</p>
       <p>{dateFormat(post.date)}</p>
-      <button type="button" className="addButton" onClick={onEditPostClicked}>
-        Edit Post
-      </button>
+      {isEditor || isAdmin ? (
+        <button type="button" className="addButton" onClick={onEditPostClicked}>
+          Edit Post
+        </button>
+      ) : null}
     </article>
   );
 

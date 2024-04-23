@@ -10,6 +10,8 @@ type PropsType = {
   inCart: boolean;
 };
 
+
+
 const Product = ({
   product,
   dispatch,
@@ -24,6 +26,7 @@ const Product = ({
   }
 
   const itemInCart = inCart ? ' → Item in Cart: ✔️' : null;
+
 
   const content = (
     <article className="product">
