@@ -126,6 +126,12 @@ aside article p:last-child {
   font-size: smaller;
 }
 
+.flex--inline {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
 .news_link {
   display: flex;
   justify-content: center;
