@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/auth/authSlice';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
-import usePersist from '../../hooks/usePersist';
+//import usePersist from '../../hooks/usePersist';
 
 const Login = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -12,7 +12,7 @@ const Login = (): ReactElement => {
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-  const [persist, setPersist] = usePersist();
+  //const [persist, setPersist] = usePersist();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const Login = (): ReactElement => {
     setUser(e.target.value);
   const handlePwdInput = (e: ChangeEvent<HTMLInputElement>) =>
     setPwd(e.target.value);
-  const handleToggle = () => setPersist((prev: boolean) => !prev);
+  //const handleToggle = () => setPersist((prev: boolean) => !prev);
 
   const content = (
     <section>
@@ -87,7 +87,7 @@ const Login = (): ReactElement => {
           />
           <button className="add_button">Sign In</button>
 
-          <label htmlFor="persist" className="form__persist">
+{/*           <label htmlFor="persist" className="form__persist">
             <input
               type="checkbox"
               className="form__checkbox"
@@ -95,7 +95,7 @@ const Login = (): ReactElement => {
               onChange={handleToggle}
               checked={persist}
             />
-          </label>
+          </label> */}
         </form>
       </main>
       <footer>

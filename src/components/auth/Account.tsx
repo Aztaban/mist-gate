@@ -1,18 +1,21 @@
 import { ReactElement } from 'react';
 import { useSendLogoutMutation } from '../../features/auth/authApiSlice';
-import usePersist from '../../hooks/usePersist';
+//import usePersist from '../../hooks/usePersist';
 import useAuth from '../../hooks/useAuth';
 
 const Account = (): ReactElement => {
   const [sendLogout] = useSendLogoutMutation();
-  const [persist, setPersist] = usePersist();
+  //const [persist, setPersist] = usePersist();
   const { username } = useAuth();
 
   const onClickLogout = () => {
-    if (persist) {
+  /*   if (persist) {
       setPersist(false);
-    }
+    } */
     sendLogout();
+    document.cookie =
+      'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost:5173; secure; HttpOnly';
+    window.location.href = '/login';
   };
 
   return (
