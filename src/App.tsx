@@ -22,35 +22,38 @@ function App() {
   const content = (
     <CartProvider>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
+        <Route element={<PersistLogin />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
 
-          <Route path="posts">
-            <Route index element={<PostsList />} />
-            <Route path="newPost" element={<AddPostForm />} />
-            <Route path=":postId" element={<SinglePostPage />} />
-            <Route path="edit/:postId" element={<EditPostForm />} />
-          </Route>
+            <Route path="posts">
+              <Route index element={<PostsList />} />
+              <Route path="newPost" element={<AddPostForm />} />
+              <Route path=":postId" element={<SinglePostPage />} />
+              <Route path="edit/:postId" element={<EditPostForm />} />
+            </Route>
 
-          <Route path="shop">
-            <Route index element={<Shop />} />
-            <Route path="product/:productId" element={<SingleProductPage />} />
-            <Route path="cart" element={<Cart />} />
-          </Route>
+            <Route path="shop">
+              <Route index element={<Shop />} />
+              <Route
+                path="product/:productId"
+                element={<SingleProductPage />}
+              />
+              <Route path="cart" element={<Cart />} />
+            </Route>
 
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
 
-          <Route element={<PersistLogin />}>
             <Route
               element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
             >
               <Route path="account" element={<Account />} />
             </Route>
-          </Route>
 
-          <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
         </Route>
       </Routes>
     </CartProvider>
