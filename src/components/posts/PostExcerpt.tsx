@@ -1,21 +1,33 @@
-import { Post } from "../../features/posts/postsSlice"
+import { Post } from '../../features/posts/postsSlice';
 
 type PropsType = {
-  post: Post; 
-}
+  post: Post;
+};
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+
+  const options: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  };
+
+  return date.toLocaleDateString('en-GB', options)
+};
 
 const PostExcerpt = ({ post }: PropsType) => {
-  const postDate = new Date(post.date).toLocaleString();
+  const postDate = formatDate(post.date);
 
   let content = (
-    <article>
-      <h3>{post.title}</h3>
-      <p>{post.body}</p>
-      <p>{postDate}</p>
+    <article className="post-home">
+      <p className='post-date'>{postDate}</p>
+      <h3 className='post-title'>{post.title}</h3>
+      <p className='post-body'>{post.body}</p>
     </article>
-  )
-  
-  return content;
-}
+  );
 
-export default PostExcerpt
+  return content;
+};
+
+export default PostExcerpt;
