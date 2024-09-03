@@ -1,0 +1,380 @@
+/* || RESET */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+/* || VARIABLES */
+
+#root {
+  /* FONTS */
+  --FF: "Nunito", sans-serif;
+  --FF-HEADINGS: "Fugaz One", cursive;
+  --FS: clamp(1rem, 2.2vh, 1.5rem);
+
+   /* COLORS */
+
+     /* BORDERS */
+  --BORDERS: 1px solid var(--BORDER-COLOR);
+  --BORDER-RADIUS: 15px;
+
+  /* STANDARD PADDING */
+  --PADDING-TB: 0.25em;
+  --PADDING-SIDE: 2.5%;
+
+  /* STANDARD MARGIN */
+  --MARGIN: clamp(1em, 2.5vh, 1.5em) 0;
+
+}
+
+/* || UTILITY CLASSES */
+
+.offscreen {
+  position: absolute;
+  left: -10000px;
+}
+
+.center {
+  text-align: center;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #000;
+  color: #fff;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+/* || GENERAL STYLES */
+
+
+main,
+header,
+footer {
+  padding: 0.25em;
+  margin: 0 1em;
+}
+
+main {
+  display: flex;
+  gap: 1rem;
+  flex-grow: 1;
+  background-color: aqua;
+  justify-content: center;
+}
+
+header {
+  background-color: #000;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid #ff0000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav ul {
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+nav a,
+nav a:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus {
+  text-decoration: underline;
+}
+
+.main--home {
+  background-color: blue;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+aside {
+  background-color: yellow;
+  width: 30%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+aside h2 {
+  background-color: white;
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+}
+
+aside article {
+  background-color: green;
+  margin-top: 10px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+aside article p:last-child {
+  font-size: smaller;
+}
+
+.flex--inline {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+.news_link {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.posts_list h2 {
+  display: flex;
+  justify-content: center;
+}
+
+.posts_lists__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+}
+
+.single-post {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 800px;
+  border: 1px solid;
+  border-radius: 10px;
+  background-color: rgb(188, 219, 116);
+  margin: 10px;
+}
+
+.single-post p:nth-child(3) {
+  font-size: smaller;
+  margin-top: 20px;
+}
+
+.edit-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.edit-section h2 {
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.edit-section form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+  width: 60%;
+}
+
+.edit-section form textarea {
+  height: 400px;
+}
+
+.edit-section form div {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.addButton {
+  border-radius: 15%;
+  padding: 10px;
+  max-width: 150px;
+  background-color: rgb(210, 211, 161);
+}
+
+.addButton:hover {
+  border-radius: 15%;
+  padding: 10px;
+  background-color: rgb(14, 219, 14);
+}
+
+.deleteButton {
+  border-radius: 15%;
+  padding: 10px;
+  max-width: 150px;
+  background-color: rgb(224, 48, 48);
+}
+
+.deleteButton:hover {
+  border-radius: 15%;
+  padding: 10px;
+  background-color: rgb(219, 147, 14);
+}
+
+.product-page {
+  display: flex;
+  flex-direction: row;
+}
+
+.product-page img {
+  max-height: 400px;
+  margin: 40px;
+}
+
+.product-page div {
+  margin: 40px;
+}
+
+.product-page p {
+  margin-top: 20px;
+}
+
+.main--cart {
+  display: flex;
+  gap: 1rem;
+  flex-flow: column nowrap;
+  max-width: 800px;
+  justify-content: flex-start;
+  background-color: darkcyan;
+}
+
+.cart {
+  padding: 0;
+  margin-top: 0.5em;
+}
+
+.cart__item {
+  display: grid;
+  grid-template-columns: 4fr 3fr 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 0.5em;
+}
+
+.cart__img {
+  display: none;
+  min-width: 68px;
+}
+
+.cart__select {
+  max-height: 48px;
+}
+
+.cart__item-subtotal {
+  display: none;
+  text-align: center;
+}
+
+.cart__button {
+  max-height: 48px;
+  justify-self: flex-end;
+}
+
+.cart__totals {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+}
+
+.main-products {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 5px;
+  gap: 10px;
+}
+
+.product img {
+  width: 250px; /* Adjust the width as needed */
+  height: 250px; /* Adjust the height as needed */
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.product a {
+  font-weight: bold;
+  margin: 5px;
+}
+
+.productBuy {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 640px;
+  width: 100%;
+}
+
+footer {
+  background-color: #000;
+  color: #fff;
+  border-top: 1px solid #ff0000;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
