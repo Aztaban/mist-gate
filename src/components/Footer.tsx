@@ -3,7 +3,7 @@ const Footer = () => {
 
   return (
     <footer>
-      <p>&copy; {date} Copyright: Mist Gate Studios s.r.o.</p>
+      <p>&copy; {date} Copyright Aztaban</p>
     </footer>
   )
 }
