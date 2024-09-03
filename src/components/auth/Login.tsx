@@ -57,7 +57,7 @@ const Login = (): ReactElement => {
   //const handleToggle = () => setPersist((prev: boolean) => !prev);
 
   const content = (
-    <section>
+    <section className='login'>
       <header>
         <h2>Login</h2>
       </header>
@@ -85,7 +85,7 @@ const Login = (): ReactElement => {
             autoComplete="off"
             required
           />
-          <button className="add_button">Sign In</button>
+          <button className='login-btn'>Sign In</button>
 
 {/*           <label htmlFor="persist" className="form__persist">
             <input
