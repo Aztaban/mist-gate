@@ -1,8 +1,10 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Post, useGetPostsQuery } from '../../features/posts/postsSlice';
 import useAuth from '../../hooks/useAuth';
 import SinglePost from './SinglePost';
 import { ReactElement, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
 
 const PostsList = () => {
   const {
@@ -16,7 +18,7 @@ const PostsList = () => {
   const navigate = useNavigate();
   const { isAdmin, isEditor } = useAuth();
 
-  const onAddPostClicked = (e: MouseEvent<HTMLButtonElement>) => {
+  const onAddPostClicked = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
     navigate('newPost');
   };
@@ -45,17 +47,16 @@ const PostsList = () => {
   }
 
   const content: ReactElement = (
-    <section className="posts_list">
-      <div className="posts_lists__header">
+    <section className="news-section">
+      <div>
         <h2>Mist News</h2>
         {isAdmin || isEditor ? (
-          <button
-            type="button"
+          <FontAwesomeIcon
+            icon={faFolderPlus}
             onClick={onAddPostClicked}
-            className="addButton"
-          >
-            Add Post
-          </button>
+            role="button"
+            aria-label="Add Post"
+          />
         ) : null}
       </div>
       {pageContent}

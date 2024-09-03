@@ -2,6 +2,8 @@ import { Post } from '../../features/posts/postsSlice';
 import { MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { dateFormat } from '../../utils/utils';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 type PropsType = {
   post: Post;
@@ -12,21 +14,27 @@ type PropsType = {
 const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
   const navigate = useNavigate();
 
-  const onEditPostClicked = (e: MouseEvent<HTMLButtonElement>) => {
+  const onEditPostClicked = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
     navigate(`edit/${post.id}`);
   };
 
   let content = (
     <article className="single-post">
-      <h3>{post.title}</h3>
-      <p>{post.body}</p>
       <p>{dateFormat(post.date)}</p>
-      {isEditor || isAdmin ? (
-        <button type="button" className="addButton" onClick={onEditPostClicked}>
-          Edit Post
-        </button>
-      ) : null}
+      <div>
+        <h3>{post.title}</h3>
+        {isEditor || isAdmin ? (
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            onClick={onEditPostClicked}
+            role="button"
+            aria-label="Add Post"
+          />
+        ) : null}
+      </div>
+
+      <p>{post.body}</p>
     </article>
   );
 

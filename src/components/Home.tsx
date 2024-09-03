@@ -21,7 +21,7 @@ const Home = () => {
         </article>
       </section>
 
-      <section id="green-section">
+      <section>
         <img src="src\images\front2.jpg" alt="first" />
         <article>
           <h2>Innovative Mechanics, Next-Gen Graphiccs</h2>
@@ -37,7 +37,7 @@ const Home = () => {
         </article>
       </section>
 
-      <section id="news">
+      <section className='news-section'>
         <PostsBoard />
       </section>
     </>
