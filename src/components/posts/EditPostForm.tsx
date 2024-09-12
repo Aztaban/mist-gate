@@ -1,4 +1,4 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent, MouseEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   useUpdatePostMutation,
@@ -78,8 +78,13 @@ const EditPostForm = () => {
     }
   };
 
+  const onBackBtnClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(-1);
+  };
+
   return (
-    <section className="edit-section">
+    <section className="edit-post">
       <h2>Edit Post</h2>
       <form>
         <label htmlFor="postTitle">Post Title:</label>
@@ -101,15 +106,22 @@ const EditPostForm = () => {
         <div>
           <button
             type="button"
-            className="addButton"
+            className="btn save-btn"
             onClick={onSavePostClicked}
             disabled={!canSave}
           >
             Save Post
           </button>
+          <button
+            type="button"
+            className="btn back-btn"
+            onClick={onBackBtnClicked}
+          >
+            back to posts
+          </button>
           {isAdmin ? (
             <button
-              className="deleteButton"
+              className="btn del-btn"
               type="button"
               onClick={onDeletePostClicked}
             >

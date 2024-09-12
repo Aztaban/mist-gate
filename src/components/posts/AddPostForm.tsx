@@ -36,8 +36,13 @@ const AddPostForm = () => {
     }
   };
 
+  const onBackBtnClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(-1);
+  }
+
   return (
-    <section className='edit-section'>
+    <section className="edit-post">
       <h2>Add a New Post</h2>
       <form>
         <label htmlFor="postTitle">Post Title:</label>
@@ -55,9 +60,23 @@ const AddPostForm = () => {
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" className='addButton' onClick={onSavePostClicked} disabled={!canSave}>
-          Save Post
-        </button>
+        <div>
+          <button
+            type="button"
+            className="btn save-btn"
+            onClick={onSavePostClicked}
+            disabled={!canSave}
+          >
+            Save Post
+          </button>
+          <button
+            type="button"
+            className="btn back-btn"
+            onClick={onBackBtnClicked}
+          >
+            back to posts
+          </button>
+        </div>
       </form>
     </section>
   );

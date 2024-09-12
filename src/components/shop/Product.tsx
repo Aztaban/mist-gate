@@ -35,9 +35,9 @@ const Product = ({
       <p>{product.details.description}</p>
       <p>Author: {product.details.author}</p>
       <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
-      <div className='productBuy'>      
+      <div>      
         <p>{eurFormat(product.price)}{itemInCart}</p>
-        <button className='addButton' onClick={onAddToCart}>Add to Cart</button>
+        <button onClick={onAddToCart}>Add to Cart</button>
       </div>
     </article>
   );

@@ -41,14 +41,14 @@ const SingleProductPage = () => {
         <img src={img} alt={product.name} />
 
         <div>
-          <h3>{product.name}</h3>
+          <h2>{product.name}</h2>
           <p>{product.details.description}</p>
           <p>Author: {product.details.author}</p>
           <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
-          <p>{eurFormat(product.price)}</p>
-          <button className="addButton" onClick={onAddToCart}>
-            Add to Cart
-          </button>
+          <div>
+            <p>{eurFormat(product.price)}</p>
+            <button onClick={onAddToCart}>Add to Cart</button>
+          </div>
         </div>
       </article>
     );
