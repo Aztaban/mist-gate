@@ -39,7 +39,7 @@ const PersistLogin = (): ReactElement | null => {
 
   if (!persist) {
     // persist: no
-    console.log('No persist login');
+    //console.log('No persist login');
     content = <Outlet />;
   } else if (isLoading) {
     // persist: yes, token no
