@@ -85,7 +85,7 @@ const Login = (): ReactElement => {
             autoComplete="off"
             required
           />
-          <button className='login-btn'>Sign In</button>
+          <button className='btn save-btn'>Sign In</button>
 
 {/*           <label htmlFor="persist" className="form__persist">
             <input

@@ -173,7 +173,7 @@ const Register = (): ReactElement => {
                 Must match the first input field.
               </p>
               <button
-                className="login-btn"
+                className="btn save-btn"
                 disabled={!validName || !validPwd || !validMatch ? true : false}
               >
                 Register
