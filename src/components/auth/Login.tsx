@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/auth/authSlice';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
-//import usePersist from '../../hooks/usePersist';
+import usePersist from '../../hooks/usePersist';
 
 const Login = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -12,7 +12,7 @@ const Login = (): ReactElement => {
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-  //const [persist, setPersist] = usePersist();
+  const [, setPersist] = usePersist();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const Login = (): ReactElement => {
     try {
       const { accessToken } = await login({ user, pwd }).unwrap();
       dispatch(setCredentials({ accessToken }));
+      setPersist(true);
       setUser('');
       setPwd('');
       navigate('/account'); //specify where to navigate later
@@ -57,7 +58,7 @@ const Login = (): ReactElement => {
   //const handleToggle = () => setPersist((prev: boolean) => !prev);
 
   const content = (
-    <section className='login'>
+    <section className="login">
       <header>
         <h2>Login</h2>
       </header>
@@ -85,9 +86,9 @@ const Login = (): ReactElement => {
             autoComplete="off"
             required
           />
-          <button className='btn save-btn'>Sign In</button>
+          <button className="btn save-btn">Sign In</button>
 
-{/*           <label htmlFor="persist" className="form__persist">
+          {/*           <label htmlFor="persist" className="form__persist">
             <input
               type="checkbox"
               className="form__checkbox"

@@ -17,36 +17,8 @@ import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
 import { ROLES } from './config/roles';
-import { useDispatch } from 'react-redux';
-import { useRefreshMutation } from './features/auth/authApiSlice';
-import { useEffect } from 'react';
-import { setCredentials } from './features/auth/authSlice';
 
 function App() {
-  const dispatch = useDispatch();
-  const [refresh, { isLoading, isError }] = useRefreshMutation();
-
-  useEffect(() => {
-    const refreshToken = async () => {
-      try {
-        const { accessToken } = await refresh().unwrap();
-        dispatch(setCredentials({ accessToken }));
-      } catch (err) {
-        console.error('Failed to refresh access token', err);
-      }
-    };
-
-    refreshToken();
-  }, [dispatch, refresh]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    console.error('Failed to refresh access token');
-  }
-
   const content = (
     <CartProvider>
       <Routes>
