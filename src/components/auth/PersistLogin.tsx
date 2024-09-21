@@ -12,7 +12,6 @@ const PersistLogin = (): ReactElement | null => {
   const token: string | null = useSelector((state: RootState) =>
     selectCurrentToken(state)
   );
-  const effectRan = useRef<boolean>(false);
 
   const [trueSuccess, setTrueSuccess] = useState(false);
 
@@ -20,20 +19,19 @@ const PersistLogin = (): ReactElement | null => {
     useRefreshMutation();
 
   useEffect(() => {
-    if (effectRan.current === true) {
-      const verifyRefreshToken = async () => {
-        console.log('verifying refresh token');
+    const verifyRefreshToken = async () => {
+      if (!token && persist) {
+        //console.log('verifying refresh token');
         try {
-          await refresh();
+          await refresh().unwrap();
           setTrueSuccess(true);
         } catch (err) {
           console.error(err);
         }
-      };
-      if (!token && persist) verifyRefreshToken();
-    }
-    effectRan.current = true;
-  }, []);
+      }
+    };
+    verifyRefreshToken();
+  }, [token, persist, refresh]);
 
   let content: ReactElement | null = null;
 
@@ -43,11 +41,11 @@ const PersistLogin = (): ReactElement | null => {
     content = <Outlet />;
   } else if (isLoading) {
     // persist: yes, token no
-    console.log('loading');
+    //console.log('loading');
     content = <RingLoader color={'#FFF'} />;
   } else if (isError) {
     // persist: yes, token no
-    console.log('error');
+    //console.log('error');
     content = (
       <p className="errmsg">
         Something went wrong
@@ -56,12 +54,12 @@ const PersistLogin = (): ReactElement | null => {
     );
   } else if (isSuccess && trueSuccess) {
     // persist: yes, token: yes
-    console.log('success');
+    //console.log('success');
     content = <Outlet />;
   } else if (token && isUninitialized) {
     // persist: yes, token no
-    console.log('token and uninit');
-    console.log(isUninitialized);
+    //console.log('token and uninit');
+    //console.log(isUninitialized);
     content = <Outlet />;
   }
 

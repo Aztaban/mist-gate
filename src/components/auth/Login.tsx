@@ -12,7 +12,7 @@ const Login = (): ReactElement => {
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-  const [, setPersist] = usePersist();
+  const [persist, setPersist] = usePersist();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,7 +34,9 @@ const Login = (): ReactElement => {
     try {
       const { accessToken } = await login({ user, pwd }).unwrap();
       dispatch(setCredentials({ accessToken }));
-      setPersist(true);
+      //console.log("Before persist:", persist); 
+      localStorage.setItem('persist', JSON.stringify(true));
+      //console.log("After persist:", persist); 
       setUser('');
       setPwd('');
       navigate('/account'); //specify where to navigate later
