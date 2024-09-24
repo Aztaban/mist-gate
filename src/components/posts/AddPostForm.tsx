@@ -20,18 +20,19 @@ const AddPostForm = () => {
 
   const canSave = [title, content].every(Boolean) && !isLoading;
 
-  const onSavePostClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+  const onSavePostClicked = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (canSave) {
       try {
         await addNewPost({ title, body: content }).unwrap();
-
         setTitle('');
         setContent('');
         refetch();
         navigate('/posts');
-      } catch (err) {
-        console.error('Failed to save the post', err);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          console.error('Failed to save the post', err.message);
+        }
       }
     }
   };
@@ -39,12 +40,12 @@ const AddPostForm = () => {
   const onBackBtnClicked = async (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigate(-1);
-  }
+  };
 
   return (
     <section className="edit-post">
       <h2>Add a New Post</h2>
-      <form>
+      <form onSubmit={onSavePostClicked}>
         <label htmlFor="postTitle">Post Title:</label>
         <input
           type="text"
@@ -61,12 +62,7 @@ const AddPostForm = () => {
           onChange={onContentChanged}
         />
         <div>
-          <button
-            type="button"
-            className="btn save-btn"
-            onClick={onSavePostClicked}
-            disabled={!canSave}
-          >
+          <button type="submit" className="btn save-btn" disabled={!canSave}>
             Save Post
           </button>
           <button
