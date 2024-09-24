@@ -25,7 +25,7 @@ const baseQuery = fetchBaseQuery({
     }
     return headers;
   },
-});
+ });
 
 const baseQueryWithReauth: BaseQueryFn<
   any,
@@ -34,14 +34,12 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args: any, api: BaseQueryApi, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  if (result?.error?.status === 403) {
+  if (result?.error?.status === "PARSING_ERROR") {
     console.log('sending refresh token');
-
     // send refresh token to get new access token
     const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
-
-    if ('accessToken' in refreshResult) {
-      const accessTokenResponse = refreshResult as AccessTokenResponse;
+    if (refreshResult.data) {
+      const accessTokenResponse = refreshResult.data as AccessTokenResponse;
       // store the new token
       api.dispatch(
         setCredentials({ accessToken: accessTokenResponse.accessToken })
