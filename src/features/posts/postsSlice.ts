@@ -1,4 +1,4 @@
-import { apiSlice } from "../../app/api/apiSlice";
+import { apiSlice } from '../../app/api/apiSlice';
 
 export interface Post {
   id: string;
@@ -58,9 +58,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     deletePost: builder.mutation<void, { id: string }>({
       query: ({ id }) => ({
-        url: `/posts`,
+        url: `/posts/${id}`,
         method: 'DELETE',
-        body: { id },
       }),
       invalidatesTags: (_result, _error, arg) => [{ type: 'Post', id: arg.id }],
     }),
