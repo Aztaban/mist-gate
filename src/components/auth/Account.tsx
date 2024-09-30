@@ -9,11 +9,13 @@ const Account = (): ReactElement => {
   const { username } = useAuth();
 
   const onClickLogout = () => {
-    setPersist(false);
-    sendLogout();
-    document.cookie =
-      'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost:5173; secure; HttpOnly';
-    window.location.href = '/login';
+    if (window.confirm('Are you sure you want log out?')) {
+      setPersist(false);
+      sendLogout();
+      document.cookie =
+        'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost:5173; secure; HttpOnly';
+      window.location.href = '/login';
+    }
   };
 
   return (
