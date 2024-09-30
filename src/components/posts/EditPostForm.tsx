@@ -21,15 +21,15 @@ const EditPostForm = () => {
     isSuccess,
   } = useGetPostByIdQuery(postId || '');
 
-  const [title, setTitle] = useState(post?.title);
-  const [content, setContent] = useState(post?.body);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && post) {
       setTitle(post.title);
       setContent(post.body);
     }
-  }, [isSuccess, post?.title, post?.body]);
+  }, [isSuccess, post]);
 
   if (isLoadingPost) return <p>Loading...</p>;
 
@@ -69,10 +69,10 @@ const EditPostForm = () => {
   const onDeletePostClicked = async () => {
     try {
       await deletePost({ id: postId || '' }).unwrap();
-
+      navigate('/posts');
       setTitle('');
       setContent('');
-      navigate('/posts');
+      
     } catch (err) {
       console.error('Failed to delete the post', err);
     }
