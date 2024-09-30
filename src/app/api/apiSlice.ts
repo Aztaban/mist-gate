@@ -34,6 +34,11 @@ const baseQueryWithReauth: BaseQueryFn<
 > = async (args: any, api: BaseQueryApi, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
+  if (result.error?.status === 401) {
+    localStorage.setItem('persist', JSON.stringify(false));
+    console.log("Test erroru uspesny")
+  }
+
   if (result?.error?.status === "PARSING_ERROR") {
     console.log('sending refresh token');
     // send refresh token to get new access token
