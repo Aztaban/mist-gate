@@ -11,9 +11,9 @@ const EditPostForm = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
+  const { isAdmin } = useAuth();
   const [updatePost, { isLoading }] = useUpdatePostMutation();
   const [deletePost] = useDeletePostMutation();
-  const { isAdmin } = useAuth();
 
   const {
     data: post,
@@ -66,15 +66,17 @@ const EditPostForm = () => {
     }
   };
 
-  const onDeletePostClicked = async () => {
-    try {
-      await deletePost({ id: postId || '' }).unwrap();
-      navigate('/posts');
-      setTitle('');
-      setContent('');
-      
-    } catch (err) {
-      console.error('Failed to delete the post', err);
+  // Use the confirmation hook here, but call it unconditionally
+  const handleDeleteClick = async () => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      try {
+        await deletePost({ id: postId || '' }).unwrap();
+        setTitle('');
+        setContent('');
+        navigate('/posts');
+      } catch (err) {
+        console.error('Failed to delete the post', err);
+      }
     }
   };
 
@@ -123,7 +125,7 @@ const EditPostForm = () => {
             <button
               className="btn del-btn"
               type="button"
-              onClick={onDeletePostClicked}
+              onClick={handleDeleteClick}
             >
               Delete Post
             </button>
