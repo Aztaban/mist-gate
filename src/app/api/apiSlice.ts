@@ -7,6 +7,8 @@ import {
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
 import { setCredentials } from '../../features/auth/authSlice';
+import { logOut } from '../../features/auth/authSlice';
+import { setPersistState } from '../../utils/utils';
 
 interface AccessTokenResponse {
   accessToken: string;
@@ -33,10 +35,12 @@ const baseQueryWithReauth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args: any, api: BaseQueryApi, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
+  //console.log(result);
 
-  if (result.error?.status === 401) {
-    localStorage.setItem('persist', JSON.stringify(false));
-    console.log("Test erroru uspesny")
+  if (result.error?.status === 401 || result.error?.status === 403) {
+    setPersistState(false);
+    api.dispatch(logOut());
+    //console.log(result.error.data)
   }
 
   if (result?.error?.status === "PARSING_ERROR") {

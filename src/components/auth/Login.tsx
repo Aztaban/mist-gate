@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setCredentials } from '../../features/auth/authSlice';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
-import usePersist from '../../hooks/usePersist';
+import { setPersistState } from '../../utils/utils';
 
 const Login = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -12,7 +12,7 @@ const Login = (): ReactElement => {
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-  const [persist, setPersist] = usePersist();
+  
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const Login = (): ReactElement => {
       const { accessToken } = await login({ user, pwd }).unwrap();
       dispatch(setCredentials({ accessToken }));
       //console.log("Before persist:", persist); 
-      localStorage.setItem('persist', JSON.stringify(true));
+      setPersistState(true);
       //console.log("After persist:", persist); 
       setUser('');
       setPwd('');
