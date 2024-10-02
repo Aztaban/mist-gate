@@ -9,3 +9,6 @@ export function eurFormat(value: number): string {
   }).format(value);
  }
 
+export const setPersistState = (value: boolean) => {
+  localStorage.setItem('persist', JSON.stringify(value));
+};
