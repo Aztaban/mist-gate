@@ -11,12 +11,14 @@ const SinglePostPage = () => {
     data: post,
     isLoading,
     isSuccess,
-    isError
+    isError,
   } = useGetPostByIdQuery(postId || '');
 
   const onEditPostClicked = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    navigate(`edit/${post?.id}`);
+    console.log(postId);
+    console.log(post);
+    navigate(`/posts/edit/${postId}`);
   };
 
   const onBackClicked = (e: MouseEvent<HTMLButtonElement>) => {
@@ -38,17 +40,31 @@ const SinglePostPage = () => {
 
   if (isSuccess) {
     content = (
-      <article className='single-post'>
-        <h3>{post.title}</h3>
-        <p>{post.body}</p>
-        <p>{dateFormat(post.date)}</p>
-        <button type="button" className="addButton" onClick={onEditPostClicked}>
-          Edit Post
-        </button>
-        <button type="button" className="addButton" onClick={onBackClicked}>
-          back to Post List
-        </button>
-      </article>
+      <>
+        <section className='login'>
+          <article className="single-post">
+            <p>{dateFormat(post.date)}</p>
+            <div>
+              <h3>{post.title}</h3>
+            </div>
+            <p>{post.body}</p>
+            <button
+              type="button"
+              className="btn back-btn"
+              onClick={onEditPostClicked}
+            >
+              Edit Post
+            </button>
+            <button
+              type="button"
+              className="btn back-btn"
+              onClick={onBackClicked}
+            >
+              back to Post List
+            </button>
+          </article>
+        </section>
+      </>
     );
   }
 
