@@ -22,7 +22,7 @@ const Home = () => {
       </section>
 
       <section>
-        <img src="src\images\front2.jpg" alt="first" />
+        
         <article>
           <h2>Innovative Mechanics, Next-Gen Graphiccs</h2>
           <p>
@@ -35,6 +35,7 @@ const Home = () => {
             legend and influence the fate of the entire world!
           </p>
         </article>
+        <img src="src\images\front2.jpg" alt="first" />
       </section>
 
       <section className='news-section'>
