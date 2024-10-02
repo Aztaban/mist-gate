@@ -184,6 +184,7 @@ a:any-link {
   text-decoration: none;
 }
 
+a.active,
 a:hover,
 a:focus-visible {
   color: var(--LINK-HOVER);

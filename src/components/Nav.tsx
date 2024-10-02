@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 const Nav = () => {
@@ -9,24 +9,24 @@ const Nav = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/" end>Home</NavLink>
         </li>
         <li>
-          <Link to="/posts">news</Link>
+          <NavLink to="/posts">news</NavLink>
         </li>
         <li>
-          <Link to="about">About</Link>
+          <NavLink to="about">About</NavLink>
         </li>
         <li>
-          <Link to="shop">Shop</Link>
+          <NavLink to="shop">Shop</NavLink>
         </li>
         {isLogedIn ? (
           <li>
-            <Link to="account">Account</Link>
+            <NavLink to="account">Account</NavLink>
           </li>
         ) : (
           <li>
-            <Link to="login">Login</Link>
+            <NavLink to="login">Login</NavLink>
           </li>
         )}
       </ul>
