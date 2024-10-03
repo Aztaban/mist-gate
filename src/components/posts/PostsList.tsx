@@ -49,9 +49,10 @@ const PostsList = () => {
   const content: ReactElement = (
     <section className="news-section">
       <div>
-        <h2 className='news-header'>Mist News</h2>
+        <h3 className="news-header">Mist News</h3>
         {isAdmin || isEditor ? (
           <FontAwesomeIcon
+            className="news-header"
             icon={faFolderPlus}
             onClick={onAddPostClicked}
             role="button"
