@@ -31,11 +31,9 @@ const PostsBoard = () => {
 
   const content: ReactElement = (
     <>
-      <h2>Mist News</h2>
+      <h2><Link to="/posts">Mist News</Link></h2>
       <div className='news-home'>{pageContent}</div>
-      <p className="news_link">
-        <Link to="/posts">See older news</Link>
-      </p>
+
     </>
   );
 
