@@ -1,9 +1,10 @@
 import { Post } from '../../features/posts/postsSlice';
 import { MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { dateFormat } from '../../utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+
 
 type PropsType = {
   post: Post;
@@ -23,13 +24,15 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
     <article className="single-post">
       <p>{dateFormat(post.date)}</p>
       <div>
-        <h3>{post.title}</h3>
+        <h3><Link to={`/posts/${post.id}`}>{post.title}</Link></h3>
         {isEditor || isAdmin ? (
           <FontAwesomeIcon
+            className='news-link'
             icon={faPenToSquare}
             onClick={onEditPostClicked}
             role="button"
             aria-label="Add Post"
+            tabIndex={0}
           />
         ) : null}
       </div>

@@ -358,6 +358,18 @@ section:nth-of-type(even) {
   align-items: center;
 }
 
+.news-link {
+  color: var(--SECTION-BGCOLOR);
+  padding: 0.20rem;
+}
+
+.news-link:hover,
+.news-link:focus-visible {
+  background-color: var(--BODY-BGCOLOR);
+  color: var(--BORDER-COLOR);
+  border-radius: 15%;
+}
+
 section img {
   width: 100%;
   height: auto;
