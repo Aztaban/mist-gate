@@ -137,6 +137,19 @@ textarea {
   color: var(--HEADER-COLOR);
 }
 
+.green-btn {
+  padding: 0.5rem; /* Increase the padding to make the button larger */
+  font-size: 1.5rem;  /* Increase the font size for larger text */      /* Adjust height if you want a specific height */
+}
+
+.green-btn.active,
+.green-btn:hover,
+.green-btn:focus-visible {
+  color: var(--BODY-BGCOLOR);
+  background-color: var(--BORDER-COLOR);
+  border-radius: 15%;
+}
+
 /* || GENERAL STYLES */
 #root {
   display: flex;
@@ -346,7 +359,7 @@ section img {
   background-repeat: repeat-x;
   background-size: contain;
   background-position: center;
-  animation: marquee 60s linear infinite;
+  animation: marquee 90s linear infinite;
 }
 
 .fog-img-second {
@@ -354,7 +367,7 @@ section img {
   background-repeat: repeat-x;
   background-size: contain;
   background-position: center;
-  animation: marquee 30s linear infinite;
+  animation: marquee 45s linear infinite;
 }
 
 @keyframes marquee {
@@ -363,7 +376,7 @@ section img {
   }
 
   100% {
-    transform: translate3d(-200vw,0,0);
+    transform: translate3d(-100vw,0,0);
   }
 }
 

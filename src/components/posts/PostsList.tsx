@@ -52,7 +52,7 @@ const PostsList = () => {
         <h3 className="news-header">Mist News</h3>
         {isAdmin || isEditor ? (
           <FontAwesomeIcon
-            className="news-header"
+            className="green-btn"
             icon={faFolderPlus}
             onClick={onAddPostClicked}
             role="button"
