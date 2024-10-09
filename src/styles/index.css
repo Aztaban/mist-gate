@@ -253,6 +253,58 @@ header nav ul {
   font-family: var(--FF-HEADINGS);
 }
 
+.cart-btn {
+  position: relative;
+  display: inline-block;
+  background-color: var(--BORDER-COLOR);
+  color: var(--SECTION-BGCOLOR);
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+
+.cart-btn::after {
+  content: attr(data-count); /* Use the data-count attribute to display the number */
+  position: absolute;
+  top: 0px; 
+  right: 0px; 
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.15rem 0.3rem;
+  font-size: 0.5rem; /* Adjust the size of the number */
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 15px; /* Ensure a minimum width for the circle */
+  min-height: 15px;
+  pointer-events: none; /* Prevent hover from affecting the pseudo-element */
+}
+
+
+.cart-btn:hover,
+.cart-btn:focus-visible {
+  color: var(--HEADER-BGCOLOR);
+  background-color: var(--SECTION-BGCOLOR-LIGHT);
+  text-shadow: none;
+}
+
+.cart-btn:hover::after,
+.cart-btn:focus-visible::after {
+  background-color: red; /* Ensure the red badge doesn't change color on hover */
+  color: white; /* Ensure text color stays white */
+}
+
+.cart-link {
+  text-decoration: none;
+  color: inherit;
+
+}
+
+.cart-link:hover {
+  color: inherit;
+}
+
 /* || MAIN */
 main {
   flex: 1;
