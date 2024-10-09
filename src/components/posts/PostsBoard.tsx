@@ -16,9 +16,9 @@ const PostsBoard = () => {
   if (isLoading) {
     pageContent = <p>Loading...</p>;
   } else if (isSuccess && posts) {
-    pageContent = posts.slice(0, 3).map((post: Post) => (
-      <PostExcerpt key={post.id} post={post} />
-    ));
+    pageContent = posts
+      .slice(0, 3)
+      .map((post: Post) => <PostExcerpt key={post.id} post={post} />);
   } else if (isError) {
     if ('status' in error) {
       const errMsg =
@@ -31,9 +31,10 @@ const PostsBoard = () => {
 
   const content: ReactElement = (
     <>
-      <h2><Link to="/posts">Mist News</Link></h2>
-      <div className='news-home'>{pageContent}</div>
-
+      <h2>
+        <Link to="/posts">Mist News</Link>
+      </h2>
+      <div className="news__home">{pageContent}</div>
     </>
   );
 

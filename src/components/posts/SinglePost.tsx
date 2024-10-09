@@ -27,7 +27,7 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
         <h3><Link to={`/posts/${post.id}`}>{post.title}</Link></h3>
         {isEditor || isAdmin ? (
           <FontAwesomeIcon
-            className='news-link'
+            className='news__link'
             icon={faPenToSquare}
             onClick={onEditPostClicked}
             role="button"

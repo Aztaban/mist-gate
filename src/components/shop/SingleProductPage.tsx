@@ -37,7 +37,7 @@ const SingleProductPage = () => {
     ).href;
 
     content = (
-      <article className="product-page">
+      <article className="product__page">
         <img src={img} alt={product.name} />
 
         <div>

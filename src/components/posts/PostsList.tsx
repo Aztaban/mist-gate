@@ -47,9 +47,9 @@ const PostsList = () => {
   }
 
   const content: ReactElement = (
-    <section className="news-section">
+    <section className="news__section">
       <div>
-        <h3 className="news-header">Mist News</h3>
+        <h3 className="news__header">Mist News</h3>
         {isAdmin || isEditor ? (
           <FontAwesomeIcon
             className="green-btn"

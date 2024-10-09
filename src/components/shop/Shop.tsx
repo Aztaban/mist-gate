@@ -3,7 +3,7 @@ import ProductList from './ProductList';
 const Shop = () => {
 
   const content = (
-    <main className="main-products">
+    <main className="main__products">
       <ProductList />
     </main>
   );

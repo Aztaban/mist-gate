@@ -43,7 +43,7 @@ const AddPostForm = () => {
   };
 
   return (
-    <section className="edit-post">
+    <section className="edit__post">
       <h2>Add a New Post</h2>
       <form onSubmit={onSavePostClicked}>
         <label htmlFor="postTitle">Post Title:</label>

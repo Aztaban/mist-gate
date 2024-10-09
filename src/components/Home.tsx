@@ -38,7 +38,7 @@ const Home = () => {
         <img className="blue-mist" src="src\images\front2.jpg" alt="first" />
       </section>
 
-      <section className='news-section'>
+      <section className='news__section'>
         <PostsBoard />
       </section>
     </>

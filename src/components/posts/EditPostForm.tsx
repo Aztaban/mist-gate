@@ -86,7 +86,7 @@ const EditPostForm = () => {
   };
 
   return (
-    <section className="edit-post">
+    <section className="edit__post">
       <h2>Edit Post</h2>
       <form>
         <label htmlFor="postTitle">Post Title:</label>
