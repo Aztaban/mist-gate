@@ -1,61 +1,52 @@
-import { ProductType } from '../../features/shop/productSlice';
-import { ReducerActionType, ReducerAction } from '../../context/CartProvider';
 import { ReactElement, memo } from 'react';
 import { dateFormat, eurFormat } from '../../utils/utils';
+import { RootState } from '../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../features/cart/cartSlice';
+import { ProductType } from '../../features/shop/productSlice';
 
-type PropsType = {
-  product: ProductType;
-  dispatch: React.Dispatch<ReducerAction>;
-  REDUCER_ACTIONS: ReducerActionType;
-  inCart: boolean;
-};
+const Product = ({ product }: { product: ProductType }): ReactElement => {
+  const dispatch = useDispatch();
 
+  // Check if the product is already in the cart
+  const inCart = useSelector((state: RootState) =>
+    state.cart.cart.some((item) => item.id === product.id)
+  );
+  // Handle adding to cart
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        qty: 1,
+      })
+    );
+  };
 
-
-const Product = ({
-  product,
-  dispatch,
-  REDUCER_ACTIONS,
-  inCart,
-}: PropsType): ReactElement => {
-  const img: string = new URL(`../../images/${product.image}`, import.meta.url)
-    .href;
-
-  const onAddToCart = () =>{
-    dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
-  }
+  const imgSrc = new URL(`../../images/${product.image}`, import.meta.url).href;
 
   const itemInCart = inCart ? ' → Item in Cart: ✔️' : null;
 
-
   const content = (
     <article className="product">
-      <img src={img} alt="{product.name}" className="product__img" />
+      <img src={imgSrc} alt={product.name} className="product__img" />
       <a href={`shop/product/${product.id}`}>{product.name}</a>
       <p>{product.details.description}</p>
       <p>Author: {product.details.author}</p>
       <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
-      <div>      
-        <p>{eurFormat(product.price)}{itemInCart}</p>
-        <button onClick={onAddToCart}>Add to Cart</button>
+      <div>
+        <p>
+          {eurFormat(product.price)}
+          {itemInCart}
+        </p>
+        <button onClick={handleAddToCart}>Add to Cart</button>
       </div>
     </article>
   );
   return content;
 };
 
-function areProductsEqual(
-  { product: prevProduct }: PropsType,
-  { product: nextProduct }: PropsType
-) {
-  return Object.keys(prevProduct).every((key) => {
-    return (
-      prevProduct[key as keyof ProductType] ===
-      nextProduct[key as keyof ProductType]
-    );
-  });
-}
-
-const MemoizedProduct = memo<typeof Product>(Product, areProductsEqual);
+const MemoizedProduct = memo(Product);
 
 export default MemoizedProduct;
