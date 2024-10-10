@@ -1,31 +1,18 @@
 import { ChangeEvent, ReactElement, memo } from 'react';
-import { CartItemType, ReducerAction, ReducerActionType } from '../../context/CartProvider';
 import { useGetProductByIdQuery } from '../../features/shop/productSlice';
 import { eurFormat } from '../../utils/utils';
+import { useDispatch } from 'react-redux';
+import { removeFromCart, updateQuantity } from '../../features/cart/cartSlice';
+import { CartItemType } from '../../features/cart/cartSlice';
 
-type PropsType = {
-  item: CartItemType;
-  dispatch: React.Dispatch<ReducerAction>;
-  REDUCER_ACTIONS: ReducerActionType;
-};
+const CartLineItem = ({ item }: { item: CartItemType }): ReactElement => {
+  const dispatch = useDispatch();
+  const { data: product } = useGetProductByIdQuery(item.id || '');
 
-const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType): ReactElement => {
-  const {
-    data: product,
-  } = useGetProductByIdQuery( item.id || '')
-
-
-  const img: string = new URL(`../images/${product?.image}`, import.meta.url)
-    .href;
-
+  const img: string = new URL(`../images/${product?.image}`, import.meta.url).href;
   const lineTotal: number = item.qty * item.price;
-
-  const highestQty: number = 20 > item.qty ? 20 : item.qty;
-
-  const optionValues: number[] = [...Array(highestQty).keys()].map(
-    (i) => i + 1
-  );
-
+  const highestQty: number = Math.min(20, item.qty)
+  const optionValues: number[] = [...Array(highestQty).keys()].map((i) => i + 1);
   const options: ReactElement[] = optionValues.map((val) => {
     return (
       <option key={`opt${val}`} value={val}>
@@ -35,25 +22,18 @@ const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType): ReactElem
   });
 
   const onChangeQty = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch({
-      type: REDUCER_ACTIONS.QUANTITY,
-      payload: { ...item, qty: Number(e.target.value) },
-    });
+    dispatch(updateQuantity({ id: item.id, qty: Number(e.target.value) }));
   };
 
-  const onRemoveFromCart = () =>
-    dispatch({
-      type: REDUCER_ACTIONS.REMOVE,
-      payload: item,
-    });
+  const onRemoveFromCart = () => {
+    dispatch(removeFromCart({ id: item.id }));
+  }
 
   const content = (
     <li className="cart__item">
       <img src={img} alt={item.name} className="cart__img" />
       <div aria-label="Item Name">{item.name}</div>
-      <div aria-label="Price Per Item">
-        {eurFormat(item.price)}
-      </div>
+      <div aria-label="Price Per Item">{eurFormat(item.price)}</div>
       <label htmlFor="itemQty" className="offscreen">
         Item Quantity
       </label>
@@ -86,15 +66,6 @@ const CartLineItem = ({ item, dispatch, REDUCER_ACTIONS }: PropsType): ReactElem
   return content;
 };
 
-function areItemsEqual(
-  { item: prevItem }: PropsType,
-  { item: nextItem }: PropsType
-) {
-  return Object.keys(prevItem).every((key) => {
-    return prevItem[key as keyof CartItemType] === nextItem[key as keyof CartItemType]
-  });
-}
-
-const MemoizedCardLineItem = memo<typeof CartLineItem>(CartLineItem, areItemsEqual);
+const MemoizedCardLineItem = memo(CartLineItem);
 
 export default MemoizedCardLineItem;
