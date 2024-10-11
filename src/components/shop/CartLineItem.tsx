@@ -61,7 +61,7 @@ const CartLineItem = ({ item }: { item: CartItemType }): ReactElement => {
         
       </div>
       <button
-            className="deleteButton"
+            className="cart__item--del-btn"
             aria-label="Remove Item From Cart"
             title="Remove Item From Cart"
             onClick={onRemoveFromCart}

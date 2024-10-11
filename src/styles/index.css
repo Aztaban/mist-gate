@@ -631,6 +631,10 @@ section img {
   margin: 2px;
 }
 
+.cart__submit {
+  background-color: #0fb325;
+}
+
 .cart__tools--item {
   display: flex;
   width: 100%;
@@ -640,6 +644,12 @@ section img {
 
 .cart__item--box {
   flex-grow: 1;
+}
+
+.cart__item--del-btn {
+  margin: 10px;
+  padding: 10px;
+
 }
 
 .cart__item--top {
@@ -654,6 +664,7 @@ section img {
   justify-content: space-between;
   padding: 5px;
   margin: 5px;
+  align-items: center;
 }
 
 /* || LOGIN */

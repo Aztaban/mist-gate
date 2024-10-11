@@ -50,9 +50,9 @@ const Cart = (): ReactElement => {
           <p>{eurFormat(totalPrice)}</p>
         </div>
         <div className="cart__tools--item">
-          <button onClick={onClearClicked}>Clear Cart</button>
+          <button className='btn del-btn' onClick={onClearClicked}>Clear Cart</button>
           <button
-            className="cart__submit"
+            className="cart__submit btn .save-btn"
             disabled={!totalItems}
             onClick={onSubmitOrder}
           >
