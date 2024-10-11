@@ -20,7 +20,7 @@ const PostExcerpt = ({ post }: PropsType) => {
   const postDate = formatDate(post.date);
 
   let content = (
-    <article className="post__home">
+    <article className="post__home green-mist">
       <p>{postDate}</p>
       <h3>{post.title}</h3>
       <p>{post.body}</p>

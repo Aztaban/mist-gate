@@ -72,6 +72,7 @@ textarea {
 
 .green-mist {
   border-radius: 20px;
+  border: 1px solid var(--BORDER-COLOR);
   box-shadow: 
     0 15px 25px rgba(119, 199, 129, 0.3),
     0 20px 30px rgba(20, 184, 42, 0.2), 
@@ -81,6 +82,7 @@ textarea {
 
 .blue-mist {
   border-radius: 20px;
+  border: 1px solid var(--BORDER-COLOR);
   box-shadow: 
     0 15px 25px rgba(11, 92, 173, 0.6),
     0 20px 30px rgba(6, 47, 88, 0.4), 
@@ -617,8 +619,8 @@ section img {
 }
 
 .cart__tools {
-  background-color: var(--SECTION-BGCOLOR-LIGHT);
-  border: 1px solid black;
+  background-color: var(--HEADER-BGCOLOR);
+  border: 5px solid var(--SECTION-BGCOLOR-LIGHT);
   border-radius: var(--BORDER-RADIUS);
   width: 100%;
   align-items: center;
@@ -647,8 +649,8 @@ section img {
 
 .cart__tools--item {
   display: flex;
-  background-color: var(--HEADER-BGCOLOR);
-  border-radius: var(--BORDER-RADIUS);
+  
+ 
   justify-content: space-between;
   margin: 5px;
   padding: 10px;

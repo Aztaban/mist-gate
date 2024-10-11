@@ -21,7 +21,7 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
   };
 
   let content = (
-    <article className="single-post">
+    <article className="single-post green-mist">
       <p>{dateFormat(post.date)}</p>
       <div>
         <h3><Link to={`/posts/${post.id}`}>{post.title}</Link></h3>
