@@ -9,10 +9,13 @@ const CartLineItem = ({ item }: { item: CartItemType }): ReactElement => {
   const dispatch = useDispatch();
   const { data: product } = useGetProductByIdQuery(item.id || '');
 
-  const img: string = new URL(`../images/${product?.image}`, import.meta.url).href;
+  const img: string = new URL(`../../images/${product?.image}`, import.meta.url)
+    .href;
   const lineTotal: number = item.qty * item.price;
-  const highestQty: number = Math.min(20, item.qty)
-  const optionValues: number[] = [...Array(highestQty).keys()].map((i) => i + 1);
+  const highestQty: number = 10;
+  const optionValues: number[] = [...Array(highestQty).keys()].map(
+    (i) => i + 1
+  );
   const options: ReactElement[] = optionValues.map((val) => {
     return (
       <option key={`opt${val}`} value={val}>
@@ -27,39 +30,44 @@ const CartLineItem = ({ item }: { item: CartItemType }): ReactElement => {
 
   const onRemoveFromCart = () => {
     dispatch(removeFromCart({ id: item.id }));
-  }
+  };
 
   const content = (
     <li className="cart__item">
       <img src={img} alt={item.name} className="cart__img" />
-      <div aria-label="Item Name">{item.name}</div>
-      <div aria-label="Price Per Item">{eurFormat(item.price)}</div>
-      <label htmlFor="itemQty" className="offscreen">
-        Item Quantity
-      </label>
-      <select
-        name="itemQty"
-        id="itemQty"
-        className="cart__select"
-        value={item.qty}
-        aria-label="Item Quantity"
-        onChange={onChangeQty}
-      >
-        {options}
-      </select>
+      <div className="cart__item--box">
+        <div className="cart__item--top">
+          <div aria-label="Item Name">{item.name}</div>
+          <div aria-label="Price Per Item">{eurFormat(item.price)}</div>
 
-      <div className="cart__item-subtotal" aria-label="Line Item Subtotal">
-        {eurFormat(lineTotal)}
+        </div>
+        <div className="cart__item--bot">
+          <label htmlFor="itemQty">Item Quantity</label>
+          <select
+            name="itemQty"
+            id="itemQty"
+            className="cart__select"
+            value={item.qty}
+            aria-label="Item Quantity"
+            onChange={onChangeQty}
+          >
+            {options}
+          </select>
+          <p>Total price:</p>
+          <div className="cart__item-subtotal" aria-label="Line Item Subtotal">
+            {eurFormat(lineTotal)}
+          </div>
+        </div>
+        
       </div>
-
       <button
-        className="deleteButton"
-        aria-label="Remove Item From Cart"
-        title="Remove Item From Cart"
-        onClick={onRemoveFromCart}
-      >
-        X
-      </button>
+            className="deleteButton"
+            aria-label="Remove Item From Cart"
+            title="Remove Item From Cart"
+            onClick={onRemoveFromCart}
+          >
+            X
+          </button>
     </li>
   );
 

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState, ReactElement } from 'react';
 import CartLineItem from './CartLineItem';
 import { clearCart, selectCartItems } from '../../features/cart/cartSlice';
+import { eurFormat } from '../../utils/utils';
 
 const Cart = (): ReactElement => {
   const dispatch = useDispatch();
@@ -22,8 +23,8 @@ const Cart = (): ReactElement => {
   };
 
   const onClearClicked = () => {
-    dispatch(clearCart())
-  }
+    dispatch(clearCart());
+  };
 
   const pageContent = confirm ? (
     <h2>Thank you for your order.</h2>
@@ -36,19 +37,28 @@ const Cart = (): ReactElement => {
         })}
       </ul>
       <div className="cart__tools">
-        <p>Total Items: {totalItems}</p>
-        <p>Without Tax: {priceTaxFree}</p>
-        <p>Total Price: {totalPrice}</p>
-        <button
-          className="cart__submit"
-          disabled={!totalItems}
-          onClick={onSubmitOrder}
-        >
-          Place Order
-        </button>
-        <button onClick={onClearClicked}>
-          Clear Cart
-        </button>
+        <div className="cart__tools--item">
+          <label>Total Items: </label>
+          <p>{totalItems}</p>
+        </div>
+        <div className="cart__tools--item">
+          <label>Without Tax: </label>
+          <p>{eurFormat(priceTaxFree)}</p>
+        </div>
+        <div className="cart__tools--item">
+          <label>Total Price: </label>
+          <p>{eurFormat(totalPrice)}</p>
+        </div>
+        <div className="cart__tools--item">
+          <button onClick={onClearClicked}>Clear Cart</button>
+          <button
+            className="cart__submit"
+            disabled={!totalItems}
+            onClick={onSubmitOrder}
+          >
+            Place Order
+          </button>
+        </div>
       </div>
     </>
   );
