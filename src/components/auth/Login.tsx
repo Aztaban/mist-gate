@@ -1,9 +1,8 @@
 import { useRef, useState, useEffect, ChangeEvent, ReactElement } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '../../features/auth/authSlice';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
 import { setPersistState } from '../../utils/utils';
+import useAuth from '../../hooks/useAuth';
 
 const Login = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -12,10 +11,10 @@ const Login = (): ReactElement => {
   const [user, setUser] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-  
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { isAdmin } = useAuth();
+
 
   const [login] = useLoginMutation();
 
@@ -32,14 +31,18 @@ const Login = (): ReactElement => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { accessToken } = await login({ user, pwd }).unwrap();
-      dispatch(setCredentials({ accessToken }));
-      //console.log("Before persist:", persist); 
+      await login({ user, pwd }).unwrap();
+      //console.log("Before persist:", persist);
       setPersistState(true);
-      //console.log("After persist:", persist); 
+      //console.log("After persist:", persist);
       setUser('');
       setPwd('');
-      navigate('/account'); //specify where to navigate later
+      if (isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/account');
+      }
+
     } catch (error: any) {
       if (!error.originalStatus) {
         setErrMsg('No Server Response');

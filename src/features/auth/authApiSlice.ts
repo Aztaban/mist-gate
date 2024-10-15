@@ -18,6 +18,18 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: credentials,
       }),
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled; // Wait for the login query to resolve
+          const { accessToken } = data;
+          
+          // Dispatch setCredentials with the access token
+          dispatch(setCredentials({ accessToken }));
+        } catch (err) {
+          // Handle error if necessary
+          console.error(err);
+        }
+      },
     }),
     register: builder.mutation<void, LoginCredentialsType>({
       query: (newLogin) => ({
