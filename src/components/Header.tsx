@@ -3,9 +3,8 @@ import CartButton from './nav/CartButton';
 import LogoutButton from './nav/LogoutButton';
 import useAuth from '../hooks/useAuth';
 
-
 const Header = () => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, isLogedIn } = useAuth();
 
   const headerContent = isAdmin ? (
     <>
@@ -17,7 +16,10 @@ const Header = () => {
     <>
       <h1>Mist Gate</h1>
       <Nav />
-      <CartButton></CartButton>
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <CartButton></CartButton>
+        {isLogedIn ? <LogoutButton /> : null}
+      </div>
     </>
   );
 
