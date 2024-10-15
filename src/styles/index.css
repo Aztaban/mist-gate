@@ -285,6 +285,9 @@ header nav ul {
   pointer-events: none; /* Prevent hover from affecting the pseudo-element */
 }
 
+.cart__btn[data-count="0"]::after {
+  display: none;
+}
 
 .cart__btn:hover,
 .cart__btn:focus-visible {

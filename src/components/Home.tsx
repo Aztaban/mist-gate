@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <>
       <section>
-        <img className="green-mist" src="src\images\front.jpg" alt="warrior" />
+        <img className="green-mist" src="src\images\front2.jpg" alt="warrior" />
         <article>
           <h2>Eternal Mist</h2>
           <p>
@@ -35,7 +35,7 @@ const Home = () => {
             legend and influence the fate of the entire world!
           </p>
         </article>
-        <img className="blue-mist" src="src\images\front2.jpg" alt="first" />
+        <img className="blue-mist" src="src\images\front.jpg" alt="first" />
       </section>
 
       <section className='news__section'>

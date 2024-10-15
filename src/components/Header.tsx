@@ -1,13 +1,12 @@
 import Nav from './Nav';
-import CartButton from './shop/CardButton';
+import CartButton from './shop/CartButton';
 
 const Header = () => {
-  const cartItemCount = 1
   return (
     <header>
       <h1>Mist Gate</h1>
       <Nav />
-        <CartButton cartItemCount={cartItemCount}></CartButton>
+        <CartButton></CartButton>
     </header>
   );
 };
