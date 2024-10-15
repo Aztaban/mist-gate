@@ -8,6 +8,7 @@ export interface LoginCredentialsType {
 
 interface AuthResponse {
   accessToken: string;
+  isAdmin?: boolean;
 }
 
 export const authApiSlice = apiSlice.injectEndpoints({

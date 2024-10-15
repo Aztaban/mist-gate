@@ -2,7 +2,6 @@ import { useRef, useState, useEffect, ChangeEvent, ReactElement } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
 import { setPersistState } from '../../utils/utils';
-import useAuth from '../../hooks/useAuth';
 
 const Login = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
@@ -13,11 +12,9 @@ const Login = (): ReactElement => {
   const [errMsg, setErrMsg] = useState<string>('');
 
   const navigate = useNavigate();
-  const { isAdmin } = useAuth();
-
 
   const [login] = useLoginMutation();
-
+  
   useEffect(() => {
     if (userRef.current) userRef.current.focus();
   }, []);
@@ -31,18 +28,19 @@ const Login = (): ReactElement => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await login({ user, pwd }).unwrap();
+      const { isAdmin } = await login({ user, pwd }).unwrap();
       //console.log("Before persist:", persist);
       setPersistState(true);
       //console.log("After persist:", persist);
       setUser('');
       setPwd('');
       if (isAdmin) {
-        navigate('/admin');
+        navigate("/admin")
       } else {
-        navigate('/account');
+        navigate("/account")
       }
-
+      
+     
     } catch (error: any) {
       if (!error.originalStatus) {
         setErrMsg('No Server Response');
