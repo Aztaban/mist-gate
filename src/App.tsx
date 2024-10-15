@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { CartProvider } from './context/CartProvider';
 
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -16,47 +15,44 @@ import Cart from './components/shop/Cart';
 import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
+import Admin from './components/admin/Admin';
 import { ROLES } from './config/roles';
 
 function App() {
   const content = (
-    <CartProvider>
-      <Routes>
-        <Route element={<PersistLogin />}>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
+    <Routes>
+      <Route element={<PersistLogin />}>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
 
-            <Route path="posts">
-              <Route index element={<PostsList />} />
-              <Route path="newPost" element={<AddPostForm />} />
-              <Route path=":postId" element={<SinglePostPage />} />
-              <Route path="edit/:postId" element={<EditPostForm />} />
-            </Route>
-
-            <Route path="shop">
-              <Route index element={<Shop />} />
-              <Route
-                path="product/:productId"
-                element={<SingleProductPage />}
-              />
-              <Route path="cart" element={<Cart />} />
-            </Route>
-
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-
-            <Route
-              element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
-            >
-              <Route path="account" element={<Account />} />
-            </Route>
-
-            <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="posts">
+            <Route index element={<PostsList />} />
+            <Route path="newPost" element={<AddPostForm />} />
+            <Route path=":postId" element={<SinglePostPage />} />
+            <Route path="edit/:postId" element={<EditPostForm />} />
           </Route>
+
+          <Route path="shop">
+            <Route index element={<Shop />} />
+            <Route path="product/:productId" element={<SingleProductPage />} />
+            <Route path="cart" element={<Cart />} />
+          </Route>
+
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+
+          <Route
+            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
+          >
+            <Route path="account" element={<Account />} />
+            <Route path="admin" element={<Admin />} />
+          </Route>
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
-      </Routes>
-    </CartProvider>
+      </Route>
+    </Routes>
   );
 
   return content;
