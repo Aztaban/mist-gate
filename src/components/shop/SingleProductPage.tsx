@@ -1,11 +1,17 @@
 import { useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../features/shop/productSlice';
 import { dateFormat, eurFormat } from '../../utils/utils';
-import useCart from '../../hooks/useCart';
+import { RootState } from '../../app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../../features/cart/cartSlice';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
-  const { dispatch, REDUCER_ACTIONS } = useCart();
+  const dispatch = useDispatch();
+
+  const inCart = useSelector((state: RootState) =>
+    state.cart.cart.some((item) => item.id === productId)
+  );
 
   const {
     data: product,
@@ -27,14 +33,24 @@ const SingleProductPage = () => {
   }
 
   if (isSuccess) {
+
     const onAddToCart = () => {
-      dispatch({ type: REDUCER_ACTIONS.ADD, payload: { ...product, qty: 1 } });
+      dispatch(
+        addToCart({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          qty: 1,
+        })
+      );
     };
 
     const img: string = new URL(
       `../../images/${product.image}`,
       import.meta.url
     ).href;
+
+    const itemInCart = inCart ? ' → Item in Cart: ✔️' : null;
 
     content = (
       <article className="product__page">
@@ -46,7 +62,7 @@ const SingleProductPage = () => {
           <p>Author: {product.details.author}</p>
           <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
           <div>
-            <p>{eurFormat(product.price)}</p>
+            <p>{eurFormat(product.price)}{itemInCart}</p>
             <button onClick={onAddToCart}>Add to Cart</button>
           </div>
         </div>
