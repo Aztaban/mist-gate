@@ -1,24 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
-export type CartItemType = {
+export type CartItem = {
   id: string;
   name: string;
   price: number;
   qty: number;
 };
 
-type CartStateType = {
-  cart: CartItemType[];
+type CartState = {
+  cart: CartItem[];
 };
 
 // Utility function to update localStorage
-const saveCartToLocalStorage = (cart: CartItemType[]) => {
+const saveCartToLocalStorage = (cart: CartItem[]) => {
   localStorage.setItem('cart', JSON.stringify(cart));
 };
 
 // Initial state for the cart, loaded from localStorage if present
-const initialState: CartStateType = {
+const initialState: CartState = {
   cart: JSON.parse(localStorage.getItem('cart') || '[]'),
 };
 
@@ -26,7 +26,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CartItemType>) {
+    addToCart(state, action: PayloadAction<CartItem>) {
       const newItem = action.payload;
       const existingItem = state.cart.find((item) => item.id === newItem.id);
 
