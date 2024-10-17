@@ -19,8 +19,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/products',
       transformResponse: (response: any) => {
         const products: ProductType[] = response.map((product: any) => {
-          product.id = product._id;
-          return product;
+          const { _id, ...rest } = product;
+          return { id: _id, ...rest};
         })
         return products;
       },

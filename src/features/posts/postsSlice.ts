@@ -13,8 +13,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/posts',
       transformResponse: (responseData: any) => {
         const data: Post[] = responseData.map((post: any) => {
-          post.id = post._id;
-          return post;
+          const { _id, ...rest } = post;
+          return { id: _id, ...rest};
         });
         const sortedData = data
           .slice()
@@ -29,8 +29,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     getPostById: builder.query<Post, string>({
       query: (postId) => `/posts/${postId}`,
       transformResponse: (responseData: any) => {
-        responseData.id = responseData._id;
-        return responseData;
+        const { _id, ...rest } = responseData;
+        return { id: _id, ...rest};
       },
       providesTags: (_result, _error, id) => [{ type: 'Post', id }],
     }),
