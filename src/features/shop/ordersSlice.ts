@@ -61,7 +61,15 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
           : [{ type: 'Post', id: 'LIST' }],
     }),
+    getOrderById: builder.query<AdminOrder | UserOrder, string>({
+      query: (orderId) => `/orders/${orderId}`,
+      transformResponse: (responseData: any) => {
+        const { _id, ...rest } = responseData;
+        return { id: _id, ...rest};
+      }, 
+      providesTags: (_result, _error, id) => [{ type: 'Order', id }],
+    })
   }),
 });
 
-export const { useGetAllOrdersQuery } = extendedApiSlice;
+export const { useGetAllOrdersQuery, useGetOrderByIdQuery } = extendedApiSlice;
