@@ -51,8 +51,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/orders',
       transformResponse: (response: any) => {
         const orders: AdminOrder[] = response.map((order: any) => {
-          const { _id, ...rest } = order;
-          return { id: _id, ...rest };
+          const { _id, paidAt, created_at, updated_at, closed_at, ...rest } =
+            order;
+          return {
+            id: _id,
+            paidAt: paidAt ? new Date(paidAt) : null,
+            created_at: new Date(created_at),
+            updated_at: new Date(updated_at),
+            closed_at: closed_at ? new Date(closed_at) : null,
+            ...rest,
+          };
         });
         return orders;
       },
@@ -64,20 +72,32 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     getOrderById: builder.query<AdminOrder | UserOrder, string>({
       query: (orderId) => `/orders/${orderId}`,
       transformResponse: (responseData: any) => {
-        const { _id, ...rest } = responseData;
-        return { id: _id, ...rest};
-      }, 
+        const { _id, paidAt, created_at, updated_at, closed_at, ...rest } =
+          responseData;
+        return {
+          id: _id,
+          paidAt: paidAt ? new Date(paidAt) : null,
+          created_at: new Date(created_at),
+          updated_at: new Date(updated_at),
+          closed_at: closed_at ? new Date(closed_at) : null,
+          ...rest,
+        };
+      },
       providesTags: (_result, _error, id) => [{ type: 'Order', id }],
     }),
     addNewOrder: builder.mutation<UserOrder, CreateOrder>({
       query: (orderData) => ({
         url: '/orders',
         method: 'POST',
-        body: orderData
+        body: orderData,
       }),
       invalidatesTags: [{ type: 'Order', id: 'LIST' }],
-    })
+    }),
   }),
 });
 
-export const { useGetAllOrdersQuery, useGetOrderByIdQuery, useAddNewOrderMutation } = extendedApiSlice;
+export const {
+  useGetAllOrdersQuery,
+  useGetOrderByIdQuery,
+  useAddNewOrderMutation,
+} = extendedApiSlice;
