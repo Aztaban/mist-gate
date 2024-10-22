@@ -26,7 +26,7 @@ export interface UserOrder {
   id: string;
   orderNo: number;
   products: OrderItem[];
-  shippingAdress: ShippingAddress;
+  shippingAddress: ShippingAddress;
   status: OrderStatus;
   itemsPrice: number;
   shippingPrice: number;
@@ -68,8 +68,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         return { id: _id, ...rest};
       }, 
       providesTags: (_result, _error, id) => [{ type: 'Order', id }],
+    }),
+    addNewOrder: builder.mutation<UserOrder, CreateOrder>({
+      query: (orderData) => ({
+        url: '/orders',
+        method: 'POST',
+        body: orderData
+      }),
+      invalidatesTags: [{ type: 'Order', id: 'LIST' }],
     })
   }),
 });
 
-export const { useGetAllOrdersQuery, useGetOrderByIdQuery } = extendedApiSlice;
+export const { useGetAllOrdersQuery, useGetOrderByIdQuery, useAddNewOrderMutation } = extendedApiSlice;
