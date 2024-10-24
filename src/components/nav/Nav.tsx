@@ -38,8 +38,8 @@ const Nav = () => {
     <ul>
       <li><NavLink to="admin">Dashboard</NavLink></li>
       <li><NavLink to="posts">News</NavLink></li>
-      <li><NavLink to="#">Products</NavLink></li>
-      <li><NavLink to="#">Orders</NavLink></li>
+      <li><NavLink to="/admin/products">Products</NavLink></li>
+      <li><NavLink to="/admin/orders">Orders</NavLink></li>
     </ul>
   )
 

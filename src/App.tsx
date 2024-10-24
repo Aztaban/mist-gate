@@ -16,6 +16,8 @@ import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
 import Admin from './components/admin/Admin';
+import AdminOrdersPage from './components/admin/AdminOrdersPage';
+import AdminProductsPage from './components/admin/AdminProductsPage';
 import { ROLES } from './config/roles';
 
 function App() {
@@ -49,7 +51,11 @@ function App() {
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-            <Route path="admin" element={<Admin />} />
+            <Route path="admin">
+              <Route index element={<Admin />} />
+              <Route path="products" element={<AdminProductsPage />} />
+              <Route path="orders" element={<AdminOrdersPage />} />
+            </Route>
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
