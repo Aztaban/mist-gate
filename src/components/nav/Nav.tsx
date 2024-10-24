@@ -36,10 +36,10 @@ const Nav = () => {
 
   const adminNav = (
     <ul>
-      <li><NavLink to="admin">Dashboard</NavLink></li>
-      <li><NavLink to="posts">News</NavLink></li>
-      <li><NavLink to="/admin/products">Products</NavLink></li>
-      <li><NavLink to="/admin/orders">Orders</NavLink></li>
+      <li><NavLink to="admin" end>Dashboard</NavLink></li>
+      <li><NavLink to="posts" end>News</NavLink></li>
+      <li><NavLink to="/admin/products" end>Products</NavLink></li>
+      <li><NavLink to="/admin/orders" end>Orders</NavLink></li>
     </ul>
   )
 
