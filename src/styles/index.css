@@ -743,6 +743,8 @@ section img {
   background-color: transparent;
   gap: 1rem;
   margin: 30px;
+  border-top: 1px solid var(--BORDER-COLOR);
+  border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
 .orders-box {
@@ -752,6 +754,10 @@ section img {
   padding: 10px;
   border-radius: var(--BORDER-RADIUS);
   background-color: var(--HEADER-BGCOLOR);
+}
+
+.orders-box h3 {
+  border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
 .order-list {
@@ -766,7 +772,7 @@ section img {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--BORDER-COLOR);;
 }
 
 .order-number {
@@ -777,6 +783,7 @@ section img {
 
 .order-date {
   margin-left: 20px;
+  color: var(--SECTION-BGCOLOR-LIGHT);
 }
 
 .order-status {
