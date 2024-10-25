@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-
 import Layout from './components/Layout';
 import Home from './components/Home';
 import About from './components/About';
@@ -11,7 +10,10 @@ import AddPostForm from './components/posts/AddPostForm';
 import EditPostForm from './components/posts/EditPostForm';
 import SinglePostPage from './components/posts/SinglePostPage';
 import SingleProductPage from './components/shop/SingleProductPage';
-import Cart from './components/shop/Cart';
+import Cart from './components/checkout/Cart';
+import ShippingAndAddress from './components/checkout/ShippingAndAddress';
+import Payment from './components/checkout/Payment';
+import OrderSummary from './components/checkout/OrderSummary';
 import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
@@ -38,7 +40,12 @@ function App() {
           <Route path="shop">
             <Route index element={<Shop />} />
             <Route path="product/:productId" element={<SingleProductPage />} />
-            <Route path="cart" element={<Cart />} />
+            <Route path="checkout">
+              <Route path="cart" element={<Cart />} />
+              <Route path="shipping" element={<ShippingAndAddress />} />
+              <Route path="payment" element={<Payment />} />
+              <Route path="summary" element={<OrderSummary />} />
+            </Route>
           </Route>
 
           <Route path="login" element={<Login />} />
