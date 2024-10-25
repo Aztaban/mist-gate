@@ -36,7 +36,7 @@ const Cart = (): ReactElement => {
       <h2>Cart</h2>
       <ul className="cart">
         {products.map((item) => {
-          return <CartLineItem key={item.id} item={item} />;
+          return <CartLineItem key={item.product} item={item} />;
         })}
       </ul>
       <div className="cart__tools">

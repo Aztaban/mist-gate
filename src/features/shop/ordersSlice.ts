@@ -9,21 +9,14 @@ export type ShippingAddress = {
 };
 
 export type OrderItem = {
-  id: string;
+  product: string;
   name: string;
   quantity: number;
   price: number;
 };
 
-export type SendOrderItem = {
-  product: string;
-  name: string;
-  quantity: number;
-  price: number;
-}
-
 export type CreateOrder = {
-  products: SendOrderItem[];
+  products: OrderItem[];
   shippingAddress: ShippingAddress;
   itemsPrice: number;
   shippingPrice: number;

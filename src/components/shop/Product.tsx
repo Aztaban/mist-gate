@@ -10,13 +10,13 @@ const Product = ({ product }: { product: ProductType }): ReactElement => {
 
   // Check if the product is already in the cart
   const inCart = useSelector((state: RootState) =>
-    state.cart.cart.some((item) => item.id === product.id)
+    state.cart.cart.some((item) => item.product === product.id)
   );
   // Handle adding to cart
   const handleAddToCart = () => {
     dispatch(
       addToCart({
-        id: product.id,
+        product: product.id,
         name: product.name,
         price: product.price,
         quantity: 1,

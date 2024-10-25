@@ -4,7 +4,6 @@ import {
   ShippingAddress,
   CreateOrder,
   OrderItem,
-  SendOrderItem,
 } from '../../features/shop/ordersSlice';
 
 interface LocationState {
@@ -42,17 +41,9 @@ const ShippingAndAddress = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-  // Transform products from OrderItem to SendOrderItem
-  const transformedProducts: SendOrderItem[] = products.map((item) => ({
-    product: item.id,
-    name: item.name, // Assuming item.product is the ID reference you need
-    quantity: item.quantity,
-    price: item.price,
-  }));
-
     //create order
     const order: CreateOrder = {
-      products: transformedProducts,
+      products,
       shippingAddress,
       itemsPrice: Number(itemsPrice.toFixed(2)) ,
       shippingPrice: calculateShippingPrice(shippingMethod),

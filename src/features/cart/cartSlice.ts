@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
 export type CartItem = {
-  id: string;
+  product: string;
   name: string;
   price: number;
   quantity: number;
@@ -28,7 +28,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action: PayloadAction<CartItem>) {
       const newItem = action.payload;
-      const existingItem = state.cart.find((item) => item.id === newItem.id);
+      const existingItem = state.cart.find((item) => item.product === newItem.product);
 
       if (existingItem) {
         existingItem.quantity += 1; // Increase the quantity of the existing item
@@ -37,13 +37,13 @@ const cartSlice = createSlice({
       }
       saveCartToLocalStorage(state.cart);
     },
-    removeFromCart(state, action: PayloadAction<{ id: string }>) {
-      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
+    removeFromCart(state, action: PayloadAction<{ product: string }>) {
+      state.cart = state.cart.filter((item) => item.product !== action.payload.product);
       saveCartToLocalStorage(state.cart);
     },
-    updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
-      const { id, quantity } = action.payload;
-      const item = state.cart.find((item) => item.id === id);
+    updateQuantity(state, action: PayloadAction<{ product: string; quantity: number }>) {
+      const { product, quantity } = action.payload;
+      const item = state.cart.find((item) => item.product === product);
 
       if (item && quantity > 0) {
         item.quantity = quantity; // Update the quantity of the item

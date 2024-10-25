@@ -7,7 +7,7 @@ import { CartItem } from '../../features/cart/cartSlice';
 
 const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
   const dispatch = useDispatch();
-  const { data: product } = useGetProductByIdQuery(item.id || '');
+  const { data: product } = useGetProductByIdQuery(item.product || '');
 
   const img: string = new URL(`../../images/${product?.image}`, import.meta.url)
     .href;
@@ -25,11 +25,11 @@ const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
   });
 
   const onChangeQty = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(updateQuantity({ id: item.id, quantity: Number(e.target.value) }));
+    dispatch(updateQuantity({ product: item.product, quantity: Number(e.target.value) }));
   };
 
   const onRemoveFromCart = () => {
-    dispatch(removeFromCart({ id: item.id }));
+    dispatch(removeFromCart({ product: item.product }));
   };
 
   const content = (

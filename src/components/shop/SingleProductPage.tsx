@@ -10,7 +10,7 @@ const SingleProductPage = () => {
   const dispatch = useDispatch();
 
   const inCart = useSelector((state: RootState) =>
-    state.cart.cart.some((item) => item.id === productId)
+    state.cart.cart.some((item) => item.product === productId)
   );
 
   const {
@@ -37,7 +37,7 @@ const SingleProductPage = () => {
     const onAddToCart = () => {
       dispatch(
         addToCart({
-          id: product.id,
+          product: product.id,
           name: product.name,
           price: product.price,
           quantity: 1,
