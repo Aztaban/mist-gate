@@ -15,7 +15,6 @@ export type OrderItem = {
 };
 
 export type CreateOrder = {
-  user: string;
   products: OrderItem[];
   shippingAddress: ShippingAddress;
   itemsPrice: number;
