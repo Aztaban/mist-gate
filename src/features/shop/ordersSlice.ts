@@ -22,9 +22,13 @@ export type CreateOrder = {
   shippingPrice: number;
 };
 
-export interface UserOrder {
+export interface Order {
   id: string;
   orderNo: number;
+  user: {
+    _id: string;
+    username: string;
+  };
   products: OrderItem[];
   shippingAddress: ShippingAddress;
   status: OrderStatus;
@@ -34,23 +38,16 @@ export interface UserOrder {
   isPaid: boolean;
   paidAt?: Date | null;
   created_at: Date;
-}
-
-export interface AdminOrder extends UserOrder {
-  user: {
-    _id: string;
-    username: string;
-  };
   updated_at: Date;
   closed_at?: Date | null;
 }
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllOrders: builder.query<AdminOrder[], void>({
+    getAllOrders: builder.query<Order[], void>({
       query: () => '/orders',
       transformResponse: (response: any) => {
-        const orders: AdminOrder[] = response.map((order: any) => {
+        const orders: Order[] = response.map((order: any) => {
           const { _id, paidAt, created_at, updated_at, closed_at, ...rest } =
             order;
           return {
@@ -69,7 +66,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
           : [{ type: 'Post', id: 'LIST' }],
     }),
-    getOrderById: builder.query<AdminOrder | UserOrder, string>({
+    getOrderById: builder.query<Order, string>({
       query: (orderId) => `/orders/${orderId}`,
       transformResponse: (responseData: any) => {
         const { _id, paidAt, created_at, updated_at, closed_at, ...rest } =
@@ -85,7 +82,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: (_result, _error, id) => [{ type: 'Order', id }],
     }),
-    addNewOrder: builder.mutation<UserOrder, CreateOrder>({
+    addNewOrder: builder.mutation<Order, CreateOrder>({
       query: (orderData) => ({
         url: '/orders',
         method: 'POST',
