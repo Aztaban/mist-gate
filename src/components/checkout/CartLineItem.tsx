@@ -11,7 +11,7 @@ const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
 
   const img: string = new URL(`../../images/${product?.image}`, import.meta.url)
     .href;
-  const lineTotal: number = item.qty * item.price;
+  const lineTotal: number = item.quantity * item.price;
   const highestQty: number = 10;
   const optionValues: number[] = [...Array(highestQty).keys()].map(
     (i) => i + 1
@@ -25,7 +25,7 @@ const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
   });
 
   const onChangeQty = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(updateQuantity({ id: item.id, qty: Number(e.target.value) }));
+    dispatch(updateQuantity({ id: item.id, quantity: Number(e.target.value) }));
   };
 
   const onRemoveFromCart = () => {
@@ -47,7 +47,7 @@ const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
             name="itemQty"
             id="itemQty"
             className="cart__select"
-            value={item.qty}
+            value={item.quantity}
             aria-label="Item Quantity"
             onChange={onChangeQty}
           >
