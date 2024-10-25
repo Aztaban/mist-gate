@@ -1,65 +1,32 @@
 import { ReactElement } from 'react';
-import { useSendLogoutMutation } from '../../features/auth/authApiSlice';
 import useAuth from '../../hooks/useAuth';
-import { setPersistState } from '../../utils/utils';
+import { useGetOrdersForUserQuery } from '../../features/shop/ordersSlice';
+import OrderLineItem from '../checkout/OrderLineItem';
 
 const Account = (): ReactElement => {
-  const [sendLogout] = useSendLogoutMutation();
   const { username } = useAuth();
+  const { data } = useGetOrdersForUserQuery();
 
-  const onClickLogout = () => {
-    if (window.confirm('Are you sure you want log out?')) {
-      setPersistState(false);
-      sendLogout();
-      document.cookie =
-        'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost:5173; secure; HttpOnly';
-      window.location.href = '/login';
-    }
-  };
+  console.log(data);
 
   return (
-    <main className="main--cart">
-      <h2>{username}'s Account</h2>
-      <section>
-        <h3>Disclaimer:</h3>
-        <p>
-          This section of the website intentionally does not work as expected
-          and is only represented by simplified placeholders. It is designed
-          solely for demonstration purposes to showcase skills in web
-          development. Please note that the settings and billing functionalities
-          are not implemented and are not functional.
-        </p>
-        <br />
-        <p>
-          Creating functional settings and billing features requires a
-          significant amount of time and effort. Given that this project is a
-          showcase and not intended for production, the decision was made to
-          prioritize other aspects of the application.
-        </p>
-        <br />
-      </section>
-      <section>
-        <h3>User settings</h3>
-        <div className="flex--inline">
-          <p>Username:</p>
-          <p>{username}</p>
+    <article className='account'>
+      <header className='orders-header'>
+        <h2>{username}'s Account</h2>
+      </header>
+      <main className='orders-box'>
+        <h3>Your Orders</h3>
+        <div className='orders-list'>
+          {data && data.length > 0 ? (
+            data.map((order) => (
+              <OrderLineItem key={order.id} order={order} />
+            ))
+          ) : (
+            <p>No order found.</p>
+          )}
         </div>
-        <div className="flex--inline">
-          <p>Email:</p>
-          <p>email@placeholder.com</p>
-        </div>
-        <div className="flex--inline">
-          <p>Address:</p>
-          <p>Pineapple under the sea</p>
-        </div>
-      </section>
-      <section>
-        <h3>Orders</h3>
-      </section>
-      <button className="addButton" onClick={onClickLogout}>
-        Logout
-      </button>
-    </main>
+      </main>
+    </article>
   );
 };
 
