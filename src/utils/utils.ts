@@ -1,3 +1,7 @@
+export function countTaxFree(value: number): number {
+  return value / 1.21;
+}
+
 export function dateFormat(initialDate: string): string {
   return new Date(initialDate).toLocaleString();
 }
@@ -5,9 +9,9 @@ export function dateFormat(initialDate: string): string {
 export function eurFormat(value: number): string {
   return new Intl.NumberFormat('en-GB', {
     style: 'currency',
-    currency: 'EUR'
+    currency: 'EUR',
   }).format(value);
- }
+}
 
 export const setPersistState = (value: boolean) => {
   localStorage.setItem('persist', JSON.stringify(value));
