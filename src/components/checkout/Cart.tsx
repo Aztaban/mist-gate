@@ -9,29 +9,33 @@ import { countTaxFree } from '../../utils/utils';
 const Cart = (): ReactElement => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const cart = useSelector(selectCartItems);
+  const products = useSelector(selectCartItems);
 
-  const totalItems = cart.reduce((total, item) => total + item.qty, 0);
-  const totalPrice = cart.reduce(
+  const totalItems = products.reduce((total, item) => total + item.qty, 0);
+  const itemsPrice = products.reduce(
     (total, item) => total + item.price * item.qty,
     0
   );
 
   const onSubmitOrder = () => {
-     navigate('checkout/shipping')
+    navigate('/shop/checkout/shipping', {
+      state: { products, itemsPrice },
+    });
   };
 
   const onClearClicked = () => {
-    if (window.confirm("Are you sure you want to delete all items from a cart?")){
+    if (
+      window.confirm('Are you sure you want to delete all items from a cart?')
+    ) {
       dispatch(clearCart());
-    } 
+    }
   };
 
   const pageContent = (
     <>
       <h2>Cart</h2>
       <ul className="cart">
-        {cart.map((item) => {
+        {products.map((item) => {
           return <CartLineItem key={item.id} item={item} />;
         })}
       </ul>
@@ -42,14 +46,16 @@ const Cart = (): ReactElement => {
         </div>
         <div className="cart__tools--item">
           <label>Without Tax: </label>
-          <p>{eurFormat(countTaxFree(totalPrice))}</p>
+          <p>{eurFormat(countTaxFree(itemsPrice))}</p>
         </div>
         <div className="cart__tools--item">
           <label>Total Price: </label>
-          <p>{eurFormat(totalPrice)}</p>
+          <p>{eurFormat(itemsPrice)}</p>
         </div>
         <div className="cart__tools--item">
-          <button className='btn del-btn' onClick={onClearClicked}>Clear Cart</button>
+          <button className="btn del-btn" onClick={onClearClicked}>
+            Clear Cart
+          </button>
           <button
             className="cart__submit btn .save-btn"
             disabled={!totalItems}
