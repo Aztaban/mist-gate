@@ -15,8 +15,15 @@ export type OrderItem = {
   price: number;
 };
 
+export type SendOrderItem = {
+  product: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
+
 export type CreateOrder = {
-  products: OrderItem[];
+  products: SendOrderItem[];
   shippingAddress: ShippingAddress;
   itemsPrice: number;
   shippingPrice: number;
