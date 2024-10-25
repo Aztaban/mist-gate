@@ -73,20 +73,16 @@ textarea {
 .green-mist {
   border-radius: 20px;
   border: 1px solid var(--BORDER-COLOR);
-  box-shadow: 
-    0 15px 25px rgba(119, 199, 129, 0.3),
-    0 20px 30px rgba(20, 184, 42, 0.2), 
-    0 30px 40px rgba(15, 179, 37, 0.1);
+  box-shadow: 0 15px 25px rgba(119, 199, 129, 0.3),
+    0 20px 30px rgba(20, 184, 42, 0.2), 0 30px 40px rgba(15, 179, 37, 0.1);
   animation: mistMovementGreen 5s ease-in-out infinite;
 }
 
 .blue-mist {
   border-radius: 20px;
   border: 1px solid var(--BORDER-COLOR);
-  box-shadow: 
-    0 15px 25px rgba(11, 92, 173, 0.6),
-    0 20px 30px rgba(6, 47, 88, 0.4), 
-    0 30px 40px rgba(3, 29, 100, 0.2);
+  box-shadow: 0 15px 25px rgba(11, 92, 173, 0.6),
+    0 20px 30px rgba(6, 47, 88, 0.4), 0 30px 40px rgba(3, 29, 100, 0.2);
   animation: mistMovementBlue 5s ease-in-out infinite;
 }
 
@@ -141,7 +137,7 @@ textarea {
 
 .green-btn {
   padding: 0.5rem; /* Increase the padding to make the button larger */
-  font-size: 1.5rem;  /* Increase the font size for larger text */      /* Adjust height if you want a specific height */
+  font-size: 1.5rem; /* Increase the font size for larger text */ /* Adjust height if you want a specific height */
 }
 
 .green-btn.active,
@@ -192,7 +188,9 @@ main.app {
   flex-direction: column;
   height: auto;
   flex-grow: 1;
-  background-color: var(--SECTION-BGCOLOR); /* Main will take up all available space between header and footer */ /* Add padding for content inside */
+  background-color: var(
+    --SECTION-BGCOLOR
+  ); /* Main will take up all available space between header and footer */ /* Add padding for content inside */
 }
 
 h1,
@@ -267,10 +265,12 @@ header nav ul {
 }
 
 .cart__btn::after {
-  content: attr(data-count); /* Use the data-count attribute to display the number */
+  content: attr(
+    data-count
+  ); /* Use the data-count attribute to display the number */
   position: absolute;
-  top: 0px; 
-  right: 0px; 
+  top: 0px;
+  right: 0px;
   background-color: red;
   color: white;
   border-radius: 50%;
@@ -285,7 +285,7 @@ header nav ul {
   pointer-events: none; /* Prevent hover from affecting the pseudo-element */
 }
 
-.cart__btn[data-count="0"]::after {
+.cart__btn[data-count='0']::after {
   display: none;
 }
 
@@ -305,7 +305,6 @@ header nav ul {
 .cart__link {
   text-decoration: none;
   color: inherit;
-
 }
 
 .cart__link:hover {
@@ -367,7 +366,7 @@ section:nth-of-type(even) {
 
 .news__link {
   color: var(--SECTION-BGCOLOR);
-  padding: 0.20rem;
+  padding: 0.2rem;
 }
 
 .news__link:hover,
@@ -443,11 +442,11 @@ section img {
 
 @keyframes marquee {
   0% {
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
   }
 
   100% {
-    transform: translate3d(-100vw,0,0);
+    transform: translate3d(-100vw, 0, 0);
   }
 }
 
@@ -652,8 +651,7 @@ section img {
 
 .cart__tools--item {
   display: flex;
-  
- 
+
   justify-content: space-between;
   margin: 5px;
   padding: 10px;
@@ -702,7 +700,8 @@ section img {
   gap: 0.5rem;
 }
 
-.shipping input, .shipping select {
+.shipping input,
+.shipping select {
   max-width: 600px;
   font-size: 1.1rem;
   height: 2rem;
@@ -724,12 +723,73 @@ section img {
 
 .address {
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
 }
 
 .buttons-box {
   display: flex;
   justify-content: space-between;
+}
+
+/* || ORDERS */
+.account {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.orders-header {
+  background-color: transparent;
+  gap: 1rem;
+  margin: 30px;
+}
+
+.orders-box {
+  margin: 20px;
+  border: 1px solid black;
+  width: 90%;
+  padding: 10px;
+  border-radius: var(--BORDER-RADIUS);
+  background-color: var(--HEADER-BGCOLOR);
+}
+
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.order-line-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-number {
+  font-weight: bold;
+  color: #3498db;
+  text-decoration: none;
+}
+
+.order-date {
+  margin-left: 20px;
+}
+
+.order-status {
+  margin-left: 20px;
+  font-style: italic;
+}
+
+.order-status.paid {
+  color: green;
+}
+
+.order-status.not-paid {
+  color: red;
 }
 
 /* || LOGIN */
@@ -785,43 +845,33 @@ footer {
 /* || ANIMATIONS */
 @keyframes mistMovementGreen {
   0% {
-    box-shadow: 
-      0 15px 25px rgba(119, 199, 129, 0.3),
-      0 20px 30px rgba(20, 184, 42, 0.2), 
-      0 30px 40px rgba(15, 179, 37, 0.1);
+    box-shadow: 0 15px 25px rgba(119, 199, 129, 0.3),
+      0 20px 30px rgba(20, 184, 42, 0.2), 0 30px 40px rgba(15, 179, 37, 0.1);
   }
   50% {
-    box-shadow: 
-      0px 8px 18px rgba(119, 199, 129, 0.25),
+    box-shadow: 0px 8px 18px rgba(119, 199, 129, 0.25),
       -20px 10px 20px rgba(20, 184, 42, 0.25),
       0px 15px 25px rgba(15, 179, 37, 0.15);
   }
   100% {
-    box-shadow: 
-      0 15px 25px rgba(119, 199, 129, 0.3),
-      0 20px 30px rgba(20, 184, 42, 0.2), 
-      0 30px 40px rgba(15, 179, 37, 0.1);
+    box-shadow: 0 15px 25px rgba(119, 199, 129, 0.3),
+      0 20px 30px rgba(20, 184, 42, 0.2), 0 30px 40px rgba(15, 179, 37, 0.1);
   }
 }
 
 @keyframes mistMovementBlue {
   0% {
-    box-shadow: 
-      0 20px 30px rgba(11, 92, 173, 0.6),
-      0 25px 35px rgba(6, 47, 88, 0.4), 
-      0 35px 45px rgba(3, 29, 100, 0.2);
+    box-shadow: 0 20px 30px rgba(11, 92, 173, 0.6),
+      0 25px 35px rgba(6, 47, 88, 0.4), 0 35px 45px rgba(3, 29, 100, 0.2);
   }
   50% {
-    box-shadow: 
-      0 8px 18px rgba(11, 92, 173, 0.5),
+    box-shadow: 0 8px 18px rgba(11, 92, 173, 0.5),
       -10px 15px 25px rgba(6, 47, 88, 0.3),
       10px 25px 35px rgba(255, 255, 255, 0.15);
   }
   100% {
-    box-shadow: 
-      0 20px 30px rgba(11, 92, 173, 0.6),
-      0 25px 35px rgba(6, 47, 88, 0.4), 
-      0 35px 45px rgba(3, 29, 100, 0.2);
+    box-shadow: 0 20px 30px rgba(11, 92, 173, 0.6),
+      0 25px 35px rgba(6, 47, 88, 0.4), 0 35px 45px rgba(3, 29, 100, 0.2);
   }
 }
 
