@@ -9,7 +9,7 @@ const CartButton = () => {
   const totalQuantity = cartItems.reduce((total, item) => total + item.qty, 0);
 
   return (
-    <Link to="/shop/cart" className="cart__link">
+    <Link to="/shop/checkout/cart" className="cart__link">
       <span className="cart__btn" data-count={totalQuantity}>
         <FontAwesomeIcon icon={faShoppingCart} />
       </span>
