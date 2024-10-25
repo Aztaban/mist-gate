@@ -19,7 +19,7 @@ const Product = ({ product }: { product: ProductType }): ReactElement => {
         id: product.id,
         name: product.name,
         price: product.price,
-        qty: 1,
+        quantity: 1,
       })
     );
   };

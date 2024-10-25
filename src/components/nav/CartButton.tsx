@@ -6,7 +6,7 @@ import { selectCartItems } from '../../features/cart/cartSlice';
 
 const CartButton = () => {
   const cartItems = useSelector(selectCartItems);
-  const totalQuantity = cartItems.reduce((total, item) => total + item.qty, 0);
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <Link to="/shop/checkout/cart" className="cart__link">

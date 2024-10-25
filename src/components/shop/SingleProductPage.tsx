@@ -40,7 +40,7 @@ const SingleProductPage = () => {
           id: product.id,
           name: product.name,
           price: product.price,
-          qty: 1,
+          quantity: 1,
         })
       );
     };
