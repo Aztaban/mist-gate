@@ -5,7 +5,7 @@ export type CartItem = {
   id: string;
   name: string;
   price: number;
-  qty: number;
+  quantity: number;
 };
 
 type CartState = {
@@ -31,9 +31,9 @@ const cartSlice = createSlice({
       const existingItem = state.cart.find((item) => item.id === newItem.id);
 
       if (existingItem) {
-        existingItem.qty += 1; // Increase the quantity of the existing item
+        existingItem.quantity += 1; // Increase the quantity of the existing item
       } else {
-        state.cart.push({ ...newItem, qty: 1 }); // Add new item to cart
+        state.cart.push({ ...newItem, quantity: 1 }); // Add new item to cart
       }
       saveCartToLocalStorage(state.cart);
     },
@@ -41,12 +41,12 @@ const cartSlice = createSlice({
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);
       saveCartToLocalStorage(state.cart);
     },
-    updateQuantity(state, action: PayloadAction<{ id: string; qty: number }>) {
-      const { id, qty } = action.payload;
+    updateQuantity(state, action: PayloadAction<{ id: string; quantity: number }>) {
+      const { id, quantity } = action.payload;
       const item = state.cart.find((item) => item.id === id);
 
-      if (item && qty > 0) {
-        item.qty = qty; // Update the quantity of the item
+      if (item && quantity > 0) {
+        item.quantity = quantity; // Update the quantity of the item
       }
 
       saveCartToLocalStorage(state.cart);
