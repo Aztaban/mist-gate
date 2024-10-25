@@ -11,9 +11,9 @@ const Cart = (): ReactElement => {
   const dispatch = useDispatch();
   const products = useSelector(selectCartItems);
 
-  const totalItems = products.reduce((total, item) => total + item.qty, 0);
+  const totalItems = products.reduce((total, item) => total + item.quantity, 0);
   const itemsPrice = products.reduce(
-    (total, item) => total + item.price * item.qty,
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
