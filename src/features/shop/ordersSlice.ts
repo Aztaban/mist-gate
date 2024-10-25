@@ -52,10 +52,24 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             order;
           return {
             id: _id,
-            paidAt: paidAt ? new Date(paidAt) : null,
-            created_at: new Date(created_at),
-            updated_at: new Date(updated_at),
-            closed_at: closed_at ? new Date(closed_at) : null,
+            ...rest,
+          };
+        });
+        return orders;
+      },
+      providesTags: (result) =>
+        result
+          ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
+          : [{ type: 'Post', id: 'LIST' }],
+    }),
+    getOrdersForUser: builder.query<Order[], void>({
+      query: () => '/orders/user',
+      transformResponse: (response: any) => {
+        const orders: Order[] = response.map((order: any) => {
+          const { _id, ...rest } =
+            order;
+          return {
+            id: _id,
             ...rest,
           };
         });
@@ -95,6 +109,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
 
 export const {
   useGetAllOrdersQuery,
+  useGetOrdersForUserQuery,
   useGetOrderByIdQuery,
   useAddNewOrderMutation,
 } = extendedApiSlice;
