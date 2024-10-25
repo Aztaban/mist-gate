@@ -3,9 +3,9 @@ import { useGetProductByIdQuery } from '../../features/shop/productSlice';
 import { eurFormat } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../features/cart/cartSlice';
-import { CartItemType } from '../../features/cart/cartSlice';
+import { CartItem } from '../../features/cart/cartSlice';
 
-const CartLineItem = ({ item }: { item: CartItemType }): ReactElement => {
+const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
   const dispatch = useDispatch();
   const { data: product } = useGetProductByIdQuery(item.id || '');
 
