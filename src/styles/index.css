@@ -21,6 +21,11 @@ img {
   height: auto;
 }
 
+main {
+  width: 100%;
+  flex-grow: 1;
+}
+
 input,
 button,
 textarea {
@@ -325,10 +330,6 @@ header nav ul {
 }
 
 /* || MAIN */
-main {
-  flex: 1;
-}
-
 section {
   display: flex;
   flex-direction: column;
@@ -745,11 +746,22 @@ section img {
 }
 
 /* || ORDERS */
-.account {
+.account,
+.order {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
+}
+
+.order main {
+  width: 90%;
+  max-width: 800px;
+  color: var(--SECTION-BGCOLOR-LIGHT);
+  background-color: var(--HEADER-BGCOLOR);
+  padding: 20px;
+  border-radius: var(--BORDER-RADIUS);
+  border: var(--BORDERS);
 }
 
 .orders-header {
@@ -757,6 +769,18 @@ section img {
   gap: 1rem;
   margin: 30px;
 }
+
+.order-field {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  padding: 10px;
+}
+
+.order-field p:nth-child(even) {
+  color: var(--BORDER-COLOR);
+}
+
 
 .orders-box {
   margin: 20px;
