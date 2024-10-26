@@ -20,7 +20,7 @@ import PersistLogin from './components/auth/PersistLogin';
 import Admin from './components/admin/Admin';
 import AdminOrdersPage from './components/admin/AdminOrdersPage';
 import AdminProductsPage from './components/admin/AdminProductsPage';
-import SingleOrderPage from './components/checkout/SingleOrderPage';
+import SingleOrderPage from './components/orders/SingleOrderPage';
 import { ROLES } from './config/roles';
 
 function App() {
