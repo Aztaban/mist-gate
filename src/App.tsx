@@ -20,6 +20,7 @@ import PersistLogin from './components/auth/PersistLogin';
 import Admin from './components/admin/Admin';
 import AdminOrdersPage from './components/admin/AdminOrdersPage';
 import AdminProductsPage from './components/admin/AdminProductsPage';
+import SingleOrderPage from './components/checkout/SingleOrderPage';
 import { ROLES } from './config/roles';
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
           >
             <Route path="account" element={<Account />} />
+            <Route path="order/:orderId" element={<SingleOrderPage />} />
           </Route>
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
