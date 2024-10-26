@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 import { Order } from "../../features/shop/ordersSlice";
+import { eurFormat } from "../../utils/utils";
 
 interface OrderLineItemProps {
   order: Order;
@@ -13,6 +14,10 @@ const OrderLineItem = ({ order }: OrderLineItemProps): ReactElement => {
 
       <span className="order-date">
         Created on: {new Date(order.created_at).toLocaleDateString()}
+      </span>
+
+      <span className="order-price">
+        {eurFormat(order.totalPrice)}
       </span>
 
       <span className={`order-status ${order.paidAt ? 'paid' : 'not-paid'}`}>
