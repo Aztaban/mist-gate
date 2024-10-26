@@ -1,11 +1,15 @@
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useGetOrdersForUserQuery } from '../../features/shop/ordersSlice';
 import OrderLineItem from '../checkout/OrderLineItem';
 
 const Account = (): ReactElement => {
   const { username } = useAuth();
-  const { data } = useGetOrdersForUserQuery();
+  const { data, refetch } = useGetOrdersForUserQuery();
+
+  useEffect(() => {
+    refetch(); // Ensures data is up-to-date when navigating to Account
+  }, [refetch]);
 
   return (
     <article className='account'>
