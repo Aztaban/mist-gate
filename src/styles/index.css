@@ -204,6 +204,11 @@ h3 {
     1px 1px 0 black; /* For other browsers */
 }
 
+h2, h3 {
+  border-bottom: 1px solid var(--BORDER-COLOR);
+  border-top: 1px solid var(--BORDER-COLOR);
+}
+
 p {
   line-height: 1.5;
 }
@@ -743,8 +748,6 @@ section img {
   background-color: transparent;
   gap: 1rem;
   margin: 30px;
-  border-top: 1px solid var(--BORDER-COLOR);
-  border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
 .orders-box {
@@ -754,10 +757,6 @@ section img {
   padding: 10px;
   border-radius: var(--BORDER-RADIUS);
   background-color: var(--HEADER-BGCOLOR);
-}
-
-.orders-box h3 {
-  border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
 .order-list {
@@ -784,6 +783,10 @@ section img {
 .order-date {
   margin-left: 20px;
   color: var(--SECTION-BGCOLOR-LIGHT);
+}
+
+.order-price {
+  color: var(--BORDER-COLOR);
 }
 
 .order-status {
