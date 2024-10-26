@@ -178,9 +178,9 @@ body {
   min-height: 100vh;
   max-width: 1200px;
   margin: 0 auto;
-  border-left: var(--BORDERS);
+  /*border-left: var(--BORDERS);
   border-right: var(--BORDERS);
-  /*box-shadow: 0 0 150px var(--BORDER-COLOR);*/
+  box-shadow: 0 0 150px var(--BORDER-COLOR);*/
 }
 
 main.app {
@@ -204,7 +204,9 @@ h3 {
     1px 1px 0 black; /* For other browsers */
 }
 
-h2, h3 {
+h1,
+h2,
+h3 {
   border-bottom: 1px solid var(--BORDER-COLOR);
   border-top: 1px solid var(--BORDER-COLOR);
 }
@@ -224,6 +226,12 @@ a:focus-visible {
   color: var(--LINK-HOVER);
   text-shadow: -1px -1px 0 var(--BORDER-COLOR), 1px -1px 0 var(--BORDER-COLOR),
     -1px 1px 0 var(--BORDER-COLOR), 1px 1px 0 var(--BORDER-COLOR);
+}
+
+a.active,
+a:focus-visible {
+  border-bottom: 1px solid var(--BORDER-COLOR);
+  border-top: 1px solid var(--BORDER-COLOR);
 }
 
 a:active {
@@ -771,7 +779,7 @@ section img {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 1px solid var(--BORDER-COLOR);;
+  border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
 .order-number {
