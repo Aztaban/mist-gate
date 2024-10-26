@@ -1,5 +1,6 @@
 import { apiSlice } from '../../app/api/apiSlice';
 import { OrderStatus } from '../../config/orderStatus';
+import { ShippingMethod } from '../../config/shippingConfig';
 
 export type ShippingAddress = {
   address: string;
@@ -18,6 +19,7 @@ export type OrderItem = {
 export type CreateOrder = {
   products: OrderItem[];
   shippingAddress: ShippingAddress;
+  shippingMethod: ShippingMethod;
   itemsPrice: number;
   shippingPrice: number;
 };
@@ -32,6 +34,7 @@ export interface Order {
   products: OrderItem[];
   shippingAddress: ShippingAddress;
   status: OrderStatus;
+  shippingMethod: ShippingMethod;
   itemsPrice: number;
   shippingPrice: number;
   totalPrice: number;
@@ -48,7 +51,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/orders',
       transformResponse: (response: any) => {
         const orders: Order[] = response.map((order: any) => {
-          const { _id, paidAt, created_at, updated_at, closed_at, ...rest } =
+          const { _id, ...rest } =
             order;
           return {
             id: _id,

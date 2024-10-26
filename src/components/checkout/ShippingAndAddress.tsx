@@ -5,6 +5,7 @@ import {
   CreateOrder,
   OrderItem,
 } from '../../features/shop/ordersSlice';
+import { ShippingMethod, ShippingPrices } from '../../config/shippingConfig';
 
 interface LocationState {
   products: OrderItem[];
@@ -16,7 +17,9 @@ const ShippingAndAddress = () => {
   const location = useLocation();
   const { products, itemsPrice }: LocationState = location.state;
 
-  const [shippingMethod, setShippingMethod] = useState<string>('standard');
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(
+    ShippingMethod.Standard
+  );
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
     address: '',
     city: '',
@@ -35,7 +38,7 @@ const ShippingAndAddress = () => {
   const handleShippingMethodChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setShippingMethod(e.target.value);
+    setShippingMethod(e.target.value as ShippingMethod);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -45,7 +48,8 @@ const ShippingAndAddress = () => {
     const order: CreateOrder = {
       products,
       shippingAddress,
-      itemsPrice: Number(itemsPrice.toFixed(2)) ,
+      shippingMethod,
+      itemsPrice: Number(itemsPrice.toFixed(2)),
       shippingPrice: calculateShippingPrice(shippingMethod),
     };
 
@@ -54,18 +58,8 @@ const ShippingAndAddress = () => {
     });
   };
 
-  // Function to calculate shipping price based on selected method
-  const calculateShippingPrice = (method: string): number => {
-    switch (method) {
-      case 'express':
-        return 15; // Example price for express shipping
-      case 'standard':
-        return 5; // Example price for standard shipping
-      case 'overnight':
-        return 25; // Example price for overnight shipping
-      default:
-        return 0; // Default to 0 if no method matches
-    }
+  const calculateShippingPrice = (method: ShippingMethod): number => {
+    return ShippingPrices[method] || 0;
   };
 
   return (
@@ -122,11 +116,17 @@ const ShippingAndAddress = () => {
             onChange={handleShippingMethodChange}
             required
           >
-            <option value="standard">Standard Shipping ($5)</option>
-            <option value="express">Express Shipping ($15)</option>
-            <option value="overnight">Overnight Shipping ($25)</option>
+            <option value={ShippingMethod.Standard as ShippingMethod}>
+              Standard Shipping (€{ShippingPrices[ShippingMethod.Standard]})
+            </option>
+            <option value={ShippingMethod.Express as ShippingMethod}>
+              Express Shipping (€{ShippingPrices[ShippingMethod.Express]})
+            </option>
+            <option value={ShippingMethod.Overnight as ShippingMethod}>
+              Overnight Shipping (€{ShippingPrices[ShippingMethod.Overnight]})
+            </option>
           </select>
-          <div className='buttons-box'>
+          <div className="buttons-box">
             <button className="btn back-btn">Back to Cart</button>
             <button type="submit" className="btn save-btn">
               Order Summary
