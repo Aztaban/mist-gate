@@ -7,8 +7,6 @@ const Account = (): ReactElement => {
   const { username } = useAuth();
   const { data } = useGetOrdersForUserQuery();
 
-  console.log(data);
-
   return (
     <article className='account'>
       <header className='orders-header'>
