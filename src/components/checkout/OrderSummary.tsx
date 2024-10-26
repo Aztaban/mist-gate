@@ -18,12 +18,12 @@ const OrderSummary = () => {
 
   const handleSubmitOrder = async (e: React.MouseEvent) => {
     e.preventDefault();
-    console.log(order);
+
     try {
-      const newOrder = await addNewOrder(order).unwrap();
+      const newOrderId = await addNewOrder(order).unwrap();
       alert('Order created successfully!');
-      console.log(newOrder);
       dispatch(clearCart());
+      navigate(`/order/${newOrderId}`);
     } catch (err) {
       console.error('failed to create order', err)
     }

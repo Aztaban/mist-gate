@@ -10,7 +10,7 @@ interface OrderLineItemProps {
 const OrderLineItem = ({ order }: OrderLineItemProps): ReactElement => {
   return (
     <div className="order-line-item">
-      <NavLink to="/order">{order.orderNo}</NavLink>
+      <NavLink to={`/order/${order.id}`}>{order.orderNo}</NavLink>
 
       <span className="order-date">
         Created on: {new Date(order.created_at).toLocaleDateString()}
