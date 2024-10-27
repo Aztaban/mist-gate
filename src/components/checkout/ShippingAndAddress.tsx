@@ -64,7 +64,7 @@ const ShippingAndAddress = () => {
 
   return (
     <article className="shipping">
-      <h2>Shipping & Address</h2>
+      <h2 className='orders-header'>Shipping & Address</h2>
       <main>
         <form onSubmit={handleSubmit} className="address">
           <label htmlFor="address">Address:</label>
@@ -74,6 +74,7 @@ const ShippingAndAddress = () => {
             name="address"
             value={shippingAddress.address}
             onChange={handleChange}
+            autoComplete='on'
             required
           />
 
@@ -84,6 +85,7 @@ const ShippingAndAddress = () => {
             name="city"
             value={shippingAddress.city}
             onChange={handleChange}
+            autoComplete='on'
             required
           />
 
@@ -94,6 +96,7 @@ const ShippingAndAddress = () => {
             name="postalCode"
             value={shippingAddress.postalCode}
             onChange={handleChange}
+            autoComplete='on'
             required
           />
 
@@ -104,6 +107,7 @@ const ShippingAndAddress = () => {
             name="country"
             value={shippingAddress.country}
             onChange={handleChange}
+            autoComplete='on'
             required
           />
 

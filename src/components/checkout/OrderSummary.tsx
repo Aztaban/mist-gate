@@ -4,6 +4,9 @@ import { eurFormat, countTaxFree } from '../../utils/utils';
 import { useAddNewOrderMutation } from '../../features/shop/ordersSlice';
 import { clearCart } from '../../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
+import OrderProducts from '../orders/OrderProducts';
+import Address from '../orders/Address';
+import OrderPriceSummary from '../orders/OrderPriceSummary';
 
 const OrderSummary = () => {
   const location = useLocation();
@@ -13,8 +16,7 @@ const OrderSummary = () => {
 
   const totalPrice = order.itemsPrice + order.shippingPrice;
 
-  const [addNewOrder, { isSuccess, isError, error }] =
-    useAddNewOrderMutation();
+  const [addNewOrder, { isSuccess, isError, error }] = useAddNewOrderMutation();
 
   const handleSubmitOrder = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -25,59 +27,39 @@ const OrderSummary = () => {
       dispatch(clearCart());
       navigate(`/order/${newOrderId}`);
     } catch (err) {
-      console.error('failed to create order', err)
+      console.error('failed to create order', err);
     }
   };
 
   const navigateBack = () => {
     navigate(-1);
-  }
+  };
 
   return (
     <>
-      <article className="shipping">
-        <header>
-          <h2>Order Summary</h2>
-        </header>
+      <article className="order">
+        <h2 className="orders-header">Order Summary</h2>
         <main>
-          <div>
-            <h3>Shipping Address</h3>
-            <p>{order.shippingAddress.address}</p>
-            <p>
-              {order.shippingAddress.city}, {order.shippingAddress.postalCode}
-            </p>
-            <p>{order.shippingAddress.country}</p>
-          </div>
-
-          <div>
-            <h3>Products</h3>
-            <ul>
-              {order.products.map((product) => (
-                <li key={product.product}>
-                  {product.name}, qty: {product.quantity}, ${product.price}{' '}
-                  each, total: {eurFormat(product.price * product.quantity)}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3>Order Summary</h3>
-            <p>Items Price: {eurFormat(order.itemsPrice)}</p>
-            <p>Shipping Price: {eurFormat(order.shippingPrice)}</p>
-            <p>
-              Total Price Without Tax: {eurFormat(countTaxFree(totalPrice))}
-            </p>
-            <p>Total Price: {eurFormat(totalPrice)}</p>
-          </div>
-
-          <div className="buttons-box">
-            <button className="btn back-btn" onClick={navigateBack}>Back to Address</button>
-            <button className="btn save-btn" onClick={handleSubmitOrder}>Confirm Order</button>
-          </div>
+          <Address address={order.shippingAddress} />
+          <h3>Products</h3>
+          <OrderProducts products={order.products} />
+          <h3>Order Summary</h3>
+          <OrderPriceSummary
+            itemsPrice={order.itemsPrice}
+            shippingPrice={order.shippingPrice}
+            totalPrice={totalPrice}
+          />
           {isSuccess && <p>Order created successfully!</p>}
           {isError && <p>Error: {error.toString()}</p>}
         </main>
+        <div className="buttons-box">
+          <button className="btn back-btn" onClick={navigateBack}>
+            Back to Address
+          </button>
+          <button className="btn save-btn" onClick={handleSubmitOrder}>
+            Confirm Order
+          </button>
+        </div>
       </article>
     </>
   );
