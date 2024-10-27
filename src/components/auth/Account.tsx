@@ -12,17 +12,13 @@ const Account = (): ReactElement => {
   }, [refetch]);
 
   return (
-    <article className='account'>
-      <header className='orders-header'>
-        <h2>{username}'s Account</h2>
-      </header>
-      <main className='orders-box'>
+    <article className="account">
+      <h2 className="orders-header">{username}'s Account</h2>
+      <main className="orders-box">
         <h3>Your Orders</h3>
-        <div className='orders-list'>
+        <div className="orders-list">
           {data && data.length > 0 ? (
-            data.map((order) => (
-              <OrderLineItem key={order.id} order={order} />
-            ))
+            data.map((order) => <OrderLineItem key={order.id} order={order} />)
           ) : (
             <p>No order found.</p>
           )}
