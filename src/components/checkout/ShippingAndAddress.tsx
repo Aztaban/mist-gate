@@ -64,9 +64,7 @@ const ShippingAndAddress = () => {
 
   return (
     <article className="shipping">
-      <header>
-        <h2>Shipping & Address</h2>
-      </header>
+      <h2>Shipping & Address</h2>
       <main>
         <form onSubmit={handleSubmit} className="address">
           <label htmlFor="address">Address:</label>

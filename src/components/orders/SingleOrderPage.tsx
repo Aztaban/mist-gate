@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetOrderByIdQuery } from '../../features/shop/ordersSlice';
 import { eurFormat, countTaxFree } from '../../utils/utils';
+import OrderProducts from './OrderProducts';
 
 const SingleOrderPage = () => {
   const navigate = useNavigate();
@@ -16,15 +17,15 @@ const SingleOrderPage = () => {
 
   const { address, city, postalCode, country } = order.shippingAddress;
 
+  console.log(order)
+
   const handleBackBtn = () => {
     navigate(-1);
   };
 
   return (
     <article className="order">
-      <header className="orders-header">
-        <h2>Order Details</h2>
-      </header>
+      <h2 className="orders-header">Order Details</h2>
       <main>
         <h3>Order No: {order.orderNo}</h3>
         <div className="order-field">
@@ -37,16 +38,10 @@ const SingleOrderPage = () => {
           <p>Paid status:</p>
           <p>{order.isPaid ? 'Paid' : 'Not Paid'}</p>
         </div>
-        <div className="order-products">
-          <h3>Products</h3>
-          <ul>
-            {order.products.map((product) => (
-              <li key={product.product}>
-                {product.name}, qty: {product.quantity}, ${product.price} each,
-                total: {eurFormat(product.price * product.quantity)}
-              </li>
-            ))}
-          </ul>
+        <h3>Products</h3>
+        <div>
+          <OrderProducts products={order.products} />
+
           <div className="order-field">
             <p>Items Price:</p>
             <p>{eurFormat(order.itemsPrice)}</p>
@@ -61,17 +56,22 @@ const SingleOrderPage = () => {
         <div>
           <h3>Address</h3>
           <div className="order-field">
-              <p>Address:</p><p>{address}</p>
-              <p>City, postal code:</p><p>{city}, {postalCode}</p>
-              <p>Country: </p><p>{country}</p>
-
+            <p>Address:</p>
+            <p>{address}</p>
+            <p>City, postal code:</p>
+            <p>
+              {city}, {postalCode}
+            </p>
+            <p>Country: </p>
+            <p>{country}</p>
           </div>
         </div>
 
-        <button className="btn back-btn" onClick={handleBackBtn}>
-          Go Back
-        </button>
+
       </main>
+      <button className="btn back-btn" onClick={handleBackBtn}>
+          Go Back
+      </button>
     </article>
   );
 };
