@@ -192,6 +192,7 @@ main.app {
   display: flex;
   flex-direction: column;
   height: auto;
+  align-items: center;
   flex-grow: 1;
   background-color: var(
     --SECTION-BGCOLOR
@@ -244,7 +245,6 @@ a:active {
 }
 
 /* || HEADER */
-
 header {
   position: sticky;
   top: 0;
@@ -781,6 +781,33 @@ section img {
   color: var(--BORDER-COLOR);
 }
 
+.order-products-header,
+.order-product-line-item,
+.order-products-footer {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 8px 0;
+  align-items: center;
+}
+
+.order-products-header {
+  font-weight: bold;
+  border-bottom: 1px solid var(--BORDER-COLOR);
+}
+
+.order-products-footer {
+  font-weight: bold;
+  border-top: 1px solid var(--BORDER-COLOR);
+}
+
+.order-product-line-item {
+  padding: 5px 0;
+}
+
+.order-products {
+  margin-bottom: 20px;
+}
 
 .orders-box {
   margin: 20px;
