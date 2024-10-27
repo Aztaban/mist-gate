@@ -10,7 +10,8 @@ export function eurFormat(value: number): string {
   return new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'EUR',
-  }).format(value);
+    currencyDisplay: 'code',
+  }).format(value).replace('EUR', '€ ');;
 }
 
 export const setPersistState = (value: boolean) => {
