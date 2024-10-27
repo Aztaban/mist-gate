@@ -34,37 +34,43 @@ const Cart = (): ReactElement => {
   const pageContent = (
     <>
       <h2>Cart</h2>
-      <ul className="cart">
-        {products.map((item) => {
-          return <CartLineItem key={item.product} item={item} />;
-        })}
-      </ul>
-      <div className="cart__tools">
-        <div className="cart__tools--item">
-          <label>Total Items: </label>
-          <p>{totalItems}</p>
-        </div>
-        <div className="cart__tools--item">
-          <label>Without Tax: </label>
-          <p>{eurFormat(countTaxFree(itemsPrice))}</p>
-        </div>
-        <div className="cart__tools--item">
-          <label>Total Price: </label>
-          <p>{eurFormat(itemsPrice)}</p>
-        </div>
-        <div className="cart__tools--item">
-          <button className="btn del-btn" onClick={onClearClicked}>
-            Clear Cart
-          </button>
-          <button
-            className="cart__submit btn .save-btn"
-            disabled={!totalItems}
-            onClick={onSubmitOrder}
-          >
-            Continue to shipping
-          </button>
-        </div>
-      </div>
+      {products.length ? (
+        <>
+          <ul className="cart">
+            {products.map((item) => {
+              return <CartLineItem key={item.product} item={item} />;
+            })}
+          </ul>
+          <div className="cart__tools">
+            <div className="cart__tools--item">
+              <label>Total Items: </label>
+              <p>{totalItems}</p>
+            </div>
+            <div className="cart__tools--item">
+              <label>Without Tax: </label>
+              <p>{eurFormat(countTaxFree(itemsPrice))}</p>
+            </div>
+            <div className="cart__tools--item">
+              <label>Total Price: </label>
+              <p>{eurFormat(itemsPrice)}</p>
+            </div>
+            <div className="cart__tools--item">
+              <button className="btn del-btn" onClick={onClearClicked}>
+                Clear Cart
+              </button>
+              <button
+                className="cart__submit btn .save-btn"
+                disabled={!totalItems}
+                onClick={onSubmitOrder}
+              >
+                Continue to shipping
+              </button>
+            </div>
+          </div>
+        </>
+      ) : (
+        <p>No Items in cart</p>
+      )}
     </>
   );
 
