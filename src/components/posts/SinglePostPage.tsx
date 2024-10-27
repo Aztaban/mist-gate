@@ -2,10 +2,12 @@ import { MouseEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useGetPostByIdQuery } from '../../features/posts/postsSlice';
 import { dateFormat } from '../../utils/utils';
+import useAuth from '../../hooks/useAuth';
 
 const SinglePostPage = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
   const {
     data: post,
@@ -41,20 +43,24 @@ const SinglePostPage = () => {
   if (isSuccess) {
     content = (
       <>
-        <section className='login'>
+        <section className="login">
           <article className="single-post">
             <p>{dateFormat(post.date)}</p>
             <div>
               <h3>{post.title}</h3>
             </div>
             <p>{post.body}</p>
-            <button
-              type="button"
-              className="btn back-btn"
-              onClick={onEditPostClicked}
-            >
-              Edit Post
-            </button>
+            {isAdmin ? (
+              <>
+                <button
+                  type="button"
+                  className="btn back-btn"
+                  onClick={onEditPostClicked}
+                >
+                  Edit Post
+                </button>
+              </>
+            ) : null}
             <button
               type="button"
               className="btn back-btn"
