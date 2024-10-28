@@ -95,6 +95,15 @@ textarea {
   text-align: center;
 }
 
+.green {
+  color: var(--BORDER-COLOR);
+}
+
+.bold {
+  font-weight: bold;
+  text-align: left;
+}
+
 .errmsg {
   background-color: var(--ERROR-BGCOLOR);
   color: var(--ERROR-COLOR);
@@ -116,12 +125,7 @@ textarea {
   color: var(--ERROR-COLOR);
 }
 
-.text-right {
-  text-align: right;
-}
-
 .btn {
-  margin-top: 50px;
   border: var(--BORDERS);
   border-radius: var(--BORDER-RADIUS);
   padding: var(--PADDING-TB);
@@ -518,7 +522,6 @@ section img {
 /* || SHOP */
 .main__products {
   display: flex;
-  background-color: var(--BODY-BGCOLOR);
   flex-wrap: wrap;
   justify-content: space-evenly;
   height: auto;
@@ -528,7 +531,9 @@ section img {
 .product {
   flex: 1 1 300px;
   max-width: 400px;
-  background-color: var(--SECTION-BGCOLOR);
+  font-size: 16px;
+  background-color: var(--HEADER-BGCOLOR);
+  color: var(--SECTION-BGCOLOR-LIGHT);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -536,7 +541,7 @@ section img {
   border-radius: var(--BORDER-RADIUS);
   padding: 20px;
   margin: 20px;
-  box-shadow: 0 4px 8px var(--BORDER-COLOR);
+  box-shadow: 4px 0px 4px var(--BORDER-COLOR);
 }
 
 .product img {
@@ -552,6 +557,8 @@ section img {
   color: var(--BORDER-COLOR);
   letter-spacing: 0.1em;
   font-size: xx-large;
+  border-top: 1px solid var(--BORDER-COLOR);
+  border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
 .product a:hover {
@@ -562,12 +569,9 @@ section img {
 .product__page p {
   width: 100%;
   margin: 5px 0;
-  font-size: 14px;
-  color: var(--SECTION-BGCOLOR-LIGHT);
   text-align: left;
 }
 
-.product div,
 .product__page div div {
   margin-top: 15px;
   display: flex;
@@ -575,6 +579,34 @@ section img {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.product-details {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: 10px;
+  padding: 10px;
+  gap: 5px;
+  border-top: var(--BORDERS);
+}
+
+.product-description {
+  padding: 10px;
+  border-top: var(--BORDERS);
+}
+
+.product-cart {
+  display: grid;
+  width: 100%;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr;
+  border-top: var(--BORDERS);
+}
+
+.product-price {
+  font-weight: bold;
+  font-size: larger;
 }
 
 .product__page {

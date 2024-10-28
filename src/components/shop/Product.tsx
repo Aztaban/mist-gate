@@ -26,21 +26,26 @@ const Product = ({ product }: { product: ProductType }): ReactElement => {
 
   const imgSrc = new URL(`../../images/${product.image}`, import.meta.url).href;
 
-  const itemInCart = inCart ? ' → Item in Cart: ✔️' : null;
-
   const content = (
     <article className="product">
-      <img src={imgSrc} alt={product.name} className="product__img" />
       <a href={`shop/product/${product.id}`}>{product.name}</a>
-      <p>{product.details.description}</p>
-      <p>Author: {product.details.author}</p>
-      <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
-      <div>
-        <p>
+      <img
+        src={imgSrc}
+        alt={product.name}
+        className="product__img green-mist"
+      />
+      <p className='product-description'>{product.details.description}</p>
+      <div className='product-details'>
+        <p className='bold'>Author:</p>
+        <p className='green text-right'>{product.details.author}</p>
+        <p className='bold'>Release Date:</p>
+        <p className='green text-right'>{dateFormat(product.details.releaseDate)}</p>
+      </div>
+      <div className='product-cart'>
+        <p className='green product-price'>
           {eurFormat(product.price)}
-          {itemInCart}
         </p>
-        <button onClick={handleAddToCart}>Add to Cart</button>
+        <button className='btn save-btn' onClick={handleAddToCart}>Add to Cart</button>
       </div>
     </article>
   );
