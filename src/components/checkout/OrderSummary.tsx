@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CreateOrder } from '../../features/shop/ordersSlice';
-import { useAddNewOrderMutation } from '../../features/shop/ordersSlice';
+import { CreateOrder } from '../../features/shop/ordersApiSlice';
+import { useAddNewOrderMutation } from '../../features/shop/ordersApiSlice';
 import { clearCart } from '../../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
 import OrderProducts from '../orders/OrderProducts';

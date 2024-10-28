@@ -4,7 +4,7 @@ import {
   ShippingAddress,
   CreateOrder,
   OrderItem,
-} from '../../features/shop/ordersSlice';
+} from '../../features/shop/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../config/shippingConfig';
 
 interface LocationState {

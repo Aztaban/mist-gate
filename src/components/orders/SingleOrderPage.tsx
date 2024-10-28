@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useGetOrderByIdQuery } from '../../features/shop/ordersSlice';
+import { useGetOrderByIdQuery } from '../../features/shop/ordersApiSlice';
 import OrderProducts from './OrderProducts';
 import OrderPriceSummary from './OrderPriceSummary';
 import Address from './Address';

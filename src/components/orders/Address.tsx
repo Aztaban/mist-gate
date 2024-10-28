@@ -1,4 +1,4 @@
-import { ShippingAddress } from "../../features/shop/ordersSlice"
+import { ShippingAddress } from "../../features/shop/ordersApiSlice"
 
 interface AddressProps  {
   address: ShippingAddress;

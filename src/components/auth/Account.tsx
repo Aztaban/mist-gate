@@ -1,6 +1,6 @@
 import { ReactElement, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { useGetOrdersForUserQuery } from '../../features/shop/ordersSlice';
+import { useGetOrdersForUserQuery } from '../../features/shop/ordersApiSlice';
 import OrderLineItem from '../orders/OrderLineItem';
 
 const Account = (): ReactElement => {
