@@ -3,7 +3,11 @@ export function countTaxFree(value: number): number {
 }
 
 export function dateFormat(initialDate: string): string {
-  return new Date(initialDate).toLocaleString();
+  return new Date(initialDate).toLocaleString('cs-CZ', {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  });
 }
 
 export function eurFormat(value: number): string {
