@@ -116,6 +116,10 @@ textarea {
   color: var(--ERROR-COLOR);
 }
 
+.text-right {
+  text-align: right;
+}
+
 .btn {
   margin-top: 50px;
   border: var(--BORDERS);
@@ -756,7 +760,7 @@ section img {
   width: 100%;
 }
 
-.order main {
+.order main, .account main {
   width: 90%;
   max-width: 800px;
   color: var(--SECTION-BGCOLOR-LIGHT);
@@ -816,47 +820,29 @@ section img {
   margin: 10px;
 }
 
-.orders-box {
-  margin: 20px;
-  border: var(--BORDERS);
-  width: 90%;
-  padding: 20px;
-  border-radius: var(--BORDER-RADIUS);
-  background-color: var(--HEADER-BGCOLOR);
+.orders-list {
+  margin: 10px;
 }
 
-.order-list {
-  display: flex;
-  flex-direction: column;
+.order-line-item, .order-line-header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
   gap: 10px;
-  margin-top: 20px;
-}
-
-.order-line-item {
-  display: flex;
-  justify-content: space-between;
+  padding: 8px 0;
   align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid var(--BORDER-COLOR);
+  border-bottom: var(--BORDERS);
 }
 
-.order-number {
+.order-line-header {
   font-weight: bold;
-  color: #3498db;
-  text-decoration: none;
-}
-
-.order-date {
-  margin-left: 20px;
-  color: var(--SECTION-BGCOLOR-LIGHT);
 }
 
 .order-price {
   color: var(--BORDER-COLOR);
+  text-align: right;
 }
 
 .order-status {
-  margin-left: 20px;
   font-style: italic;
 }
 

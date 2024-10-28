@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CreateOrder } from '../../features/shop/ordersSlice';
-import { eurFormat, countTaxFree } from '../../utils/utils';
 import { useAddNewOrderMutation } from '../../features/shop/ordersSlice';
 import { clearCart } from '../../features/cart/cartSlice';
 import { useDispatch } from 'react-redux';
