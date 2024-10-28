@@ -794,7 +794,7 @@ section img {
 
 .order main, .account main {
   width: 90%;
-  max-width: 800px;
+  max-width: 1024px;
   color: var(--SECTION-BGCOLOR-LIGHT);
   background-color: var(--HEADER-BGCOLOR);
   padding: 20px;
