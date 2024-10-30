@@ -12,21 +12,23 @@ const AdminOrderList = ({ orders }: AdminOrderListProps): ReactElement => {
   }
 
   return (
-    <ul className="admin-orders-list">
-      <li className="admin-order-line-header bold green">
-        <span>Order Number</span>
-        <span>Created</span>
-        <span>User</span>
-        <span>Shipping Method</span>
-
-        <span>Paid status</span>
-
-        <span className="order-price">Total Price</span>
-      </li>
-      {orders.map((order) => (
-        <AdminOrderLineItem key={order.id} order={order} />
-      ))}
-    </ul>
+    <table className="admin-orders-list">
+      <thead>
+        <tr className="admin-order-line-header bold green">
+          <th>Order Number</th>
+          <th>Created</th>
+          <th>User</th>
+          <th>Shipping Method</th>
+          <th>Paid status</th>
+          <th className="order-price">Total Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {orders.map((order) => (
+          <AdminOrderLineItem key={order.id} order={order} />
+        ))}
+      </tbody>
+    </table>
   );
 };
 

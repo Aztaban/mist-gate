@@ -9,18 +9,18 @@ interface AdminOrderLineItemProps {
 
 const AdminOrderLineItem = ({ order }: AdminOrderLineItemProps): ReactElement => {
   return (
-    <li className="admin-order-line-item">
-      <NavLink to={`/order/${order.id}`}>{order.orderNo}</NavLink>
-      <span>{new Date(order.created_at).toLocaleDateString()}</span>
-      <span>{order.user.username}</span>
-      <span>{order.shippingMethod}</span>
+    <tr className="admin-order-line-item">
+      <td><NavLink to={`/order/${order.id}`}>{order.orderNo}</NavLink></td>
+      <td>{new Date(order.created_at).toLocaleDateString()}</td>
+      <td className='green'>{order.user.username}</td>
+      <td>{order.shippingMethod}</td>
 
-      <span className={`order-status ${order.paidAt ? 'paid' : 'not-paid'}`}>
+      <td className={`order-status ${order.paidAt ? 'paid' : 'not-paid'}`}>
         {order.paidAt ? 'Paid' : 'Not Paid'}
-      </span>
+      </td>
 
-      <span className="order-price">{eurFormat(order.totalPrice)}</span>
-    </li>
+      <td className="order-price">{eurFormat(order.totalPrice)}</td>
+    </tr>
   );
 };
 
