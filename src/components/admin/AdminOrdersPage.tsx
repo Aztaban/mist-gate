@@ -1,34 +1,58 @@
-import { useState } from 'react';
+import { useState, useMemo, ChangeEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { selectOrders } from '../../features/shop/ordersSlice';
 import { Order } from '../../features/shop/ordersApiSlice';
-import SearchBar from './SearchBar';
 import AdminOrderList from './AdminOrderList';
+import Pagination from '../common/Pagination';
 
 const AdminOrdersPage = () => {
   const orders = useSelector(selectOrders);
 
-  const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [search, setSearch] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+  const itemsPerPage = 10;
 
-  const handleSearchChange = (term: string) => {
-    setSearchTerm(term);
-
-    const lowerCasedTerm = term.toLowerCase();
-    const newFilteredOrders = orders.filter(
-      (order: Order) =>
-        order.id.toString().includes(lowerCasedTerm) ||
-        order.user.username.toLowerCase().includes(lowerCasedTerm)
+  // Filter orders based on search input
+  const filteredOrders = useMemo<Order[]>(() => {
+    return orders.filter(
+      (order) =>
+        order.user.username.toLowerCase().includes(search.toLowerCase()) ||
+        order.orderNo.toString().includes(search)
     );
-    setFilteredOrders(newFilteredOrders);
+  }, [orders, search]);
+
+  // Calculate paginated order from current page
+  const paginatedOrders = useMemo<Order[]>(() => {
+    const start = (page - 1) * itemsPerPage;
+    return filteredOrders.slice(start, start + itemsPerPage);
+  }, [filteredOrders, page, itemsPerPage]);
+
+  // Calculate total pages based on filtered orders
+  const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
+
+  // Update search and reset to page 1 when search input changes
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+    setPage(1);
+  };
+
+  // Handle page change
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
   };
 
   return (
     <article className="order">
-      <h2 className='orders-header'>Admin Orders</h2>
-      <SearchBar  />
-      <AdminOrderList orders={orders}/>
-
+      <h2 className="orders-header">Admin Orders</h2>
+      <input
+        type="text"
+        placeholder="Search by username or order ID"
+        value={search}
+        onChange={handleSearch}
+        className="search-bar"
+      />
+      <AdminOrderList orders={paginatedOrders} />
+      <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
     </article>
   );
 };
