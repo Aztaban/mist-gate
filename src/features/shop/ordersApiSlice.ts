@@ -51,8 +51,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/orders',
       transformResponse: (response: any) => {
         const orders: Order[] = response.map((order: any) => {
-          const { _id, ...rest } =
-            order;
+          const { _id, ...rest } = order;
           return {
             id: _id,
             ...rest,
@@ -69,8 +68,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/orders/user',
       transformResponse: (response: any) => {
         const orders: Order[] = response.map((order: any) => {
-          const { _id, ...rest } =
-            order;
+          const { _id, ...rest } = order;
           return {
             id: _id,
             ...rest,
@@ -86,8 +84,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     getOrderById: builder.query<Order, string>({
       query: (orderId) => `/orders/${orderId}`,
       transformResponse: (responseData: any) => {
-        const { _id, ...rest } =
-          responseData;
+        const { _id, ...rest } = responseData;
         return {
           id: _id,
           ...rest,
@@ -103,6 +100,19 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Order', id: 'LIST' }],
     }),
+    updateOrderStatus: builder.mutation<
+      void,
+      { orderId: string; status: OrderStatus }
+    >({
+      query: ({ orderId, status }) => ({
+        url: `/orders/${orderId}/status`,
+        method: 'PUT',
+        body: { status },
+      }),
+      invalidatesTags: (_result, _error, { orderId }) => [
+        { type: 'Order', id: orderId },
+      ],
+    }),
   }),
 });
 
@@ -111,4 +121,5 @@ export const {
   useGetOrdersForUserQuery,
   useGetOrderByIdQuery,
   useAddNewOrderMutation,
+  useUpdateOrderStatusMutation,
 } = extendedApiSlice;
