@@ -1,12 +1,17 @@
-import { useState, useMemo, ChangeEvent } from 'react';
-import { useSelector } from 'react-redux';
-import { selectOrders } from '../../features/shop/ordersSlice';
-import { Order } from '../../features/shop/ordersApiSlice';
+import { useState, useMemo, ChangeEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectOrders, setOrders } from '../../features/shop/ordersSlice';
+import {
+  Order,
+  useGetAllOrdersQuery,
+} from '../../features/shop/ordersApiSlice';
 import { ShippingMethod } from '../../config/shippingConfig';
 import AdminOrderList from './AdminOrderList';
 import Pagination from '../common/Pagination';
 
 const AdminOrdersPage = () => {
+  const dispatch = useDispatch();
+  const { data: ordersData, refetch } = useGetAllOrdersQuery();
   const orders = useSelector(selectOrders);
 
   const [search, setSearch] = useState<string>('');
@@ -14,6 +19,14 @@ const AdminOrdersPage = () => {
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod | ''>('');
   const [isPaid, setIsPaid] = useState<string>('');
   const itemsPerPage = 10;
+
+  useEffect(() => {
+    if (ordersData) {
+      dispatch(setOrders(ordersData));
+    } else {
+      refetch();
+    }
+  }, [ordersData, dispatch, refetch]);
 
   // Filter orders based on search input
   const filteredOrders = useMemo<Order[]>(() => {
