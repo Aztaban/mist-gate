@@ -113,6 +113,19 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         { type: 'Order', id: orderId },
       ],
     }),
+    updateOrderShipping: builder.mutation<
+      void,
+      { orderId: string; shippingMethod: ShippingMethod }
+    >({
+      query: ({ orderId, shippingMethod }) => ({
+        url: `/orders/${orderId}/shipping`,
+        method: 'PUT',
+        body: { shippingMethod },
+      }),
+      invalidatesTags: (_result, _error, { orderId }) => [
+        { type: 'Order', id: orderId },
+      ],
+    }),
   }),
 });
 
@@ -122,4 +135,5 @@ export const {
   useGetOrderByIdQuery,
   useAddNewOrderMutation,
   useUpdateOrderStatusMutation,
+  useUpdateOrderShippingMutation
 } = extendedApiSlice;
