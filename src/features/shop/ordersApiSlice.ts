@@ -49,16 +49,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllOrders: builder.query<Order[], void>({
       query: () => '/orders',
-      transformResponse: (response: any) => {
-        const orders: Order[] = response.map((order: any) => {
-          const { _id, ...rest } = order;
-          return {
-            id: _id,
-            ...rest,
-          };
-        });
-        return orders;
-      },
       providesTags: (result) =>
         result
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
@@ -66,16 +56,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     getOrdersForUser: builder.query<Order[], void>({
       query: () => '/orders/user',
-      transformResponse: (response: any) => {
-        const orders: Order[] = response.map((order: any) => {
-          const { _id, ...rest } = order;
-          return {
-            id: _id,
-            ...rest,
-          };
-        });
-        return orders;
-      },
       providesTags: (result) =>
         result
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
@@ -83,13 +63,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     getOrderById: builder.query<Order, string>({
       query: (orderId) => `/orders/${orderId}`,
-      transformResponse: (responseData: any) => {
-        const { _id, ...rest } = responseData;
-        return {
-          id: _id,
-          ...rest,
-        };
-      },
       providesTags: (_result, _error, id) => [{ type: 'Order', id }],
     }),
     addNewOrder: builder.mutation<string, CreateOrder>({
