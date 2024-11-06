@@ -17,13 +17,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query<ProductType[], void>({
       query: () => '/products',
-      transformResponse: (response: any) => {
-        const products: ProductType[] = response.map((product: any) => {
-          const { _id, ...rest } = product;
-          return { id: _id, ...rest};
-        })
-        return products;
-      },
       providesTags: (result) =>
         result
           ? result.map((product) => ({
@@ -34,6 +27,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     getProductById: builder.query<ProductType, string>({
       query: (productId) => `/products/${productId}`,
+      providesTags: (_result, _error, id) => [{ type: 'Product', id }],
     }),
   }),
 });
