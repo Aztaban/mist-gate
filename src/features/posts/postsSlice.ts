@@ -11,12 +11,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPosts: builder.query<Post[], void>({
       query: () => '/posts',
-      transformResponse: (responseData: any) => {
-        const data: Post[] = responseData.map((post: any) => {
-          const { _id, ...rest } = post;
-          return { id: _id, ...rest};
-        });
-        const sortedData = data
+      transformResponse: (responseData: Post[]) => {
+        const sortedData = responseData
           .slice()
           .sort((a, b) => b.date.localeCompare(a.date));
         return sortedData;
@@ -28,10 +24,6 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     }),
     getPostById: builder.query<Post, string>({
       query: (postId) => `/posts/${postId}`,
-      transformResponse: (responseData: any) => {
-        const { _id, ...rest } = responseData;
-        return { id: _id, ...rest};
-      },
       providesTags: (_result, _error, id) => [{ type: 'Post', id }],
     }),
     addNewPost: builder.mutation<Post, Partial<Post>>({
