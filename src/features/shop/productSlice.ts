@@ -1,4 +1,4 @@
-import { apiSlice } from "../../app/api/apiSlice";
+import { apiSlice } from '../../app/api/apiSlice';
 
 export interface Product {
   id: string;
@@ -30,8 +30,15 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: (productId) => `/products/${productId}`,
       providesTags: (_result, _error, id) => [{ type: 'Product', id }],
     }),
-    //addNewProduct: builder.mutation<void, partial<Product>>
+    addNewProduct: builder.mutation<void, Partial<Product>>({
+      query: (newProduct) => ({
+        url: '/products',
+        method: 'POST',
+        body: newProduct,
+      }),
+      invalidatesTags: [{ type: 'Product', id: 'List' }],
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery } = extendedApiSlice;
+export const { useGetProductsQuery, useGetProductByIdQuery, useAddNewProductMutation } = extendedApiSlice;
