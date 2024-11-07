@@ -1,6 +1,6 @@
 import { useGetProductsQuery } from '../../features/shop/productSlice';
 import { ReactElement } from 'react';
-import Product from './Product';
+import SingleProduct from './SingleProduct';
 
 const ProductList = () => {
   const {
@@ -23,7 +23,7 @@ const ProductList = () => {
   if (isSuccess && products?.length) {
     pageContent = products.map((product) => {
       return (
-        <Product
+        <SingleProduct
           key={product.id}
           product={product}
         />

@@ -3,9 +3,9 @@ import { dateFormat, eurFormat } from '../../utils/utils';
 import { RootState } from '../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../features/cart/cartSlice';
-import { ProductType } from '../../features/shop/productSlice';
+import { Product } from '../../features/shop/productSlice';
 
-const Product = ({ product }: { product: ProductType }): ReactElement => {
+const SingleProduct = ({ product }: { product: Product }): ReactElement => {
   const dispatch = useDispatch();
 
   // Check if the product is already in the cart
@@ -52,6 +52,6 @@ const Product = ({ product }: { product: ProductType }): ReactElement => {
   return content;
 };
 
-const MemoizedProduct = memo(Product);
+const MemoizedProduct = memo(SingleProduct);
 
 export default MemoizedProduct;

@@ -1,11 +1,12 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
-export interface ProductType {
+export interface Product {
   id: string;
   name: string;
   productType: string;
   price: number;
   image: string;
+  countInStock: number;
   details: {
     author: string;
     releaseDate: string;
@@ -15,7 +16,7 @@ export interface ProductType {
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getProducts: builder.query<ProductType[], void>({
+    getProducts: builder.query<Product[], void>({
       query: () => '/products',
       providesTags: (result) =>
         result
@@ -25,10 +26,11 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             }))
           : [{ type: 'Product', id: 'List' }],
     }),
-    getProductById: builder.query<ProductType, string>({
+    getProductById: builder.query<Product, string>({
       query: (productId) => `/products/${productId}`,
       providesTags: (_result, _error, id) => [{ type: 'Product', id }],
     }),
+    //addNewProduct: builder.mutation<void, partial<Product>>
   }),
 });
 
