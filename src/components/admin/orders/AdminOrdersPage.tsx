@@ -1,13 +1,13 @@
 import { useState, useMemo, ChangeEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrders, setOrders } from '../../features/shop/ordersSlice';
+import { selectOrders, setOrders } from '../../../features/shop/ordersSlice';
 import {
   Order,
   useGetAllOrdersQuery,
-} from '../../features/shop/ordersApiSlice';
-import { ShippingMethod } from '../../config/shippingConfig';
+} from '../../../features/shop/ordersApiSlice';
+import { ShippingMethod } from '../../../config/shippingConfig';
 import AdminOrderList from './AdminOrderList';
-import Pagination from '../common/Pagination';
+import Pagination from '../../common/Pagination';
 
 const AdminOrdersPage = () => {
   const dispatch = useDispatch();

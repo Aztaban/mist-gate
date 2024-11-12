@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Order } from '../../features/shop/ordersApiSlice';
+import { Order } from '../../../features/shop/ordersApiSlice';
 import AdminOrderLineItem from './AdminOrderLineItem';
 
 interface AdminOrderListProps {

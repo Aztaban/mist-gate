@@ -17,9 +17,9 @@ import OrderSummary from './components/checkout/OrderSummary';
 import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
-import Admin from './components/admin/Admin';
-import AdminOrdersPage from './components/admin/AdminOrdersPage';
-import AdminProductsPage from './components/admin/AdminProductsPage';
+import AdminDashboard from './components/admin/AdminDashboard';
+import AdminOrdersPage from './components/admin/orders/AdminOrdersPage';
+import AdminProductsPage from './components/admin/products/AdminProductsPage';
 import SingleOrderPage from './components/orders/SingleOrderPage';
 import { ROLES } from './config/roles';
 
@@ -61,7 +61,7 @@ function App() {
 
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="admin">
-              <Route index element={<Admin />} />
+              <Route index element={<AdminDashboard />} />
               <Route path="products" element={<AdminProductsPage />} />
               <Route path="orders" element={<AdminOrdersPage />} />
             </Route>
