@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectOrders, setOrders } from '../../features/shop/ordersSlice';
 import { useEffect } from 'react';
 
-const Admin = () => {
+const AdminDashboard = () => {
   const dispatch = useDispatch();
   const { data: ordersData, isError, isLoading } = useGetAllOrdersQuery();
   const orders = useSelector(selectOrders);
@@ -31,4 +31,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default AdminDashboard;
