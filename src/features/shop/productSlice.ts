@@ -7,6 +7,7 @@ export interface Product {
   price: number;
   image: string;
   countInStock: number;
+  unitsSold: number;
   details: {
     author: string;
     releaseDate: string;
