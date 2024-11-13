@@ -3,7 +3,7 @@ import { dateFormat, eurFormat } from '../../utils/utils';
 import { RootState } from '../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../features/cart/cartSlice';
-import { Product } from '../../features/shop/productSlice';
+import { Product } from '../../features/shop/productApiSlice';
 
 const SingleProduct = ({ product }: { product: Product }): ReactElement => {
   const dispatch = useDispatch();

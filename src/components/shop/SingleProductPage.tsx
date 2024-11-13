@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from '../../features/shop/productSlice';
+import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
 import { dateFormat, eurFormat } from '../../utils/utils';
 import { RootState } from '../../app/store';
 import { useDispatch, useSelector } from 'react-redux';

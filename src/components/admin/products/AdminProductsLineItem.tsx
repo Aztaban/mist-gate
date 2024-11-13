@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Product } from '../../../features/shop/productSlice';
+import { Product } from '../../../features/shop/productApiSlice';
 import { eurFormat } from '../../../utils/utils';
 
 interface AdminProductsLineItemProps {

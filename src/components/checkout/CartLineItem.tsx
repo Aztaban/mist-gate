@@ -1,5 +1,5 @@
 import { ChangeEvent, ReactElement, memo } from 'react';
-import { useGetProductByIdQuery } from '../../features/shop/productSlice';
+import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
 import { eurFormat } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../features/cart/cartSlice';

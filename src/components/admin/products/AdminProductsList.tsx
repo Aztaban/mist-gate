@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Product } from '../../../features/shop/productSlice';
+import { Product } from '../../../features/shop/productApiSlice';
 import AdminProductsLineItem from './AdminProductsLineItem';
 
 interface AdminProductsListProps {
