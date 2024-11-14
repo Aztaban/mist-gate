@@ -1,6 +1,7 @@
 import { useGetProductsQuery } from '../../../features/shop/productApiSlice';
 import { ReactElement } from 'react';
 import AdminProductsList from './AdminProductsList';
+import { NavLink } from 'react-router-dom';
 
 const AdminProductsPage = () => {
   const {
@@ -27,6 +28,7 @@ const AdminProductsPage = () => {
   return (
     <article className="order">
       <h2 className='orders-header'>Admin Products</h2>
+      <button><NavLink to={"/admin/product"}>Create Product</NavLink></button>
       {pageContent}
     </article>
   );

@@ -21,6 +21,7 @@ import AdminDashboard from './components/admin/AdminDashboard';
 import AdminOrdersPage from './components/admin/orders/AdminOrdersPage';
 import AdminProductsPage from './components/admin/products/AdminProductsPage';
 import SingleOrderPage from './components/orders/SingleOrderPage';
+import CreateProduct from './components/admin/products/CreateProduct';
 import { ROLES } from './config/roles';
 
 function App() {
@@ -63,6 +64,9 @@ function App() {
             <Route path="admin">
               <Route index element={<AdminDashboard />} />
               <Route path="products" element={<AdminProductsPage />} />
+              <Route path="product">
+                <Route index element={<CreateProduct />} />
+              </Route>
               <Route path="orders" element={<AdminOrdersPage />} />
             </Route>
           </Route>
