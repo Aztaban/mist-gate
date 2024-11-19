@@ -17,16 +17,31 @@ const CreateProduct = () => {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    setFormData((prev) => {
+      if (name.startsWith('details.')) {
+        const detailKey = name.split('.')[1] as keyof Product['details'];
+        return {
+          ...prev,
+          details: {
+            ...(prev.details ?? {
+              author: '',
+              releaseDate: '',
+              description: '',
+            }),
+            [detailKey]: value,
+          },
+        };
+      }
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await addNewProduct(formData);
+      console.log(formData)
+      //await addNewProduct(formData);
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error('Failed to save the post', err.message);
@@ -83,6 +98,37 @@ const CreateProduct = () => {
           onChange={handleChange}
           placeholder="countInStock"
         />
+        <fieldset>
+          <legend>Details</legend>
+          <label htmlFor="details.author">Author:</label>
+          <input
+            type="text"
+            id="details.author"
+            name="details.author"
+            value={formData.details?.author}
+            onChange={handleChange}
+            placeholder="Author"
+          />
+          <label htmlFor="details.releaseDate">Release Date:</label>
+          <input
+            type="date"
+            id="details.releaseDate"
+            name="details.releaseDate"
+            value={formData.details?.releaseDate}
+            onChange={handleChange}
+          />
+          <label htmlFor="details.description">Description:</label>
+          <input
+            type="text"
+            id="details.description"
+            name="details.description"
+            value={formData.details?.description}
+            onChange={handleChange}
+            placeholder="Product Description"
+          />
+        </fieldset>
+
+        <button type="submit">Submit</button>
       </form>
     </section>
   );
