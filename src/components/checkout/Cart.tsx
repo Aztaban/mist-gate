@@ -5,11 +5,13 @@ import CartLineItem from './CartLineItem';
 import { clearCart, selectCartItems } from '../../features/cart/cartSlice';
 import { eurFormat } from '../../utils/utils';
 import { countTaxFree } from '../../utils/utils';
+import useAuth from '../../hooks/useAuth';
 
 const Cart = (): ReactElement => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const products = useSelector(selectCartItems);
+  const { isLogedIn } = useAuth();
 
   const totalItems = products.reduce((total, item) => total + item.quantity, 0);
   const itemsPrice = products.reduce(
@@ -18,9 +20,13 @@ const Cart = (): ReactElement => {
   );
 
   const onSubmitOrder = () => {
-    navigate('/shop/checkout/shipping', {
-      state: { products, itemsPrice },
-    });
+    if (isLogedIn) {
+      navigate('/shop/checkout/shipping', {
+        state: { products, itemsPrice },
+      });
+    } else {
+      navigate('/login');
+    }
   };
 
   const onClearClicked = () => {
