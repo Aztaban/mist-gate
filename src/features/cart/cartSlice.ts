@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
+import { ShippingAddress } from '../shop/ordersApiSlice';
+import { ShippingMethod } from '../../config/shippingConfig';
 
 export type CartItem = {
   product: string;
@@ -10,16 +12,20 @@ export type CartItem = {
 
 type CartState = {
   cart: CartItem[];
+  shippingAddress: ShippingAddress | null;
+  shippingMethod: ShippingMethod | null;
 };
 
 // Utility function to update localStorage
-const saveCartToLocalStorage = (cart: CartItem[]) => {
-  localStorage.setItem('cart', JSON.stringify(cart));
+const saveCartToLocalStorage = (cartState: CartState) => {
+  localStorage.setItem('cart', JSON.stringify(cartState));
 };
 
-// Initial state for the cart, loaded from localStorage if present
+const savedCartState = JSON.parse(localStorage.getItem('cart') || '{}');
 const initialState: CartState = {
-  cart: JSON.parse(localStorage.getItem('cart') || '[]'),
+  cart: savedCartState.cart || [],
+  shippingAddress: savedCartState.shippingAddress || null,
+  shippingMethod: savedCartState.shippingMethod || null,
 };
 
 const cartSlice = createSlice({
@@ -28,20 +34,27 @@ const cartSlice = createSlice({
   reducers: {
     addToCart(state, action: PayloadAction<CartItem>) {
       const newItem = action.payload;
-      const existingItem = state.cart.find((item) => item.product === newItem.product);
+      const existingItem = state.cart.find(
+        (item) => item.product === newItem.product
+      );
 
       if (existingItem) {
         existingItem.quantity += 1; // Increase the quantity of the existing item
       } else {
         state.cart.push({ ...newItem, quantity: 1 }); // Add new item to cart
       }
-      saveCartToLocalStorage(state.cart);
+      saveCartToLocalStorage(state);
     },
     removeFromCart(state, action: PayloadAction<{ product: string }>) {
-      state.cart = state.cart.filter((item) => item.product !== action.payload.product);
-      saveCartToLocalStorage(state.cart);
+      state.cart = state.cart.filter(
+        (item) => item.product !== action.payload.product
+      );
+      saveCartToLocalStorage(state);
     },
-    updateQuantity(state, action: PayloadAction<{ product: string; quantity: number }>) {
+    updateQuantity(
+      state,
+      action: PayloadAction<{ product: string; quantity: number }>
+    ) {
       const { product, quantity } = action.payload;
       const item = state.cart.find((item) => item.product === product);
 
@@ -49,20 +62,31 @@ const cartSlice = createSlice({
         item.quantity = quantity; // Update the quantity of the item
       }
 
-      saveCartToLocalStorage(state.cart);
+      saveCartToLocalStorage(state);
     },
     clearCart(state) {
       state.cart = [];
-
+      state.shippingAddress = null;
+      state.shippingMethod = null;
       // Clear the cart in localStorage
       localStorage.removeItem('cart');
+    },
+    setShippingAddress(state, action: PayloadAction<ShippingAddress>) {
+      state.shippingAddress = action.payload;
+      saveCartToLocalStorage(state);
+    },
+    setShippingMethod(state, action: PayloadAction<ShippingMethod>) {
+      state.shippingMethod = action.payload;
+      saveCartToLocalStorage(state);
     },
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart } =
+export const { addToCart, removeFromCart, updateQuantity, clearCart, setShippingAddress, setShippingMethod } =
   cartSlice.actions;
 
 export const selectCartItems = (state: RootState) => state.cart.cart;
+export const selectShippingAddress = (state: RootState) => state.cart.shippingAddress;
+export const selectShippingMethod = (state: RootState) => state.cart.shippingMethod;
 
 export default cartSlice.reducer;

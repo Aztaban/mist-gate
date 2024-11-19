@@ -6,6 +6,13 @@ import {
   OrderItem,
 } from '../../features/shop/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../config/shippingConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  setShippingAddress as updateShippingAddress,
+  setShippingMethod as updateShippingMethod,
+  selectShippingAddress,
+  selectShippingMethod,
+} from '../../features/cart/cartSlice';
 
 interface LocationState {
   products: OrderItem[];
@@ -13,19 +20,26 @@ interface LocationState {
 }
 
 const ShippingAndAddress = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { products, itemsPrice }: LocationState = location.state;
 
+  // Get current state from Redux
+  const currentAddress = useSelector(selectShippingAddress);
+  const currentMethod = useSelector(selectShippingMethod);
+
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(
-    ShippingMethod.Standard
+    currentMethod || ShippingMethod.Standard
   );
-  const [shippingAddress, setShippingAddress] = useState<ShippingAddress>({
-    address: '',
-    city: '',
-    postalCode: '',
-    country: '',
-  });
+  const [shippingAddress, setShippingAddress] = useState<ShippingAddress>(
+    currentAddress || {
+      address: '',
+      city: '',
+      postalCode: '',
+      country: '',
+    }
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,18 +58,27 @@ const ShippingAndAddress = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    //create order
-    const order: CreateOrder = {
-      products,
-      shippingAddress,
-      shippingMethod,
-      itemsPrice: Number(itemsPrice.toFixed(2)),
-      shippingPrice: calculateShippingPrice(shippingMethod),
-    };
+    dispatch(updateShippingAddress(shippingAddress));
+    dispatch(updateShippingMethod(shippingMethod));
 
-    navigate('/shop/checkout/summary', {
-      state: order,
-    });
+    try {
+      //create order
+      const order: CreateOrder = {
+        products,
+        shippingAddress,
+        shippingMethod,
+        itemsPrice: Number(itemsPrice.toFixed(2)),
+        shippingPrice: calculateShippingPrice(shippingMethod),
+      };
+
+      navigate('/shop/checkout/summary', {
+        state: order,
+      });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Error saving shipping details:', err.message);
+      }
+    }
   };
 
   const calculateShippingPrice = (method: ShippingMethod): number => {
@@ -64,7 +87,7 @@ const ShippingAndAddress = () => {
 
   return (
     <article className="shipping">
-      <h2 className='orders-header'>Shipping & Address</h2>
+      <h2 className="orders-header">Shipping & Address</h2>
       <main>
         <form onSubmit={handleSubmit} className="address">
           <label htmlFor="address">Address:</label>
@@ -74,7 +97,7 @@ const ShippingAndAddress = () => {
             name="address"
             value={shippingAddress.address}
             onChange={handleChange}
-            autoComplete='on'
+            autoComplete="on"
             required
           />
 
@@ -85,7 +108,7 @@ const ShippingAndAddress = () => {
             name="city"
             value={shippingAddress.city}
             onChange={handleChange}
-            autoComplete='on'
+            autoComplete="on"
             required
           />
 
@@ -96,7 +119,7 @@ const ShippingAndAddress = () => {
             name="postalCode"
             value={shippingAddress.postalCode}
             onChange={handleChange}
-            autoComplete='on'
+            autoComplete="on"
             required
           />
 
@@ -107,7 +130,7 @@ const ShippingAndAddress = () => {
             name="country"
             value={shippingAddress.country}
             onChange={handleChange}
-            autoComplete='on'
+            autoComplete="on"
             required
           />
 
@@ -129,7 +152,13 @@ const ShippingAndAddress = () => {
             </option>
           </select>
           <div className="buttons-box">
-            <button className="btn back-btn">Back to Cart</button>
+            <button
+              type="button"
+              className="btn back-btn"
+              onClick={() => navigate('/shop/checkout/cart')}
+            >
+              Back to Cart
+            </button>
             <button type="submit" className="btn save-btn">
               Order Summary
             </button>
