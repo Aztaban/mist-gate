@@ -63,9 +63,9 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="admin">
               <Route index element={<AdminDashboard />} />
-              <Route path="products" element={<AdminProductsPage />} />
-              <Route path="product">
-                <Route index element={<CreateProduct />} />
+              <Route path="products" >
+                <Route index element={<AdminProductsPage />} />
+                <Route path="product" element={<CreateProduct />} />
               </Route>
               <Route path="orders" element={<AdminOrdersPage />} />
             </Route>

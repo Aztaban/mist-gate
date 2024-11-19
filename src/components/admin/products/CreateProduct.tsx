@@ -1,6 +1,7 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { MouseEvent, ChangeEvent, FormEvent, useState } from 'react';
 import { useAddNewProductMutation } from '../../../features/shop/productApiSlice';
 import { Product } from '../../../features/shop/productApiSlice';
+import { useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
   const [addNewProduct] = useAddNewProductMutation();
@@ -12,6 +13,8 @@ const CreateProduct = () => {
     countInStock: 0,
     details: { author: '', releaseDate: '', description: '' },
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -40,13 +43,18 @@ const CreateProduct = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      console.log(formData)
+      console.log(formData);
       //await addNewProduct(formData);
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error('Failed to save the post', err.message);
       }
     }
+  };
+
+  const onBackBtnClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(-1);
   };
 
   return (
@@ -128,8 +136,13 @@ const CreateProduct = () => {
           />
         </fieldset>
 
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn save-btn">
+          Submit
+        </button>
       </form>
+      <button type="button" className="btn back-btn" onClick={onBackBtnClicked}>
+        back to products
+      </button>
     </section>
   );
 };
