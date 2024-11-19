@@ -44,9 +44,11 @@ function App() {
             <Route path="product/:productId" element={<SingleProductPage />} />
             <Route path="checkout">
               <Route path="cart" element={<Cart />} />
+              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
               <Route path="shipping" element={<ShippingAndAddress />} />
               <Route path="payment" element={<Payment />} />
               <Route path="summary" element={<OrderSummary />} />
+              </Route>
             </Route>
           </Route>
 
