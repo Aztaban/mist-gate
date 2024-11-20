@@ -4,7 +4,8 @@ import { Product } from '../../../features/shop/productApiSlice';
 import { useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
-  const [addNewProduct] = useAddNewProductMutation();
+  const navigate = useNavigate();
+  const [addNewProduct, { isLoading }] = useAddNewProductMutation();
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
     productType: '',
@@ -14,13 +15,10 @@ const CreateProduct = () => {
     details: { author: '', releaseDate: '', description: '' },
   });
 
-  const navigate = useNavigate();
-
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-
     setFormData((prev) => {
       if (name.startsWith('details.')) {
         const detailKey = name.split('.')[1] as keyof Product['details'];
@@ -39,6 +37,16 @@ const CreateProduct = () => {
       return { ...prev, [name]: value };
     });
   };
+
+  const canSave =
+    [
+      formData.name,
+      formData.productType,
+      formData.price,
+      formData.image,
+      formData.details?.author,
+      formData.details?.description,
+    ].every(Boolean) && !isLoading;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -61,52 +69,55 @@ const CreateProduct = () => {
     <section>
       <h2>Add a New Product</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Product Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Product Name"
-        />
-        <label htmlFor="productType">Product Type:</label>
-        <input
-          type="text"
-          id="productType"
-          name="productType"
-          value={formData.productType}
-          onChange={handleChange}
-          placeholder="Product Type"
-        />
-        <label htmlFor="price">Product Price:</label>
-        <input
-          type="number"
-          id="price"
-          name="price"
-          value={formData.price}
-          onChange={handleChange}
-          placeholder="Price"
-        />
-        <label htmlFor="productType">Image Path:</label>
-        <input
-          type="text"
-          id="image"
-          name="image"
-          value={formData.image}
-          onChange={handleChange}
-          placeholder="Image Path"
-        />
-        <label htmlFor="countInStock">Items in Stock:</label>
-        <input
-          type="number"
-          id="countInStock"
-          name="countInStock"
-          value={formData.countInStock}
-          onChange={handleChange}
-          placeholder="countInStock"
-        />
-        <fieldset>
+        <fieldset disabled={isLoading}>
+          <legend>New Product</legend>
+          <label htmlFor="name">Product Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Product Name"
+          />
+          <label htmlFor="productType">Product Type:</label>
+          <input
+            type="text"
+            id="productType"
+            name="productType"
+            value={formData.productType}
+            onChange={handleChange}
+            placeholder="Product Type"
+          />
+          <label htmlFor="price">Product Price:</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            placeholder="Price"
+          />
+          <label htmlFor="productType">Image Path:</label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+            placeholder="Image Path"
+          />
+          <label htmlFor="countInStock">Items in Stock:</label>
+          <input
+            type="number"
+            id="countInStock"
+            name="countInStock"
+            value={formData.countInStock}
+            onChange={handleChange}
+            placeholder="countInStock"
+          />
+        </fieldset>
+        <fieldset disabled={isLoading}>
           <legend>Details</legend>
           <label htmlFor="details.author">Author:</label>
           <input
@@ -135,12 +146,21 @@ const CreateProduct = () => {
             placeholder="Product Description"
           />
         </fieldset>
-
-        <button type="submit" className="btn save-btn">
-          Submit
+        <button
+          type="submit"
+          className="btn save-btn"
+          disabled={!canSave}
+          aria-disabled={!canSave}
+        >
+          {isLoading ? 'Loading...' : 'Create Product'}
         </button>
       </form>
-      <button type="button" className="btn back-btn" onClick={onBackBtnClicked}>
+      <button
+        type="button"
+        className="btn back-btn"
+        onClick={onBackBtnClicked}
+        disabled={isLoading}
+      >
         back to products
       </button>
     </section>
