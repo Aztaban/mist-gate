@@ -1,11 +1,16 @@
 import { MouseEvent, ChangeEvent, FormEvent, useState } from 'react';
-import { useAddNewProductMutation } from '../../../features/shop/productApiSlice';
+import {
+  useAddNewProductMutation,
+  useUploadImageMutation,
+} from '../../../features/shop/productApiSlice';
 import { Product } from '../../../features/shop/productApiSlice';
 import { useNavigate } from 'react-router-dom';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
   const [addNewProduct, { isLoading }] = useAddNewProductMutation();
+  const [uploadImage] = useUploadImageMutation();
+  const [image, setImage] = useState<File | null>(null);
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
     productType: '',
@@ -14,6 +19,13 @@ const CreateProduct = () => {
     countInStock: 0,
     details: { author: '', releaseDate: '', description: '' },
   });
+
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setImage(e.target.files[0]);
+      console.log('image set', image);
+    }
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,7 +55,7 @@ const CreateProduct = () => {
       formData.name,
       formData.productType,
       formData.price,
-      formData.image,
+      image,
       formData.details?.author,
       formData.details?.description,
     ].every(Boolean) && !isLoading;
@@ -51,8 +63,22 @@ const CreateProduct = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      console.log(formData);
-      //await addNewProduct(formData);
+      if (canSave) {
+        console.log('Uploading image');
+        const { image: uploadedImagePath } = await uploadImage(
+          image as File
+        ).unwrap();
+        console.log('Image uploaded: ', uploadedImagePath);
+
+        setFormData((prev) => ({
+          ...prev,
+          image: uploadedImagePath,
+        }));
+
+        console.log('Sending Product');
+        await addNewProduct(formData).unwrap();
+        console.log('Product created:', formData);
+      }
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.error('Failed to save the post', err.message);
@@ -100,13 +126,13 @@ const CreateProduct = () => {
           />
           <label htmlFor="productType">Image Path:</label>
           <input
-            type="text"
+            type="file"
             id="image"
             name="image"
-            value={formData.image}
-            onChange={handleChange}
-            placeholder="Image Path"
+            onChange={handleImageChange}
+            accept="image/*"
           />
+          {formData.image && <p>Image uploaded: {formData.image}</p>}
           <label htmlFor="countInStock">Items in Stock:</label>
           <input
             type="number"
