@@ -39,7 +39,23 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Product', id: 'List' }],
     }),
+    uploadImage: builder.mutation<{ image: string }, File>({
+      query: (image) => {
+        const formData = new FormData();
+        formData.append('image', image);
+        return {
+          url: '/products/imageUpload',
+          method: 'POST',
+          body: formData,
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetProductsQuery, useGetProductByIdQuery, useAddNewProductMutation } = extendedApiSlice;
+export const {
+  useGetProductsQuery,
+  useGetProductByIdQuery,
+  useAddNewProductMutation,
+  useUploadImageMutation
+} = extendedApiSlice;
