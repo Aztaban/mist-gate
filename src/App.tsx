@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './components/Home';
-import About from './components/About';
+import Layout from './components/layout/Layout';
+import Home from './components/layout/Home';
+import About from './components/layout/About';
 import Login from './components/auth/Login';
 import Shop from './components/shop/Shop';
 import Account from './components/auth/Account';

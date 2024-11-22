@@ -1,7 +1,7 @@
-import Nav from './nav/Nav';
-import CartButton from './nav/CartButton';
-import LogoutButton from './nav/LogoutButton';
-import useAuth from '../hooks/useAuth';
+import Nav from '../nav/Nav';
+import CartButton from '../nav/CartButton';
+import LogoutButton from '../nav/LogoutButton';
+import useAuth from '../../hooks/useAuth';
 
 const Header = () => {
   const { isAdmin, isLogedIn } = useAuth();
