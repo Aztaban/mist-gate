@@ -18,7 +18,7 @@ const AdminProductsLineItem = ({
       <td>{eurFormat(product.price)}</td>
       <td>{product.productType}</td>
       <td>
-        <NavLink to="">
+        <NavLink to={`/admin/products/edit/${product.id}`}>
           <button>Product Details</button>
         </NavLink>
       </td>

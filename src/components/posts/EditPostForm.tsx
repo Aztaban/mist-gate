@@ -66,7 +66,6 @@ const EditPostForm = () => {
     }
   };
 
-  // Use the confirmation hook here, but call it unconditionally
   const handleDeleteClick = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
