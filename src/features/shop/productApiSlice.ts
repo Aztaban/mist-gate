@@ -39,6 +39,19 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Product', id: 'List' }],
     }),
+    updateProduct: builder.mutation<
+      void,
+      { id: string; updates: Partial<Product> }
+    >({
+      query: ({ id, updates }) => ({
+        url: `${id}`,
+        method: 'PATCH',
+        body: updates,
+      }),
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Product', id: arg.id },
+      ],
+    }),
     uploadImage: builder.mutation<{ image: string }, File>({
       query: (image) => {
         const formData = new FormData();
@@ -47,7 +60,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           url: '/products/imageUpload',
           method: 'POST',
           body: formData,
-        }
+        };
       },
     }),
   }),
@@ -57,5 +70,6 @@ export const {
   useGetProductsQuery,
   useGetProductByIdQuery,
   useAddNewProductMutation,
-  useUploadImageMutation
+  useUpdateProductMutation,
+  useUploadImageMutation,
 } = extendedApiSlice;
