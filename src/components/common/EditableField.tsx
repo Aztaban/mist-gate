@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface EditableFieldProps {
   label: string;
@@ -19,6 +19,10 @@ const EditableField = ({
   const [isEditing, setIsEditing] = useState(false);
   const [fieldValue, setFieldValue] = useState(value);
 
+  useEffect(() => {
+    setFieldValue(value);
+  }, [value]);
+
   const handleConfirm = () => {
     onUpdate(fieldName, fieldValue);
     setIsEditing(false);
@@ -31,16 +35,18 @@ const EditableField = ({
 
   return (
     <div>
-      <label>{label}: </label>
+      <label htmlFor={fieldName}>{label}: </label>
       {isEditing ? (
         <div>
           {isMultiline ? (
             <textarea
+              id={fieldName}
               value={fieldValue as string}
               onChange={(e) => setFieldValue(e.target.value)}
             />
           ) : (
             <input
+              id={fieldName}
               type={typeof value === 'number' ? 'number' : 'text'}
               value={fieldValue}
               onChange={(e) =>
