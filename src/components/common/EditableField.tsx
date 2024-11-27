@@ -34,10 +34,10 @@ const EditableField = ({
   };
 
   return (
-    <div>
-      <label htmlFor={fieldName}>{label}: </label>
+    <>
       {isEditing ? (
         <div>
+          <label htmlFor={fieldName}>{label}: </label>
           {isMultiline ? (
             <textarea
               id={fieldName}
@@ -58,16 +58,23 @@ const EditableField = ({
               }
             />
           )}
-          <button onClick={handleConfirm}>Confirm</button>
-          <button onClick={handleCancel}>Cancel</button>
+          <button type="button" onClick={handleConfirm}>
+            Confirm
+          </button>
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
         </div>
       ) : (
         <div>
+          <p>{label}:</p>
           <p>{value}</p>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
+          <button type="button" onClick={() => setIsEditing(true)}>
+            Edit
+          </button>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
