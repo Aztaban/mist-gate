@@ -1,5 +1,11 @@
 import { apiSlice } from '../../app/api/apiSlice';
 
+export interface ProductDetails {
+  author: string;
+  releaseDate: string;
+  description: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -8,11 +14,7 @@ export interface Product {
   image: string;
   countInStock: number;
   unitsSold: number;
-  details: {
-    author: string;
-    releaseDate: string;
-    description: string;
-  };
+  details: ProductDetails | Partial<ProductDetails>
 }
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
