@@ -1,10 +1,14 @@
-import PostsBoard from "../posts/PostsBoard";
+import PostsBoard from '../posts/PostsBoard';
 
 const Home = () => {
   return (
     <>
       <section>
-        <img className="green-mist" src="src\images\front2.jpg" alt="warrior" />
+        <img
+          className="secondary-mist"
+          src="src\images\front2.jpg"
+          alt="warrior"
+        />
         <article>
           <h2>Eternal Mist</h2>
           <p>
@@ -22,7 +26,6 @@ const Home = () => {
       </section>
 
       <section>
-        
         <article>
           <h2>Innovative Mechanics, Next-Gen Graphiccs</h2>
           <p>
@@ -35,10 +38,10 @@ const Home = () => {
             legend and influence the fate of the entire world!
           </p>
         </article>
-        <img className="blue-mist" src="src\images\front.jpg" alt="first" />
+        <img className="primary-mist" src="src\images\front.jpg" alt="first" />
       </section>
 
-      <section className='news__section'>
+      <section className="news__section">
         <PostsBoard />
       </section>
     </>
