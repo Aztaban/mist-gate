@@ -1,11 +1,24 @@
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { useLogout } from '../../hooks/useLogout';
 
-const Nav = () => {
+interface NavProps {
+  isMenuOpen: boolean;
+  closeMenu: () => void;
+}
+
+const Nav = ({ isMenuOpen, closeMenu }: NavProps) => {
+  const { logout } = useLogout();
   const { isLogedIn, isAdmin } = useAuth();
 
-  const basicNav = (
-    <ul>
+  const handleMenuClick = () => {
+    if (isMenuOpen) {
+      closeMenu();
+    }
+  };
+
+  const userNavListItems = (
+    <>
       <li>
         <NavLink to="/" end>
           Home
@@ -31,21 +44,42 @@ const Nav = () => {
           <NavLink to="login">Login</NavLink>
         </li>
       )}
-    </ul>
-  )
+    </>
+  );
 
-  const adminNav = (
-    <ul>
-      <li><NavLink to="admin" end>Dashboard</NavLink></li>
-      <li><NavLink to="posts" end>News</NavLink></li>
-      <li><NavLink to="/admin/products" end>Products</NavLink></li>
-      <li><NavLink to="/admin/orders" end>Orders</NavLink></li>
-    </ul>
-  )
+  const adminNavListItems = (
+    <>
+      <li>
+        <NavLink to="admin" end>
+          Dashboard
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="posts" end>
+          News
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/products" end>
+          Products
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/admin/orders" end>
+          Orders
+        </NavLink>
+      </li>
+    </>
+  );
 
   return (
-    <nav>{isAdmin ? adminNav : basicNav}</nav>
-  )
+    <nav className={isMenuOpen ? "dropdown-menu" : "normal-menu"}>
+      <ul className={isMenuOpen ? "nav-links" : ""} onClick={handleMenuClick}>
+        {isAdmin ? adminNavListItems : userNavListItems}
+        {isMenuOpen && isLogedIn ? (<li onClick={logout}>Logout</li>) : null}
+      </ul>
+    </nav>
+  );
 };
 
 export default Nav;

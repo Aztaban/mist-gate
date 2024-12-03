@@ -1,24 +1,29 @@
+import { useState } from 'react';
 import Nav from '../nav/Nav';
 import CartButton from '../nav/CartButton';
 import LogoutButton from '../nav/LogoutButton';
 import useAuth from '../../hooks/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   const { isAdmin, isLogedIn } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const headerContent = isAdmin ? (
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const headerContent = (
     <>
-      <h1>Mist Admin</h1>
-      <Nav />
-      <LogoutButton />
-    </>
-  ) : (
-    <>
-      <h1>Mist Gate</h1>
-      <Nav />
-      <div style={{ display: 'flex', gap: '10px' }}>
-        <CartButton></CartButton>
+      <h1>{isAdmin ? 'Mist Admin' : 'Mist Gate'}</h1>
+      {isMenuOpen ? <div></div> : null}
+      <Nav isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
+      <div className='buttons-header'>
+        <CartButton />
         {isLogedIn ? <LogoutButton /> : null}
+        <button className="hamburger" onClick={toggleMenu}>
+        <FontAwesomeIcon icon={faBars} />
+        </button>
       </div>
     </>
   );
