@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, ChangeEvent, ReactElement } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { useLoginMutation } from '../../features/auth/authApiSlice';
 import { setPersistState } from '../../utils/utils';
 
@@ -14,7 +14,7 @@ const Login = (): ReactElement => {
   const navigate = useNavigate();
 
   const [login] = useLoginMutation();
-  
+
   useEffect(() => {
     if (userRef.current) userRef.current.focus();
   }, []);
@@ -29,18 +29,14 @@ const Login = (): ReactElement => {
     e.preventDefault();
     try {
       const { isAdmin } = await login({ user, pwd }).unwrap();
-      //console.log("Before persist:", persist);
       setPersistState(true);
-      //console.log("After persist:", persist);
       setUser('');
       setPwd('');
       if (isAdmin) {
-        navigate("/admin")
+        navigate('/admin');
       } else {
-        navigate("/account")
+        navigate('/account');
       }
-      
-     
     } catch (error: any) {
       if (!error.originalStatus) {
         setErrMsg('No Server Response');
@@ -58,13 +54,10 @@ const Login = (): ReactElement => {
     setUser(e.target.value);
   const handlePwdInput = (e: ChangeEvent<HTMLInputElement>) =>
     setPwd(e.target.value);
-  //const handleToggle = () => setPersist((prev: boolean) => !prev);
 
   const content = (
     <section className="login">
-      <header>
-        <h2>Login</h2>
-      </header>
+      <h2 className="news__header">Login</h2>
       <main>
         <p ref={errRef} className={errClass} aria-live="assertive">
           {errMsg}
@@ -89,22 +82,14 @@ const Login = (): ReactElement => {
             autoComplete="off"
             required
           />
-          <button className="btn save-btn">Sign In</button>
-
-          {/*           <label htmlFor="persist" className="form__persist">
-            <input
-              type="checkbox"
-              className="form__checkbox"
-              id="persist"
-              onChange={handleToggle}
-              checked={persist}
-            />
-          </label> */}
+          <button type='submit' className="btn save-btn">
+            Sign In
+          </button>
+          <button type='button' className="btn back-btn">
+            <NavLink to="/register">Register</NavLink>
+          </button>
         </form>
       </main>
-      <footer>
-        <Link to="/register">Register</Link>
-      </footer>
     </section>
   );
 

@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, FormEvent, ReactElement } from 'react';
 import { useRegisterMutation } from '../../features/auth/authApiSlice';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -55,12 +56,13 @@ const Register = (): ReactElement => {
       return;
     }
     try {
-      await registerMutation({ user, pwd });
+      await registerMutation({ user, pwd }).unwrap();
       setSuccess(true);
-    } catch (err: any) {
-      if (err.response) {
+      setErrMsg('');
+    } catch (error: any) {
+      if (!error.data) {
         setErrMsg('No Server Response');
-      } else if (err.response.status === 409) {
+      } else if (error.originalStatus === 409) {
         setErrMsg('Username Taken');
       } else {
         setErrMsg('Registration Failed');
@@ -80,9 +82,7 @@ const Register = (): ReactElement => {
         </section>
       ) : (
         <section className="login">
-          <header>
-            <h1>Register</h1>
-          </header>
+          <h2 className="news__header">Register</h2>
           <main>
             <p
               ref={errRef}
@@ -124,17 +124,6 @@ const Register = (): ReactElement => {
                 <span className={validPwd ? 'valid' : 'hide'}></span>
                 <span className={validPwd || !pwd ? 'hide' : 'invalid'}></span>
               </label>
-              <input
-                type="password"
-                id="password"
-                onChange={(e) => setPwd(e.target.value)}
-                value={pwd}
-                required
-                aria-invalid={validPwd ? 'false' : 'true'}
-                aria-describedby="pwdnote"
-                onFocus={() => setPwdFocus(true)}
-                onBlur={() => setPwdFocus(false)}
-              />
               <p
                 id="pwdnote"
                 className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}
@@ -151,6 +140,18 @@ const Register = (): ReactElement => {
                 <span aria-label="dollar sign">$</span>
                 <span aria-label="percent">% </span>
               </p>
+              <input
+                type="password"
+                id="password"
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+                required
+                autoComplete="new-password"
+                aria-invalid={validPwd ? 'false' : 'true'}
+                aria-describedby="pwdnote"
+                onFocus={() => setPwdFocus(true)}
+                onBlur={() => setPwdFocus(false)}
+              />
 
               <label htmlFor="confirmPwd">Confirm Password:</label>
               <input
@@ -159,6 +160,7 @@ const Register = (): ReactElement => {
                 onChange={(e) => setMatchPwd(e.target.value)}
                 value={matchPwd}
                 required
+                autoComplete="new-password"
                 aria-invalid={validMatch ? 'false' : 'true'}
                 aria-describedby="confirmnote"
                 onFocus={() => setMatchFocus(true)}
@@ -173,16 +175,17 @@ const Register = (): ReactElement => {
                 Must match the first input field.
               </p>
               <button
+                type="submit"
                 className="btn save-btn"
                 disabled={!validName || !validPwd || !validMatch ? true : false}
               >
                 Register
               </button>
+              <button type="button" className="btn back-btn">
+                <NavLink to="/login">Back to login</NavLink>
+              </button>
             </form>
           </main>
-          <footer>
-            <Link to="/login">Back to login</Link>
-          </footer>
         </section>
       )}
     </>
