@@ -34,6 +34,10 @@ const baseQueryWithReauth: BaseQueryFn<
   refreshResponse,
   FetchBaseQueryError
 > = async (args: any, api: BaseQueryApi, extraOptions) => {
+  if (args.url === '/auth/register' || args.url === '/auth/login') {
+    return baseQuery(args, api, extraOptions); // Proceed without token refresh
+  }
+
   let result = await baseQuery(args, api, extraOptions);
   //console.log(result);
 
