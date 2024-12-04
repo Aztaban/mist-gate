@@ -17,7 +17,7 @@ const PostsBoard = () => {
     pageContent = <p>Loading...</p>;
   } else if (isSuccess && posts) {
     pageContent = posts
-      .slice(0, 3)
+      .slice(0, 2)
       .map((post: Post) => <PostExcerpt key={post.id} post={post} />);
   } else if (isError) {
     if ('status' in error) {

@@ -32,8 +32,6 @@ const PostsList = () => {
       <SinglePost
         key={post.id}
         post={post}
-        isAdmin={isAdmin}
-        isEditor={isEditor}
       />
     ));
   } else if (isError) {
