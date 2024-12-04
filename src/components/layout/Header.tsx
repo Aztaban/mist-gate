@@ -19,7 +19,7 @@ const Header = () => {
       {isMenuOpen ? <div></div> : null}
       <Nav isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
       <div className='buttons-header'>
-        <CartButton />
+        {!isAdmin ? <CartButton /> : null}
         {isLogedIn ? <LogoutButton /> : null}
         <button className="hamburger" onClick={toggleMenu}>
         <FontAwesomeIcon icon={faBars} />
