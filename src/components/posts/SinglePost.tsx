@@ -4,15 +4,15 @@ import { useNavigate, Link } from 'react-router-dom';
 import { dateFormat } from '../../utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import useAuth from '../../hooks/useAuth';
 
 type PropsType = {
   post: Post;
-  isAdmin: boolean;
-  isEditor: boolean;
 };
 
-const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
+const SinglePost = ({ post }: PropsType) => {
   const navigate = useNavigate();
+  const { isAdmin, isEditor } = useAuth();
 
   const onEditPostClicked = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
@@ -22,10 +22,7 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
   let content = (
     <article className="post__home">
       <div className="post__header">
-        <h3>
-          <Link to={`/posts/${post.id}`}>{post.title}</Link>
-        </h3>
-
+        <h3>{post.title}</h3>
         {isEditor || isAdmin ? (
           <FontAwesomeIcon
             className="news__btn"
@@ -37,7 +34,7 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
           />
         ) : null}
       </div>
-      <p className='post__home-date'>{dateFormat(post.date)}</p>
+      <p className="post__home-date">{dateFormat(post.date)}</p>
       <p>{post.body}</p>
     </article>
   );
