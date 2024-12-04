@@ -127,19 +127,6 @@ textarea {
   animation: mistMovementBlue 5s ease-in-out infinite;
 }
 
-.center {
-  text-align: center;
-}
-
-.green {
-  color: var(--BORDER-COLOR);
-}
-
-.bold {
-  font-weight: bold;
-  text-align: left;
-}
-
 .errmsg {
   background-color: var(--ERROR-BGCOLOR);
   color: var(--ERROR-COLOR);
@@ -231,19 +218,17 @@ main.app {
 
 h1,
 h2,
-h3 {
+h3, a:any-link {
   font-family: var(--FF-HEADINGS);
   color: var(--BORDER-COLOR);
   letter-spacing: 0.1em;
-  -webkit-text-stroke: 1px var(black); /* For WebKit browsers */
-  text-shadow: var(--TEXT-SHADOW-SECONDARY); /* For other browsers */
+  -webkit-text-stroke: 1px var(--TEXT-SHADOW-SECONDARY); 
+  text-shadow: var(--TEXT-SHADOW-SECONDARY);
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   border-bottom: 1px solid var(--BORDER-COLOR);
-  border-top: 1px solid var(--BORDER-COLOR);
+  border-top: 1px solid var(--BORDER-COLOR); 
 }
 
 p {
@@ -331,7 +316,7 @@ nav a:focus-visible {
 .nav-links li {
   position: relative;
   width: 100%;
-  padding-bottom: 10px; /* Space below the text to show the line */
+  padding-bottom: 10px; 
 }
 
 .nav-links li:not(:last-child)::after {
@@ -340,13 +325,10 @@ nav a:focus-visible {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px; /* Line thickness */
+  height: 2px; 
   background: linear-gradient(to right, var(--PRIMARY-COLOR), rgba(0, 0, 0, 0)); /* Fading effect */
 }
 
-
-
-/* Hamburger Button */
 .hamburger {
   display: flex;
 }
@@ -451,7 +433,6 @@ header h1 {
 section {
   display: flex;
   flex-direction: column;
-
   align-items: center;
   padding: 1rem;
   gap: 1rem;
@@ -468,13 +449,6 @@ section:nth-of-type(even) {
 
 .news__header {
   font-size: 40px;
-}
-
-.news__section div {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  align-items: center;
 }
 
 .single-post {
@@ -505,13 +479,6 @@ section:nth-of-type(even) {
   background-color: var(--BODY-BGCOLOR);
   color: var(--BORDER-COLOR);
   border-radius: 15%;
-}
-
-section img {
-  width: 100%;
-  height: auto;
-  margin: 0;
-  border-radius: var(--BORDER-RADIUS);
 }
 
 /* || MIST */
@@ -582,22 +549,67 @@ section img {
 }
 
 /* || HOME */
+.home__section {
+  display: block;
+  padding: 2rem;
+}
+
+.home__section img {
+  display: none;
+  width: 200px;
+  height: auto;
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.home__section article {
+  overflow: visible;
+}
+
+.home__section p {
+  padding-top: 20px;
+  line-height: 1.5;
+  letter-spacing: 1.2px;
+}
+
+.image-left {
+  float: left;
+  margin-right: 1.5rem;
+  margin-left: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.image-right {
+  float: right;
+  margin-right: 1.5rem;
+  margin-left: 2rem;
+  margin-top: 5rem;
+  margin-bottom: 0.5rem;
+}
+
 .news__home {
   display: flex;
   flex-direction: row;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch;
 }
 
 .post__home {
-  background-color: var(--SECTION-BGCOLOR-LIGHT);
-  color: #000;
+  background-color: var(--PRIMARY-COLOR-LIGHT);
+  color: var(--SECUNDARY-COLOR);
+  width: 100%;
+  max-width: 500px;
   border: var(--BORDERS);
   border-radius: var(--BORDER-RADIUS);
   padding: var(--PADDING-SIDE);
 }
 
+.post__home-date {
+  font-size: smaller;
+  letter-spacing: 1.5px;
+}
 /* || NEWS */
 .edit__post {
   display: flex;
@@ -1113,18 +1125,9 @@ footer {
 /* || STYLES BY DEVICE WIDTH  */
 
 @media (min-width: 550px) {  
-  section {
-    padding: 2rem;
-    gap: 2rem;
-  }
-
   .product {
     margin-top: 20px;
     max-width: 350px;
-  }
-
-  header h1 {
-    font-size: 5vw;
   }
 }
 
@@ -1136,6 +1139,10 @@ footer {
 
   .logout__icon {
     display: flex;
+  }
+
+  .home__section img {
+    display: block;
   }
 
   .buttons-header {
@@ -1172,14 +1179,6 @@ footer {
     padding: 0px;
   }
 
-  .news__home {
-    gap: 2rem;
-  }
-
-  .post__home {
-    width: 300px;
-  }
-
   .product__page {
     flex-direction: row;
   }
@@ -1192,17 +1191,36 @@ footer {
 
 /* Tablets in landscape mode and small desktops (min-width: 992px) */
 @media (min-width: 992px) {
-  header h1 {
-    font-size: 3vw;
-  }
-
-  nav ul {
-    font-size: 2vw;
-  }
-
   .product__page img {
     width: 40%;
     margin: 100px 50px;
+  }
+
+  .home__section {
+    display: flex;
+  }
+
+  .home__section img {
+    display: flex;
+    width: 30%;
+    margin: 50px;
+    height: auto;
+  }
+
+  .post__home {
+    max-width: 290px;
+  }
+
+  .image-right {
+    float: right;
+  }
+
+  header h1 {
+    font-size: 40px;
+  }
+
+  nav ul {
+    font-size: 30px;
   }
 }
 
@@ -1216,13 +1234,5 @@ footer {
   section img {
     width: 30%;
     height: auto;
-  }
-
-  header h1 {
-    font-size: 40px;
-  }
-
-  nav ul {
-    font-size: 30px;
   }
 }

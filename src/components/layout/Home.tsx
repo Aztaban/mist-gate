@@ -3,9 +3,9 @@ import PostsBoard from '../posts/PostsBoard';
 const Home = () => {
   return (
     <>
-      <section>
+      <section className='home__section'>
         <img
-          className="secondary-mist"
+          className="secondary-mist image-left"
           src="src\images\front2.jpg"
           alt="warrior"
         />
@@ -20,12 +20,13 @@ const Home = () => {
             last hope who can prevent the ruin and chaos spreading across the
             land. With legendary weapons and ancient magic, you must travel
             through dangerous wastelands, rekindle old alliances, and face an
-            enemy that seeks the total destruction of the world.
-          </p>
+            enemy that seeks the total destruction of the world.       
+          </p>       
         </article>
       </section>
 
-      <section>
+      <section className='home__section'>
+      <img className="primary-mist image-right" src="src\images\front.jpg" alt="first" />
         <article>
           <h2>Innovative Mechanics, Next-Gen Graphiccs</h2>
           <p>
@@ -38,7 +39,7 @@ const Home = () => {
             legend and influence the fate of the entire world!
           </p>
         </article>
-        <img className="primary-mist" src="src\images\front.jpg" alt="first" />
+        
       </section>
 
       <section className="news__section">

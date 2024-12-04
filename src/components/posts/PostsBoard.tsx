@@ -1,7 +1,7 @@
 import { Post, useGetPostsQuery } from '../../features/posts/postsSlice';
 import PostExcerpt from './PostExcerpt';
 import { ReactElement } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const PostsBoard = () => {
   const {
@@ -32,7 +32,7 @@ const PostsBoard = () => {
   const content: ReactElement = (
     <>
       <h2>
-        <Link to="/posts">Mist News</Link>
+        <NavLink to="/posts">Mist News</NavLink>
       </h2>
       <div className="news__home">{pageContent}</div>
     </>
