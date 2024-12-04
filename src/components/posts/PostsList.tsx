@@ -48,11 +48,11 @@ const PostsList = () => {
 
   const content: ReactElement = (
     <section className="news__section">
-      <div>
-        <h3 className="news__header">Mist News</h3>
+      <div className="news__header">
+        <h3>Mist News</h3>
         {isAdmin || isEditor ? (
           <FontAwesomeIcon
-            className="green-btn"
+            className="news__btn"
             icon={faFolderPlus}
             onClick={onAddPostClicked}
             role="button"
@@ -60,7 +60,7 @@ const PostsList = () => {
           />
         ) : null}
       </div>
-      {pageContent}
+      <div className="news__list">{pageContent}</div>
     </section>
   );
 

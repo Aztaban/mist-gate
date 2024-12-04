@@ -171,16 +171,18 @@ textarea {
   color: var(--HEADER-COLOR);
 }
 
-.green-btn {
-  padding: 0.5rem; /* Increase the padding to make the button larger */
-  font-size: 1.5rem; /* Increase the font size for larger text */ /* Adjust height if you want a specific height */
+.news__btn {
+  padding: 0.5rem; 
+  color: var(--SECONDARY-COLOR);
+  background-color: var(--PRIMARY-COLOR-DARK);;
+  border-radius: 15%; 
 }
 
-.green-btn.active,
-.green-btn:hover,
-.green-btn:focus-visible {
-  color: var(--BODY-BGCOLOR);
-  background-color: var(--BORDER-COLOR);
+.news__btn.active,
+.news__btn:hover,
+.news__btn:focus-visible {
+  color: var(--BORDER-COLOR);
+  background-color: var(--BODY-BGCOLOR);
   border-radius: 15%;
 }
 
@@ -444,20 +446,22 @@ section:nth-of-type(even) {
 }
 
 .news__section {
+  display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .news__header {
-  font-size: 40px;
+  display: flex;
+  gap: 20px;
+  font-size: 30px;
+  align-items: center;
 }
 
-.single-post {
-  background-color: var(--SECTION-BGCOLOR-LIGHT);
-  border: var(--BORDERS);
-  border-radius: var(--BORDER-RADIUS);
-  padding: var(--PADDING-SIDE);
-  color: #000;
-  width: 100%;
+.news__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .single-post p:first-child {
@@ -587,6 +591,8 @@ section:nth-of-type(even) {
   margin-bottom: 0.5rem;
 }
 
+/* || NEWS */
+
 .news__home {
   display: flex;
   flex-direction: row;
@@ -608,9 +614,20 @@ section:nth-of-type(even) {
 
 .post__home-date {
   font-size: smaller;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
 }
-/* || NEWS */
+
+.post__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10x;
+}
+
+.post__header h3 {
+  flex-grow: 1;
+}
+
 .edit__post {
   display: flex;
   width: 100%;
@@ -1200,6 +1217,10 @@ footer {
     display: flex;
   }
 
+  .home__section:nth-child(2) {
+    flex-direction: row-reverse;
+  }
+
   .home__section img {
     display: flex;
     width: 30%;
@@ -1207,12 +1228,15 @@ footer {
     height: auto;
   }
 
-  .post__home {
-    max-width: 290px;
+  .news__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
 
   .image-right {
     float: right;
+    
   }
 
   header h1 {

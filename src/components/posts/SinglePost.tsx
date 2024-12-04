@@ -5,7 +5,6 @@ import { dateFormat } from '../../utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
-
 type PropsType = {
   post: Post;
   isAdmin: boolean;
@@ -21,13 +20,15 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
   };
 
   let content = (
-    <article className="single-post green-mist">
-      <p>{dateFormat(post.date)}</p>
-      <div>
-        <h3><Link to={`/posts/${post.id}`}>{post.title}</Link></h3>
+    <article className="post__home">
+      <div className="post__header">
+        <h3>
+          <Link to={`/posts/${post.id}`}>{post.title}</Link>
+        </h3>
+
         {isEditor || isAdmin ? (
           <FontAwesomeIcon
-            className='news__link'
+            className="news__btn"
             icon={faPenToSquare}
             onClick={onEditPostClicked}
             role="button"
@@ -36,7 +37,7 @@ const SinglePost = ({ post, isAdmin, isEditor }: PropsType) => {
           />
         ) : null}
       </div>
-
+      <p className='post__home-date'>{dateFormat(post.date)}</p>
       <p>{post.body}</p>
     </article>
   );
