@@ -8,7 +8,6 @@ import Account from './components/auth/Account';
 import PostsList from './components/posts/PostsList';
 import AddPostForm from './components/posts/AddPostForm';
 import EditPostForm from './components/posts/EditPostForm';
-import SinglePostPage from './components/posts/SinglePostPage';
 import SingleProductPage from './components/shop/SingleProductPage';
 import Cart from './components/checkout/Cart';
 import ShippingAndAddress from './components/checkout/ShippingAndAddress';
@@ -36,7 +35,6 @@ function App() {
           <Route path="posts">
             <Route index element={<PostsList />} />
             <Route path="newPost" element={<AddPostForm />} />
-            <Route path=":postId" element={<SinglePostPage />} />
             <Route path="edit/:postId" element={<EditPostForm />} />
           </Route>
 
