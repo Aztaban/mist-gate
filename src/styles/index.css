@@ -1161,6 +1161,10 @@ footer {
     display: none;
   }
 
+  .normal-menu {
+    display: flex;
+  }
+
   .logout__icon {
     display: flex;
   }

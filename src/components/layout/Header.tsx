@@ -12,7 +12,6 @@ const Header = () => {
   const menuRef = useRef<HTMLElement>(null);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
-  const closeMenu = () => setIsMenuOpen(false);
 
   const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
     if (
