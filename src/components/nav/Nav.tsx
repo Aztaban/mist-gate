@@ -77,7 +77,7 @@ const Nav = forwardRef<HTMLElement, NavProps>(({ isMenuOpen, closeMenu }, ref) =
     <nav ref={ref} className={isMenuOpen ? "dropdown-menu" : "normal-menu"}>
       <ul className={isMenuOpen ? "nav-links" : ""} onClick={handleMenuClick}>
         {isAdmin ? adminNavListItems : userNavListItems}
-        {isMenuOpen && isLogedIn ? (<li onClick={logout}>Logout</li>) : null}
+        {isMenuOpen && isLogedIn ? (<li className='black-and-gold-text' onClick={logout}>Logout</li>) : null}
       </ul>
     </nav>
   );

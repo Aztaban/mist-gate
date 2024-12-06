@@ -1,4 +1,5 @@
 import { ReactElement, memo } from 'react';
+import { useState } from 'react';
 import { dateFormat, eurFormat } from '../../utils/utils';
 import { RootState } from '../../app/store';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,13 +8,14 @@ import { Product } from '../../features/shop/productApiSlice';
 
 const SingleProduct = ({ product }: { product: Product }): ReactElement => {
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
   // Check if the product is already in the cart
   const inCart = useSelector((state: RootState) =>
     state.cart.cart.some((item) => item.product === product.id)
   );
   // Handle adding to cart
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
     dispatch(
       addToCart({
         product: product.id,
@@ -25,26 +27,37 @@ const SingleProduct = ({ product }: { product: Product }): ReactElement => {
   };
 
   const imgSrc = new URL(`../../images/${product.image}`, import.meta.url).href;
+  const countInStock = product.countInStock;
 
   const content = (
-    <article className="product">
-      <h3>
-        <a href={`shop/product/${product.id}`}>{product.name}</a>
-      </h3>
-      <img src={imgSrc} alt={product.name} className="product__img" />
-      <p className="product-description">{product.details.description}</p>
-      <div className="product-details">
-        <p className="bold">Author:</p>
-        <p className="green text-right">{product.details.author}</p>
-        <p className="bold">Release Date:</p>
-        <p className="green text-right">
-          {dateFormat(product.details.releaseDate ?? '')}
-        </p>
-      </div>
+    <article
+      className={isHovered ? 'secondary-mist product' : 'product'}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <a className="product-anchor" href={`shop/product/${product.id}`}>
+        <h3>{product.name}</h3>
+        <img src={imgSrc} alt={product.name} className="product__img" />
+        <p className="product-description">{product.details.description}</p>
+        <div className="product-details">
+          <p>Author:</p>
+          <p>{product.details.author}</p>
+          <p>Release Date:</p>
+          <p>{dateFormat(product.details.releaseDate ?? '')}</p>
+          <p>Items In Stock:</p>
+          <p>
+            {countInStock > 5
+              ? '5+'
+              : countInStock < 1
+              ? 'Out of stock'
+              : countInStock}
+          </p>
+        </div>
+      </a>
       <div className="product-cart">
-        <p className="green product-price">{eurFormat(product.price)}</p>
+        <p className="product-price">{eurFormat(product.price)}</p>
         {inCart ? (
-          <button className='btn back-btn'>Item in Cart</button>
+          <button className="btn back-btn">Item in Cart</button>
         ) : (
           <button className="btn save-btn" onClick={handleAddToCart}>
             Add to Cart

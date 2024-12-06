@@ -45,8 +45,8 @@ textarea {
   --PRIMARY-COLOR: rgb(224, 216, 169);
   --PRIMARY-COLOR-LIGHT: rgb(231, 228, 210);
   --SECONDARY-COLOR-DARK: rgb(0, 0, 0);
-  --SECONDARY-COLOR: rgb(36, 33, 33);
-  --SECONDARY-COLOR-LIGHT: rgba(82, 53, 17, 0.5);
+  --SECONDARY-COLOR: rgb(27, 25, 23);
+  --SECONDARY-COLOR-LIGHT: rgb(139, 119, 83);
   --ERROR-BGCOLOR: lightpink;
   --ERROR-COLOR: firebrick;
 
@@ -55,8 +55,8 @@ textarea {
   --PRIMARY-COLOR-MIST: rgba(224, 216, 169, 0.25);
   --PRIMARY-COLOR-LIGHT-MIST: rgba(231, 228, 210, 0.15);
   --SECONDARY-COLOR-DARK-MIST: rgba(0, 0, 0, 0.8);
-  --SECONDARY-COLOR-MIST: rgba(36, 33, 33, 0.45);
-  --SECONDARY-COLOR-LIGHT-MIST: rgba(165, 157, 141, 0.35);
+  --SECONDARY-COLOR-MIST: rgba(27, 25, 23, 0.45);
+  --SECONDARY-COLOR-LIGHT-MIST: rgba(112, 109, 104, 0.35);
 
   /* COLORS */
   --FONT-COLOR: var(--SECONDARY-COLOR-DARK);
@@ -69,6 +69,9 @@ textarea {
   --TEXT-SHADOW-SECONDARY: -1px -1px 0 var(--SECONDARY-COLOR),
     1px -1px 0 var(--SECONDARY-COLOR), -1px 1px 0 var(--SECONDARY-COLOR),
     1px 1px 0 var(--SECONDARY-COLOR);
+  --TEXT-SHADOW-PRIMARY: -1px -1px 0 var(--PRIMARY-COLOR-DARK),
+    1px -1px 0 var(--PRIMARY-COLOR-DARK), -1px 1px 0 var(--PRIMARY-COLOR-DARK),
+    1px 1px 0 var(--PRIMARY-COLOR-DARK);
   --SECTION-BGCOLOR-LIGHT: rgba(26, 24, 24, 1);
   --SECTION-BGCOLOR: rgba(255, 255, 255, 0.8);
 
@@ -105,10 +108,14 @@ textarea {
   left: -10000px;
 }
 
+.black-and-gold-text {
+  text-shadow: var(--TEXT-SHADOW-PRIMARY);
+}
+
 .secondary-mist {
   border-radius: 20px;
   border: 1px solid var(--SECONDARY-COLOR);
-  box-shadow: var(--SECONDARY-MIST);
+  box-shadow: var(--SECONDARY-MIST-LIGHT);
   animation: secondaryMistMovement 5s ease-in-out infinite;
 }
 
@@ -151,6 +158,7 @@ textarea {
   align-self: center;
   font-family: var(--FF-HEADINGS);
   letter-spacing: 1px;
+  cursor: pointer;
 }
 
 .save-btn {
@@ -217,13 +225,10 @@ main.app {
 
 h1,
 h2,
-h3, a:any-link {
+h3 {
   font-family: var(--FF-HEADINGS);
   color: var(--PRIMARY-COLOR-DARK);
   letter-spacing: 0.1em;
-}
-
-h1, h2, h3 {
   border-bottom: 1px solid var(--BORDER-COLOR);
   border-top: 1px solid var(--BORDER-COLOR); 
   -webkit-text-stroke: 1px var(--TEXT-SHADOW-SECONDARY); 
@@ -442,8 +447,8 @@ section {
 }
 
 section:nth-of-type(even) {
-  background-color: var(--SECTION-BGCOLOR-LIGHT);
-  color: var(--SECTION-BGCOLOR);
+  background-color: var(--SECONDARY-COLOR);
+  color: var(--PRIMARY-COLOR-LIGHT);
 }
 
 .news__section {
@@ -661,27 +666,38 @@ section:nth-of-type(even) {
 
 /* || SHOP */
 .main__products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
   flex-grow: 1;
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 .product {
-  flex: 1 1 300px;
-  max-width: 400px;
   font-size: 16px;
-  background-color: var(--SECONDARY-COLOR-LIGHT);
+  background-color: var(--PRIMARY-COLOR-LIGHT);
   color: var(--SECTION-BGCOLOR-LIGHT);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  border: var(--BORDERS-SECONDARY);
+  border: var(--BORDERS-PRIMARY);
   border-radius: var(--BORDER-RADIUS);
-  padding: 20px;
-  margin: 20px;
-  
+  padding: 0px 20px;
+  transition: transform 0.3s ease;
+}
+
+.product:hover {
+  transform: scale(1.05);
+}
+
+.product-anchor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--SECONDARY-COLOR-DARK);
 }
 
 .product img {
@@ -691,15 +707,18 @@ section:nth-of-type(even) {
   object-fit: cover;
   margin: 20px;
   border: var(--BORDERS-SECONDARY);
+  text-decoration: none;
 }
 
-.product a {
+.product h3 {
+  background-color: var(--SECONDARY-COLOR-LIGHT);
+  width: calc(100% + 40px);
   letter-spacing: 0.1em;
   font-size: xx-large;
-}
-
-.product a:hover {
-  color: var(--PRIMARY-COLOR-LIGHT);
+  text-align: center;
+  margin: -0px 0px 0px 0px;
+  padding: 10px 0;
+  box-sizing: border-box;
 }
 
 .product p,
@@ -728,8 +747,13 @@ section:nth-of-type(even) {
   border-top: var(--BORDERS-PRIMARY);
 }
 
+.product-details p:nth-child(even){
+  font-weight: bold;
+}
+
 .product-description {
   padding: 10px;
+  flex-grow: 1;
   border-top: var(--BORDERS-PRIMARY);
 }
 
@@ -1115,8 +1139,12 @@ footer {
 
 @media (min-width: 550px) {  
   .product {
-    margin-top: 20px;
-    max-width: 350px;
+    padding: 20px;
+  }
+
+  .main__products {
+    padding: 20px;
+    gap: 20px;
   }
 }
 
