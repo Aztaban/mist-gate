@@ -28,24 +28,28 @@ const SingleProduct = ({ product }: { product: Product }): ReactElement => {
 
   const content = (
     <article className="product">
-      <a href={`shop/product/${product.id}`}>{product.name}</a>
-      <img
-        src={imgSrc}
-        alt={product.name}
-        className="product__img green-mist"
-      />
-      <p className='product-description'>{product.details.description}</p>
-      <div className='product-details'>
-        <p className='bold'>Author:</p>
-        <p className='green text-right'>{product.details.author}</p>
-        <p className='bold'>Release Date:</p>
-        <p className='green text-right'>{dateFormat(product.details.releaseDate)}</p>
-      </div>
-      <div className='product-cart'>
-        <p className='green product-price'>
-          {eurFormat(product.price)}
+      <h3>
+        <a href={`shop/product/${product.id}`}>{product.name}</a>
+      </h3>
+      <img src={imgSrc} alt={product.name} className="product__img" />
+      <p className="product-description">{product.details.description}</p>
+      <div className="product-details">
+        <p className="bold">Author:</p>
+        <p className="green text-right">{product.details.author}</p>
+        <p className="bold">Release Date:</p>
+        <p className="green text-right">
+          {dateFormat(product.details.releaseDate ?? '')}
         </p>
-        <button className='btn save-btn' onClick={handleAddToCart}>Add to Cart</button>
+      </div>
+      <div className="product-cart">
+        <p className="green product-price">{eurFormat(product.price)}</p>
+        {inCart ? (
+          <button className='btn back-btn'>Item in Cart</button>
+        ) : (
+          <button className="btn save-btn" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        )}
       </div>
     </article>
   );
