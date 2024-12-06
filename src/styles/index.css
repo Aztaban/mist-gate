@@ -273,6 +273,10 @@ nav a:focus-visible {
   text-shadow: var(--TEXT-SHADOW-SECONDARY);
 }
 
+.normal-menu {
+  display: none;
+}
+
 .normal-menu a.active,
 .normal-menu a:focus-visible {
   border-bottom: 1px solid var(--BORDER-COLOR);
@@ -290,13 +294,13 @@ nav a:focus-visible {
   flex-direction: column;
   background-color: var(--SECONDARY-COLOR);
   top: 100%;
-  right: 0px;
+  left: 0px;
   padding: 5px;
   overflow: hidden;
   border: var(--BORDERS);
-  border-top-left-radius: var(--BORDER-RADIUS);
-  border-bottom-left-radius: var(--BORDER-RADIUS);
-  width: 70%;
+  border-top-right-radius: var(--BORDER-RADIUS);
+  border-bottom-right-radius: var(--BORDER-RADIUS);
+  width: 50%;
 }
 
 .dropdown-menu a:focus-visible {
@@ -366,7 +370,7 @@ header {
   background-color: var(--HEADER-BGCOLOR);
   padding: var(--PADDING-TB) var(--PADDING-SIDE);
   display: flex;
-  justify-content:space-around;
+  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
 }

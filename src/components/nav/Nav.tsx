@@ -1,13 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useLogout } from '../../hooks/useLogout';
+import { forwardRef } from 'react';
 
 interface NavProps {
   isMenuOpen: boolean;
   closeMenu: () => void;
 }
 
-const Nav = ({ isMenuOpen, closeMenu }: NavProps) => {
+const Nav = forwardRef<HTMLElement, NavProps>(({ isMenuOpen, closeMenu }, ref) => {
   const { logout } = useLogout();
   const { isLogedIn, isAdmin } = useAuth();
 
@@ -73,13 +74,13 @@ const Nav = ({ isMenuOpen, closeMenu }: NavProps) => {
   );
 
   return (
-    <nav className={isMenuOpen ? "dropdown-menu" : "normal-menu"}>
+    <nav ref={ref} className={isMenuOpen ? "dropdown-menu" : "normal-menu"}>
       <ul className={isMenuOpen ? "nav-links" : ""} onClick={handleMenuClick}>
         {isAdmin ? adminNavListItems : userNavListItems}
         {isMenuOpen && isLogedIn ? (<li onClick={logout}>Logout</li>) : null}
       </ul>
     </nav>
   );
-};
+});
 
 export default Nav;

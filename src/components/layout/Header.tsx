@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Nav from '../nav/Nav';
 import CartButton from '../nav/CartButton';
 import LogoutButton from '../nav/LogoutButton';
@@ -9,21 +9,45 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 const Header = () => {
   const { isAdmin, isLogedIn } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLElement>(null);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
+    if (
+      menuRef.current &&
+      !menuRef.current.contains(event.target as Node)
+    ) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleOutsideClick);
+      document.addEventListener('touchstart', handleOutsideClick);
+    } else {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+      document.removeEventListener('touchstart', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
+
   const headerContent = (
     <>
+      <button className="hamburger" onClick={toggleMenu}>
+        <FontAwesomeIcon icon={faBars} />
+      </button>
       <h1>{isAdmin ? 'Mist Admin' : 'Mist Gate'}</h1>
-      {isMenuOpen ? <div></div> : null}
-      <Nav isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
-      <div className='buttons-header'>
+        <Nav isMenuOpen={isMenuOpen} closeMenu={() => setIsMenuOpen(false)} ref={menuRef} />
+      <div className="buttons-header">
         {!isAdmin ? <CartButton /> : null}
         {isLogedIn ? <LogoutButton /> : null}
-        <button className="hamburger" onClick={toggleMenu}>
-        <FontAwesomeIcon icon={faBars} />
-        </button>
       </div>
     </>
   );
