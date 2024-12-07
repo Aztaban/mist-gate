@@ -1,18 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
-import { dateFormat, eurFormat } from '../../utils/utils';
-import { RootState } from '../../app/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../features/cart/cartSlice';
+import { dateFormat } from '../../utils/utils';
+import ProductCart from './ProductCart';
+import ProductDetails from './ProductDetails';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
-  const dispatch = useDispatch();
-
-  const inCart = useSelector((state: RootState) =>
-    state.cart.cart.some((item) => item.product === productId)
-  );
-
   const {
     data: product,
     isLoading,
@@ -33,40 +26,22 @@ const SingleProductPage = () => {
   }
 
   if (isSuccess) {
-
-    const onAddToCart = () => {
-      dispatch(
-        addToCart({
-          product: product.id,
-          name: product.name,
-          price: product.price,
-          quantity: 1,
-        })
-      );
-    };
-
     const img: string = new URL(
       `../../images/${product.image}`,
       import.meta.url
     ).href;
 
-    const itemInCart = inCart ? ' → Item in Cart: ✔️' : null;
-
     content = (
       <article className="product__page">
-        <img src={img} alt={product.name} />
+        <img src={img} alt={product.name}/>
 
-        <div>
+        <div className="product__page-div">
           <h2>{product.name}</h2>
-          <p>{product.details.description}</p>
-          <p>Author: {product.details.author}</p>
-          <p>Release Date: {dateFormat(product.details.releaseDate)}</p>
-          <div>
-            <p>{eurFormat(product.price)}{itemInCart}</p>
-            <button onClick={onAddToCart}>Add to Cart</button>
-          </div>
+          <ProductDetails product={product} />
+          <ProductCart product={product} />
         </div>
       </article>
+      
     );
   }
 
