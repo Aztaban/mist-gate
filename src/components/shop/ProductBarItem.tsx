@@ -10,8 +10,10 @@ const ProductBarItem = ({ product }: ProductBarItemProps) => {
     .href;
   return (
     <div className="product-bar-item">
-      <img src={img} alt={product.name} />
-      <h2><a href={`../product/${product.id}`}>{product.name}</a></h2>
+      <a href={`../product/${product.id}`}>
+        <img src={img} alt={product.name} />
+        <h2>{product.name}</h2>
+      </a>
       <ProductCart isCart={false} product={product} />
     </div>
   );

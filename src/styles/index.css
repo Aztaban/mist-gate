@@ -833,6 +833,10 @@ section:nth-of-type(even) {
   box-sizing: border-box;
 }
 
+.product-bar-item:hover {
+  transform: scale(1.1);
+}
+
 .product-bar-item img {
   display: inline;
   max-width: 100%;
