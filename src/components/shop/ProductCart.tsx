@@ -1,0 +1,43 @@
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../features/cart/cartSlice';
+import { RootState } from '../../app/store';
+import { useSelector } from 'react-redux';
+import { Product } from '../../features/shop/productApiSlice';
+import { eurFormat } from '../../utils/utils';
+
+interface ProductCartProps {
+  product: Product;
+}
+
+const ProductCart = ({ product }: ProductCartProps) => {
+  const dispatch = useDispatch();
+  // Check if the product is already in the cart
+  const inCart = useSelector((state: RootState) =>
+    state.cart.cart.some((item) => item.product === product.id)
+  );
+  const handleAddToCart = () => {
+    dispatch(
+      addToCart({
+        product: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+      })
+    );
+  };
+
+  return (
+    <div className="product-cart">
+      <p className="product-price">{eurFormat(product.price)}</p>
+      {inCart ? (
+        <button className="btn back-btn">Item in Cart</button>
+      ) : (
+        <button className="btn save-btn" onClick={handleAddToCart}>
+          Add to Cart
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default ProductCart;
