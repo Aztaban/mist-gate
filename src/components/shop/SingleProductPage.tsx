@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
-import { dateFormat } from '../../utils/utils';
 import ProductCart from './ProductCart';
 import ProductDetails from './ProductDetails';
+import ProductBar from './ProductBar';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
@@ -31,17 +31,18 @@ const SingleProductPage = () => {
       import.meta.url
     ).href;
 
-    content = (
+    content = (<>
       <article className="product__page">
         <img src={img} alt={product.name}/>
 
         <div className="product__page-div">
           <h2>{product.name}</h2>
           <ProductDetails product={product} />
-          <ProductCart product={product} />
+          <ProductCart isCart={true} product={product} />
         </div>
       </article>
-      
+    <ProductBar productId={product.id} />
+    </>
     );
   }
 

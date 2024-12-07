@@ -20,7 +20,7 @@ const SingleProduct = ({ product }: { product: Product }): ReactElement => {
         <ProductDetails product={product} />
       </a>
       
-      <ProductCart product={product} />
+      <ProductCart isCart={true} product={product} />
     </article>
   );
   return content;

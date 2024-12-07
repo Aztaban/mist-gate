@@ -7,9 +7,10 @@ import { eurFormat } from '../../utils/utils';
 
 interface ProductCartProps {
   product: Product;
+  isCart: boolean;
 }
 
-const ProductCart = ({ product }: ProductCartProps) => {
+const ProductCart = ({ product, isCart }: ProductCartProps) => {
   const dispatch = useDispatch();
   // Check if the product is already in the cart
   const inCart = useSelector((state: RootState) =>
@@ -27,7 +28,7 @@ const ProductCart = ({ product }: ProductCartProps) => {
   };
 
   return (
-    <div className="product-cart">
+    <div className={isCart ? "product-cart" : "product-bar-cart"}>
       <p className="product-price">{eurFormat(product.price)}</p>
       {inCart ? (
         <button className="btn back-btn">Item in Cart</button>
