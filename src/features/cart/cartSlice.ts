@@ -88,5 +88,6 @@ export const { addToCart, removeFromCart, updateQuantity, clearCart, setShipping
 export const selectCartItems = (state: RootState) => state.cart.cart;
 export const selectShippingAddress = (state: RootState) => state.cart.shippingAddress;
 export const selectShippingMethod = (state: RootState) => state.cart.shippingMethod;
+export const selectCartState = (state: RootState) => state.cart;
 
 export default cartSlice.reducer;

@@ -9,10 +9,7 @@ import PostsList from './components/posts/PostsList';
 import AddPostForm from './components/posts/AddPostForm';
 import EditPostForm from './components/posts/EditPostForm';
 import SingleProductPage from './components/shop/SingleProductPage';
-import Cart from './components/checkout/Cart';
-import ShippingAndAddress from './components/checkout/ShippingAndAddress';
 import Payment from './components/checkout/Payment';
-import OrderSummary from './components/checkout/OrderSummary';
 import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
@@ -23,6 +20,7 @@ import SingleOrderPage from './components/orders/SingleOrderPage';
 import CreateProduct from './components/admin/products/CreateProduct';
 import { ROLES } from './config/roles';
 import EditProduct from './components/admin/products/EditProduct';
+import Checkout from './components/checkout/Checkout';
 
 function App() {
   const content = (
@@ -42,11 +40,9 @@ function App() {
             <Route index element={<Shop />} />
             <Route path="product/:productId" element={<SingleProductPage />} />
             <Route path="checkout">
-              <Route path="cart" element={<Cart />} />
+              <Route path="cart" element={<Checkout />} />
               <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="shipping" element={<ShippingAndAddress />} />
-              <Route path="payment" element={<Payment />} />
-              <Route path="summary" element={<OrderSummary />} />
+              <Route path="payment" element={<Payment />} />           
               </Route>
             </Route>
           </Route>
