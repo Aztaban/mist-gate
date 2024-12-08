@@ -1,14 +1,11 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import { useSelector } from 'react-redux';
-import { selectCartState } from '../../features/cart/cartSlice';
 import Cart from './Cart';
 import { useNavigate } from 'react-router-dom';
 
 const Checkout = () => {
   const navigate = useNavigate();
   const { isLogedIn } = useAuth();
-  const cartState = useSelector(selectCartState);
   const [step, setStep] = useState<number>(1);
 
   const handleNext = () => {
@@ -21,18 +18,30 @@ const Checkout = () => {
   };
 
   return (
-    <article>
-      <h2>Checkout</h2>
-      <div>
-        {step === 1 && <Cart products={cartState.cart} />}
-        {step === 2 && <p>Shipping Address</p>}
-        {step === 3 && <p>Order Confirmation</p>}
-      </div>
-      <div>
-        <button onClick={handlePrevious} disabled={step === 1}>
+    <article className="checkout">
+      <h2>
+        {step}.{step === 1 && ' Cart'}
+        {step === 2 && ' Address and Shipping'}
+        {step === 3 && ' Order Summary'}
+      </h2>
+
+      {step === 1 && <Cart />}
+      {step === 2 && <p>Shipping Address</p>}
+      {step === 3 && <p>Order Confirmation</p>}
+
+      <div className="checkout-buttons">
+        <button
+          className="btn save-btn"
+          onClick={handlePrevious}
+          disabled={step === 1}
+        >
           Back
         </button>
-        <button onClick={handleNext} disabled={step === 3}>
+        <button
+          className="btn back-btn"
+          onClick={handleNext}
+          disabled={step === 3}
+        >
           Next
         </button>
       </div>
