@@ -1,9 +1,10 @@
-import { ChangeEvent, ReactElement, memo } from 'react';
+import { ReactElement, memo } from 'react';
 import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
 import { eurFormat } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../features/cart/cartSlice';
 import { CartItem } from '../../features/cart/cartSlice';
+import QuantityInput from '../common/QuantityInput';
 
 const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
   const dispatch = useDispatch();
@@ -11,63 +12,41 @@ const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
 
   const img: string = new URL(`../../images/${product?.image}`, import.meta.url)
     .href;
-  const lineTotal: number = item.quantity * item.price;
-  const highestQty: number = 10;
-  const optionValues: number[] = [...Array(highestQty).keys()].map(
-    (i) => i + 1
-  );
-  const options: ReactElement[] = optionValues.map((val) => {
-    return (
-      <option key={`opt${val}`} value={val}>
-        {val}
-      </option>
-    );
-  });
 
-  const onChangeQty = (e: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(updateQuantity({ product: item.product, quantity: Number(e.target.value) }));
-  };
-
-  const onRemoveFromCart = () => {
-    dispatch(removeFromCart({ product: item.product }));
+  const handleUpdateQuantity = (newQuantity: number) => {
+    if (newQuantity < 1) {
+      if (
+        window.confirm(
+          'Are you sure you want to remove this item from the cart?'
+        )
+      ) {
+        dispatch(removeFromCart({ product: item.product }));
+      } else {
+        updateQuantity({ product: item.product, quantity: 1 });
+      }
+    } else {
+      dispatch(
+        updateQuantity({ product: item.product, quantity: newQuantity })
+      );
+    }
   };
 
   const content = (
     <li className="cart__item">
-      <img src={img} alt={item.name} className="cart__img" />
-      <div className="cart__item--box">
-        <div className="cart__item--top">
-          <div aria-label="Item Name">{item.name}</div>
-          <div aria-label="Price Per Item">{eurFormat(item.price)}</div>
-
-        </div>
-        <div className="cart__item--bot">
-          <label htmlFor="itemQty">Item Quantity</label>
-          <select
-            name="itemQty"
-            id="itemQty"
-            className="cart__select"
-            value={item.quantity}
-            aria-label="Item Quantity"
-            onChange={onChangeQty}
-          >
-            {options}
-          </select>
-          <p>Total price:</p>
-          <div className="cart__item-subtotal" aria-label="Line Item Subtotal">
-            {eurFormat(lineTotal)}
-          </div>
-        </div>
-        
+      <div className="cart__item-top">
+        <img src={img} alt={item.name} />
+        <a href={`/shop/product/${item.product}`}> {item.name} </a>
       </div>
-      <button
-            className="cart__item--del-btn"
-            aria-label="Remove Item From Cart"
-            title="Remove Item From Cart"
-            onClick={onRemoveFromCart}
-          >
-            X
-          </button>
+      <div className="cart__item-bottom">
+        <QuantityInput
+          quantity={item.quantity}
+          onUpdate={handleUpdateQuantity}
+        />
+        {item.quantity > 1 ? <p>{eurFormat(item.price)} / pc</p> : null}
+        <p aria-label="Line Item Subtotal">
+          {eurFormat(item.quantity * item.price)}
+        </p>
+      </div>
     </li>
   );
 
