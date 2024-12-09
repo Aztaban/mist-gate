@@ -1,10 +1,8 @@
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { ReactElement } from 'react';
 import CartLineItem from './CartLineItem';
 import {  selectCartItems } from '../../features/cart/cartSlice';
 import { eurFormat, countTaxFree } from '../../utils/utils';
-
 
 const Cart = (): ReactElement => {
   const products = useSelector(selectCartItems);

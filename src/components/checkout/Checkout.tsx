@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import Cart from './Cart';
 import { useNavigate } from 'react-router-dom';
+import Cart from './Cart';
+import ShippingAndAddress from './ShippingAndAddress';
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Checkout = () => {
       </h2>
 
       {step === 1 && <Cart />}
-      {step === 2 && <p>Shipping Address</p>}
+      {step === 2 && <ShippingAndAddress />}
       {step === 3 && <p>Order Confirmation</p>}
 
       <div className="checkout-buttons">

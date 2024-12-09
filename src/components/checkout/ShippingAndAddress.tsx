@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import {
-  ShippingAddress,
-  CreateOrder,
-  OrderItem,
-} from '../../features/shop/ordersApiSlice';
+import { ShippingAddress } from '../../features/shop/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../config/shippingConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -14,17 +9,8 @@ import {
   selectShippingMethod,
 } from '../../features/cart/cartSlice';
 
-interface LocationState {
-  products: OrderItem[];
-  itemsPrice: number;
-}
-
 const ShippingAndAddress = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { products, itemsPrice }: LocationState = location.state;
-
   // Get current state from Redux
   const currentAddress = useSelector(selectShippingAddress);
   const currentMethod = useSelector(selectShippingMethod);
@@ -47,124 +33,90 @@ const ShippingAndAddress = () => {
       ...prevAddress,
       [name]: value,
     }));
+    console.log(shippingAddress);
+  };
+
+  const handleBlur = () => {
+    dispatch(updateShippingAddress(shippingAddress));
   };
 
   const handleShippingMethodChange = (
     e: React.ChangeEvent<HTMLSelectElement>
   ) => {
-    setShippingMethod(e.target.value as ShippingMethod);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    dispatch(updateShippingAddress(shippingAddress));
-    dispatch(updateShippingMethod(shippingMethod));
-
-    try {
-      //create order
-      const order: CreateOrder = {
-        products,
-        shippingAddress,
-        shippingMethod,
-        itemsPrice: Number(itemsPrice.toFixed(2)),
-        shippingPrice: calculateShippingPrice(shippingMethod),
-      };
-
-      navigate('/shop/checkout/summary', {
-        state: order,
-      });
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error('Error saving shipping details:', err.message);
-      }
-    }
-  };
-
-  const calculateShippingPrice = (method: ShippingMethod): number => {
-    return ShippingPrices[method] || 0;
+    const selectedMethod = e.target.value as ShippingMethod;
+    setShippingMethod(selectedMethod);
+    dispatch(updateShippingMethod(selectedMethod));
   };
 
   return (
     <article className="shipping">
-      <h2 className="orders-header">Shipping & Address</h2>
-      <main>
-        <form onSubmit={handleSubmit} className="address">
-          <label htmlFor="address">Address:</label>
-          <input
-            type="text"
-            id="address"
-            name="address"
-            value={shippingAddress.address}
-            onChange={handleChange}
-            autoComplete="on"
-            required
-          />
+      <form className="address">
+        <label htmlFor="address">Address:</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value={shippingAddress.address}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          autoComplete="on"
+          required
+        />
 
-          <label htmlFor="city">City:</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            value={shippingAddress.city}
-            onChange={handleChange}
-            autoComplete="on"
-            required
-          />
+        <label htmlFor="city">City:</label>
+        <input
+          type="text"
+          id="city"
+          name="city"
+          value={shippingAddress.city}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          autoComplete="on"
+          required
+        />
 
-          <label htmlFor="postalCode">Postal Code:</label>
-          <input
-            type="text"
-            id="postalCode"
-            name="postalCode"
-            value={shippingAddress.postalCode}
-            onChange={handleChange}
-            autoComplete="on"
-            required
-          />
+        <label htmlFor="postalCode">Postal Code:</label>
+        <input
+          type="text"
+          id="postalCode"
+          name="postalCode"
+          value={shippingAddress.postalCode}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          autoComplete="on"
+          required
+        />
 
-          <label htmlFor="country">Country:</label>
-          <input
-            type="text"
-            id="country"
-            name="country"
-            value={shippingAddress.country}
-            onChange={handleChange}
-            autoComplete="on"
-            required
-          />
+        <label htmlFor="country">Country:</label>
+        <input
+          type="text"
+          id="country"
+          name="country"
+          value={shippingAddress.country}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          autoComplete="on"
+          required
+        />
 
-          <label htmlFor="shippingMethod">Shipping Method:</label>
-          <select
-            id="shippingMethod"
-            value={shippingMethod}
-            onChange={handleShippingMethodChange}
-            required
-          >
-            <option value={ShippingMethod.Standard as ShippingMethod}>
-              Standard Shipping (€{ShippingPrices[ShippingMethod.Standard]})
-            </option>
-            <option value={ShippingMethod.Express as ShippingMethod}>
-              Express Shipping (€{ShippingPrices[ShippingMethod.Express]})
-            </option>
-            <option value={ShippingMethod.Overnight as ShippingMethod}>
-              Overnight Shipping (€{ShippingPrices[ShippingMethod.Overnight]})
-            </option>
-          </select>
-          <div className="buttons-box">
-            <button
-              type="button"
-              className="btn back-btn"
-              onClick={() => navigate('/shop/checkout/cart')}
-            >
-              Back to Cart
-            </button>
-            <button type="submit" className="btn save-btn">
-              Order Summary
-            </button>
-          </div>
-        </form>
-      </main>
+        <label htmlFor="shippingMethod">Shipping Method:</label>
+        <select
+          id="shippingMethod"
+          value={shippingMethod}
+          onChange={handleShippingMethodChange}
+          required
+        >
+          <option value={ShippingMethod.Standard as ShippingMethod}>
+            Standard Shipping (€{ShippingPrices[ShippingMethod.Standard]})
+          </option>
+          <option value={ShippingMethod.Express as ShippingMethod}>
+            Express Shipping (€{ShippingPrices[ShippingMethod.Express]})
+          </option>
+          <option value={ShippingMethod.Overnight as ShippingMethod}>
+            Overnight Shipping (€{ShippingPrices[ShippingMethod.Overnight]})
+          </option>
+        </select>
+      </form>
     </article>
   );
 };
