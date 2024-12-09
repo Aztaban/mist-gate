@@ -1,3 +1,9 @@
+import { ShippingMethod, ShippingPrices } from "../config/shippingConfig";
+
+export const calculateShippingPrice = (method: ShippingMethod): number => {
+  return ShippingPrices[method] || 0;
+};
+
 export function countTaxFree(value: number): number {
   return value / 1.21;
 }
