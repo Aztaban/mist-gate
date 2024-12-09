@@ -3,10 +3,10 @@ import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
 import { eurFormat } from '../../utils/utils';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../features/cart/cartSlice';
-import { CartItem } from '../../features/cart/cartSlice';
+import { OrderItem } from '../../features/shop/ordersApiSlice';
 import QuantityInput from '../common/QuantityInput';
 
-const CartLineItem = ({ item }: { item: CartItem }): ReactElement => {
+const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
   const dispatch = useDispatch();
   const { data: product } = useGetProductByIdQuery(item.product || '');
 
