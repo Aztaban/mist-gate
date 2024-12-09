@@ -1,13 +1,11 @@
-import { ShippingAddress } from "../../features/shop/ordersApiSlice"
+import { ShippingAddress } from '../../features/shop/ordersApiSlice';
 
-interface AddressProps  {
+interface AddressProps {
   address: ShippingAddress;
 }
 
-const Address = ({ address} :AddressProps) => {
+const Address = ({ address }: AddressProps) => {
   return (
-    <div>
-    <h3>Address</h3>
     <div className="order-field">
       <p>Address:</p>
       <p>{address.address}</p>
@@ -18,8 +16,7 @@ const Address = ({ address} :AddressProps) => {
       <p>Country: </p>
       <p>{address.country}</p>
     </div>
-  </div>
-  )
-}
+  );
+};
 
-export default Address
+export default Address;

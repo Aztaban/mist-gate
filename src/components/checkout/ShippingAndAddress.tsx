@@ -15,6 +15,7 @@ const ShippingAndAddress = () => {
   const currentAddress = useSelector(selectShippingAddress);
   const currentMethod = useSelector(selectShippingMethod);
 
+  const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(
     currentMethod || ShippingMethod.Standard
   );
@@ -33,11 +34,22 @@ const ShippingAndAddress = () => {
       ...prevAddress,
       [name]: value,
     }));
-    console.log(shippingAddress);
   };
 
-  const handleBlur = () => {
+  const validateAddress = () => {
+    const errors: Record<string, boolean> = {};
+    let isValid = true;
+
     dispatch(updateShippingAddress(shippingAddress));
+
+    Object.entries(shippingAddress).forEach(([key, value]) => {
+      if (value.trim() === '') {
+        errors[key] = true;
+        isValid = false;
+      }
+    });
+
+    setFieldErrors(errors);
   };
 
   const handleShippingMethodChange = (
@@ -58,11 +70,11 @@ const ShippingAndAddress = () => {
           name="address"
           value={shippingAddress.address}
           onChange={handleChange}
-          onBlur={handleBlur}
+          onBlur={validateAddress}
           autoComplete="on"
           required
         />
-
+        {fieldErrors.address && <p className="errmsg">Address is required.</p>}
         <label htmlFor="city">City:</label>
         <input
           type="text"
@@ -70,11 +82,11 @@ const ShippingAndAddress = () => {
           name="city"
           value={shippingAddress.city}
           onChange={handleChange}
-          onBlur={handleBlur}
+          onBlur={validateAddress}
           autoComplete="on"
           required
         />
-
+        {fieldErrors.city && <p className="errmsg">City is required.</p>}
         <label htmlFor="postalCode">Postal Code:</label>
         <input
           type="text"
@@ -82,11 +94,13 @@ const ShippingAndAddress = () => {
           name="postalCode"
           value={shippingAddress.postalCode}
           onChange={handleChange}
-          onBlur={handleBlur}
+          onBlur={validateAddress}
           autoComplete="on"
           required
         />
-
+        {fieldErrors.postalCode && (
+          <p className="errmsg">Postal Code is required.</p>
+        )}
         <label htmlFor="country">Country:</label>
         <input
           type="text"
@@ -94,11 +108,12 @@ const ShippingAndAddress = () => {
           name="country"
           value={shippingAddress.country}
           onChange={handleChange}
-          onBlur={handleBlur}
+          onBlur={validateAddress}
           autoComplete="on"
           required
         />
 
+        {fieldErrors.country && <p className="errmsg">Country is required.</p>}
         <label htmlFor="shippingMethod">Shipping Method:</label>
         <select
           id="shippingMethod"
