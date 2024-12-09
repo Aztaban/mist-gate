@@ -1,19 +1,37 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { ShippingAddress } from '../shop/ordersApiSlice';
+import { CreateOrder, ShippingAddress } from '../shop/ordersApiSlice';
 import { ShippingMethod } from '../../config/shippingConfig';
-
-export type CartItem = {
-  product: string;
-  name: string;
-  price: number;
-  quantity: number;
-};
+import { OrderItem } from '../shop/ordersApiSlice';
+import { calculateShippingPrice } from '../../utils/utils';
 
 type CartState = {
-  cart: CartItem[];
+  cart: OrderItem[];
   shippingAddress: ShippingAddress | null;
-  shippingMethod: ShippingMethod | null;
+  shippingMethod: ShippingMethod;
+};
+
+const createOrder = (state: RootState): CreateOrder | null => {
+  const cart = state.cart.cart;
+  const shippingAddress = state.cart.shippingAddress;
+  const shippingMethod = state.cart.shippingMethod;
+  const shippingPrice = calculateShippingPrice(shippingMethod);
+
+  const itemsPrice = parseFloat(
+    cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)
+  );
+
+  if (!shippingAddress ||!shippingAddress?.address || !shippingAddress?.city || !shippingAddress?.country || !shippingAddress?.postalCode) {
+    return null;
+  }
+
+  return {
+    products: cart,
+    shippingAddress,
+    shippingMethod,
+    itemsPrice,
+    shippingPrice,
+  };
 };
 
 // Utility function to update localStorage
@@ -25,14 +43,14 @@ const savedCartState = JSON.parse(localStorage.getItem('cart') || '{}');
 const initialState: CartState = {
   cart: savedCartState.cart || [],
   shippingAddress: savedCartState.shippingAddress || null,
-  shippingMethod: savedCartState.shippingMethod || null,
+  shippingMethod: savedCartState.shippingMethod || ShippingMethod.Standard,
 };
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart(state, action: PayloadAction<CartItem>) {
+    addToCart(state, action: PayloadAction<OrderItem>) {
       const newItem = action.payload;
       const existingItem = state.cart.find(
         (item) => item.product === newItem.product
@@ -67,7 +85,7 @@ const cartSlice = createSlice({
     clearCart(state) {
       state.cart = [];
       state.shippingAddress = null;
-      state.shippingMethod = null;
+      state.shippingMethod = ShippingMethod.Standard;
       // Clear the cart in localStorage
       localStorage.removeItem('cart');
     },
@@ -82,12 +100,22 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart, updateQuantity, clearCart, setShippingAddress, setShippingMethod } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+  setShippingAddress,
+  setShippingMethod,
+} = cartSlice.actions;
 
 export const selectCartItems = (state: RootState) => state.cart.cart;
-export const selectShippingAddress = (state: RootState) => state.cart.shippingAddress;
-export const selectShippingMethod = (state: RootState) => state.cart.shippingMethod;
+export const selectShippingAddress = (state: RootState) =>
+  state.cart.shippingAddress;
+export const selectShippingMethod = (state: RootState) =>
+  state.cart.shippingMethod;
 export const selectCartState = (state: RootState) => state.cart;
+export const selectCreateOrder = (state: RootState): CreateOrder | null =>
+  createOrder(state);
 
 export default cartSlice.reducer;
