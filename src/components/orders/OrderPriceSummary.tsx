@@ -12,7 +12,7 @@ const OrderPriceSummary = ({
   totalPrice,
 }: OrderPriceSummaryProps) => {
   return (
-    <div className="order-field">
+    <div className="cart-summary">
       <p>Items Price:</p>
       <p>{eurFormat(itemsPrice)}</p>
       <p>Shipping Price:</p>

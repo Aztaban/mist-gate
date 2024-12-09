@@ -162,6 +162,12 @@ textarea {
   cursor: pointer;
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+  color: var(--SECONDARY-COLOR-LIGHT);
+}
+
 .save-btn {
   background-color: var(--PRIMARY-COLOR);
   border-color: var(--SECONDARY-COLOR);
@@ -219,11 +225,6 @@ textarea {
   border-radius: 50%;
   width: 30px;
   height: 30px;
-}
-
-.quantity-button:disabled {
-  cursor: not-allowed;
-  background-color: #e0e0e0;
 }
 
 .quantity-input {
