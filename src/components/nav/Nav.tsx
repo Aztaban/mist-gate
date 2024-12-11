@@ -10,7 +10,7 @@ interface NavProps {
 
 const Nav = forwardRef<HTMLElement, NavProps>(({ isMenuOpen, closeMenu }, ref) => {
   const { logout } = useLogout();
-  const { isLogedIn, isAdmin } = useAuth();
+  const { isLogedIn, isAdmin, username } = useAuth();
 
   const handleMenuClick = () => {
     if (isMenuOpen) {
@@ -37,7 +37,7 @@ const Nav = forwardRef<HTMLElement, NavProps>(({ isMenuOpen, closeMenu }, ref) =
       {isLogedIn ? (
         <li>
           <NavLink to={isAdmin ? 'admin' : 'account'}>
-            {isAdmin ? 'Admin' : 'Account'}
+            {username}
           </NavLink>
         </li>
       ) : (
