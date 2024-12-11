@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShippingAddress } from '../../features/shop/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../config/shippingConfig';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,11 +7,16 @@ import {
   setShippingMethod as updateShippingMethod,
   selectShippingAddress,
   selectShippingMethod,
-} from '../../features/cart/cartSlice';
+} from '../../features/checkout/checkoutSlice';
+import { validateAddress } from '../../hooks/useValidateOrder';
 
-const ShippingAndAddress = () => {
+interface ShippingAndAddressProps {
+  validateFields: boolean;
+  setValidateFields: (isValid: boolean) => void;
+}
+
+const ShippingAndAddress = ({ validateFields, setValidateFields }: ShippingAndAddressProps) => {
   const dispatch = useDispatch();
-  // Get current state from Redux
   const currentAddress = useSelector(selectShippingAddress);
   const currentMethod = useSelector(selectShippingMethod);
 
@@ -36,21 +41,22 @@ const ShippingAndAddress = () => {
     }));
   };
 
-  const validateAddress = () => {
-    const errors: Record<string, boolean> = {};
-    let isValid = true;
-
-    dispatch(updateShippingAddress(shippingAddress));
-
-    Object.entries(shippingAddress).forEach(([key, value]) => {
-      if (value.trim() === '') {
-        errors[key] = true;
-        isValid = false;
-      }
-    });
-
-    setFieldErrors(errors);
+  const handleBlur = () => {
+    validateAddressFields();
   };
+
+  const validateAddressFields = () => {
+    const errors: Record<string, boolean> = validateAddress(shippingAddress);
+    setFieldErrors(errors);
+    dispatch(updateShippingAddress(shippingAddress));
+  };
+
+ useEffect(() => {
+  if (validateFields) {
+    validateAddressFields();
+    setValidateFields(false);
+  }
+ }, [validateFields, setValidateFields])
 
   const handleShippingMethodChange = (
     e: React.ChangeEvent<HTMLSelectElement>
@@ -70,7 +76,7 @@ const ShippingAndAddress = () => {
           name="address"
           value={shippingAddress.address}
           onChange={handleChange}
-          onBlur={validateAddress}
+          onBlur={handleBlur}
           autoComplete="on"
           required
         />
@@ -82,7 +88,7 @@ const ShippingAndAddress = () => {
           name="city"
           value={shippingAddress.city}
           onChange={handleChange}
-          onBlur={validateAddress}
+          onBlur={handleBlur}
           autoComplete="on"
           required
         />
@@ -94,7 +100,7 @@ const ShippingAndAddress = () => {
           name="postalCode"
           value={shippingAddress.postalCode}
           onChange={handleChange}
-          onBlur={validateAddress}
+          onBlur={handleBlur}
           autoComplete="on"
           required
         />
@@ -108,7 +114,7 @@ const ShippingAndAddress = () => {
           name="country"
           value={shippingAddress.country}
           onChange={handleChange}
-          onBlur={validateAddress}
+          onBlur={handleBlur}
           autoComplete="on"
           required
         />
