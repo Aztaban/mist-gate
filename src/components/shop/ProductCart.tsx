@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../features/cart/cartSlice';
+import { addToCart } from '../../features/checkout/checkoutSlice';
 import { RootState } from '../../app/store';
 import { useSelector } from 'react-redux';
 import { Product } from '../../features/shop/productApiSlice';
@@ -14,7 +14,7 @@ const ProductCart = ({ product, isCart }: ProductCartProps) => {
   const dispatch = useDispatch();
   // Check if the product is already in the cart
   const inCart = useSelector((state: RootState) =>
-    state.cart.cart.some((item) => item.product === product.id)
+    state.checkout.products.some((item) => item.product === product.id)
   );
   const handleAddToCart = () => {
     dispatch(

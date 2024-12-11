@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { selectCartItems } from '../../features/cart/cartSlice';
+import { selectCartItems } from '../../features/checkout/checkoutSlice';
 
 const CartButton = () => {
   const cartItems = useSelector(selectCartItems);
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <Link to="/shop/checkout/cart" className="cart__link">
+    <Link to="/checkout" className="cart__link">
       <span className="cart__btn" data-count={totalQuantity}>
         <FontAwesomeIcon icon={faShoppingCart} />
       </span>

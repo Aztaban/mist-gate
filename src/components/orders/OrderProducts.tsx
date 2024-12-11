@@ -10,8 +10,6 @@ const OrderProducts = ({ products }: OrderProductsProps) => {
   const totalQuantity = products.reduce((total, product) => total + product.quantity, 0);
   const totalPrice = products.reduce((total, product) => total + product.price * product.quantity, 0);
 
-  console.log(products)
-
   return (
     <div className="order-products">
       <div className="order-products-header">

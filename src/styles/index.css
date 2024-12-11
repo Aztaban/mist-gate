@@ -675,7 +675,7 @@ section:nth-of-type(even) {
   background-color: var(--PRIMARY-COLOR-LIGHT);
   color: var(--SECUNDARY-COLOR);
   width: 100%;
-  max-width: 500px;
+  
   border: var(--BORDERS-PRIMARY);
   border-radius: var(--BORDER-RADIUS);
   padding: var(--PADDING-SIDE);

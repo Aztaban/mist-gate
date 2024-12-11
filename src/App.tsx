@@ -39,11 +39,12 @@ function App() {
           <Route path="shop">
             <Route index element={<Shop />} />
             <Route path="product/:productId" element={<SingleProductPage />} />
-            <Route path="checkout">
-              <Route path="cart" element={<Checkout />} />
-              <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="payment" element={<Payment />} />           
-              </Route>
+          </Route>
+
+          <Route path="checkout">
+            <Route index element={<Checkout />} />
+            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
+              <Route path="payment/:orderId" element={<Payment />} />
             </Route>
           </Route>
 
@@ -60,10 +61,10 @@ function App() {
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
             <Route path="admin">
               <Route index element={<AdminDashboard />} />
-              <Route path="products" >
+              <Route path="products">
                 <Route index element={<AdminProductsPage />} />
                 <Route path="product" element={<CreateProduct />} />
-                <Route path="edit/:productId" element={<EditProduct />}/>
+                <Route path="edit/:productId" element={<EditProduct />} />
               </Route>
               <Route path="orders" element={<AdminOrdersPage />} />
             </Route>
