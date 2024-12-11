@@ -1,4 +1,23 @@
-import { ShippingMethod, ShippingPrices } from "../config/shippingConfig";
+import { ShippingMethod, ShippingPrices } from '../config/shippingConfig';
+import { OrderItem } from '../features/shop/ordersApiSlice';
+
+export const calculateOrderPrices = (
+  products: OrderItem[],
+  shipping: ShippingMethod
+) => {
+  const itemsPrices = calculateItemsPrice(products);
+  const shippingPrice = calculateShippingPrice(shipping);
+
+  return { itemsPrices, shippingPrice };
+};
+
+export const calculateItemsPrice = (cart: OrderItem[]): number => {
+  return parseFloat(
+    cart
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2)
+  );
+};
 
 export const calculateShippingPrice = (method: ShippingMethod): number => {
   return ShippingPrices[method] || 0;
@@ -21,7 +40,9 @@ export function eurFormat(value: number): string {
     style: 'currency',
     currency: 'EUR',
     currencyDisplay: 'code',
-  }).format(value).replace('EUR', '€ ');;
+  })
+    .format(value)
+    .replace('EUR', '€ ');
 }
 
 export const setPersistState = (value: boolean) => {
