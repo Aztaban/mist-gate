@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
 import { ReactElement } from 'react';
 import CartLineItem from './CartLineItem';
-import {  selectCartItems } from '../../features/cart/cartSlice';
+import { selectCartItems } from '../../features/checkout/checkoutSlice';
 import { eurFormat, countTaxFree } from '../../utils/utils';
+import { NavLink } from 'react-router-dom';
 
 const Cart = (): ReactElement => {
   const products = useSelector(selectCartItems);
@@ -29,10 +30,15 @@ const Cart = (): ReactElement => {
             <p>{eurFormat(countTaxFree(itemsPrice))}</p>
             <label>Total Price: </label>
             <p>{eurFormat(itemsPrice)}</p>
-          </div> 
+          </div>
         </>
       ) : (
-        <p>No Items in cart</p>
+        <>
+          <p>No Items in cart</p>
+          <p>
+            Visit our <NavLink to='/shop'>SHOP</NavLink>
+          </p>
+        </>
       )}
     </>
   );
