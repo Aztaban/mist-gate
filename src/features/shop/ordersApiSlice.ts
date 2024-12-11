@@ -18,10 +18,8 @@ export type OrderItem = {
 
 export type CreateOrder = {
   products: OrderItem[];
-  shippingAddress: ShippingAddress;
+  shippingAddress: ShippingAddress | null;
   shippingMethod: ShippingMethod;
-  itemsPrice: number;
-  shippingPrice: number;
 };
 
 export interface Order {
