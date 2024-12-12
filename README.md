@@ -1,30 +1,62 @@
-# React + TypeScript + Vite
+# Mist Gate
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Mist Gate is a secure e-shop created to practice and showcase my skills.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* [Features](#features)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributing](#contributing)
+* [License](#license)
+* [TODO](#todo)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* Secure login functionality
+* Product cart
+* Order management (except payment currently)
+* Responsive design for all screen sizes
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
+To set up the project locally, follow these steps:
+
+1. Clone the repository: `git clone https://github.com/your-username/mist-gate.git`
+2. Navigate to the project directory: `cd mist-gate`
+3. Install the dependencies: `npm install`
+4. Set up the backend server by cloning the separate repository: `git clone https://github.com/Aztaban/mist-server.git`
+5. Follow the installation instructions in the `mist-server` repository to set up the backend server.
+6. Update the `baseUrl` in `src/api/apiSlice.ts` to point to your local backend server, for example:
+```diff
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:3500', // Update this to your local backend server URL
+  credentials: 'include',
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.token;
+
+    if (token) {
+      headers.set('authorization', `Bearer ${token}`);
+    }
+    return headers;
   },
-}
-```
+});
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Usage
+
+Once the development server is running, you can access the e-shop at `http://localhost:3000`. You can log in using the provided credentials or create a new account.
+
+## Contributing
+
+Contributions are not currently accepted. This project is for showcasing my skills and is owned by me.
+
+## License
+
+The code for this project is currently not licensed. I plan to keep the code open source, but I haven't decided on a specific license yet. I recommend using a permissive license such as the MIT License or the Apache License 2.0.
+
+## TODO
+
+* Add payment functionality
+* Improve user interface design
+* Implement search functionality
+* Add more products and categories
