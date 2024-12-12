@@ -6,13 +6,13 @@ interface AddressProps {
 
 const Address = ({ address }: AddressProps) => {
   return (
-    <div className="order-field">
+    <div className="cart-summary">
       <p>Address:</p>
       <p>{address.address}</p>
-      <p>City, postal code:</p>
-      <p>
-        {address.city}, {address.postalCode}
-      </p>
+      <p>City:</p>
+      <p>{address.city}</p>
+      <p>Postal code: </p>
+      <p>{address.postalCode}</p>
       <p>Country: </p>
       <p>{address.country}</p>
     </div>

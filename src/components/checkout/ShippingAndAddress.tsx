@@ -67,7 +67,7 @@ const ShippingAndAddress = ({ validateFields, setValidateFields }: ShippingAndAd
   };
 
   return (
-    <article className="shipping">
+    <article className="checkout checkout-spaced">
       <form className="address">
         <label htmlFor="address">Address:</label>
         <input

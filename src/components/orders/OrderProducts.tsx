@@ -12,22 +12,22 @@ const OrderProducts = ({ products }: OrderProductsProps) => {
 
   return (
     <div className="order-products">
-      <div className="order-products-header">
+      <div className="order-product-layout order-products-header">
         <span>Product</span>
-        <span>Quantity</span>
-        <span>Unit Price</span>
-        <span>Total Price</span>
+        <span className='text-center'>Quantity</span>
+        <span className='hidden-ss-flex text-right'>Unit Price</span>
+        <span className='text-right'>Total Price</span>
       </div>
       <ul className="order-products-list">
         {products.map((product) => (
           <OrderProductLineItem key={product.product} product={product} />
         ))}
       </ul>
-      <div className="order-products-footer">
+      <div className="order-product-layout order-products-footer">
         <span>Total</span>
-        <span>{totalQuantity}</span>
-        <span></span>
-        <span>{eurFormat(totalPrice)}</span>
+        <span className='text-center'>{totalQuantity}</span>
+        <span className='hidden-ss-flex text-right'></span>
+        <span className='text-right'>{eurFormat(totalPrice)}</span>
       </div>
     </div>
   );

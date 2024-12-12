@@ -8,10 +8,11 @@ const OrderConfirmation = ({ orderId} : OrderConfirmationProps) => {
   if (!orderId) return <p>Loading...</p>
   
   return (
-    <div>
+    <article className="checkout checkout-spaced">
       <p>Your order has been successfully created!</p>
-      <NavLink to={`/order/${orderId}`}>View Order</NavLink>View Order
-    </div>
+      <NavLink to={`/order/${orderId}`}>View Order</NavLink>
+      <NavLink to={`/checkout/payment/${orderId}`}>Go to Payment</NavLink>
+    </article>
   )
 }
 

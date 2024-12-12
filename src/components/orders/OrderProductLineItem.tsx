@@ -8,11 +8,11 @@ interface OrderProductLineItemProps {
 
 const OrderProductLineItem = ({ product }: OrderProductLineItemProps) => {
   return (
-    <li className='order-product-line-item'>
+    <li className='order-product-layout order-product-line-item'>
       <span><NavLink to={`/shop/product/${product.product}`}>{product.name}</NavLink></span>
-      <span>{product.quantity}</span>
-      <span>{eurFormat(product.price)}</span>
-      <span>{eurFormat(product.price * product.quantity)}</span>
+      <span className='text-center'>{product.quantity}</span>
+      <span className='hidden-ss-flex text-right'>{eurFormat(product.price)}</span>
+      <span className='text-right'>{eurFormat(product.price * product.quantity)}</span>
     </li>
   )
 }
