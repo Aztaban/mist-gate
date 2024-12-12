@@ -1,6 +1,6 @@
 # Mist Gate
 
-Mist Gate is a secure e-shop created to practice and showcase my skills.
+Mist Gate is a secure e-commerce application created to practice and showcase my skills.
 
 ## Table of Contents
 
