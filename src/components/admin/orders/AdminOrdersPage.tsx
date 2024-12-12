@@ -79,7 +79,7 @@ const AdminOrdersPage = () => {
 
   return (
     <article className="order">
-      <h2 className="orders-header">Admin Orders</h2>
+      <h2 className="header-wraper">Admin Orders</h2>
       <div>
         <input
           type="text"

@@ -26,8 +26,8 @@ const AdminProductsPage = () => {
   }
 
   return (
-    <article className="order">
-      <h2 className='orders-header'>Admin Products</h2>
+    <article className="">
+      <h2 className='header-wraper'>Admin Products</h2>
       <button><NavLink to={"/admin/products/product"}>Create Product</NavLink></button>
       {pageContent}
     </article>

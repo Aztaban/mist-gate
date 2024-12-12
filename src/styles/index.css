@@ -1047,46 +1047,18 @@ section:nth-of-type(even) {
 }
 
 /* || ORDERS */
-.account,
-.order {
+.account {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
 
-.order main,
-.account main {
-  width: 90%;
-  max-width: 1024px;
-  color: var(--SECTION-BGCOLOR-LIGHT);
-  background-color: var(--HEADER-BGCOLOR);
-  padding: 20px;
-  border-radius: var(--BORDER-RADIUS);
-  border: var(--BORDERS-PRIMARY);
-}
-
-.order h3,
-.account h3 {
-  padding: 10px;
-}
-
-.orders-header {
+.header-wraper {
   background-color: transparent;
   gap: 1rem;
   margin: 30px;
   padding: 10px;
-}
-
-.order-field {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  padding: 10px;
-}
-
-.order-field p:nth-child(even) {
-  color: var(--BORDER-COLOR);
 }
 
 .order-product-layout {

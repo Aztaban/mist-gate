@@ -19,7 +19,7 @@ const AdminDashboard = () => {
 
   return (
     <article className="account">
-      <h2 className="orders-header">Admin Dashboard</h2>
+      <h2 className="header-wraper">Admin Dashboard</h2>
       <ul>
         {orders.map((order) => (
           <li key={order.id}>
