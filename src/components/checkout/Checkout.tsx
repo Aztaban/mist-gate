@@ -51,7 +51,7 @@ const Checkout = () => {
       setValidateAddress(true);
       return;
     }
-    if (step === 3 && orderData) {
+/*     if (step === 3 && orderData) {
       try {
         const result = await addNewOrderMutation(orderData).unwrap();
         console.log(result);
@@ -61,7 +61,7 @@ const Checkout = () => {
         console.log('Order failed to create!');
         return;
       }
-    }
+    } */
     if (step === 4 && orderId) {
       navigate(`/checkout/payment/${orderId}`);
     }
@@ -75,7 +75,7 @@ const Checkout = () => {
   const currentStep = steps[step - 1];
 
   return (
-    <article className="checkout">
+    <article className="checkout-main">
       <h2>
         {step}. {currentStep.title}
       </h2>

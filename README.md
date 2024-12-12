@@ -25,7 +25,7 @@ To set up the project locally, follow these steps:
 1. Clone the repository: `git clone https://github.com/your-username/mist-gate.git`
 2. Navigate to the project directory: `cd mist-gate`
 3. Install the dependencies: `npm install`
-4. Set up the backend server by cloning the separate repository: `git clone https://github.com/Aztaban/mist-server.git`
+4. Set up the backend server by cloning the separate repository: https://github.com/Aztaban/mist-server.git
 5. Follow the installation instructions in the `mist-server` repository to set up the backend server.
 6. Update the `baseUrl` in `src/api/apiSlice.ts` to point to your local backend server, for example:
 ```diff
