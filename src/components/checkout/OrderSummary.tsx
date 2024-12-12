@@ -1,4 +1,7 @@
-import { CreateOrder, ShippingAddress } from '../../features/shop/ordersApiSlice';
+import {
+  CreateOrder,
+  ShippingAddress,
+} from '../../features/shop/ordersApiSlice';
 import OrderProducts from '../orders/OrderProducts';
 import Address from '../orders/Address';
 import OrderPriceSummary from '../orders/OrderPriceSummary';
@@ -9,18 +12,23 @@ interface OrderSummaryProps {
 }
 
 const OrderSummary = ({ order }: OrderSummaryProps) => {
-  const { itemsPrices, shippingPrice } = calculateOrderPrices( order.products, order.shippingMethod)
+  const { itemsPrice, shippingPrice } = calculateOrderPrices(
+    order.products,
+    order.shippingMethod
+  );
 
   return (
     <>
-      <article className="order-summary">
-        <Address address={order.shippingAddress as ShippingAddress} />
+      <article className="checkout">
         <OrderProducts products={order.products} />
-        <OrderPriceSummary
-          itemsPrice={itemsPrices}
-          shippingPrice={shippingPrice}
-          totalPrice={itemsPrices + shippingPrice}
-        />
+        <div className="cart-bottom">
+          <Address address={order.shippingAddress as ShippingAddress} />
+
+          <OrderPriceSummary
+            itemsPrice={itemsPrice}
+            shippingPrice={shippingPrice}
+          />
+        </div>
       </article>
     </>
   );

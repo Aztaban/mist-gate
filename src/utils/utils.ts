@@ -5,10 +5,10 @@ export const calculateOrderPrices = (
   products: OrderItem[],
   shipping: ShippingMethod
 ) => {
-  const itemsPrices = calculateItemsPrice(products);
+  const itemsPrice = calculateItemsPrice(products);
   const shippingPrice = calculateShippingPrice(shipping);
 
-  return { itemsPrices, shippingPrice };
+  return { itemsPrice, shippingPrice };
 };
 
 export const calculateItemsPrice = (cart: OrderItem[]): number => {
