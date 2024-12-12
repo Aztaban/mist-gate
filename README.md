@@ -41,6 +41,10 @@ const baseQuery = fetchBaseQuery({
     return headers;
   },
 });
+```
+7. Start the development server: `npm start`
+
+Note: Please replace `http://localhost:3500` with the actual URL of your local backend server. Also, keep in mind that the `mist-server` repository is currently private, so you may need to update the link once it becomes public.
 
 ## Usage
 
