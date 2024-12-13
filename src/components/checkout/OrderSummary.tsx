@@ -19,7 +19,7 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
 
   return (
     <>
-      <article className="checkout">
+      <article className="checkout checkout-spaced">
         <OrderProducts products={order.products} />
         <div className="cart-bottom">
           <Address address={order.shippingAddress as ShippingAddress} />

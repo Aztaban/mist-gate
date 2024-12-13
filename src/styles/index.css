@@ -926,6 +926,8 @@ section:nth-of-type(even) {
   width: 100%;
 }
 
+
+
 .checkout-main h2 {
   padding: 20px;
   border-bottom: var(--BORDERS-SECONDARY);
@@ -950,7 +952,7 @@ section:nth-of-type(even) {
 
 .checkout-spaced {
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .cart {
@@ -996,7 +998,6 @@ section:nth-of-type(even) {
 .cart__item {
   display: flex;
   flex-direction: column;
-  border-bottom: var(--BORDERS-SECONDARY);
   width: 100%;
 }
 
@@ -1047,13 +1048,6 @@ section:nth-of-type(even) {
 }
 
 /* || ORDERS */
-.account {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-
 .header-wraper {
   background-color: transparent;
   gap: 1rem;
@@ -1106,9 +1100,10 @@ section:nth-of-type(even) {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr 1fr;
   gap: 10px;
-  padding: 8px 0;
+  padding: 10px;
   align-items: center;
   border-bottom: var(--BORDERS-PRIMARY);
+  justify-items: center;
 }
 
 .admin-order-line-item,
@@ -1123,22 +1118,26 @@ section:nth-of-type(even) {
 
 .order-line-header {
   font-weight: bold;
+  background-color: var(--PRIMARY-COLOR);
 }
 
-.order-price {
-  color: var(--BORDER-COLOR);
-  text-align: right;
+.order-line-item {
+  background-color: var(--PRIMARY-COLOR-LIGHT);
+}
+
+.order-line-item  .text-right {
+  justify-self: flex-end;
 }
 
 .order-status {
   font-style: italic;
 }
 
-.order-status.paid {
+.green-color {
   color: green;
 }
 
-.order-status.not-paid {
+.red-color {
   color: red;
 }
 

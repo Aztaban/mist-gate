@@ -20,7 +20,7 @@ const Cart = (): ReactElement => {
   const pageContent = (
     <>
       {products.length ? (
-        <div className="checkout checkout">
+        <div className="checkout checkout-spaced">
           <ul className="cart">
             {products.map((item) => {
               return <CartLineItem key={item.product} item={item} />;

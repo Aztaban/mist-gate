@@ -12,12 +12,8 @@ const OrderLineItem = ({ order }: OrderLineItemProps): ReactElement => {
     <li className="order-line-item">
       <span>{new Date(order.created_at).toLocaleDateString()}</span>
       <NavLink to={`/order/${order.id}`}>{order.orderNo}</NavLink>
-
-      <span className={`order-status ${order.paidAt ? 'paid' : 'not-paid'}`}>
-        {order.paidAt ? 'Paid' : 'Not Paid'}
-      </span>
-
-      <span className="order-price">{eurFormat(order.totalPrice)}</span>
+      <span className="green-color">{eurFormat(order.totalPrice)}</span>
+      <span>{order.status.toUpperCase()}</span>
     </li>
   );
 };
