@@ -60,7 +60,9 @@ The code for this project is currently not licensed. I plan to keep the code ope
 
 ## TODO
 
-* Add payment functionality
+* Add payment form
+* Improve payment functionality with api handlers.
+* Improve user with email, name, surname, save card, save address, prime user
 * Improve user interface design
 * Implement search functionality
 * Add more products and categories
