@@ -9,11 +9,11 @@ const OrdersList = () => {
 
   return (
     <ul className="checkout">
-      <li className="order-line-header">
-        <span>Date</span>
+      <li className="order-line-header order-line-item">
         <span>Order Number</span>
+        <span>Date</span>
         <span className="text-right">Price</span>
-        <span>Status</span>
+        <span className="hidden-ss-flex">Status</span>
       </li>
       {data && data.length > 0 ? (
         data.map((order) => <OrderLineItem key={order.id} order={order} />)

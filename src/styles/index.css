@@ -1095,19 +1095,18 @@ section:nth-of-type(even) {
   border-radius: var(--BORDER-RADIUS);
 }
 
-.order-line-item,
-.order-line-header {
+.order-line-item {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
   padding: 10px;
   align-items: center;
   border-bottom: var(--BORDERS-PRIMARY);
   justify-items: center;
+  background-color: var(--PRIMARY-COLOR-LIGHT);
 }
 
-.admin-order-line-item,
-.admin-order-line-header {
+.admin-order-line-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
@@ -1234,6 +1233,11 @@ footer {
 
   .order-product-layout {
     grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+
+  .order-line-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
 
