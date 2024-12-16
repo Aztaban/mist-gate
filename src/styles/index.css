@@ -955,11 +955,17 @@ section:nth-of-type(even) {
   justify-content: space-between;
 }
 
+.checkout-spaced-se {
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 .cart {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  padding: 10px;
 }
 
 .cart-bottom {
