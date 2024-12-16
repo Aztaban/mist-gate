@@ -4,10 +4,10 @@ import CartLineItem from './CartLineItem';
 import {
   selectCartItems,
   selectShippingMethod,
-} from '../../features/checkout/checkoutSlice';
-import { calculateOrderPrices } from '../../utils/utils';
+} from '../../../features/checkout/checkoutSlice';
+import { calculateOrderPrices } from '../../../utils/utils';
 import { NavLink } from 'react-router-dom';
-import OrderPriceSummary from '../orders/OrderPriceSummary';
+import OrderPriceSummary from '../../orders/OrderPriceSummary';
 
 const Cart = (): ReactElement => {
   const products = useSelector(selectCartItems);

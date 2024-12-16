@@ -1,11 +1,11 @@
 import {
   CreateOrder,
   ShippingAddress,
-} from '../../features/shop/ordersApiSlice';
-import OrderProducts from '../orders/OrderProducts';
-import Address from '../orders/Address';
-import OrderPriceSummary from '../orders/OrderPriceSummary';
-import { calculateOrderPrices } from '../../utils/utils';
+} from '../../../features/shop/ordersApiSlice';
+import OrderProducts from '../../orders/OrderProducts';
+import Address from '../../orders/Address';
+import OrderPriceSummary from '../../orders/OrderPriceSummary';
+import { calculateOrderPrices } from '../../../utils/utils';
 
 interface OrderSummaryProps {
   order: CreateOrder;

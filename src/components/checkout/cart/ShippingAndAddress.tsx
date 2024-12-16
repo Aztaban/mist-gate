@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { ShippingAddress } from '../../features/shop/ordersApiSlice';
-import { ShippingMethod, ShippingPrices } from '../../config/shippingConfig';
+import { ShippingAddress } from '../../../features/shop/ordersApiSlice';
+import { ShippingMethod, ShippingPrices } from '../../../config/shippingConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setShippingAddress as updateShippingAddress,
   setShippingMethod as updateShippingMethod,
   selectShippingAddress,
   selectShippingMethod,
-} from '../../features/checkout/checkoutSlice';
-import { validateAddress } from '../../hooks/useValidateOrder';
+} from '../../../features/checkout/checkoutSlice';
+import { validateAddress } from '../../../hooks/useValidateOrder';
 
 interface ShippingAndAddressProps {
   validateFields: boolean;

@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
-import Cart from './Cart';
-import ShippingAndAddress from './ShippingAndAddress';
-import OrderSummary from './OrderSummary';
-import OrderConfirmation from './OrderConfirmation';
+import Cart from './cart/Cart';
+import ShippingAndAddress from './cart/ShippingAndAddress';
+import OrderSummary from './cart/OrderSummary';
+import OrderConfirmation from './cart/OrderConfirmation';
 import { useAddNewOrderMutation } from '../../features/shop/ordersApiSlice';
 import { clearCart } from '../../features/checkout/checkoutSlice';
 import { useDispatch } from 'react-redux';

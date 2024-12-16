@@ -1,10 +1,10 @@
 import { ReactElement, memo } from 'react';
-import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
-import { eurFormat } from '../../utils/utils';
+import { useGetProductByIdQuery } from '../../../features/shop/productApiSlice';
+import { eurFormat } from '../../../utils/utils';
 import { useDispatch } from 'react-redux';
-import { removeFromCart, updateQuantity } from '../../features/checkout/checkoutSlice';
-import { OrderItem } from '../../features/shop/ordersApiSlice';
-import QuantityInput from '../common/QuantityInput';
+import { removeFromCart, updateQuantity } from '../../../features/checkout/checkoutSlice';
+import { OrderItem } from '../../../features/shop/ordersApiSlice';
+import QuantityInput from '../../common/QuantityInput';
 
 const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
   const dispatch = useDispatch();
