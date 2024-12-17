@@ -9,7 +9,7 @@ import PostsList from './components/posts/PostsList';
 import AddPostForm from './components/posts/AddPostForm';
 import EditPostForm from './components/posts/EditPostForm';
 import SingleProductPage from './components/shop/SingleProductPage';
-import Payment from './components/checkout/Payment';
+import Payment from './components/checkout/payment/Payment';
 import Register from './components/auth/Register';
 import RequireAuth from './components/auth/RequireAuth';
 import PersistLogin from './components/auth/PersistLogin';
