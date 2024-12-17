@@ -22,6 +22,11 @@ export type CreateOrder = {
   shippingMethod: ShippingMethod;
 };
 
+export interface PaymentIntentResponse {
+  clientSecret: string;
+  paymentIntentId: string;
+}
+
 export interface Order {
   id: string;
   orderNo: number;
@@ -97,6 +102,18 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         { type: 'Order', id: orderId },
       ],
     }),
+    createPaymentIntent: builder.mutation<PaymentIntentResponse, string>({
+      query: ( orderId ) => ({
+        url: `/orders/${orderId}/payment-intent`,
+        method: 'POST',
+      }),
+    }),
+    markOrderPaid: builder.mutation<void, string>({
+      query: ( orderId ) => ({
+        url: `/orders/${orderId}/mark-paid`,
+        method: 'PUT',
+      }),
+    }),
   }),
 });
 
@@ -106,5 +123,7 @@ export const {
   useGetOrderByIdQuery,
   useAddNewOrderMutation,
   useUpdateOrderStatusMutation,
-  useUpdateOrderShippingMutation
+  useUpdateOrderShippingMutation,
+  useCreatePaymentIntentMutation,
+  useMarkOrderPaidMutation
 } = extendedApiSlice;
