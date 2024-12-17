@@ -51,17 +51,16 @@ const Checkout = () => {
       setValidateAddress(true);
       return;
     }
-/*     if (step === 3 && orderData) {
+    if (step === 3 && orderData) {
       try {
         const result = await addNewOrderMutation(orderData).unwrap();
-        console.log(result);
         setOrderId(result);
         dispatch(clearCart())
       } catch {
         console.log('Order failed to create!');
         return;
       }
-    } */
+    } 
     if (step === 4 && orderId) {
       navigate(`/checkout/payment/${orderId}`);
     }
@@ -95,7 +94,7 @@ const Checkout = () => {
         <button
           className="btn back-btn"
           onClick={handleNext}
-          disabled={!isCart}
+          disabled={!isCart && step !== 4}
         >
           {currentStep.button}
         </button>
