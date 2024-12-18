@@ -41,7 +41,7 @@ export function eurFormat(value: number): string {
     currency: 'EUR',
     currencyDisplay: 'code',
   })
-    .format(value)
+    .format(value / 100)
     .replace('EUR', '€ ');
 }
 

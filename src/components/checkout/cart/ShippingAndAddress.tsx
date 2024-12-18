@@ -128,13 +128,13 @@ const ShippingAndAddress = ({ validateFields, setValidateFields }: ShippingAndAd
           required
         >
           <option value={ShippingMethod.Standard as ShippingMethod}>
-            Standard Shipping (€{ShippingPrices[ShippingMethod.Standard]})
+            Standard Shipping (€{ShippingPrices[ShippingMethod.Standard] / 100})
           </option>
           <option value={ShippingMethod.Express as ShippingMethod}>
-            Express Shipping (€{ShippingPrices[ShippingMethod.Express]})
+            Express Shipping (€{ShippingPrices[ShippingMethod.Express] / 100})
           </option>
           <option value={ShippingMethod.Overnight as ShippingMethod}>
-            Overnight Shipping (€{ShippingPrices[ShippingMethod.Overnight]})
+            Overnight Shipping (€{ShippingPrices[ShippingMethod.Overnight] / 100})
           </option>
         </select>
       </form>

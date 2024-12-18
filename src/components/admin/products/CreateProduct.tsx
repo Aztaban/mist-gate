@@ -32,6 +32,16 @@ const CreateProduct = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => {
+      if (name === 'price' || name === 'countInStock') {
+        // Parse value as an integer
+        const intValue = parseInt(value, 10);
+        // Ignore invalid or empty values
+        if (isNaN(intValue) || intValue < 0) {
+          return prev;
+        }
+        return { ...prev, [name]: intValue };
+      }
+
       if (name.startsWith('details.')) {
         const detailKey = name.split('.')[1] as keyof Product['details'];
         return {
@@ -46,6 +56,7 @@ const CreateProduct = () => {
           },
         };
       }
+
       return { ...prev, [name]: value };
     });
   };
@@ -62,6 +73,15 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (
+      !Number.isInteger(formData.price) ||
+      !Number.isInteger(formData.countInStock)
+    ) {
+      alert('Price and Stock Count must be whole numbers.');
+      return;
+    }
+
     try {
       if (canSave) {
         console.log('Uploading image');
