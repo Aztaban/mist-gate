@@ -34,7 +34,7 @@ const Cart = (): ReactElement => {
           </div>
         </div>
       ) : (
-        <div className="checkout checkout-spaced">
+        <div className="checkout checkout-spaced-se">
           <p>No Items in cart</p>
           <p>
             Visit our <NavLink to="/shop">SHOP</NavLink>
