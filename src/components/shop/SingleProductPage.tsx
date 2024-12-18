@@ -3,6 +3,7 @@ import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
 import ProductCart from './ProductCart';
 import ProductDetails from './ProductDetails';
 import ProductBar from './ProductBar';
+import { getImageUrl } from '../../utils/utils';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
@@ -26,14 +27,9 @@ const SingleProductPage = () => {
   }
 
   if (isSuccess) {
-    const img: string = new URL(
-      `../../images/${product.image}`,
-      import.meta.url
-    ).href;
-
     content = (<>
       <article className="product__page">
-        <img src={img} alt={product.name}/>
+        <img src={getImageUrl(product.image)} alt={product.name}/>
 
         <div className="product__page-div">
           <h2>{product.name}</h2>

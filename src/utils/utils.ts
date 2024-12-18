@@ -48,3 +48,8 @@ export function eurFormat(value: number): string {
 export const setPersistState = (value: boolean) => {
   localStorage.setItem('persist', JSON.stringify(value));
 };
+
+export const getImageUrl = (imagePath: string): string => {
+  const backendUrl = 'http://localhost:3500';
+  return `${backendUrl}/uploads/images/${imagePath}`;
+};

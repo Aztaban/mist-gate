@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../../features/checkout/checkoutSlice';
 import { OrderItem } from '../../../features/shop/ordersApiSlice';
 import QuantityInput from '../../common/QuantityInput';
+import { getImageUrl } from '../../../utils/utils';
 
 const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
   const dispatch = useDispatch();
   const { data: product } = useGetProductByIdQuery(item.product || '');
 
-  const img: string = new URL(`../../images/${product?.image}`, import.meta.url)
-    .href;
+  if (!product) return <></>;
 
   const handleUpdateQuantity = (newQuantity: number) => {
     if (newQuantity < 1) {
@@ -34,7 +34,7 @@ const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
   const content = (
     <li className="cart__item">
       <div className="cart__item-top">
-        <img src={img} alt={item.name} />
+        <img src={getImageUrl(product?.image)} alt={item.name} />
         <a href={`/shop/product/${item.product}`}> {item.name} </a>
       </div>
       <div className="cart__item-bottom">

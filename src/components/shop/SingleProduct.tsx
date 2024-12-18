@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Product } from '../../features/shop/productApiSlice';
 import ProductCart from './ProductCart';
 import ProductDetails from './ProductDetails';
+import { getImageUrl } from '../../utils/utils';
 
 const SingleProduct = ({ product }: { product: Product }): ReactElement => {
   const [isHovered, setIsHovered] = useState<boolean>(false);
-  const imgSrc = new URL(`../../images/${product.image}`, import.meta.url).href;
 
   const content = (
     <article
@@ -16,7 +16,7 @@ const SingleProduct = ({ product }: { product: Product }): ReactElement => {
     >
       <a className="product-anchor" href={`shop/product/${product.id}`}>
         <h3>{product.name}</h3>
-        <img src={imgSrc} alt={product.name} className="product__img" />
+        <img src={getImageUrl(product.image)} alt={product.name} className="product__img" />
         <ProductDetails product={product} />
       </a>
       
