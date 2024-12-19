@@ -56,7 +56,7 @@ Contributions are not currently accepted. This project is for showcasing my skil
 
 ## License
 
-The code for this project is currently not licensed. I plan to keep the code open source, but I haven't decided on a specific license yet. I recommend using a permissive license such as the MIT License or the Apache License 2.0.
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
 
 ## TODO
 
