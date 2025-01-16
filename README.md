@@ -42,13 +42,13 @@ const baseQuery = fetchBaseQuery({
   },
 });
 ```
-7. Start the development server: `npm start`
+7. Start the development server: `npm run dev`
 
 Note: Please replace `http://localhost:3500` with the actual URL of your local backend server. Also, keep in mind that the `mist-server` repository is currently private, so you may need to update the link once it becomes public.
 
 ## Usage
 
-Once the development server is running, you can access the e-shop at `http://localhost:3000`. You can log in using the provided credentials or create a new account.
+Once the development server is running, you can access the e-shop at `http://localhost:3500`. You can log in using the provided credentials or create a new account.
 
 ## Contributing
 
