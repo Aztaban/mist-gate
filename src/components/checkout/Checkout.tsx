@@ -1,104 +1,21 @@
 import { useState } from 'react';
-import useAuth from '../../hooks/useAuth';
-import { useNavigate } from 'react-router-dom';
 import Cart from './cart/Cart';
 import ShippingAndAddress from './cart/ShippingAndAddress';
 import OrderSummary from './cart/OrderSummary';
 import OrderConfirmation from './cart/OrderConfirmation';
-import { useAddNewOrderMutation } from '../../features/shop/ordersApiSlice';
-import { clearCart } from '../../features/checkout/checkoutSlice';
-import { useDispatch } from 'react-redux';
-import { useValidateOrder } from '../../hooks/useValidateOrder';
 
 const Checkout = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isLogedIn } = useAuth();
   const [step, setStep] = useState<number>(1);
-  const [orderId, setOrderId] = useState<string>('test');
-  const [validateAddress, setValidateAddress] = useState<boolean>(false);
 
-  const [addNewOrderMutation] = useAddNewOrderMutation();
-  const { isValid, isCart, orderData } = useValidateOrder();
-
-  const steps = [
-    { title: 'Cart', content: <Cart />, button: 'Continue to address' },
-    {
-      title: 'Address and Shipping',
-      content: (
-        <ShippingAndAddress
-          validateFields={validateAddress}
-          setValidateFields={setValidateAddress}
-        />
-      ),
-      button: 'Order Summary',
-    },
-    {
-      title: 'Order Summary',
-      content: orderData ? <OrderSummary order={orderData} /> : null,
-      button: 'Confirm Order',
-    },
-    {
-      title: 'Payment',
-      content: orderId ? <OrderConfirmation orderId={orderId} /> : null,
-      button: 'Go to Payment',
-    },
-  ];
-
-  const handleNext = async () => {
-    if (!isLogedIn) navigate('/login');
-    if (step === 2 && !validateAddress && !isValid) {
-      setValidateAddress(true);
-      return;
-    }
-    if (step === 3 && orderData) {
-      try {
-        const result = await addNewOrderMutation(orderData).unwrap();
-        setOrderId(result);
-        dispatch(clearCart())
-      } catch {
-        console.log('Order failed to create!');
-        return;
-      }
-    } 
-    if (step === 4 && orderId) {
-      navigate(`/checkout/payment/${orderId}`);
-    }
-    setStep((prev) => prev + 1);
-  };
-
-  const handlePrevious = () => {
-    if (step > 1) setStep((prev) => prev - 1);
-  };
-
-  const currentStep = steps[step - 1];
+  const handleNext = () => setStep((prev) => prev + 1);
+  const handlePrevious = () => setStep((prev) => prev - 1);
 
   return (
     <article className="checkout-main">
-      <h2>
-        {step}. {currentStep.title}
-      </h2>
-      {currentStep.content}
-      <div className="checkout-buttons">
-        {1 < step && step < 4 ? (
-          <button
-            className="btn save-btn"
-            onClick={handlePrevious}
-            disabled={step === 1}
-          >
-            Back
-          </button>
-        ) : (
-          <div></div>
-        )}
-        <button
-          className="btn back-btn"
-          onClick={handleNext}
-          disabled={!isCart && step !== 4}
-        >
-          {currentStep.button}
-        </button>
-      </div>
+      {step === 1 && <Cart onNext={handleNext} />}
+      {step === 2 && <ShippingAndAddress onNext={handleNext} onPrevious={handlePrevious} />}
+      {step === 3 && <OrderSummary onNext={handleNext} onPrevious={handlePrevious} />}
+      {step === 4 && <OrderConfirmation />}
     </article>
   );
 };

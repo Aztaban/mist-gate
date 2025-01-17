@@ -6,10 +6,17 @@ import {
   selectShippingMethod,
 } from '../../../features/checkout/checkoutSlice';
 import { calculateOrderPrices } from '../../../utils/utils';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';
+import useAuth from '../../../hooks/useAuth';
 
-const Cart = (): ReactElement => {
+interface CartProps {
+  onNext: () => void;
+}
+
+const Cart = ({ onNext }: CartProps): ReactElement => {
+  const { isLogedIn } = useAuth();
+  const navigate = useNavigate();
   const products = useSelector(selectCartItems);
   const shippingMethod = useSelector(selectShippingMethod);
   const { itemsPrice, shippingPrice } = calculateOrderPrices(
@@ -17,8 +24,17 @@ const Cart = (): ReactElement => {
     shippingMethod
   );
 
+  const handleNext = () => {
+    if (isLogedIn) {
+      onNext();
+    } else {
+      navigate('/login');
+    }
+  };
+
   const pageContent = (
     <>
+      <h2>1. Cart</h2>
       {products.length ? (
         <div className="checkout checkout-spaced">
           <ul className="cart">
@@ -41,6 +57,16 @@ const Cart = (): ReactElement => {
           </p>
         </div>
       )}
+      <div className="checkout-buttons">
+        <div></div>
+        <button
+          className="btn back-btn"
+          onClick={handleNext}
+          disabled={!products.length}
+        >
+          Continue to shipping
+        </button>
+      </div>
     </>
   );
 
