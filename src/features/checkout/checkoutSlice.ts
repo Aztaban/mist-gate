@@ -4,19 +4,29 @@ import { ShippingAddress } from '../shop/ordersApiSlice';
 import { ShippingMethod } from '../../config/shippingConfig';
 import { OrderItem, CreateOrder } from '../shop/ordersApiSlice';
 
-const loadCheckoutState = (): CreateOrder => {
-  return JSON.parse(localStorage.getItem('checkout') || '{}');
+const loadCheckoutState = (): CheckoutState => {
+  try {
+    const storedState = localStorage.getItem('checkout');
+    return storedState ? JSON.parse(storedState) : { products: [], shippingAddress: null, shippingMethod: ShippingMethod.Standard, orderId: null };
+  } catch (error) {
+    return { products: [], shippingAddress: null, shippingMethod: ShippingMethod.Standard, orderId: null };
+  }
 };
 
+export interface CheckoutState extends CreateOrder {
+  orderId: string | null;
+}
+
 // Utility function to update localStorage
-const saveCheckoutState = (state: CreateOrder) => {
+const saveCheckoutState = (state: CheckoutState) => {
   localStorage.setItem('checkout', JSON.stringify(state));
 };
 
-const initialState: CreateOrder = loadCheckoutState() || {
+const initialState: CheckoutState = loadCheckoutState() || {
   products: [],
   shippingAddress: null,
   shippingMethod: ShippingMethod.Standard,
+  orderId: null,
 };
 
 const checkoutSlice = createSlice({
@@ -62,6 +72,9 @@ const checkoutSlice = createSlice({
     setShippingMethod(state, action: PayloadAction<ShippingMethod>) {
       state.shippingMethod = action.payload;
     },
+    setOrderId(state, action: PayloadAction<string>) {
+      state.orderId = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addDefaultCase((state) => {
@@ -76,6 +89,7 @@ export const selectShippingAddress = (state: RootState) =>
 export const selectShippingMethod = (state: RootState) =>
   state.checkout.shippingMethod;
 export const selectCheckout = (state: RootState) => state.checkout;
+export const selectOrderId = (state: RootState) => state.checkout.orderId;
 
 export const {
   addToCart,
@@ -84,6 +98,7 @@ export const {
   clearCart,
   setShippingAddress,
   setShippingMethod,
+  setOrderId
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
