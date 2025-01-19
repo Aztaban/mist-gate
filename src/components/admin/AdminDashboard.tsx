@@ -21,7 +21,7 @@ const AdminDashboard = () => {
     <article className="account">
       <h2 className="header-wraper">Admin Dashboard</h2>
       <ul>
-        {orders.map((order) => (
+        {orders && orders.map((order) => (
           <li key={order.id}>
             Order #{order.orderNo} - Total: {order.totalPrice}
           </li>

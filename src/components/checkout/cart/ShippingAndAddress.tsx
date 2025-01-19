@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ShippingAddress } from '../../../features/shop/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../../config/shippingConfig';
 import { useDispatch, useSelector } from 'react-redux';
@@ -40,7 +40,7 @@ const ShippingAndAddress = ({
     const { name, value } = e.target;
     setFieldErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: false, 
+      [name]: false,
     }));
     setShippingAddress((prevAddress) => ({
       ...prevAddress,
