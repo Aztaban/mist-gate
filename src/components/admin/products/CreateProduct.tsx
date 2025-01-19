@@ -1,29 +1,33 @@
-import { MouseEvent, ChangeEvent, FormEvent, useState } from 'react';
+import { MouseEvent, ChangeEvent, FormEvent, useState, useRef } from 'react';
 import {
   useAddNewProductMutation,
   useUploadImageMutation,
 } from '../../../features/shop/productApiSlice';
 import { Product } from '../../../features/shop/productApiSlice';
 import { useNavigate } from 'react-router-dom';
+import { uploadImageAndGetPath } from '../../../hooks/useUploadImage';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
   const [addNewProduct, { isLoading }] = useAddNewProductMutation();
   const [uploadImage] = useUploadImageMutation();
-  const [image, setImage] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
     productType: '',
     price: 0,
-    image: '',
     countInStock: 0,
     details: { author: '', releaseDate: '', description: '' },
   });
+  const imageRef = useRef<File | null>(null);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setImage(e.target.files[0]);
-      console.log('image set', image);
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      console.log('file', file);
+      imageRef.current = file;
+      setPreviewUrl(URL.createObjectURL(file));
+      console.log('image set', imageRef.current);
     }
   };
 
@@ -66,13 +70,20 @@ const CreateProduct = () => {
       formData.name,
       formData.productType,
       formData.price,
-      image,
+      imageRef.current,
       formData.details?.author,
       formData.details?.description,
     ].every(Boolean) && !isLoading;
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const currentImage = imageRef.current;
+
+    if (!currentImage) {
+      alert('Please upload an image.');
+      return;
+    }
 
     if (
       !Number.isInteger(formData.price) ||
@@ -84,20 +95,17 @@ const CreateProduct = () => {
 
     try {
       if (canSave) {
-        console.log('Uploading image');
-        const { image: uploadedImagePath } = await uploadImage(
-          image as File
-        ).unwrap();
-        console.log('Image uploaded: ', uploadedImagePath);
+        const image = await uploadImageAndGetPath(currentImage, uploadImage);
+        console.log('Image uploaded: ', image);
 
-        setFormData((prev) => ({
-          ...prev,
-          image: uploadedImagePath,
-        }));
-
-        console.log('Sending Product');
-        await addNewProduct(formData).unwrap();
-        console.log('Product created:', formData);
+        const updatedFormData = {
+          ...formData,
+          image,
+        };
+      
+        console.log('Sending Product', updatedFormData);
+        await addNewProduct(updatedFormData).unwrap();
+        console.log('Product created:', updatedFormData);
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -112,9 +120,9 @@ const CreateProduct = () => {
   };
 
   return (
-    <section>
+    <div className="admin-order">
       <h2>Add a New Product</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="admin-order-form">
         <fieldset disabled={isLoading}>
           <legend>New Product</legend>
           <label htmlFor="name">Product Name:</label>
@@ -144,7 +152,16 @@ const CreateProduct = () => {
             onChange={handleChange}
             placeholder="Price"
           />
-          <label htmlFor="productType">Image Path:</label>
+
+          <label htmlFor="productType">Product Image:</label>
+
+          {previewUrl && (
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className="admin-order-form-img"
+            />
+          )}
           <input
             type="file"
             id="image"
@@ -152,7 +169,6 @@ const CreateProduct = () => {
             onChange={handleImageChange}
             accept="image/*"
           />
-          {formData.image && <p>Image uploaded: {formData.image}</p>}
           <label htmlFor="countInStock">Items in Stock:</label>
           <input
             type="number"
@@ -194,7 +210,7 @@ const CreateProduct = () => {
         </fieldset>
         <button
           type="submit"
-          className="btn save-btn"
+          className="btn save-btn order-confirm-btn"
           disabled={!canSave}
           aria-disabled={!canSave}
         >
@@ -209,7 +225,7 @@ const CreateProduct = () => {
       >
         back to products
       </button>
-    </section>
+    </div>
   );
 };
 
