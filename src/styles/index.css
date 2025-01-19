@@ -434,6 +434,77 @@ nav a:focus-visible {
   display: none;
 }
 
+/* || ADMIN */
+.admin-order {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  margin: 10px;
+  overflow-x: hidden; 
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem; 
+}
+
+.admin-order-form { 
+  background-color: var(--PRIMARY-COLOR);
+  padding: 10px;
+  border-radius: var(--BORDER-RADIUS);
+  border: var(--BORDERS-SECONDARY);
+  width: 100%;
+  max-width: 100%
+}
+
+.admin-order-form > fieldset {
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+.admin-order-form > fieldset > input {
+  padding: 0.5rem;
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.admin-order-form > fieldset > label {
+  font-weight: bold;
+}
+
+.admin-order-form-img {
+  display: inline;
+  max-width: 200px;
+  border-radius: var(--BORDER-RADIUS);
+  margin: 0.5rem;
+}
+
+.order-confirm-btn {
+  margin: 1rem auto;
+  display: block;
+}
+
+.admin-orders-list {
+  margin-bottom: 50px;
+  padding: 20px;
+  width: 90%;
+  background-color: var(--HEADER-BGCOLOR);
+  border: var(--BORDERS-PRIMARY);
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.admin-order-line-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 5px 0;
+  align-items: center;
+  border-bottom: var(--BORDERS-PRIMARY);
+}
+
 /* || HEADER */
 header {
   position: sticky;
@@ -1092,15 +1163,6 @@ section:nth-of-type(even) {
   width: 90%;
 }
 
-.admin-orders-list {
-  margin-bottom: 50px;
-  padding: 20px;
-  width: 90%;
-  background-color: var(--HEADER-BGCOLOR);
-  border: var(--BORDERS-PRIMARY);
-  border-radius: var(--BORDER-RADIUS);
-}
-
 .order-line-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -1110,15 +1172,6 @@ section:nth-of-type(even) {
   border-bottom: var(--BORDERS-PRIMARY);
   justify-items: center;
   background-color: var(--PRIMARY-COLOR-LIGHT);
-}
-
-.admin-order-line-item {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 10px;
-  padding: 5px 0;
-  align-items: center;
-  border-bottom: var(--BORDERS-PRIMARY);
 }
 
 .order-line-header {
