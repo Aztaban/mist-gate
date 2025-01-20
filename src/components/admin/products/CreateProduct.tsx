@@ -36,7 +36,7 @@ const CreateProduct = () => {
   };
 
   const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => {
@@ -150,7 +150,6 @@ const CreateProduct = () => {
             name="productType"
             onChange={handleChange}
             value={formData.productType}
-            placeholder="Product Type"
           >
             {productCategories.map((productType) => (
               <option key={productType} value={productType}>

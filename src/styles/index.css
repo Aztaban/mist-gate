@@ -467,10 +467,11 @@ nav a:focus-visible {
 }
 
 .admin-order-form > fieldset > input,
-textarea {
+textarea, select {
   padding: 0.5rem;
   border-radius: var(--BORDER-RADIUS);
   resize: none;
+  font-size: 1rem;
 }
 
 .admin-order-form > fieldset > label {
