@@ -3,12 +3,11 @@ import { Product } from '../../../features/shop/productApiSlice';
 import AdminProductsLineItem from './AdminProductsLineItem';
 import { useSorting } from '../../../hooks/useSorting';
 import { useCategoryFilter } from '../../../hooks/useCategoryFilter';
+import { productCategories } from '../../../config/productCategories';
 
 interface AdminProductsListProps {
   products: Product[];
 }
-
-const categories = ['book', 'game', 'comic', 'board game'];
 
 const AdminProductsList = ({
   products,
@@ -54,7 +53,7 @@ const AdminProductsList = ({
             </div>
             {isCategoryDropdownOpen && (
               <div className="dropdown">
-                {categories.map((category) => (
+                {productCategories.map((category) => (
                   <label
                     key={category}
                     style={{ display: 'block', margin: '5px 0' }}

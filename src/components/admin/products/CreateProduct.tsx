@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { uploadImageAndGetPath } from '../../../hooks/useUploadImage';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../../features/checkout/checkoutSlice';
+import { productCategories } from '../../../config/productCategories';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
@@ -62,6 +63,12 @@ const CreateProduct = () => {
             [detailKey]: value,
           },
         };
+      } else {
+        if (name === 'productType') {
+          setFormData((prev) => ({ ...prev, [name]: value }));
+        } else {
+          setFormData((prev) => ({ ...prev, [name]: value }));
+        }
       }
 
       return { ...prev, [name]: value };
@@ -105,8 +112,8 @@ const CreateProduct = () => {
           ...formData,
           image,
         };
-      
-        await addNewProduct(updatedFormData).unwrap();   
+
+        await addNewProduct(updatedFormData).unwrap();
         dispatch(clearCart());
         navigate('/admin/products');
       }
@@ -138,14 +145,19 @@ const CreateProduct = () => {
             placeholder="Product Name"
           />
           <label htmlFor="productType">Product Type:</label>
-          <input
-            type="text"
+          <select
             id="productType"
             name="productType"
-            value={formData.productType}
             onChange={handleChange}
+            value={formData.productType}
             placeholder="Product Type"
-          />
+          >
+            {productCategories.map((productType) => (
+              <option key={productType} value={productType}>
+                {productType}
+              </option>
+            ))}
+          </select>
           <label htmlFor="price">Product Price:</label>
           <input
             type="number"
