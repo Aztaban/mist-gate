@@ -17,9 +17,6 @@ const OrderSummary = ({ order }: OrderSummaryProps) => {
       </p>
       <p>Paid status:</p>
       <p
-        className={
-          order.isPaid ? 'order-status.paid' : 'order-status.not-paid'
-        }
       >
         {order.isPaid ? 'Paid' : 'Not Paid'}
       </p>
