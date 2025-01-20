@@ -1,1 +1,1 @@
-export const productCategories = ['book', 'game', 'comic', 'board game'];
+export const productCategories = ['book', 'game', 'comic', 'board-game'];
