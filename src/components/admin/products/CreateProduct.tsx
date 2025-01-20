@@ -6,9 +6,12 @@ import {
 import { Product } from '../../../features/shop/productApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { uploadImageAndGetPath } from '../../../hooks/useUploadImage';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '../../../features/checkout/checkoutSlice';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [addNewProduct, { isLoading }] = useAddNewProductMutation();
   const [uploadImage] = useUploadImageMutation();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -104,7 +107,7 @@ const CreateProduct = () => {
         };
       
         await addNewProduct(updatedFormData).unwrap();   
-
+        dispatch(clearCart());
         navigate('/admin/products');
       }
     } catch (err: unknown) {
