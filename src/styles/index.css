@@ -442,32 +442,35 @@ nav a:focus-visible {
   max-width: 100%;
   padding: 10px;
   margin: 10px;
-  overflow-x: hidden; 
+  overflow-x: hidden;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem; 
+  gap: 1rem;
 }
 
-.admin-order-form { 
+.admin-order-form {
   background-color: var(--PRIMARY-COLOR);
-  padding: 10px;
+  padding: 1rempx;
   border-radius: var(--BORDER-RADIUS);
   border: var(--BORDERS-SECONDARY);
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .admin-order-form > fieldset {
   display: flex;
-  padding: 10px;
+  padding: 1rem;
+  margin: 0.5rem;
   flex-direction: column;
-  gap: 0.5rem;
-
+  gap: 1rem;
+  max-width: 100%;
 }
 
-.admin-order-form > fieldset > input {
+.admin-order-form > fieldset > input,
+textarea {
   padding: 0.5rem;
   border-radius: var(--BORDER-RADIUS);
+  resize: none;
 }
 
 .admin-order-form > fieldset > label {
@@ -492,11 +495,13 @@ nav a:focus-visible {
 }
 
 .admin-products-list {
-  width: 100%;
+  
+  margin: 1rem;
   background-color: var(--PRIMARY-COLOR-LIGHT);
   border: var(--BORDERS-SECONDARY);
   border-radius: var(--BORDER-RADIUS);
   border-collapse: collapse;
+  max-width: 100%;
 }
 
 .admin-products-list th,
@@ -994,8 +999,6 @@ section:nth-of-type(even) {
   width: 100%;
 }
 
-
-
 .checkout-main h2 {
   padding: 20px;
   border-bottom: var(--BORDERS-SECONDARY);
@@ -1190,7 +1193,7 @@ section:nth-of-type(even) {
   background-color: var(--PRIMARY-COLOR-LIGHT);
 }
 
-.order-line-item  .text-right {
+.order-line-item .text-right {
   justify-self: flex-end;
 }
 

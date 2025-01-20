@@ -202,13 +202,13 @@ const CreateProduct = () => {
             onChange={handleChange}
           />
           <label htmlFor="details.description">Description:</label>
-          <input
-            type="text"
+          <textarea
             id="details.description"
             name="details.description"
             value={formData.details?.description}
             onChange={handleChange}
             placeholder="Product Description"
+            rows={6}
           />
         </fieldset>
         <button
