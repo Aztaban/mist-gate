@@ -103,9 +103,9 @@ const CreateProduct = () => {
           image,
         };
       
-        console.log('Sending Product', updatedFormData);
-        await addNewProduct(updatedFormData).unwrap();
-        console.log('Product created:', updatedFormData);
+        await addNewProduct(updatedFormData).unwrap();   
+
+        navigate('/admin/products');
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
