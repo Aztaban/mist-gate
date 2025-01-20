@@ -510,6 +510,9 @@ textarea {
   text-align: left;
   border: var(--BORDERS-SECONDARY);
 }
+.admin-products-list th {
+  background-color: var(--PRIMARY-COLOR);
+}
 
 /* || HEADER */
 header {
