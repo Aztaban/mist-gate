@@ -22,13 +22,17 @@ const AdminProductsPage = () => {
   }
 
   if (isSuccess) {
-    pageContent = <AdminProductsList products={products} />
+    pageContent = <AdminProductsList products={products} />;
   }
 
   return (
-    <article className="">
-      <h2 className='header-wraper'>Admin Products</h2>
-      <button><NavLink to={"/admin/products/product"}>Create Product</NavLink></button>
+    <article className="orders-main-page">
+      <h2 className="header-wraper">
+        <p>Admin Products</p>
+        <button className='btn back-btn'>
+          <NavLink to={'/admin/products/product'}>New Product</NavLink>
+        </button>
+      </h2>
       {pageContent}
     </article>
   );

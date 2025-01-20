@@ -14,9 +14,9 @@ const AdminProductsList = ({
   }
 
   return (
-    <table className="admin-orders-list">
+    <table className="admin-products-list">
       <thead>
-        <tr className="admin-order-line-header bold green">
+        <tr>
           <th>Product name</th>
           <th>In stock</th>
           <th>Items Sold</th>

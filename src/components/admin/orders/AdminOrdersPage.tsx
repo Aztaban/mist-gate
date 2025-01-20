@@ -78,7 +78,7 @@ const AdminOrdersPage = () => {
   };
 
   return (
-    <article className="order">
+    <article className="orders-main-page">
       <h2 className="header-wraper">Admin Orders</h2>
       <div>
         <input

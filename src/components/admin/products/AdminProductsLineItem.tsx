@@ -11,15 +11,19 @@ const AdminProductsLineItem = ({
   product,
 }: AdminProductsLineItemProps): ReactElement => {
   return (
-    <tr className="admin-order-line-header">
-      <td>{product.name}</td>
+    <tr>
+      <td className='admin-product-link'>
+        <NavLink to={`/admin/products/edit/${product.id}`}>
+          <p>{product.name}</p>
+        </NavLink>
+      </td>
       <td>{product.countInStock}</td>
       <td>{product.unitsSold}</td>
       <td>{eurFormat(product.price)}</td>
       <td>{product.productType}</td>
       <td>
         <NavLink to={`/admin/products/edit/${product.id}`}>
-          <button>Product Details</button>
+          <button className="btn save-btn">Product</button>
         </NavLink>
       </td>
     </tr>
