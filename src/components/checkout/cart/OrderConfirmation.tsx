@@ -5,8 +5,6 @@ import { selectOrderId } from '../../../features/checkout/checkoutSlice';
 const OrderConfirmation = () => {
   const orderId = useSelector(selectOrderId);
 
-  console.log(orderId)
-
   if (!orderId) return <p>Loading...</p>;
 
   return (
@@ -17,6 +15,12 @@ const OrderConfirmation = () => {
         <NavLink to={`/order/${orderId}`}>View Order</NavLink>
         <NavLink to={`/checkout/payment/${orderId}`}>Go to Payment</NavLink>
       </article>
+      <div className="checkout-buttons">
+        <div></div>
+        <button className="btn back-btn">
+          <NavLink to={`/checkout/payment/${orderId}`}>Payment</NavLink>
+        </button>
+      </div>
     </>
   );
 };
