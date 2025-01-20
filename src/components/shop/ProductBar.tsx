@@ -17,7 +17,7 @@ const ProductBar = ({ productId }: ProductBarProps) => {
     const calculateVisibleProducts = () => {
       if(productBarRef.current && otherProducts?.length) {
         const barWidth = productBarRef.current.offsetWidth;
-        const itemWidth = 200;
+        const itemWidth = 225;
         const itemsThatFit = Math.floor(barWidth / itemWidth);
         setVisibleProducts(itemsThatFit);
       }
