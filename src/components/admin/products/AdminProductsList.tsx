@@ -4,6 +4,7 @@ import AdminProductsLineItem from './AdminProductsLineItem';
 import { useSorting } from '../../../hooks/useSorting';
 import { useCategoryFilter } from '../../../hooks/useCategoryFilter';
 import { productCategories } from '../../../config/productCategories';
+import Dropdown from '../../common/Dropdown';
 
 interface AdminProductsListProps {
   products: Product[];
@@ -12,15 +13,10 @@ interface AdminProductsListProps {
 const AdminProductsList = ({
   products,
 }: AdminProductsListProps): ReactElement => {
-  const { sortedData, sortConfig, handleSort } = useSorting(products);
   const { filteredData, selectedCategories, handleCategoryFilterChange } =
-    useCategoryFilter(sortedData, 'productType');
+  useCategoryFilter(products, 'productType');
+  const { sortedData, sortConfig, handleSort } = useSorting(filteredData);
 
-  const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsCategoryDropdownOpen((prev) => !prev);
-  };
 
   if (!products || products.length === 0) {
     return <p>No products to found.</p>;
@@ -48,33 +44,18 @@ const AdminProductsList = ({
             Price {getSortIcon('price')}
           </th>
           <th>
-            <div className="category-header" onClick={toggleDropdown}>
-              Category {isCategoryDropdownOpen ? '▲' : '▼'}
-            </div>
-            {isCategoryDropdownOpen && (
-              <div className="dropdown">
-                {productCategories.map((category) => (
-                  <label
-                    key={category}
-                    style={{ display: 'block', margin: '5px 0' }}
-                  >
-                    <input
-                      type="checkbox"
-                      value={category}
-                      checked={selectedCategories.includes(category)}
-                      onChange={() => handleCategoryFilterChange(category)}
-                    />
-                    {category}
-                  </label>
-                ))}
-              </div>
-            )}
+            <Dropdown
+              title="Category"
+              options={productCategories}
+              selectedOptions={selectedCategories}
+              onOptionChange={handleCategoryFilterChange}
+            />
           </th>
-          <th>Tools</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
-        {filteredData.map((product) => (
+        {sortedData.map((product) => (
           <AdminProductsLineItem key={product.id} product={product} />
         ))}
       </tbody>

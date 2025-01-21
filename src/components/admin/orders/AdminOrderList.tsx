@@ -14,7 +14,7 @@ const AdminOrderList = ({ orders }: AdminOrderListProps): ReactElement => {
   return (
     <table className="admin-orders-list">
       <thead>
-        <tr className="admin-order-line-header bold green">
+        <tr className="admin-order-line-header">
           <th>Order Number</th>
           <th>Created</th>
           <th>User</th>
