@@ -12,9 +12,10 @@ const AdminOrderLineItem = ({ order }: AdminOrderLineItemProps): ReactElement =>
     <tr className="admin-order-line-item">
       <td><NavLink to={`/order/${order.id}`}>{order.orderNo}</NavLink></td>
       <td>{new Date(order.created_at).toLocaleDateString()}</td>
-      <td className='green'>{order.user.username}</td>
+      <td>{order.user.username}</td>
       <td>{order.shippingMethod}</td>
 
+      <td className="order-status">{order.status.toUpperCase()}</td>
       <td className={`order-status ${order.paidAt ? 'paid' : 'not-paid'}`}>
         {order.paidAt ? 'Paid' : 'Not Paid'}
       </td>
