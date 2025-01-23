@@ -5,6 +5,7 @@ import { useSorting } from '../../../hooks/useSorting';
 import { useCategoryFilter } from '../../../hooks/useCategoryFilter';
 import { productCategories } from '../../../config/productCategories';
 import Dropdown from '../../common/Dropdown';
+import SortableHeader from '../SortableHeader';
 
 interface AdminProductsListProps {
   products: Product[];
@@ -14,35 +15,45 @@ const AdminProductsList = ({
   products,
 }: AdminProductsListProps): ReactElement => {
   const { filteredData, selectedCategories, handleCategoryFilterChange } =
-  useCategoryFilter(products, 'productType');
+    useCategoryFilter(products, 'productType');
   const { sortedData, sortConfig, handleSort } = useSorting(filteredData);
-
 
   if (!products || products.length === 0) {
     return <p>No products to found.</p>;
   }
 
-  const getSortIcon = (key: keyof Product) => {
-    if (sortConfig.key !== key) return '↕';
-    return sortConfig.direction === 'asc' ? '↑' : '↓';
-  };
-
   return (
     <table className="admin-products-list">
       <thead>
         <tr>
-          <th onClick={() => handleSort('name')}>
-            Product name {getSortIcon('name')}
-          </th>
-          <th onClick={() => handleSort('countInStock')}>
-            In Stock {getSortIcon('countInStock')}
-          </th>
-          <th onClick={() => handleSort('unitsSold')}>
-            Items Sold {getSortIcon('unitsSold')}
-          </th>
-          <th onClick={() => handleSort('price')}>
-            Price {getSortIcon('price')}
-          </th>
+          <SortableHeader
+            label="Product Name"
+            sortKey="name"
+            currentSortKey={sortConfig.key}
+            currentSortDirection={sortConfig.direction}
+            onSort={handleSort}
+          />
+          <SortableHeader
+            label="In Stock"
+            sortKey="countInStock"
+            currentSortKey={sortConfig.key}
+            currentSortDirection={sortConfig.direction}
+            onSort={handleSort}
+          />
+          <SortableHeader
+            label="Items Sold"
+            sortKey="unitsSold"
+            currentSortKey={sortConfig.key}
+            currentSortDirection={sortConfig.direction}
+            onSort={handleSort}
+          />
+          <SortableHeader
+            label="Price"
+            sortKey="price"
+            currentSortKey={sortConfig.key}
+            currentSortDirection={sortConfig.direction}
+            onSort={handleSort}
+          />
           <th>
             <Dropdown
               title="Category"
