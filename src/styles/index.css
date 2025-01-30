@@ -160,6 +160,13 @@ textarea {
   color: var(--ERROR-COLOR);
 }
 
+.search-bar {
+  padding: 0.5rem;
+  border-radius: var(--BORDER-RADIUS);
+  font-family: var(--FF);
+  font-size: large;
+}
+
 /* || BUTTONS */
 .btn {
   border: var(--BORDERS-PRIMARY);
