@@ -504,8 +504,8 @@ textarea, select {
 }
 
 .admin-products-list {
-  
-  margin: 1rem;
+  font-size: 0.8rem;
+  margin: 0 1rem;
   background-color: var(--PRIMARY-COLOR-LIGHT);
   border: var(--BORDERS-SECONDARY);
   border-radius: var(--BORDER-RADIUS);
@@ -521,6 +521,23 @@ textarea, select {
 }
 .admin-products-list th {
   background-color: var(--PRIMARY-COLOR);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem;
+}
+
+.pagination button {
+  padding: 0.4rem;
+  min-width: 100px;
+  border-radius: var(--BORDER-RADIUS);
+  border: var(--BORDERS-SECONDARY);
 }
 
 /* || HEADER */
