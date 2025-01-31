@@ -1,39 +1,48 @@
 import { useGetProductsQuery } from '../../../features/shop/productApiSlice';
-import { ReactElement } from 'react';
+import { useState, ChangeEvent, useMemo } from 'react';
 import AdminProductsList from './AdminProductsList';
 import { NavLink } from 'react-router-dom';
+import Pagination from '../../common/Pagination';
 
 const AdminProductsPage = () => {
-  const {
-    data: products,
-    isSuccess,
-    isLoading,
-    isError,
-  } = useGetProductsQuery();
+  const { data: products = [], isLoading, isError } = useGetProductsQuery();
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
-  let pageContent: ReactElement | ReactElement[] = <p></p>;
+  const filteredProducts = useMemo(() => {
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [products, searchTerm]);
 
-  if (isLoading) {
-    pageContent = <p>Loading...</p>;
-  }
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
 
-  if (isError) {
-    pageContent = <p>No products found.</p>;
-  }
-
-  if (isSuccess) {
-    pageContent = <AdminProductsList products={products} />;
-  }
+  if (isLoading) return <p>Loading products...</p>;
+  if (isError) return <p>Error loading products.</p>;
 
   return (
     <article className="orders-main-page">
       <h2 className="header-wraper">
         <p>Admin Products</p>
-        <button className='btn back-btn'>
+        <button className="btn back-btn">
           <NavLink to={'/admin/products/product'}>New Product</NavLink>
         </button>
+        <input
+          type="text"
+          placeholder="search product"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="search-bar"
+        />
       </h2>
-      {pageContent}
+      <Pagination
+        data={filteredProducts}
+        itemsPerPage={10}
+        render={(paginatedData) => (
+          <AdminProductsList products={paginatedData} />
+        )}
+      />
     </article>
   );
 };

@@ -17,11 +17,9 @@ const AdminOrdersPage = () => {
     );
   }, [orders, search]);
 
-  // Update search and reset to page 1 when search input changes
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
-  // Handle page change
 
   if (isLoading) return <p>Loading orders...</p>;
   if (isError) return <p>Error loading orders.</p>;

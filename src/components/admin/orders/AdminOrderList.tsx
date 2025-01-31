@@ -10,9 +10,6 @@ interface AdminOrderListProps {
 }
 
 const AdminOrderList = ({ orders }: AdminOrderListProps): ReactElement => {
-
-    
-  
   const { sortedData, sortConfig, handleSort } = useSorting(orders);
 
   if (!orders || orders.length === 0) {
@@ -41,7 +38,7 @@ const AdminOrderList = ({ orders }: AdminOrderListProps): ReactElement => {
             currentSortKey={sortConfig.key}
             currentSortDirection={sortConfig.direction}
             onSort={handleSort}
-          />{' '}
+          />
         </tr>
       </thead>
       <tbody>

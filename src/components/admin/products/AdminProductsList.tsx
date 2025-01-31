@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { Product } from '../../../features/shop/productApiSlice';
 import AdminProductsLineItem from './AdminProductsLineItem';
 import { useSorting } from '../../../hooks/useSorting';
