@@ -1,18 +1,20 @@
-import { useState, useMemo, ReactNode } from 'react';
+import { useState, useMemo } from 'react';
 
 interface PaginationProps<T> {
   data: T[];
   itemsPerPage?: number;
-  render: (paginatedData: T[]) => ReactNode;
 }
 
-const Pagination = <T,>({
-  data,
-  itemsPerPage = 15,
-  render,
-}: PaginationProps<T>) => {
+interface PaginationResult<T> {
+  paginatedData: T[];
+  paginationControls: JSX.Element;
+}
+
+const usePagination = <T,>({ data, itemsPerPage = 15 }: PaginationProps<T>): PaginationResult<T> => {
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.max(1, Math.ceil(data.length / itemsPerPage)); 
+  const totalPages = Math.max(1, Math.ceil(data.length / itemsPerPage));
+
+  useMemo(() => setCurrentPage(1), [data]);
 
   const paginatedData = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -25,10 +27,9 @@ const Pagination = <T,>({
     }
   };
 
-  return (
-    <>
-      {render(paginatedData)}
-
+  return {
+    paginatedData,
+    paginationControls: (
       <div className="pagination">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -46,8 +47,8 @@ const Pagination = <T,>({
           Next
         </button>
       </div>
-    </>
-  );
+    ),
+  };
 };
 
-export default Pagination;
+export default usePagination;
