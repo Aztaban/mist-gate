@@ -1,14 +1,12 @@
 import { useState, useMemo, ChangeEvent} from 'react';
 import { useGetAllOrdersQuery } from '../../../features/shop/ordersApiSlice';
 import AdminOrderList from './AdminOrderList';
-import Pagination from '../../common/Pagination';
+
 
 const AdminOrdersPage = () => {
   const { data: orders  = [], isError, isLoading } = useGetAllOrdersQuery();
-
   const [search, setSearch] = useState<string>('');
-  const itemsPerPage = 15;
-
+  
   // Filter orders based on search input
   const filteredOrders = useMemo(() => {
     return orders.filter((order) =>
@@ -36,11 +34,7 @@ const AdminOrdersPage = () => {
           className="search-bar"
         />
       </h2>
-      <Pagination
-        data={filteredOrders}
-        itemsPerPage={itemsPerPage}
-        render={(paginatedData) => <AdminOrderList orders={paginatedData} />}
-      />
+      <AdminOrderList orders={filteredOrders} />
     </article>
   );
 };
