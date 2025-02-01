@@ -2,7 +2,6 @@ import { useGetProductsQuery } from '../../../features/shop/productApiSlice';
 import { useState, ChangeEvent, useMemo } from 'react';
 import AdminProductsList from './AdminProductsList';
 import { NavLink } from 'react-router-dom';
-import Pagination from '../../common/Pagination';
 
 const AdminProductsPage = () => {
   const { data: products = [], isLoading, isError } = useGetProductsQuery();
@@ -36,13 +35,7 @@ const AdminProductsPage = () => {
           className="search-bar"
         />
       </h2>
-      <Pagination
-        data={filteredProducts}
-        itemsPerPage={10}
-        render={(paginatedData) => (
-          <AdminProductsList products={paginatedData} />
-        )}
-      />
+      <AdminProductsList products={filteredProducts} />
     </article>
   );
 };
