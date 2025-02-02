@@ -59,7 +59,7 @@ const OrderActions = ({ order }: OrderActionsProps) => {
         <section className="admin-tools">
           <h3 className="header-wrapper">Admin Tools</h3>
 
-          <form>
+          <form onSubmit={(e) => { e.preventDefault(); handleSaveChanges(); }}>
             <Select
               id="status"
               label="Update Status"
@@ -85,7 +85,9 @@ const OrderActions = ({ order }: OrderActionsProps) => {
                 method.charAt(0).toUpperCase() + method.slice(1) + ' Shipping'
               }
             />
-            <button className='btn save-btn' onSubmit={handleSaveChanges}>Save Changes</button>
+            <button type="submit" className="btn save-btn">
+              Save Changes
+            </button>
           </form>
         </section>
       )}
