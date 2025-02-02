@@ -16,7 +16,9 @@ const ProductCart = ({ product, isCart }: ProductCartProps) => {
   const inCart = useSelector((state: RootState) =>
     state.checkout.products.some((item) => item.product === product.id)
   );
-  const handleAddToCart = () => {
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     dispatch(
       addToCart({
         product: product.id,
