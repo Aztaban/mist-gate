@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCheckout,
   setOrderId,
+  clearCart
 } from '../../../features/checkout/checkoutSlice';
 import { useAddNewOrderMutation } from '../../../features/shop/ordersApiSlice';
 
@@ -33,6 +34,7 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
 
       if (orderId) {
         dispatch(setOrderId(orderId));
+        dispatch(clearCart());
         onNext();
       } else {
         console.error('Order creation succeeded, but no orderId was returned.');
@@ -61,7 +63,7 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
           Back
         </button>
         <button className="btn back-btn" onClick={handleNext}>
-          Order Summary
+          Confirm Order
         </button>
       </div>
     </>
