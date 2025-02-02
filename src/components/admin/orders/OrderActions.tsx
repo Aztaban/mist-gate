@@ -85,7 +85,7 @@ const OrderActions = ({ order }: OrderActionsProps) => {
                 method.charAt(0).toUpperCase() + method.slice(1) + ' Shipping'
               }
             />
-            <button onSubmit={handleSaveChanges}>Save Changes</button>
+            <button className='btn save-btn' onSubmit={handleSaveChanges}>Save Changes</button>
           </form>
         </section>
       )}

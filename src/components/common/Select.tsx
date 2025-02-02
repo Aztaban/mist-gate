@@ -9,8 +9,8 @@ interface SelectProps {
 
 const Select = ({ id, label, value, onChange, options, optionLabel }: SelectProps) => {
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <>
+      <label htmlFor={id}>{label}:</label>
       <select id={id} value={value} onChange={onChange}>
         <option value="">Select an option</option>
         {options.map((option) => (
@@ -19,7 +19,7 @@ const Select = ({ id, label, value, onChange, options, optionLabel }: SelectProp
           </option>
         ))}
       </select>
-    </div>
+    </>
   );
 };
 
