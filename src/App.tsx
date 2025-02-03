@@ -19,8 +19,8 @@ import AdminProductsPage from './components/admin/products/AdminProductsPage';
 import SingleOrderPage from './components/orders/SingleOrderPage';
 import CreateProduct from './components/admin/products/CreateProduct';
 import { ROLES } from './config/roles';
-import EditProduct from './components/admin/products/EditProduct';
 import Checkout from './components/checkout/Checkout';
+import AdminSingleProduct from './components/admin/products/AdminSingleProduct';
 
 function App() {
   const content = (
@@ -64,7 +64,7 @@ function App() {
               <Route path="products">
                 <Route index element={<AdminProductsPage />} />
                 <Route path="product" element={<CreateProduct />} />
-                <Route path="edit/:productId" element={<EditProduct />} />
+                <Route path="edit/:productId" element={<AdminSingleProduct />} />
               </Route>
               <Route path="orders" element={<AdminOrdersPage />} />
             </Route>
