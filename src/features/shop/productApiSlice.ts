@@ -46,7 +46,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       { id: string; updates: Partial<Product> }
     >({
       query: ({ id, updates }) => ({
-        url: `${id}`,
+        url: `/products/${id}`,
         method: 'PATCH',
         body: updates,
       }),
