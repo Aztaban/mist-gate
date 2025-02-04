@@ -49,59 +49,81 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='admin-order-form'>
-      <label htmlFor="name">Product Name:</label>
-      <input
-        type="text"
-        id="name"
-        value={modifiedFields.name ?? product.name}
-        onChange={(e) => handleFieldUpdate('name', e.target.value)}
-      />
-      <label htmlFor="productType">Product Type:</label>
-      {modifiedFields.name && modifiedFields.name !== product.name && (
-        <p>Previous: {product.name}</p>
-      )}
-      <select
-        id="productType"
-        name="productType"
-        onChange={(e) => handleFieldUpdate('productType', e.target.value)}
-        value={modifiedFields.productType ?? product.productType}
-      >
-        {productCategories.map((productType) => (
-          <option key={productType} value={productType}>
-            {productType}
-          </option>
-        ))}
-      </select>
-      <label htmlFor="details.author">Author:</label>
-      <input
-        type="text"
-        id="details.author"
-        value={modifiedDetails.author ?? product.details.author}
-        onChange={(e) => handleDetailUpdate('author', e.target.value)}
-      />
-      <label htmlFor="details.releaseDate">Release Date:</label>
-      <input
-        type="date"
-        id="details.releaseDate"
-        value={modifiedDetails.releaseDate ?? product.details.releaseDate}
-        onChange={(e) => handleDetailUpdate('releaseDate', e.target.value)}
-      />
-      <label htmlFor="details.description">Description:</label>
-      <textarea
-        id="details.description"
-        value={modifiedDetails.description ?? product.details.description}
-        onChange={(e) => handleDetailUpdate('releaseDate', e.target.value)}
-        placeholder="Product Description"
-        rows={6}
-      />
-      <div>
-        <button type="button" onClick={onClose}>
-          Cancel
-        </button>
-        <button type="submit">Save Product</button>
-      </div>
-    </form>
+    <div className="admin-order">
+      <form onSubmit={handleSubmit} className="admin-order-form">
+        <fieldset>
+          <label htmlFor="name">Product Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={modifiedFields.name ?? product.name}
+            onChange={(e) => handleFieldUpdate('name', e.target.value)}
+          />
+          {modifiedFields.name && modifiedFields.name !== product.name && (
+            <p>Previous: {product.name}</p>
+          )}
+          <label htmlFor="productType">Product Type:</label>
+          <select
+            id="productType"
+            name="productType"
+            onChange={(e) => handleFieldUpdate('productType', e.target.value)}
+            value={modifiedFields.productType ?? product.productType}
+          >
+            {productCategories.map((productType) => (
+              <option key={productType} value={productType}>
+                {productType}
+              </option>
+            ))}
+          </select>
+          {modifiedFields.productType &&
+            modifiedFields.productType !== product.productType && (
+              <p>Previous: {product.productType}</p>
+            )}
+          <label htmlFor="details.author">Author:</label>
+          <input
+            type="text"
+            id="details.author"
+            value={modifiedDetails.author ?? product.details.author}
+            onChange={(e) => handleDetailUpdate('author', e.target.value)}
+          />
+          {modifiedDetails.author &&
+            modifiedDetails.author !== product.details.author && (
+              <p>Previous: {product.details.author}</p>
+            )}
+          <label htmlFor="details.releaseDate">Release Date:</label>
+          <input
+            type="date"
+            id="details.releaseDate"
+            value={modifiedDetails.releaseDate ?? product.details.releaseDate}
+            onChange={(e) => handleDetailUpdate('releaseDate', e.target.value)}
+          />
+          {modifiedDetails.releaseDate &&
+            modifiedDetails.releaseDate !== product.details.releaseDate && (
+              <p>Previous: {product.details.releaseDate}</p>
+            )}
+          <label htmlFor="details.description">Description:</label>
+          <textarea
+            id="details.description"
+            value={modifiedDetails.description ?? product.details.description}
+            onChange={(e) => handleDetailUpdate('description', e.target.value)}
+            placeholder="Product Description"
+            rows={6}
+          />
+          {modifiedDetails.description &&
+            modifiedDetails.description !== product.details.description && (
+              <p>Previous: {product.details.description}</p>
+            )}
+        </fieldset>
+        <div className="checkout-buttons">
+          <button type="button" onClick={onClose} className="btn">
+            Cancel
+          </button>
+          <button type="submit" className="btn back-btn">
+            Save Product
+          </button>
+        </div>
+      </form>
+    </div>
   );
 };
 
