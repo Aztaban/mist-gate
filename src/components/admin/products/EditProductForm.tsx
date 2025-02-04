@@ -49,7 +49,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='admin-order-form'>
       <label htmlFor="name">Product Name:</label>
       <input
         type="text"
