@@ -222,23 +222,25 @@ const CreateProduct = () => {
             rows={6}
           />
         </fieldset>
-        <button
-          type="submit"
-          className="btn save-btn order-confirm-btn"
-          disabled={!canSave}
-          aria-disabled={!canSave}
-        >
-          {isLoading ? 'Loading...' : 'Create Product'}
-        </button>
+        <div className='checkout-buttons'>
+          <button
+            type="button"
+            className="btn"
+            onClick={onBackBtnClicked}
+            disabled={isLoading}
+          >
+            back to products
+          </button>
+          <button
+            type="submit"
+            className="btn back-btn"
+            disabled={!canSave}
+            aria-disabled={!canSave}
+          >
+            {isLoading ? 'Loading...' : 'Create Product'}
+          </button>
+        </div>
       </form>
-      <button
-        type="button"
-        className="btn back-btn"
-        onClick={onBackBtnClicked}
-        disabled={isLoading}
-      >
-        back to products
-      </button>
     </div>
   );
 };
