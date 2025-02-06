@@ -37,8 +37,6 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
       }),
     };
 
-    console.log(updatedProduct);
-
     try {
       await updateProduct({ id: product.id, updates: updatedProduct }).unwrap();
       alert('Product updated succesfully!');
