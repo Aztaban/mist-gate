@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { eurFormat } from "../../../utils/utils";
+import { useUpdateProductMutation } from "../../../features/shop/productApiSlice";
 
 interface PriceChangeModalProps {
   currentPrice: number;
@@ -8,10 +9,15 @@ interface PriceChangeModalProps {
 }
 
 const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModalProps) => {
+  const [updateProduct] = useUpdateProductMutation();
   const [price, setPrice] = useState(currentPrice);
 
   const handleSubmit = () => {
-    console.log(price);
+    try {
+      updateProduct({ id: productId, updates: { price } }).unwrap();
+    } catch (err) {
+      console.error('Failed to update product:', err);
+    }
     onClose();
   }
 
