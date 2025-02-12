@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useUpdateProductMutation } from '../../../features/shop/productApiSlice';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 interface RestockModalProps {
   currentStock: number;
@@ -11,6 +13,7 @@ const RestockModal = ({
   onClose,
 }: RestockModalProps) => {
   const [adjustment, setAdjustment] = useState<string>('');
+  const [updateProduct] = useUpdateProductMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -20,6 +23,26 @@ const RestockModal = ({
   };
 
   const handleSubmit = () => {
+    const adjustmentValue = Number(adjustment);
+    if (isNaN(adjustmentValue)) {
+      alert('Invalid stock adjustment value.');
+      return;
+    }
+
+    if (currentStock + adjustmentValue < 0) {
+      alert('Stock cannot be negative.');
+      return;
+    }
+
+    try {
+      updateProduct({
+        id: productId,
+        updates: { countInStock: adjustmentValue },
+      }).unwrap();
+    } catch (err) {
+      console.error('Failed to update product:', err);
+      alert('An error occurred while updating the product.');
+    }
     onClose();
   };
 
