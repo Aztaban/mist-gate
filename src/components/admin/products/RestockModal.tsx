@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useUpdateProductMutation } from '../../../features/shop/productApiSlice';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 interface RestockModalProps {
   currentStock: number;
