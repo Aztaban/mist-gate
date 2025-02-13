@@ -581,9 +581,7 @@ select {
   font-weight: bold;
 }
 
-.admin-product-detail p {
-  align-self: flex-start;
-}
+
 
 .image-container {
   display: flex;
