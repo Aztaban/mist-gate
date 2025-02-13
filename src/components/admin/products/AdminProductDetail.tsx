@@ -4,12 +4,13 @@ import { getImageUrl } from '../../../utils/utils';
 import { eurFormat } from '../../../utils/utils';
 import RestockModal from './RestockModal';
 import PriceChangeModal from './PriceChangeModal';
+import ProductImageUpadteModal from './ProductImageUpdateModal';
 
 interface AdminProductDetailProps {
   product: Product;
 }
 
-type ModalType = 'restock' | 'priceChange' | null;
+type ModalType = 'restock' | 'priceChange' | 'image' | null;
 
 const AdminProductDetail = ({
   product,
@@ -32,7 +33,7 @@ const AdminProductDetail = ({
       </div>
       <div className="image-container">
         <img src={getImageUrl(product.image)} alt={product.name} />
-        <button className="btn save-btn">Change Image</button>
+        <button className="btn save-btn" onClick={() => setActiveModal('image')}>Change Image</button>
       </div>
       <div className="product-pricing">
         <div className="info-group">
@@ -71,6 +72,14 @@ const AdminProductDetail = ({
             onClose={() => setActiveModal(null)}
           />
         )}
+        {activeModal === 'image' && (
+          <ProductImageUpadteModal
+            productId={product.id}
+            currentImage={product.image}
+            onClose={() => setActiveModal(null)}
+          />
+        )
+      }
       </div>
     </div>
   );
