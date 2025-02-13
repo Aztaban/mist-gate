@@ -14,7 +14,7 @@ export interface Product {
   image: string;
   countInStock: number;
   unitsSold: number;
-  details: ProductDetails | Partial<ProductDetails>
+  details: ProductDetails | Partial<ProductDetails>;
 }
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
@@ -65,6 +65,21 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+    updateProductImage: builder.mutation<{ image: string },{ id: string; image: File }>({
+      query: ({ id, image }) => {
+        const formData = new FormData();
+        formData.append('image', image);
+
+        return {
+          url: `/products/${id}/image`,
+          method: 'PUT',
+          body: formData,
+        };
+      },
+      invalidatesTags: (_result, _error, arg) => [
+        { type: 'Product', id: arg.id },
+      ],
+    }),
   }),
 });
 
@@ -74,4 +89,5 @@ export const {
   useAddNewProductMutation,
   useUpdateProductMutation,
   useUploadImageMutation,
+  useUpdateProductImageMutation
 } = extendedApiSlice;
