@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { eurFormat } from "../../../utils/utils";
 import { useUpdateProductMutation } from "../../../features/shop/productApiSlice";
+import PriceInput from "../../common/PriceInput";
 
 interface PriceChangeModalProps {
   currentPrice: number;
@@ -21,14 +22,6 @@ const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModal
     onClose();
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^\d]/g, ''); // Remove non-numeric characters
-    const formattedPrice = Number(value);
-    setPrice(formattedPrice);
-  }
-  
-  const displayPrice = (price / 100).toFixed(2).replace('.', ',');
-
   return (
     <div className="modal-overlay">
       <div className="modal-content">
@@ -36,12 +29,7 @@ const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModal
         <p>Current Price: <strong>{eurFormat(currentPrice)}</strong></p>
 
         <label>New Price:</label>
-        <input
-          type="text"
-          value={displayPrice}
-          onChange={handleChange}
-          className="modal-input"
-        />
+        <PriceInput value={price} onChange={setPrice} className="modal-input" />
 
         <div className="modal-actions">
           <button onClick={handleSubmit} className="modal-confirm">Confirm</button>
