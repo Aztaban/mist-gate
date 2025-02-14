@@ -78,7 +78,7 @@ const CreateProduct = () => {
   const canSave =
     [
       formData.name,
-      formData.productType,
+      formData.productType && formData.productType !== '',
       formData.price,
       imageRef.current,
       formData.details?.author,
@@ -151,6 +151,7 @@ const CreateProduct = () => {
             onChange={handleChange}
             value={formData.productType}
           >
+            <option value="">Select a product type</option>
             {productCategories.map((productType) => (
               <option key={productType} value={productType}>
                 {productType}
