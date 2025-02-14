@@ -9,6 +9,7 @@ import { uploadImageAndGetPath } from '../../../hooks/useUploadImage';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../../features/checkout/checkoutSlice';
 import { productCategories } from '../../../config/productCategories';
+import PriceInput from '../../common/PriceInput';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
@@ -35,44 +36,40 @@ const CreateProduct = () => {
     }
   };
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
+  const handleGeneralChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData((prev) => {
-      if (name === 'price' || name === 'countInStock') {
-        // Parse value as an integer
-        const intValue = parseInt(value, 10);
-        // Ignore invalid or empty values
-        if (isNaN(intValue) || intValue < 0) {
-          return prev;
-        }
-        return { ...prev, [name]: intValue };
-      }
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-      if (name.startsWith('details.')) {
-        const detailKey = name.split('.')[1] as keyof Product['details'];
-        return {
-          ...prev,
-          details: {
-            ...(prev.details ?? {
-              author: '',
-              releaseDate: '',
-              description: '',
-            }),
-            [detailKey]: value,
-          },
-        };
-      } else {
-        if (name === 'productType') {
-          setFormData((prev) => ({ ...prev, [name]: value }));
-        } else {
-          setFormData((prev) => ({ ...prev, [name]: value }));
-        }
-      }
+  const handlePriceChange = (value: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      price: value, // Ensuring it's stored in cents
+    }));
+  };
 
-      return { ...prev, [name]: value };
-    });
+  const handleStockChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const intValue = parseInt(e.target.value, 10);
+    setFormData((prev) => ({
+      ...prev,
+      countInStock: isNaN(intValue) || intValue < 0 ? 0 : intValue,
+    }));
+  };
+
+  const handleDetailsChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    const detailKey = name.split('.')[1] as keyof Product['details'];
+  
+    setFormData((prev) => ({
+      ...prev,
+      details: {
+        ...(prev.details ?? { author: '', releaseDate: '', description: '' }),
+        [detailKey]: value,
+      },
+    }));
   };
 
   const canSave =
@@ -141,14 +138,14 @@ const CreateProduct = () => {
             id="name"
             name="name"
             value={formData.name}
-            onChange={handleChange}
+            onChange={handleGeneralChange}
             placeholder="Product Name"
           />
           <label htmlFor="productType">Product Type:</label>
           <select
             id="productType"
             name="productType"
-            onChange={handleChange}
+            onChange={handleGeneralChange}
             value={formData.productType}
           >
             <option value="">Select a product type</option>
@@ -159,14 +156,7 @@ const CreateProduct = () => {
             ))}
           </select>
           <label htmlFor="price">Product Price:</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            placeholder="Price"
-          />
+          <PriceInput value={formData.price || 0} onChange={handlePriceChange} />
 
           <label htmlFor="productType">Product Image:</label>
 
@@ -190,7 +180,7 @@ const CreateProduct = () => {
             id="countInStock"
             name="countInStock"
             value={formData.countInStock}
-            onChange={handleChange}
+            onChange={handleStockChange}
             placeholder="countInStock"
           />
         </fieldset>
@@ -202,7 +192,7 @@ const CreateProduct = () => {
             id="details.author"
             name="details.author"
             value={formData.details?.author}
-            onChange={handleChange}
+            onChange={handleDetailsChange}
             placeholder="Author"
           />
           <label htmlFor="details.releaseDate">Release Date:</label>
@@ -211,14 +201,14 @@ const CreateProduct = () => {
             id="details.releaseDate"
             name="details.releaseDate"
             value={formData.details?.releaseDate}
-            onChange={handleChange}
+            onChange={handleDetailsChange}
           />
           <label htmlFor="details.description">Description:</label>
           <textarea
             id="details.description"
             name="details.description"
             value={formData.details?.description}
-            onChange={handleChange}
+            onChange={handleDetailsChange}
             placeholder="Product Description"
             rows={6}
           />
