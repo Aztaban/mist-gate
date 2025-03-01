@@ -8,14 +8,13 @@ interface OrdersListProps {
 }
 
 const OrdersList = ({orders}: OrdersListProps): ReactElement => {
+  if (!orders || orders.length === 0) {
+    return <p>No Data to found.</p>;
+  }
   const { paginatedData, paginationControls } = usePagination<Order>({
     data: orders,
     itemsPerPage: 10,
   });
-
-  if (!orders || orders.length === 0) {
-    return <p>No Data to found.</p>;
-  }
 
   return (
     <>
