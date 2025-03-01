@@ -581,8 +581,6 @@ select {
   font-weight: bold;
 }
 
-
-
 .image-container {
   display: flex;
   flex: 1;
@@ -1032,7 +1030,7 @@ section:nth-of-type(even) {
   align-items: center;
   width: 100%;
   height: 100%;
-  color: var(--SECONDARY-COLOR-DARK);
+  color: var(--SECONDARY-COLOR);
 }
 
 .product img {
@@ -1046,7 +1044,7 @@ section:nth-of-type(even) {
 }
 
 .product h3 {
-  background-color: var(--SECONDARY-COLOR-LIGHT);
+  background-color: var(--SECONDARY-COLOR);
   width: calc(100% + 40px);
   letter-spacing: 0.1em;
   font-size: xx-large;
