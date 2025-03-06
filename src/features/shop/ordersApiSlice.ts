@@ -3,6 +3,7 @@ import { OrderStatus } from '../../config/orderStatus';
 import { ShippingMethod } from '../../config/shippingConfig';
 
 export type ShippingAddress = {
+  name: string;
   address: string;
   city: string;
   postalCode: string;
@@ -20,6 +21,7 @@ export type CreateOrder = {
   products: OrderItem[];
   shippingAddress: ShippingAddress | null;
   shippingMethod: ShippingMethod;
+  phoneNumber?: string;
 };
 
 export interface PaymentIntentResponse {
@@ -38,6 +40,7 @@ export interface Order {
   shippingAddress: ShippingAddress;
   status: OrderStatus;
   shippingMethod: ShippingMethod;
+  phoneNumber?: string;
   itemsPrice: number;
   shippingPrice: number;
   totalPrice: number;
@@ -58,7 +61,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           : [{ type: 'Order', id: 'LIST' }],
     }),
     getOrdersForUser: builder.query<Order[], void>({
-      query: () => '/orders/user',
+      query: () => '/user/orders',
       providesTags: (result) =>
         result
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
@@ -76,31 +79,13 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Order', id: 'LIST' }],
     }),
-    updateOrderStatus: builder.mutation<
-      void,
-      { orderId: string; status: OrderStatus }
-    >({
-      query: ({ orderId, status }) => ({
-        url: `/orders/${orderId}/status`,
-        method: 'PUT',
-        body: { status },
+    updateOrder: builder.mutation<void, { orderId: string; updates: Partial<Order> }>({
+      query: ({ orderId, updates }) => ({
+        url: `/orders/${orderId}`,
+        method: 'PATCH',
+        body: updates,
       }),
-      invalidatesTags: (_result, _error, { orderId }) => [
-        { type: 'Order', id: orderId },
-      ],
-    }),
-    updateOrderShipping: builder.mutation<
-      void,
-      { orderId: string; shippingMethod: ShippingMethod }
-    >({
-      query: ({ orderId, shippingMethod }) => ({
-        url: `/orders/${orderId}/shipping`,
-        method: 'PUT',
-        body: { shippingMethod },
-      }),
-      invalidatesTags: (_result, _error, { orderId }) => [
-        { type: 'Order', id: orderId },
-      ],
+      invalidatesTags: (_result, _error, { orderId }) => [{ type: 'Order', id: orderId }],  
     }),
     createPaymentIntent: builder.mutation<PaymentIntentResponse, string>({
       query: ( orderId ) => ({
@@ -122,8 +107,7 @@ export const {
   useGetOrdersForUserQuery,
   useGetOrderByIdQuery,
   useAddNewOrderMutation,
-  useUpdateOrderStatusMutation,
-  useUpdateOrderShippingMutation,
+  useUpdateOrderMutation,
   useCreatePaymentIntentMutation,
   useMarkOrderPaidMutation
 } = extendedApiSlice;
