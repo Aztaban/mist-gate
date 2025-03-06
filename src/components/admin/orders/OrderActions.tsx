@@ -2,10 +2,7 @@ import { useState, ChangeEvent } from 'react';
 import { OrderStatus } from '../../../config/orderStatus';
 import { Order } from '../../../features/shop/ordersApiSlice';
 import Select from '../../common/Select';
-import {
-  useUpdateOrderShippingMutation,
-  useUpdateOrderStatusMutation,
-} from '../../../features/shop/ordersApiSlice';
+import { useUpdateOrderMutation } from '../../../features/shop/ordersApiSlice';
 import { ShippingMethod } from '../../../config/shippingConfig';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -16,8 +13,8 @@ interface OrderActionsProps {
 
 const OrderActions = ({ order }: OrderActionsProps) => {
   const navigate = useNavigate();
-  const [updateOrderStatus] = useUpdateOrderStatusMutation();
-  const [updateOrderShipping] = useUpdateOrderShippingMutation();
+  const [updateOrder] = useUpdateOrderMutation();
+
   const [selectedStatus, setSelectedStatus] = useState<OrderStatus | ''>(
     order?.status || ''
   );
@@ -27,24 +24,28 @@ const OrderActions = ({ order }: OrderActionsProps) => {
 
   const handleSaveChanges = async () => {
     try {
+      const updates: Partial<Order> = {};
       if (selectedStatus && selectedStatus !== order.status) {
-        await updateOrderStatus({
-          orderId: order.id,
-          status: selectedStatus,
-        }).unwrap();
+        updates.status = selectedStatus;
       }
-
       if (
         selectedShippingMethod &&
         selectedShippingMethod !== order.shippingMethod
       ) {
-        await updateOrderShipping({
-          orderId: order.id,
-          shippingMethod: selectedShippingMethod,
-        }).unwrap();
+        updates.shippingMethod = selectedShippingMethod;
       }
-      alert('Order status has been updated successfully');
+
+      if (Object.keys(updates).length > 0) {
+        await updateOrder({
+          orderId: order.id,
+          updates,
+        }).unwrap();
+        alert('Order has been updated successfully');
+      } else {
+        alert('No changes to save');
+      }
     } catch (error) {
+      console.error('Failed to update order:', error);
       alert('Failed to update order status');
     }
   };
@@ -59,7 +60,12 @@ const OrderActions = ({ order }: OrderActionsProps) => {
         <section className="admin-tools">
           <h3 className="header-wrapper">Admin Tools</h3>
 
-          <form onSubmit={(e) => { e.preventDefault(); handleSaveChanges(); }}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSaveChanges();
+            }}
+          >
             <Select
               id="status"
               label="Update Status"
