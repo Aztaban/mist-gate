@@ -1,8 +1,17 @@
 import { apiSlice } from '../../app/api/apiSlice';
 import { logOut, setCredentials } from './authSlice';
 
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export interface LoginCredentialsType {
-  user: string;
+  login: string;
+  pwd: string;
+}
+
+interface RegisterCredentialsType {
+  username: string;
+  email: string;
   pwd: string;
 }
 
@@ -14,25 +23,34 @@ interface AuthResponse {
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginCredentialsType>({
-      query: (credentials) => ({
-        url: '/auth/login',
-        method: 'POST',
-        body: credentials,
-      }),
+      query: ({ login, pwd }) => {
+        const isEmail = EMAIL_REGEX.test(login);
+        const isUser = USER_REGEX.test(login);
+
+        if (!isEmail && !isUser) {
+          throw new Error('Invalid login format'); 
+        }
+
+        const body = isEmail ? { email: login, pwd } : { user: login, pwd };
+
+        return {
+          url: '/auth/login',
+          method: 'POST',
+          body,
+        };
+      },
       async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled; // Wait for the login query to resolve
           const { accessToken } = data;
-          
           // Dispatch setCredentials with the access token
           dispatch(setCredentials({ accessToken }));
         } catch (err) {
-          // Handle error if necessary
           console.error(err);
         }
       },
     }),
-    register: builder.mutation<void, LoginCredentialsType>({
+    register: builder.mutation<void, RegisterCredentialsType>({
       query: (newLogin) => ({
         url: '/auth/register',
         method: 'POST',

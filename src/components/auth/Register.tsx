@@ -1,18 +1,22 @@
 import { useRef, useState, useEffect, FormEvent, ReactElement } from 'react';
 import { useRegisterMutation } from '../../features/auth/authApiSlice';
 import { NavLink } from 'react-router-dom';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 const Register = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
-  const [user, setUser] = useState<string>('');
+  const [username, setUsername] = useState<string>('');
   const [validName, setValidName] = useState<boolean>(false);
   const [userFocus, setUserFocus] = useState<boolean>(false);
+
+  const [email, setEmail] = useState<string>('');
+  const [validEmail, setValidEmail] = useState<boolean>(false);
+  const [emailFocus, setEmailFocus] = useState<boolean>(false);
 
   const [pwd, setPwd] = useState<string>('');
   const [validPwd, setValidPwd] = useState<boolean>(false);
@@ -32,9 +36,13 @@ const Register = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    const result = USER_REGEX.test(user);
+    const result = USER_REGEX.test(username);
     setValidName(result);
-  }, [user]);
+  }, [username]);
+
+  useEffect(() => {
+    setValidEmail(EMAIL_REGEX.test(email));
+  }, [email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
@@ -45,18 +53,20 @@ const Register = (): ReactElement => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, pwd, matchPwd]);
+  }, [username, email, pwd, matchPwd]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const v1 = USER_REGEX.test(user);
+    const v1 = USER_REGEX.test(username);
     const v2 = PWD_REGEX.test(pwd);
-    if (!v1 || !v2) {
+    const v3 = EMAIL_REGEX.test(email);
+
+    if (!v1 || !v2 || !v3) {
       setErrMsg('Invalid Entry');
       return;
     }
     try {
-      await registerMutation({ user, pwd }).unwrap();
+      await registerMutation({ username, email, pwd }).unwrap();
       setSuccess(true);
       setErrMsg('');
     } catch (error: any) {
@@ -99,8 +109,8 @@ const Register = (): ReactElement => {
                 id="username"
                 ref={userRef}
                 autoComplete="off"
-                onChange={(e) => setUser(e.target.value)}
-                value={user}
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
                 required
                 aria-invalid={validName ? 'false' : 'true'}
                 aria-describedby="uidnote"
@@ -110,13 +120,37 @@ const Register = (): ReactElement => {
               <p
                 id="uidnote"
                 className={
-                  userFocus && user && !validName ? 'instructions' : 'offscreen'
+                  userFocus && username && !validName ? 'instructions' : 'offscreen'
                 }
               >
                 4 to 24 characters.
                 <br />
                 Must begin with a letter. <br />
                 Letters, numbers, underscores, hyphens allowed.
+              </p>
+
+              <label htmlFor="email">Email: </label>
+              <input
+                type="email"
+                id="email"
+                autoComplete="off"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                required
+                aria-invalid={validEmail ? 'false' : 'true'}
+                aria-describedby="emailnote"
+                onFocus={() => setEmailFocus(true)}
+                onBlur={() => setEmailFocus(false)}
+              />
+              <p
+                id="emailnote"
+                className={
+                  emailFocus && email && !validEmail
+                    ? 'instructions'
+                    : 'offscreen'
+                }
+              >
+                Must be a valid email format (e.g., user@example.com).
               </p>
 
               <label htmlFor="password">

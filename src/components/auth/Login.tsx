@@ -7,13 +7,13 @@ const Login = (): ReactElement => {
   const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
 
-  const [user, setUser] = useState<string>('');
+  const [login, setLogin] = useState<string>('');
   const [pwd, setPwd] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
 
   const navigate = useNavigate();
 
-  const [login] = useLoginMutation();
+  const [useLogin] = useLoginMutation();
 
   useEffect(() => {
     if (userRef.current) userRef.current.focus();
@@ -21,16 +21,16 @@ const Login = (): ReactElement => {
 
   useEffect(() => {
     setErrMsg('');
-  }, [user, pwd]);
+  }, [login, pwd]);
 
   const errClass = errMsg ? 'errmsg' : 'offscreen';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { isAdmin } = await login({ user, pwd }).unwrap();
+      const { isAdmin } = await useLogin({ login, pwd }).unwrap();
       setPersistState(true);
-      setUser('');
+      setLogin('');
       setPwd('');
       if (isAdmin) {
         navigate('/admin');
@@ -51,7 +51,7 @@ const Login = (): ReactElement => {
   };
 
   const handleUserInput = (e: ChangeEvent<HTMLInputElement>) =>
-    setUser(e.target.value);
+    setLogin(e.target.value);
   const handlePwdInput = (e: ChangeEvent<HTMLInputElement>) =>
     setPwd(e.target.value);
 
@@ -63,12 +63,12 @@ const Login = (): ReactElement => {
           {errMsg}
         </p>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="login">Login:</label>
           <input
             type="text"
-            id="username"
+            id="login"
             ref={userRef}
-            value={user}
+            value={login}
             onChange={handleUserInput}
             autoComplete="off"
             required
