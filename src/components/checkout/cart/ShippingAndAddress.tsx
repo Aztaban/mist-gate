@@ -1,14 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ShippingAddress } from '../../../features/shop/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../../config/shippingConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setShippingAddress as updateShippingAddress,
-  setShippingMethod as updateShippingMethod,
-  selectShippingAddress,
-  selectShippingMethod,
+  setCheckout,
+  selectCheckout,
 } from '../../../features/checkout/checkoutSlice';
 import { validateAddress } from '../../../hooks/useValidateAddress';
+import {
+  useGetUserQuery,
+  useUpdateUserAddressAndPhoneMutation,
+} from '../../../features/user/userApiSlice';
 
 interface ShippingAndAddressProps {
   onNext: () => void;
@@ -20,21 +22,34 @@ const ShippingAndAddress = ({
   onPrevious,
 }: ShippingAndAddressProps) => {
   const dispatch = useDispatch();
-  const currentAddress = useSelector(selectShippingAddress);
-  const currentMethod = useSelector(selectShippingMethod);
+  const currentCheckout = useSelector(selectCheckout);
+  const { data: user } = useGetUserQuery();
 
+  const [updateUserAddressAndPhone] = useUpdateUserAddressAndPhoneMutation();
   const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
+  const [saveAddress, setSaveAddress] = useState<boolean>(false);
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(
-    currentMethod || ShippingMethod.Standard
+    currentCheckout.shippingMethod || ShippingMethod.Standard
+  );
+  const [phoneNumber, setPhoneNumber] = useState<string>(
+    currentCheckout.phoneNumber || ''
   );
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>(
-    currentAddress || {
-      address: '',
-      city: '',
-      postalCode: '',
-      country: '',
-    }
+    currentCheckout.shippingAddress || {
+        name: '',
+        street: '',
+        city: '',
+        postalCode: '',
+        country: '',
+      }
   );
+
+  useEffect(() => {
+    if (!currentCheckout.shippingAddress && user?.address) {
+      setShippingAddress(user.address);
+      setPhoneNumber(user.phoneNumber || '');
+    }
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,21 +70,34 @@ const ShippingAndAddress = ({
     setShippingMethod(selectedMethod);
   };
 
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPhoneNumber(e.target.value);
+  };
+
   const validateAndSave = (): boolean => {
     const errors: Record<string, boolean> = validateAddress(shippingAddress);
     setFieldErrors(errors);
 
     if (Object.keys(errors).length === 0) {
-      dispatch(updateShippingAddress(shippingAddress));
-      dispatch(updateShippingMethod(shippingMethod));
+      dispatch(setCheckout({ shippingAddress, shippingMethod, phoneNumber }));
       return true;
     }
 
     return false;
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (validateAndSave()) {
+      if (saveAddress && user?.id) {
+        try {
+          await updateUserAddressAndPhone({
+            updates: { address: shippingAddress, phoneNumber },
+          }).unwrap();
+          console.log('Address saved successfully!');
+        } catch (error) {
+          console.error('Failed to save address:', error);
+        }
+      }
       onNext();
     }
   };
@@ -79,18 +107,37 @@ const ShippingAndAddress = ({
       <h2>2. Shipping and Address</h2>
       <article className="checkout checkout-spaced">
         <form className="address">
-          <label htmlFor="address">Address:</label>
+          <label htmlFor="name">Name:</label>
           <input
             type="text"
-            id="address"
-            name="address"
-            value={shippingAddress.address}
+            id="name"
+            name="name"
+            value={shippingAddress.name}
+            onChange={handleChange}
+            required
+            autoComplete="on"
+          />
+          <label htmlFor="phoneNumber">Phone Number (Optional):</label>
+          <input
+            type="text"
+            id="phoneNumber"
+            name="phoneNumber"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+            autoComplete="on"
+          />
+          <label htmlFor="street">Street:</label>
+          <input
+            type="text"
+            id="street"
+            name="street"
+            value={shippingAddress.street}
             onChange={handleChange}
             autoComplete="on"
             required
           />
-          {fieldErrors.address && (
-            <p className="errmsg">Address is required.</p>
+          {fieldErrors.street && (
+            <p className="errmsg">Street is required.</p>
           )}
           <label htmlFor="city">City:</label>
           <input
@@ -149,6 +196,16 @@ const ShippingAndAddress = ({
               {ShippingPrices[ShippingMethod.Overnight] / 100})
             </option>
           </select>
+          <div className="save-address">
+            <label>
+              <input
+                type="checkbox"
+                checked={saveAddress}
+                onChange={() => setSaveAddress(!saveAddress)}
+              />
+              Save this address for future use
+            </label>
+          </div>
         </form>
       </article>
       <div className="checkout-buttons">
