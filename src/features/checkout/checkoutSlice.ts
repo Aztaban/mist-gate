@@ -7,9 +7,23 @@ import { OrderItem, CreateOrder } from '../shop/ordersApiSlice';
 const loadCheckoutState = (): CheckoutState => {
   try {
     const storedState = localStorage.getItem('checkout');
-    return storedState ? JSON.parse(storedState) : { products: [], shippingAddress: null, shippingMethod: ShippingMethod.Standard, orderId: null };
+    return storedState
+      ? JSON.parse(storedState)
+      : {
+          products: [],
+          shippingAddress: null,
+          shippingMethod: ShippingMethod.Standard,
+          orderId: null,
+          phoneNumber: '',
+        };
   } catch (error) {
-    return { products: [], shippingAddress: null, shippingMethod: ShippingMethod.Standard, orderId: null };
+    return {
+      products: [],
+      shippingAddress: null,
+      shippingMethod: ShippingMethod.Standard,
+      orderId: null,
+      phoneNumber: '',
+    };
   }
 };
 
@@ -26,6 +40,7 @@ const initialState: CheckoutState = loadCheckoutState() || {
   products: [],
   shippingAddress: null,
   shippingMethod: ShippingMethod.Standard,
+  phoneNumber: '',
   orderId: null,
 };
 
@@ -65,16 +80,23 @@ const checkoutSlice = createSlice({
       state.products = [];
       state.shippingAddress = null;
       state.shippingMethod = ShippingMethod.Standard;
+      state.phoneNumber = '';
     },
-    setShippingAddress(state, action: PayloadAction<ShippingAddress>) {
-      state.shippingAddress = action.payload;
-    },
-    setShippingMethod(state, action: PayloadAction<ShippingMethod>) {
-      state.shippingMethod = action.payload;
+    setCheckout: (
+      state,
+      action: PayloadAction<{
+        shippingAddress: ShippingAddress;
+        shippingMethod: ShippingMethod;
+        phoneNumber?: string;
+      }>
+    ) => {
+      state.shippingAddress = action.payload.shippingAddress;
+      state.shippingMethod = action.payload.shippingMethod;
+      state.phoneNumber = action.payload.phoneNumber || '';
     },
     setOrderId(state, action: PayloadAction<string>) {
       state.orderId = action.payload;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addDefaultCase((state) => {
@@ -96,9 +118,8 @@ export const {
   removeFromCart,
   updateQuantity,
   clearCart,
-  setShippingAddress,
-  setShippingMethod,
-  setOrderId
+  setCheckout,
+  setOrderId,
 } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
