@@ -56,16 +56,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
     // Update user address and phone
     updateUserAddressAndPhone: builder.mutation<
       User,
-      { userId: string; updates: Partial<User> }
+      { updates: Partial<User> }
     >({
-      query: ({ userId, updates }) => ({
-        url: `/users/${userId}/address`,
+      query: ({ updates }) => ({
+        url: `/users/user/address`,
         method: 'PATCH',
         body: updates,
       }),
-      invalidatesTags: (_result, _error, { userId }) => [
-        { type: 'User', id: userId },
-      ],
+      invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
     }),
 
     // Toggle user status (Admin only)
