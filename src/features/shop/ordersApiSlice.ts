@@ -4,7 +4,7 @@ import { ShippingMethod } from '../../config/shippingConfig';
 
 export type ShippingAddress = {
   name: string;
-  address: string;
+  street: string;
   city: string;
   postalCode: string;
   country: string;
@@ -61,7 +61,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           : [{ type: 'Order', id: 'LIST' }],
     }),
     getOrdersForUser: builder.query<Order[], void>({
-      query: () => '/user/orders',
+      query: () => '/orders/user/orders',
       providesTags: (result) =>
         result
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))

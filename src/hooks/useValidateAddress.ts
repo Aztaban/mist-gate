@@ -5,7 +5,8 @@ export const validateAddress = (
 ): Record<string, boolean> => {
   if (!address) {
     return {
-      address: true,
+      name: true,
+      street: true,
       city: true,
       postalCode: true,
       country: true,
@@ -14,7 +15,8 @@ export const validateAddress = (
 
   const errors: Record<string, boolean> = {};
   const requiredFields: (keyof ShippingAddress)[] = [
-    'address',
+    'name',
+    'street',
     'city',
     'postalCode',
     'country',
