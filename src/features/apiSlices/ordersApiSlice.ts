@@ -61,7 +61,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           : [{ type: 'Order', id: 'LIST' }],
     }),
     getOrdersForUser: builder.query<Order[], void>({
-      query: () => '/orders/user/orders',
+      query: () => '/users/user/orders',
       providesTags: (result) =>
         result
           ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
