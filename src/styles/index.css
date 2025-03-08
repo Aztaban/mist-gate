@@ -1235,7 +1235,6 @@ section:nth-of-type(even) {
   padding: 20px;
   flex: 1;
   width: 100%;
-  height: fit-content;
   border: var(--BORDERS-SECONDARY);
 }
 
@@ -1497,8 +1496,14 @@ footer {
 /* Tablet devices (min-width: 768px) */
 @media (min-width: 768px) {
   .cart-bottom {
+    display: flex;
     flex-direction: row;
     align-items: stretch;
+    border-bottom: 0;
+  }
+
+  .cart-summary {
+    border-right: 0;
   }
 
   .hamburger {
