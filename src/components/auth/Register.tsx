@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, FormEvent, ReactElement } from 'react';
-import { useRegisterMutation } from '../../features/auth/authApiSlice';
+import { useRegisterMutation } from '../../features/apiSlices/authApiSlice';
 import { NavLink } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;

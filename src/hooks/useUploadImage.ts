@@ -1,4 +1,4 @@
-import { useUploadImageMutation } from "../features/shop/productApiSlice";
+import { useUploadImageMutation } from "../features/apiSlices/productApiSlice";
 
 export const uploadImageAndGetPath = async (
   file: File,

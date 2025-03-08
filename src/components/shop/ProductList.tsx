@@ -1,4 +1,4 @@
-import { useGetProductsQuery } from '../../features/shop/productApiSlice';
+import { useGetProductsQuery } from '../../features/apiSlices/productApiSlice';
 import { ReactElement } from 'react';
 import SingleProduct from './SingleProduct';
 

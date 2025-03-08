@@ -1,9 +1,9 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { ReactElement, useEffect, useState, useRef } from 'react';
-import { useRefreshMutation } from '../../features/auth/authApiSlice';
+import { useRefreshMutation } from '../../features/apiSlices/authApiSlice';
 import { useSelector } from 'react-redux';
-import { selectCurrentToken } from '../../features/auth/authSlice';
-import { RootState } from '../../app/store';
+import { selectCurrentToken } from '../../features/slices/authSlice';
+import { RootState } from '../../features/store';
 import { RingLoader } from 'react-spinners';
 import { setPersistState } from '../../utils/utils';
 

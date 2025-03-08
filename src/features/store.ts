@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { apiSlice } from './api/apiSlice';
+import { apiSlice } from './apiSlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import authReducer from '../features/auth/authSlice';
-import checkoutReducer from '../features/checkout/checkoutSlice';
-import ordersReducer from '../features/shop/ordersSlice'
+import authReducer from './slices/authSlice';
+import checkoutReducer from './slices/checkoutSlice';
+import ordersReducer from './slices/ordersSlice'
 
 export const store = configureStore({
   reducer: {

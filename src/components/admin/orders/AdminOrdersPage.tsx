@@ -1,5 +1,5 @@
 import { useState, useMemo, ChangeEvent} from 'react';
-import { useGetAllOrdersQuery } from '../../../features/shop/ordersApiSlice';
+import { useGetAllOrdersQuery } from '../../../features/apiSlices/ordersApiSlice';
 import AdminOrderList from './AdminOrderList';
 
 

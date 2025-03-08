@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Order } from '../../features/shop/ordersApiSlice';
+import { Order } from '../../features/apiSlices/ordersApiSlice';
 import { eurFormat } from '../../utils/utils';
 
 interface OrderLineItemProps {

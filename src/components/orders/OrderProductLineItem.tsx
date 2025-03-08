@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { OrderItem } from '../../features/shop/ordersApiSlice';
+import { OrderItem } from '../../features/apiSlices/ordersApiSlice';
 import { eurFormat } from '../../utils/utils';
 
 interface OrderProductLineItemProps {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductBarItem from './ProductBarItem';
-import { useGetProductsQuery } from '../../features/shop/productApiSlice';
+import { useGetProductsQuery } from '../../features/apiSlices/productApiSlice';
 
 interface ProductBarProps {
   productId: string;

@@ -1,4 +1,4 @@
-import { Post } from '../../features/posts/postsSlice';
+import { Post } from '../../features/apiSlices/postsApiSlice';
 import { MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { dateFormat } from '../../utils/utils';

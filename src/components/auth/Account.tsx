@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import useAuth from '../../hooks/useAuth';
 import OrdersList from '../orders/OrdersList';
-import { useGetOrdersForUserQuery } from '../../features/shop/ordersApiSlice';
+import { useGetOrdersForUserQuery } from '../../features/apiSlices/ordersApiSlice';
 
 const Account = (): ReactElement => {
   const { username } = useAuth();

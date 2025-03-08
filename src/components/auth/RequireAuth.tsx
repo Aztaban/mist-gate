@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useSelector } from 'react-redux';
-import { selectCurrentToken } from '../../features/auth/authSlice';
+import { selectCurrentToken } from '../../features/slices/authSlice';
 
 interface RequiredAuthProps {
   allowedRoles: number[];

@@ -1,4 +1,4 @@
-import { apiSlice } from '../../app/api/apiSlice';
+import { apiSlice } from '../apiSlice';
 import { OrderStatus } from '../../config/orderStatus';
 import { ShippingMethod } from '../../config/shippingConfig';
 

@@ -1,4 +1,4 @@
-import { useGetOrderByIdQuery } from "../features/shop/ordersApiSlice";
+import { useGetOrderByIdQuery } from "../features/apiSlices/ordersApiSlice";
 
 const useOrder = (orderId: string) => {
   const { data, isLoading, isError, error } = useGetOrderByIdQuery(

@@ -1,6 +1,6 @@
-import { useGetAllOrdersQuery } from '../../features/shop/ordersApiSlice';
+import { useGetAllOrdersQuery } from '../../features/apiSlices/ordersApiSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectOrders, setOrders } from '../../features/shop/ordersSlice';
+import { selectOrders, setOrders } from '../../features/slices/ordersSlice';
 import { useEffect } from 'react';
 
 const AdminDashboard = () => {

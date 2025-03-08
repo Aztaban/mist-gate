@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
-import { selectCurrentToken } from '../features/auth/authSlice';
+import { RootState } from '../features/store';
+import { selectCurrentToken } from '../features/slices/authSlice';
 import { jwtDecode } from 'jwt-decode';
 
 interface AuthData {

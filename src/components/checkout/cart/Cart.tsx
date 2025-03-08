@@ -4,7 +4,7 @@ import CartLineItem from './CartLineItem';
 import {
   selectCartItems,
   selectShippingMethod,
-} from '../../../features/checkout/checkoutSlice';
+} from '../../../features/slices/checkoutSlice';
 import { calculateOrderPrices } from '../../../utils/utils';
 import { NavLink, useNavigate } from 'react-router-dom';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';

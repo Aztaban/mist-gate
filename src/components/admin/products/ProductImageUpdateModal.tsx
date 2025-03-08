@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useUpdateProductImageMutation } from "../../../features/shop/productApiSlice"
+import { useUpdateProductImageMutation } from "../../../features/apiSlices/productApiSlice"
 import { getImageUrl } from "../../../utils/utils";
 
 interface ImageUpdateModalProps {

@@ -2,12 +2,12 @@ import { MouseEvent, ChangeEvent, FormEvent, useState, useRef } from 'react';
 import {
   useAddNewProductMutation,
   useUploadImageMutation,
-} from '../../../features/shop/productApiSlice';
-import { Product } from '../../../features/shop/productApiSlice';
+} from '../../../features/apiSlices/productApiSlice';
+import { Product } from '../../../features/apiSlices/productApiSlice';
 import { useNavigate } from 'react-router-dom';
 import { uploadImageAndGetPath } from '../../../hooks/useUploadImage';
 import { useDispatch } from 'react-redux';
-import { clearCart } from '../../../features/checkout/checkoutSlice';
+import { clearCart } from '../../../features/slices/checkoutSlice';
 import { productCategories } from '../../../config/productCategories';
 import PriceInput from '../../common/PriceInput';
 

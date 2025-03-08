@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
-import { selectCartItems } from '../../features/checkout/checkoutSlice';
+import { selectCartItems } from '../../features/slices/checkoutSlice';
 
 const CartButton = () => {
   const cartItems = useSelector(selectCartItems);

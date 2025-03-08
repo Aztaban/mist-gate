@@ -1,8 +1,8 @@
-import { useState, ChangeEvent } from 'react';
+import { useState } from 'react';
 import { OrderStatus } from '../../../config/orderStatus';
-import { Order } from '../../../features/shop/ordersApiSlice';
+import { Order } from '../../../features/apiSlices/ordersApiSlice';
 import Select from '../../common/Select';
-import { useUpdateOrderMutation } from '../../../features/shop/ordersApiSlice';
+import { useUpdateOrderMutation } from '../../../features/apiSlices/ordersApiSlice';
 import { ShippingMethod } from '../../../config/shippingConfig';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';

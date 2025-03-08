@@ -1,5 +1,5 @@
-import { apiSlice } from '../../app/api/apiSlice';
-import { logOut, setCredentials } from './authSlice';
+import { apiSlice } from '../apiSlice';
+import { logOut, setCredentials } from '../slices/authSlice';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

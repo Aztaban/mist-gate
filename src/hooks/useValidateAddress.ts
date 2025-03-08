@@ -1,4 +1,4 @@
-import { ShippingAddress } from '../features/shop/ordersApiSlice';
+import { ShippingAddress } from "../features/apiSlices/ordersApiSlice";
 
 export const validateAddress = (
   address: ShippingAddress | null

@@ -1,4 +1,4 @@
-import { useGetProductsQuery } from '../../../features/shop/productApiSlice';
+import { useGetProductsQuery } from '../../../features/apiSlices/productApiSlice';
 import { useState, ChangeEvent, useMemo } from 'react';
 import AdminProductsList from './AdminProductsList';
 import { NavLink } from 'react-router-dom';

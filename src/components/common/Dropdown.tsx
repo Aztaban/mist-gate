@@ -1,4 +1,4 @@
-import React, { useState, ReactElement, ReactNode } from 'react';
+import { useState, ReactElement, ReactNode } from 'react';
 
 interface DropdownProps<T extends ReactNode> {
   title: string;

@@ -1,6 +1,5 @@
-import { apiSlice } from '../../app/api/apiSlice';
-import { ShippingAddress } from '../shop/ordersApiSlice';
-import { Order } from '../shop/ordersApiSlice';
+import { apiSlice } from '../apiSlice';
+import { ShippingAddress, Order } from './ordersApiSlice';
 
 export interface User {
   id: string;

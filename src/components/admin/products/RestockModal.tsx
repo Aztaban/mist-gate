@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useUpdateProductMutation } from '../../../features/shop/productApiSlice';
+import { useUpdateProductMutation } from '../../../features/apiSlices/productApiSlice';
 
 interface RestockModalProps {
   currentStock: number;

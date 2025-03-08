@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Order } from './ordersApiSlice';
-import { extendedApiSlice } from './ordersApiSlice';
-import { RootState } from '../../app/store';
+import { Order } from '../apiSlices/ordersApiSlice';
+import { extendedApiSlice } from '../apiSlices/ordersApiSlice';
+import { RootState } from '../store';
 
 interface OrdersState {
   orders: Order[];

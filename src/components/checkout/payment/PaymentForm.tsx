@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { useMarkOrderPaidMutation } from '../../../features/shop/ordersApiSlice';
+import { useMarkOrderPaidMutation } from '../../../features/apiSlices/ordersApiSlice';
 
 interface PaymentFormProps {
   orderId: string;

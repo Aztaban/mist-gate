@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useGetProductByIdQuery } from '../../../features/shop/productApiSlice';
+import { useGetProductByIdQuery } from '../../../features/apiSlices/productApiSlice';
 import AdminProductDetail from './AdminProductDetail';
 import EditProductForm from './EditProductForm';
 

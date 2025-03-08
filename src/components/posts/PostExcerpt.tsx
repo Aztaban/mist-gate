@@ -1,4 +1,4 @@
-import { Post } from '../../features/posts/postsSlice';
+import { Post } from '../../features/apiSlices/postsApiSlice';
 
 type PropsType = {
   post: Post;

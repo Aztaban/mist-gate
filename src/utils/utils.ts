@@ -1,5 +1,5 @@
 import { ShippingMethod, ShippingPrices } from '../config/shippingConfig';
-import { OrderItem } from '../features/shop/ordersApiSlice';
+import { OrderItem } from '../features/apiSlices/ordersApiSlice';
 
 export const calculateOrderPrices = (
   products: OrderItem[],

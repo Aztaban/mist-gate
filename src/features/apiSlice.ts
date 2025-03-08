@@ -5,10 +5,10 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
-import { RootState } from '../store';
-import { setCredentials } from '../../features/auth/authSlice';
-import { logOut } from '../../features/auth/authSlice';
-import { setPersistState } from '../../utils/utils';
+import { RootState } from './store';
+import { setCredentials } from './slices/authSlice';
+import { logOut } from './slices/authSlice';
+import { setPersistState } from '../utils/utils';
 
 interface AccessTokenResponse {
   accessToken: string;

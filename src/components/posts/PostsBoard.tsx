@@ -1,4 +1,4 @@
-import { Post, useGetPostsQuery } from '../../features/posts/postsSlice';
+import { Post, useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
 import PostExcerpt from './PostExcerpt';
 import { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectOrderId } from '../../../features/checkout/checkoutSlice';
+import { selectOrderId } from '../../../features/slices/checkoutSlice';
 
 const OrderConfirmation = () => {
   const orderId = useSelector(selectOrderId);

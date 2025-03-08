@@ -1,6 +1,6 @@
 import OrderLineItem from './OrderLineItem';
 import usePagination from '../../hooks/usePagination';
-import { Order } from '../../features/shop/ordersApiSlice';
+import { Order } from '../../features/apiSlices/ordersApiSlice';
 import { ReactElement } from 'react';
 
 interface OrdersListProps {

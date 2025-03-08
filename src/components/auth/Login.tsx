@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, ChangeEvent, ReactElement } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
-import { useLoginMutation } from '../../features/auth/authApiSlice';
+import { useLoginMutation } from '../../features/apiSlices/authApiSlice';
 import { setPersistState } from '../../utils/utils';
 
 const Login = (): ReactElement => {

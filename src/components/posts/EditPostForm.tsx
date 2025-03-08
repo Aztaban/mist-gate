@@ -4,7 +4,7 @@ import {
   useUpdatePostMutation,
   useDeletePostMutation,
   useGetPostByIdQuery,
-} from '../../features/posts/postsSlice';
+} from '../../features/apiSlices/postsApiSlice';
 import useAuth from '../../hooks/useAuth';
 
 const EditPostForm = () => {

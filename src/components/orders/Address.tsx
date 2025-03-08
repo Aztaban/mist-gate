@@ -1,4 +1,4 @@
-import { ShippingAddress } from '../../features/shop/ordersApiSlice';
+import { ShippingAddress } from "../../features/apiSlices/ordersApiSlice";
 
 interface AddressProps {
   address: ShippingAddress;
@@ -8,7 +8,7 @@ const Address = ({ address }: AddressProps) => {
   return (
     <div className="cart-summary">
       <p>Address:</p>
-      <p>{address.address}</p>
+      <p>{address.street}</p>
       <p>City:</p>
       <p>{address.city}</p>
       <p>Postal code: </p>

@@ -1,7 +1,6 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAddNewPostMutation } from '../../features/posts/postsSlice';
-import { useGetPostsQuery } from '../../features/posts/postsSlice';
+import { useAddNewPostMutation, useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
 
 const AddPostForm = () => {
   const { refetch } = useGetPostsQuery();

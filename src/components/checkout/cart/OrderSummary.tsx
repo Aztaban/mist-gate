@@ -1,7 +1,7 @@
 import {
   CreateOrder,
   ShippingAddress,
-} from '../../../features/shop/ordersApiSlice';
+} from '../../../features/apiSlices/ordersApiSlice';
 import OrderProducts from '../../orders/OrderProducts';
 import Address from '../../orders/Address';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';
@@ -11,8 +11,8 @@ import {
   selectCheckout,
   setOrderId,
   clearCart
-} from '../../../features/checkout/checkoutSlice';
-import { useAddNewOrderMutation } from '../../../features/shop/ordersApiSlice';
+} from '../../../features/slices/checkoutSlice';
+import { useAddNewOrderMutation } from '../../../features/apiSlices/ordersApiSlice';
 
 interface OrderSummaryProps {
   onNext: () => void;

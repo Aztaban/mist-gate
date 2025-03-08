@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Order } from '../../../features/shop/ordersApiSlice';
+import { Order } from '../../../features/apiSlices/ordersApiSlice';
 import AdminOrderLineItem from './AdminOrderLineItem';
 import { useSorting } from '../../../hooks/useSorting';
 import SortableHeader from '../SortableHeader';

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetProductByIdQuery } from '../../features/shop/productApiSlice';
+import { useGetProductByIdQuery } from '../../features/apiSlices/productApiSlice';
 import ProductCart from './ProductCart';
 import ProductDetails from './ProductDetails';
 import ProductBar from './ProductBar';

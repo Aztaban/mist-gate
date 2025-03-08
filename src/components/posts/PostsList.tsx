@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Post, useGetPostsQuery } from '../../features/posts/postsSlice';
+import { Post, useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
 import useAuth from '../../hooks/useAuth';
 import SinglePost from './SinglePost';
 import { ReactElement, MouseEvent } from 'react';

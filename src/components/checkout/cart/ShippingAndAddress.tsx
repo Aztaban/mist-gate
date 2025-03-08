@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { ShippingAddress } from '../../../features/shop/ordersApiSlice';
+import { ShippingAddress } from '../../../features/apiSlices/ordersApiSlice';
 import { ShippingMethod, ShippingPrices } from '../../../config/shippingConfig';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCheckout,
   selectCheckout,
-} from '../../../features/checkout/checkoutSlice';
+} from '../../../features/slices/checkoutSlice';
 import { validateAddress } from '../../../hooks/useValidateAddress';
 import {
   useGetUserQuery,
   useUpdateUserAddressAndPhoneMutation,
-} from '../../../features/user/userApiSlice';
+} from '../../../features/apiSlices/userApiSlice';
 
 interface ShippingAndAddressProps {
   onNext: () => void;

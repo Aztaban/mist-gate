@@ -1,6 +1,6 @@
 import { ReactElement, memo } from 'react';
 import { useState } from 'react';
-import { Product } from '../../features/shop/productApiSlice';
+import { Product } from '../../features/apiSlices/productApiSlice';
 import ProductCart from './ProductCart';
 import ProductDetails from './ProductDetails';
 import { getImageUrl } from '../../utils/utils';

@@ -1,4 +1,4 @@
-import { Product } from '../../features/shop/productApiSlice';
+import { Product } from '../../features/apiSlices/productApiSlice';
 import { dateFormat } from '../../utils/utils';
 
 interface ProductDetailsProps {
