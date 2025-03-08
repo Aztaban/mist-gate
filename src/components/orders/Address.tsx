@@ -7,7 +7,9 @@ interface AddressProps {
 const Address = ({ address }: AddressProps) => {
   return (
     <div className="cart-summary">
-      <p>Address:</p>
+      <p>Name:</p>
+      <p>{address.name}</p>
+      <p>Street:</p>
       <p>{address.street}</p>
       <p>City:</p>
       <p>{address.city}</p>
