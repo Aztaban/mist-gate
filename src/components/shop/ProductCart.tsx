@@ -17,6 +17,8 @@ const ProductCart = ({ product, isCart }: ProductCartProps) => {
     state.checkout.products.some((item) => item.product === product.id)
   );
 
+  const isOutOfStock = product.countInStock < 1;
+
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     dispatch(
@@ -30,10 +32,12 @@ const ProductCart = ({ product, isCart }: ProductCartProps) => {
   };
 
   return (
-    <div className={isCart ? "product-cart" : "product-bar-cart"}>
+    <div className={isCart ? 'product-cart' : 'product-bar-cart'}>
       <p className="product-price">{eurFormat(product.price)}</p>
-      {inCart ? (
-        <button className="btn back-btn">Item in Cart</button>
+      {isOutOfStock ? (
+        <p className='out-of-stock back-btn'>Out of Stock</p>
+      ) : inCart ? (
+        <p className='out-of-stock back-btn'>Item in Cart</p>
       ) : (
         <button className="btn save-btn" onClick={handleAddToCart}>
           Add to Cart

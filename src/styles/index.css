@@ -93,7 +93,7 @@ textarea {
   /* BORDERS */
   --BORDERS-PRIMARY: 1px solid var(--PRIMARY-COLOR-DARK);
   --BORDERS-SECONDARY: 1px solid var(--SECONDARY-COLOR);
-  --BORDER-RADIUS: 8px;
+  --BORDER-RADIUS: 12px;
 
   /* STANDARD PADDING */
   --PADDING-TB: 0.25em;
@@ -1078,7 +1078,8 @@ section:nth-of-type(even) {
 .product-cart {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 10px;
   border-top: var(--BORDERS-PRIMARY);
@@ -1091,6 +1092,14 @@ section:nth-of-type(even) {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+}
+
+.out-of-stock {
+  font-weight: bold;
+  padding: 5px 20px;
+  margin: 0;
+  border: var(--BORDERS-SECONDARY);
+  border-radius: var(--BORDER-RADIUS);
 }
 
 .product-price {
