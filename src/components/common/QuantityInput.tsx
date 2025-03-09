@@ -3,22 +3,27 @@ import { useState, useEffect } from 'react';
 interface QuantityInputProps {
   quantity: number;
   onUpdate: (newQuantity: number) => void;
+  max: number;
 }
 
-const QuantityInput = ({ quantity, onUpdate }: QuantityInputProps) => {
-  const [localQuantity, setLocalQuantity] = useState(quantity);
+const QuantityInput = ({ quantity, onUpdate, max }: QuantityInputProps) => {
+  const [localQuantity, setLocalQuantity] = useState(Math.min(quantity, max));
 
   useEffect(() => {
-    setLocalQuantity(quantity);
-  }, [quantity]);
+    setLocalQuantity(Math.min(quantity, max));
+  }, [quantity, max]);
 
   useEffect(() => {
-    if (localQuantity >= 0) {
-      onUpdate(localQuantity)
+    if (localQuantity >= 0 && localQuantity <= max) {
+      onUpdate(localQuantity);
     }
-  },[localQuantity, onUpdate])
+  }, [localQuantity, onUpdate, max]);
 
-  const handleIncrease = () => setLocalQuantity((prev) => prev + 1);
+  const handleIncrease = () => {
+    if (localQuantity < max) {
+      setLocalQuantity((prev) => Math.min(prev + 1, max));
+    }
+  };
   const handleDecrease = () => {
     if (localQuantity > 1) {
       setLocalQuantity((prev) => prev - 1);
@@ -28,7 +33,7 @@ const QuantityInput = ({ quantity, onUpdate }: QuantityInputProps) => {
   };
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value === '' ? 0 : Math.max(Number(e.target.value), 0);
+    const value = e.target.value === '' ? 0 : Math.max(Math.min(Number(e.target.value), max), 0);
     setLocalQuantity(value);
   };
 
@@ -48,6 +53,7 @@ const QuantityInput = ({ quantity, onUpdate }: QuantityInputProps) => {
         onChange={handleInputChange}
         aria-label="Item Quantity"
         min="1"
+        max={max}
       />
       <button
         type="button"

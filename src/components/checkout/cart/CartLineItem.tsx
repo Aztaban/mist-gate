@@ -41,6 +41,7 @@ const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
         <QuantityInput
           quantity={item.quantity}
           onUpdate={handleUpdateQuantity}
+          max={product.countInStock}
         />
         {item.quantity > 1 ? <p>{eurFormat(item.price)} / pc</p> : null}
         <p aria-label="Line Item Subtotal">
