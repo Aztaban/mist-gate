@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   selectCheckout,
   setOrderId,
-  clearCart
+  clearCart,
 } from '../../../features/slices/checkoutSlice';
 import { useAddNewOrderMutation } from '../../../features/apiSlices/ordersApiSlice';
 
@@ -50,7 +50,9 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
       <article className="checkout checkout-spaced">
         <OrderProducts products={order.products} />
         <div className="cart-bottom">
-          <Address address={order.shippingAddress as ShippingAddress} />
+          {order.shippingAddress && (
+            <Address address={order.shippingAddress as ShippingAddress} />
+          )}
 
           <OrderPriceSummary
             itemsPrice={itemsPrice}
