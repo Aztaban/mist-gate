@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Order } from '../apiSlices/ordersApiSlice';
+import { Order } from '../../types';
 import { extendedApiSlice } from '../apiSlices/ordersApiSlice';
 import { RootState } from '../store';
 

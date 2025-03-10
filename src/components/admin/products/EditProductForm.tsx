@@ -1,9 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useUpdateProductMutation } from '../../../features/apiSlices/productApiSlice';
-import {
-  ProductDetails,
-  Product,
-} from '../../../features/apiSlices/productApiSlice';
+import { Product, ProductDetails } from '../../../types';
 import { productCategories } from '../../../config/productCategories';
 
 type EditProductFormParams = {

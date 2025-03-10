@@ -1,4 +1,4 @@
-import { Product } from '../../features/apiSlices/productApiSlice';
+import { Product } from '../../types';
 import ProductCart from './ProductCart';
 import { getImageUrl } from '../../utils/utils';
 import { useNavigate } from 'react-router-dom';

@@ -1,21 +1,5 @@
 import { apiSlice } from '../apiSlice';
-
-export interface ProductDetails {
-  author: string;
-  releaseDate: string;
-  description: string;
-}
-
-export interface Product {
-  id: string;
-  name: string;
-  productType: string;
-  price: number;
-  image: string;
-  countInStock: number;
-  unitsSold: number;
-  details: ProductDetails | Partial<ProductDetails>;
-}
+import { Product } from '../../types';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -65,7 +49,10 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
-    updateProductImage: builder.mutation<{ image: string },{ id: string; image: File }>({
+    updateProductImage: builder.mutation<
+      { image: string },
+      { id: string; image: File }
+    >({
       query: ({ id, image }) => {
         const formData = new FormData();
         formData.append('image', image);
@@ -89,5 +76,5 @@ export const {
   useAddNewProductMutation,
   useUpdateProductMutation,
   useUploadImageMutation,
-  useUpdateProductImageMutation
+  useUpdateProductImageMutation,
 } = extendedApiSlice;

@@ -1,5 +1,7 @@
+import { Order } from '../../types';
+
 interface OrderSummaryProps {
-  order: any;
+  order: Order;
 }
 
 const OrderSummary = ({ order }: OrderSummaryProps) => {

@@ -1,24 +1,7 @@
 import { apiSlice } from '../apiSlice';
 import { logOut, setCredentials } from '../slices/authSlice';
-
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-export interface LoginCredentialsType {
-  login: string;
-  pwd: string;
-}
-
-interface RegisterCredentialsType {
-  username: string;
-  email: string;
-  pwd: string;
-}
-
-interface AuthResponse {
-  accessToken: string;
-  isAdmin?: boolean;
-}
+import { AuthResponse, LoginCredentialsType, RegisterCredentialsType } from '../../types';
+import { EMAIL_REGEX, USER_REGEX } from '../../config';
 
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

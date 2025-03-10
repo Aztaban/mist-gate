@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { ShippingAddress } from '../../../features/apiSlices/ordersApiSlice';
-import { ShippingMethod, ShippingPrices } from '../../../config/shippingConfig';
+import { ShippingAddress } from '../../../types';
+import { ShippingMethod, ShippingPrices } from '../../../config';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCheckout,

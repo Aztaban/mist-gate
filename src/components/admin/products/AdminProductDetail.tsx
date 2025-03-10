@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Product } from '../../../features/apiSlices/productApiSlice';
+import { Product } from '../../../types';
 import { getImageUrl } from '../../../utils/utils';
 import { eurFormat } from '../../../utils/utils';
 import RestockModal from './RestockModal';

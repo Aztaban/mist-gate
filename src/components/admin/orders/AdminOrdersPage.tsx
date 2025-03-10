@@ -2,7 +2,6 @@ import { useState, useMemo, ChangeEvent} from 'react';
 import { useGetAllOrdersQuery } from '../../../features/apiSlices/ordersApiSlice';
 import AdminOrderList from './AdminOrderList';
 
-
 const AdminOrdersPage = () => {
   const { data: orders  = [], isError, isLoading } = useGetAllOrdersQuery();
   const [search, setSearch] = useState<string>('');

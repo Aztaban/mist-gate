@@ -1,11 +1,5 @@
 import { apiSlice } from '../apiSlice';
-
-export interface Post {
-  id: string;
-  title: string;
-  body: string;
-  date: string;
-}
+import { Post } from '../../types';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

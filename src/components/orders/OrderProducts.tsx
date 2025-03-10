@@ -1,4 +1,4 @@
-import { OrderItem } from '../../features/apiSlices/ordersApiSlice';
+import { OrderItem } from '../../types';
 import OrderProductLineItem from './OrderProductLineItem';
 import { eurFormat } from '../../utils/utils';
 

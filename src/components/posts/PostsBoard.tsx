@@ -1,7 +1,8 @@
-import { Post, useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
+import { useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
 import PostExcerpt from './PostExcerpt';
 import { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Post } from '../../types';
 
 const PostsBoard = () => {
   const {

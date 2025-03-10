@@ -3,7 +3,7 @@ import { useGetProductByIdQuery } from '../../../features/apiSlices/productApiSl
 import { eurFormat } from '../../../utils/utils';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../../features/slices/checkoutSlice';
-import { OrderItem } from '../../../features/apiSlices/ordersApiSlice';
+import { OrderItem } from '../../../types';
 import QuantityInput from '../../common/QuantityInput';
 import { getImageUrl } from '../../../utils/utils';
 

@@ -1,7 +1,4 @@
-import {
-  CreateOrder,
-  ShippingAddress,
-} from '../../../features/apiSlices/ordersApiSlice';
+import { CreateOrder, ShippingAddress } from '../../../types';
 import OrderProducts from '../../orders/OrderProducts';
 import Address from '../../orders/Address';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';

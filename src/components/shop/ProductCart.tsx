@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../features/slices/checkoutSlice';
 import { RootState } from '../../features/store';
 import { useSelector } from 'react-redux';
-import { Product } from '../../features/apiSlices/productApiSlice';
+import { Product } from '../../types';
 import { eurFormat } from '../../utils/utils';
 
 interface ProductCartProps {

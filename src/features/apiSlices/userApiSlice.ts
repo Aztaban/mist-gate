@@ -1,15 +1,5 @@
 import { apiSlice } from '../apiSlice';
-import { ShippingAddress, Order } from './ordersApiSlice';
-
-export interface User {
-  id: string;
-  username: string;
-  email: string;
-  roles: number[];
-  address?: ShippingAddress;
-  phoneNumber?: string;
-  isActive: boolean;
-}
+import { User, Order } from '../../types';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

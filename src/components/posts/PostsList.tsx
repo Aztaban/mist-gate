@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Post, useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
+import { useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
 import useAuth from '../../hooks/useAuth';
 import SinglePost from './SinglePost';
 import { ReactElement, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { faFolderPlus } from '@fortawesome/free-solid-svg-icons';
+import { Post } from '../../types';
 
 const PostsList = () => {
   const {

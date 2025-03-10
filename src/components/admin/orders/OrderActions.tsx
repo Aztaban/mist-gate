@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { OrderStatus } from '../../../config/orderStatus';
-import { Order } from '../../../features/apiSlices/ordersApiSlice';
+import { Order } from '../../../types';
 import Select from '../../common/Select';
 import { useUpdateOrderMutation } from '../../../features/apiSlices/ordersApiSlice';
 import { ShippingMethod } from '../../../config/shippingConfig';

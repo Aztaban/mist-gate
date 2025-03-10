@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { Product } from '../../../features/apiSlices/productApiSlice';
+import { Product } from '../../../types';
 import AdminProductsLineItem from './AdminProductsLineItem';
 import { useSorting } from '../../../hooks/useSorting';
 import { useCategoryFilter } from '../../../hooks/useCategoryFilter';
