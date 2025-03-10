@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ShippingAddress } from '../../../types';
-import { ShippingMethod, ShippingPrices } from '../../../config';
+import { PHONE_REGEX, ShippingMethod, ShippingPrices } from '../../../config';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   setCheckout,
@@ -9,7 +9,8 @@ import {
 import { validateAddress } from '../../../hooks/useValidateAddress';
 import {
   useGetUserQuery,
-  useUpdateUserAddressAndPhoneMutation,
+  useUpdateUserPhoneMutation,
+  useUpdateUserAddressMutation,
 } from '../../../features/apiSlices/userApiSlice';
 
 interface ShippingAndAddressProps {
@@ -25,7 +26,9 @@ const ShippingAndAddress = ({
   const currentCheckout = useSelector(selectCheckout);
   const { data: user } = useGetUserQuery();
 
-  const [updateUserAddressAndPhone] = useUpdateUserAddressAndPhoneMutation();
+  const [updateUserAddress] = useUpdateUserAddressMutation();
+  const [updateUserPhone] = useUpdateUserPhoneMutation();
+
   const [fieldErrors, setFieldErrors] = useState<Record<string, boolean>>({});
   const [saveAddress, setSaveAddress] = useState<boolean>(false);
   const [shippingMethod, setShippingMethod] = useState<ShippingMethod>(
@@ -36,12 +39,12 @@ const ShippingAndAddress = ({
   );
   const [shippingAddress, setShippingAddress] = useState<ShippingAddress>(
     currentCheckout.shippingAddress || {
-        name: '',
-        street: '',
-        city: '',
-        postalCode: '',
-        country: '',
-      }
+      name: '',
+      street: '',
+      city: '',
+      postalCode: '',
+      country: '',
+    }
   );
 
   useEffect(() => {
@@ -90,10 +93,12 @@ const ShippingAndAddress = ({
     if (validateAndSave()) {
       if (saveAddress && user?.id) {
         try {
-          await updateUserAddressAndPhone({
-            updates: { address: shippingAddress, phoneNumber },
-          }).unwrap();
-          console.log('Address saved successfully!');
+          if (shippingAddress) {
+            await updateUserAddress({ address: shippingAddress });
+          }
+          if (phoneNumber && PHONE_REGEX.test(phoneNumber)) {
+            await updateUserPhone({ phoneNumber: phoneNumber });
+          }
         } catch (error) {
           console.error('Failed to save address:', error);
         }
@@ -136,9 +141,7 @@ const ShippingAndAddress = ({
             autoComplete="on"
             required
           />
-          {fieldErrors.street && (
-            <p className="errmsg">Street is required.</p>
-          )}
+          {fieldErrors.street && <p className="errmsg">Street is required.</p>}
           <label htmlFor="city">City:</label>
           <input
             type="text"
@@ -197,13 +200,15 @@ const ShippingAndAddress = ({
             </option>
           </select>
           <div className="save-address">
-            <label className='address-checkbox'>
+            <label className="address-checkbox">
               <input
                 type="checkbox"
                 checked={saveAddress}
                 onChange={() => setSaveAddress(!saveAddress)}
               />
-              <span className='save-address-text'>Save this address for future use</span>
+              <span className="save-address-text">
+                Save this address for future use
+              </span>
             </label>
           </div>
         </form>

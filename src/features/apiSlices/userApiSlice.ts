@@ -1,5 +1,5 @@
 import { apiSlice } from '../apiSlice';
-import { User, Order } from '../../types';
+import { User, Order, ShippingAddress } from '../../types';
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -42,15 +42,31 @@ export const userApiSlice = apiSlice.injectEndpoints({
       providesTags: (_result, _error, userId) => [{ type: 'User', id: userId }],
     }),
 
-    // Update user address and phone
-    updateUserAddressAndPhone: builder.mutation<
-      User,
-      { updates: Partial<User> }
+    // Update user 
+    updateUserAddress: builder.mutation<
+      ShippingAddress,
+      { address: ShippingAddress }
     >({
-      query: ({ updates }) => ({
+      query: ({ address }) => ({
         url: `/users/user/address`,
         method: 'PATCH',
-        body: updates,
+        body: { address },
+      }),
+      invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
+    }),
+    updateUserPhone: builder.mutation<User, { phoneNumber: string }>({
+      query: ({ phoneNumber }) => ({
+        url: `/users/user/phone`,
+        method: 'PATCH',
+        body: { phoneNumber },
+      }),
+      invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
+    }),
+    updateUserEmail: builder.mutation<User, { email: string }>({
+      query: ({ email }) => ({
+        url: `/users/user/email`,
+        method: 'PATCH',
+        body: { email },
       }),
       invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
     }),
@@ -84,7 +100,9 @@ export const {
   useGetUserQuery,
   useGetOrdersForUserQuery,
   useGetUserByIdQuery,
-  useUpdateUserAddressAndPhoneMutation,
+  useUpdateUserAddressMutation,
+  useUpdateUserEmailMutation,
+  useUpdateUserPhoneMutation,
   useToggleUserStatusMutation,
   useToggleEditorRoleMutation,
 } = userApiSlice;
