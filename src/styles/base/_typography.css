@@ -1,0 +1,22 @@
+
+h1,
+h2,
+h3 {
+  font-family: var(--FF-HEADINGS);
+  color: var(--PRIMARY-COLOR-DARK);
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--BORDER-COLOR);
+  border-top: 1px solid var(--BORDER-COLOR);
+  -webkit-text-stroke: 1px var(--TEXT-SHADOW-SECONDARY);
+  text-shadow: var(--TEXT-SHADOW-SECONDARY);
+}
+
+h1 a,
+h2 a,
+h3 a {
+  color: var(--PRIMARY-COLOR-DARK);
+}
+
+p {
+  line-height: 1.5;
+}

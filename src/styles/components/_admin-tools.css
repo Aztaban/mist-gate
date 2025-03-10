@@ -1,0 +1,21 @@
+.admin-tools {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.admin-tools form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.admin-tools form button {
+  margin: 1rem auto;
+}
+
+.admin-tools label {
+  font-weight: bold;
+  font-size: 1.2rem;
+}

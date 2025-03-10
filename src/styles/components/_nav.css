@@ -1,0 +1,86 @@
+nav {
+  letter-spacing: 3px;
+}
+
+nav ul {
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  list-style: none;
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 0.5rem;
+  font-family: var(--FF-HEADINGS);
+}
+
+nav a:any-link {
+  color: var(--LINK-COLOR);
+}
+
+nav a.active,
+nav a:hover,
+nav a:focus-visible {
+  color: var(--LINK-HOVER);
+  text-shadow: var(--TEXT-SHADOW-SECONDARY);
+}
+
+.normal-menu {
+  display: none;
+}
+
+.normal-menu a.active,
+.normal-menu a:focus-visible {
+  border-bottom: 1px solid var(--BORDER-COLOR);
+  border-top: 1px solid var(--BORDER-COLOR);
+}
+
+.normal-menu a:active {
+  color: var(--LINK-ACTIVE);
+}
+
+.nav-links {
+  list-style-type: none;
+  font-size: 4vh;
+  letter-spacing: 5px;
+  padding: 10px;
+}
+
+.nav-links li {
+  position: relative;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.nav-links li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--PRIMARY-COLOR),
+    rgba(0, 0, 0, 0)
+  ); /* Fading effect */
+}
+
+@media (min-width: 768px) {
+  .normal-menu {
+    display: flex;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    font-size: 3vw;
+  }
+}
+
+@media (min-width: 992px) {
+  nav ul {
+    font-size: 30px;
+    gap: 2rem;
+  }
+}

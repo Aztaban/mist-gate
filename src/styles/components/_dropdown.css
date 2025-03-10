@@ -1,0 +1,29 @@
+.dropdown-menu {
+  position: absolute;
+  display: flex;
+  z-index: 10;
+  flex-direction: column;
+  background-color: var(--SECONDARY-COLOR);
+  top: 100%;
+  left: 0px;
+  padding: 5px;
+  overflow: hidden;
+  border: var(--BORDERS-PRIMARY);
+  border-top-right-radius: var(--BORDER-RADIUS);
+  border-bottom-right-radius: var(--BORDER-RADIUS);
+  width: 50%;
+}
+
+.dropdown-menu a:focus-visible {
+  text-shadow: none;
+}
+
+.dropdown-menu .nav-links {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Show dropdown when isMenuOpen */
+.dropdown-menu.nav-links {
+  display: flex;
+}

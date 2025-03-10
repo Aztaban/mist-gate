@@ -1,0 +1,60 @@
+.admin-order {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  margin: 10px;
+  overflow-x: hidden;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.admin-order-form {
+  background-color: var(--PRIMARY-COLOR);
+  padding: 1rempx;
+  border-radius: var(--BORDER-RADIUS);
+  border: var(--BORDERS-SECONDARY);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.admin-order-form > fieldset {
+  display: flex;
+  padding: 1rem;
+  margin: 0.5rem;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+.admin-order-form > fieldset > input,
+textarea,
+select {
+  padding: 0.5rem;
+  border-radius: var(--BORDER-RADIUS);
+  resize: none;
+  font-size: 1rem;
+}
+
+.admin-order-form > fieldset > label {
+  font-weight: bold;
+}
+
+.admin-order-form-img {
+  display: inline;
+  max-width: 200px;
+  border-radius: var(--BORDER-RADIUS);
+  margin: 0.5rem;
+}
+
+.order-confirm-btn {
+  margin: 1rem auto;
+  display: block;
+}
+
+.admin-orders-list {
+  padding: 1rem;
+  background-color: var(--PRIMARY-COLOR);
+}

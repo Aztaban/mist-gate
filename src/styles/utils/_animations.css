@@ -1,0 +1,37 @@
+.secondary-mist {
+  border-radius: 20px;
+  border: 1px solid var(--SECONDARY-COLOR);
+  box-shadow: var(--SECONDARY-MIST-LIGHT);
+  animation: secondaryMistMovement 5s ease-in-out infinite;
+}
+
+.primary-mist {
+  border-radius: 20px;
+  border: 1px solid var(--PRIMARY-COLOR);
+  box-shadow: var(--PRIMARY-MIST);
+  animation: primaryMistMovement 5s ease-in-out infinite;
+}
+
+@keyframes primaryMistMovement {
+  0% {
+    box-shadow: var(--PRIMARY-MIST);
+  }
+  50% {
+    box-shadow: var(--PRIMARY-MIST-LIGHT);
+  }
+  100% {
+    box-shadow: var(--PRIMARY-MIST);
+  }
+}
+
+@keyframes secondaryMistMovement {
+  0% {
+    box-shadow: var(--SECONDARY-MIST);
+  }
+  50% {
+    box-shadow: var(--SECONDARY-MIST-LIGHT);
+  }
+  100% {
+    box-shadow: var(--SECONDARY-MIST);
+  }
+}

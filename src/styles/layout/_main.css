@@ -1,0 +1,15 @@
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex-grow: 1;
+}
+
+main.app {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  align-items: center;
+  flex-grow: 1;
+  background-color: var(--SECTION-BGCOLOR);
+}
