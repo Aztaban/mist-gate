@@ -197,13 +197,13 @@ const ShippingAndAddress = ({
             </option>
           </select>
           <div className="save-address">
-            <label>
+            <label className='address-checkbox'>
               <input
                 type="checkbox"
                 checked={saveAddress}
                 onChange={() => setSaveAddress(!saveAddress)}
               />
-              Save this address for future use
+              <span className='save-address-text'>Save this address for future use</span>
             </label>
           </div>
         </form>
