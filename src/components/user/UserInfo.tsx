@@ -1,11 +1,15 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
 import { User } from '../../types';
+import PasswordChangeModal from '../auth/modals/PasswordChangeModal';
 
 interface UserInfoProps {
   user: User;
 }
 
+type ModalType = "password" | "email" | "phone" | null;
+
 const UserInfo = ({ user }: UserInfoProps): ReactElement => {
+  const [openModal, setOpenModal] = useState<ModalType>(null); 
   return (
     <div className="user-info">
       <label>Username:</label>
@@ -24,7 +28,9 @@ const UserInfo = ({ user }: UserInfoProps): ReactElement => {
 
       <label>Password:</label>
       <p>********</p>
-      <button>Change Password</button>
+      <button onClick={() => setOpenModal("password")}>Change Password</button>
+
+      {openModal === "password" && <PasswordChangeModal onClose={() => setOpenModal(null)} />}
     </div>
   );
 };
