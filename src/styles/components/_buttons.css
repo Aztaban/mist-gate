@@ -72,6 +72,7 @@
 
 .logout__icon {
   display: none;
+  cursor: pointer;
 }
 
 .cart__btn {
@@ -104,6 +105,7 @@
   display: none;
 }
 
+.logout__icon:hover,
 .cart__btn:hover,
 .cart__btn:focus-visible {
   color: var(--PRIMARY-COLOR-DARK);

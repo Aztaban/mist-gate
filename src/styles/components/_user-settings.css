@@ -68,6 +68,13 @@
   align-self: center;
 }
 
+.address-form button:hover {
+  background-color: var(--PRIMARY-COLOR-DARK);
+  color: var(--SECONDARY-COLOR-DARK);
+  border: var(--BORDERS-SECONDARY);
+  animation: primaryMistMovement 5s ease-in-out infinite;
+}
+
 .user-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -86,6 +93,14 @@
 .user-info p {
   padding: 0.1rem;
   align-self: center;
+}
+
+.user-info button:hover {
+  background-color: var(--SECONDARY-COLOR);
+  color: var(--PRIMARY-COLOR-DARK);
+  border: var(--BORDERS-PRIMARY);
+  animation: secondaryMistMovement 5s ease-in-out infinite;
+  scale: 1.1;
 }
 
 /* Medium Screens (min-width: 768px) */

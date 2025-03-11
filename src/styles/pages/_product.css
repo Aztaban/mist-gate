@@ -85,6 +85,14 @@
   border-top: var(--BORDERS-PRIMARY);
 }
 
+.product-cart button:hover {
+  background-color: var(--PRIMARY-COLOR-DARK);
+  color: var(--SECONDARY-COLOR-DARK);
+  border: var(--BORDERS-SECONDARY);
+  animation: secondaryMistMovement 5s ease-in-out infinite;
+  scale: 1.1;
+}
+
 .product-bar-cart {
   display: flex;
   justify-content: center;
