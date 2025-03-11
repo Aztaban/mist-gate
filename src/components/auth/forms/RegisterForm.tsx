@@ -1,8 +1,8 @@
-import { FormEvent, useState } from "react";
-import UsernameValidation from "../validations/UsernameValidation";
-import EmailValidation from "../validations/EmailValidation";
-import PasswordValidation from "../validations/PasswordValidation";
-import { NavLink } from "react-router-dom";
+import { FormEvent, useState } from 'react';
+import UsernameValidation from '../validations/UsernameValidation';
+import EmailValidation from '../validations/EmailValidation';
+import PasswordValidation from '../validations/PasswordValidation';
+import { NavLink } from 'react-router-dom';
 
 interface RegisterFormProps {
   onSubmit: (username: string, email: string, password: string) => void;
@@ -10,14 +10,13 @@ interface RegisterFormProps {
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, errMsg }) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!username || !email || !password || password !== confirmPassword) return;
+    if (!username || !email || !password) return;
     onSubmit(username, email, password);
   };
 
@@ -27,14 +26,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, errMsg }) => {
 
       <UsernameValidation value={username} onChange={setUsername} />
       <EmailValidation value={email} onChange={setEmail} />
-      <PasswordValidation 
-        password={password} 
-        confirmPassword={confirmPassword} 
-        onPasswordChange={setPassword} 
-        onConfirmChange={setConfirmPassword} 
-      />
+      <PasswordValidation onPasswordChange={setPassword} />
 
-      <button type="submit" className="btn save-btn" disabled={!username || !email || !password || password !== confirmPassword}>
+      <button
+        type="submit"
+        className="btn save-btn"
+        disabled={!username || !email || !password}
+      >
         Register
       </button>
       <button type="button" className="btn back-btn">

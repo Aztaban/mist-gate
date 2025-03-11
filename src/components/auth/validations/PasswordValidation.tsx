@@ -1,24 +1,27 @@
-import { useState } from "react";
-import { PWD_REGEX } from "../../../config";
+import { useEffect } from "react";
+import { usePasswordValidation } from "../../../hooks/validation/usePasswordValidation";
 
 interface Props {
-  password: string;
-  confirmPassword: string;
   onPasswordChange: (value: string) => void;
-  onConfirmChange: (value: string) => void;
 }
 
 const PasswordValidation: React.FC<Props> = ({
-  password,
-  confirmPassword,
   onPasswordChange,
-  onConfirmChange,
 }) => {
-  const [passwordFocus, setPasswordFocus] = useState(false);
-  const [matchFocus, setMatchFocus] = useState(false);
+  const {
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    validPassword,
+    validMatch,
+    errorMessage,
+  } = usePasswordValidation();
 
-  const validPassword = PWD_REGEX.test(password);
-  const validMatch = password === confirmPassword;
+  // Pass the password to the parent only if it is valid and matches confirmation
+  useEffect(() => {
+    onPasswordChange(validPassword && validMatch ? password : "");
+  }, [password, confirmPassword, validPassword, validMatch, onPasswordChange]);
 
   return (
     <>
@@ -28,14 +31,13 @@ const PasswordValidation: React.FC<Props> = ({
         type="password"
         id="password"
         value={password}
-        onChange={(e) => onPasswordChange(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
         aria-invalid={validPassword ? "false" : "true"}
         aria-describedby="pwdnote"
-        onFocus={() => setPasswordFocus(true)}
-        onBlur={() => setPasswordFocus(false)}
+        autoComplete="new-password"
       />
-      <p id="pwdnote" className={passwordFocus && !validPassword ? "instructions" : "offscreen"}>
-        8 to 24 characters. Must include uppercase, lowercase, number, and special character (!@#$%).
+      <p id="pwdnote" className={password && !validPassword ? "instructions" : "offscreen"}>
+        {errorMessage}
       </p>
 
       {/* Confirm Password Input */}
@@ -44,13 +46,12 @@ const PasswordValidation: React.FC<Props> = ({
         type="password"
         id="confirmPassword"
         value={confirmPassword}
-        onChange={(e) => onConfirmChange(e.target.value)}
+        onChange={(e) => setConfirmPassword(e.target.value)}
         aria-invalid={validMatch ? "false" : "true"}
+        autoComplete="new-password"
         aria-describedby="confirmnote"
-        onFocus={() => setMatchFocus(true)}
-        onBlur={() => setMatchFocus(false)}
       />
-      <p id="confirmnote" className={matchFocus && !validMatch ? "instructions red" : "offscreen"}>
+      <p id="confirmnote" className={confirmPassword && !validMatch ? "instructions red" : "offscreen"}>
         Must match the first input field.
       </p>
     </>
