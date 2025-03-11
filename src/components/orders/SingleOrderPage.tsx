@@ -1,11 +1,11 @@
 import { useParams, NavLink } from 'react-router-dom';
-import useOrder from '../../hooks/useOrder';
+import useOrder from '../../hooks/api/useOrder';
 import OrderProducts from './OrderProducts';
 import OrderSummary from './OrderSummary';
 import OrderPriceSummary from './OrderPriceSummary';
 import Address from './Address';
 import OrderActions from '../admin/orders/OrderActions';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/state/useAuth';
 
 const SingleOrderPage = () => {
   const orderId = useParams().orderId  || '';

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/state/useAuth';
 import { useSelector } from 'react-redux';
 import { selectCurrentToken } from '../../features/slices/authSlice';
 

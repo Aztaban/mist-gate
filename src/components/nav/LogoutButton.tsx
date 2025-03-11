@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons/faRightFromBracket';
-import { useLogout } from '../../hooks/useLogout';
+import { useLogout } from '../../hooks/api/useLogout';
 
 const LogoutButton = () => {
 const { logout } = useLogout()

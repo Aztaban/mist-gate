@@ -1,12 +1,12 @@
 import { ReactElement } from 'react';
 import { Product } from '../../../types';
 import AdminProductsLineItem from './AdminProductsLineItem';
-import { useSorting } from '../../../hooks/useSorting';
-import { useCategoryFilter } from '../../../hooks/useCategoryFilter';
+import { useSorting } from '../../../hooks/state/useSorting';
+import { useCategoryFilter } from '../../../hooks/filters/useCategoryFilter';
 import { productCategories } from '../../../config/productCategories';
 import Dropdown from '../../common/Dropdown';
 import SortableHeader from '../SortableHeader';
-import usePagination from '../../../hooks/usePagination';
+import usePagination from '../../../hooks/ui/usePagination';
 
 interface AdminProductsListProps {
   products: Product[];

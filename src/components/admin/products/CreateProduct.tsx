@@ -3,9 +3,9 @@ import {
   useAddNewProductMutation,
   useUploadImageMutation,
 } from '../../../features/apiSlices/productApiSlice';
-import { Product } from '../../../features/apiSlices/productApiSlice';
+import { Product } from '../../../types';
 import { useNavigate } from 'react-router-dom';
-import { uploadImageAndGetPath } from '../../../hooks/useUploadImage';
+import { uploadImageAndGetPath } from '../../../hooks/ui/useUploadImage';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../../../features/slices/checkoutSlice';
 import { productCategories } from '../../../config/productCategories';

@@ -5,7 +5,7 @@ import {
   useDeletePostMutation,
   useGetPostByIdQuery,
 } from '../../features/apiSlices/postsApiSlice';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/state/useAuth';
 
 const EditPostForm = () => {
   const { postId } = useParams();

@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 import { Order } from '../../../types';
 import AdminOrderLineItem from './AdminOrderLineItem';
-import { useSorting } from '../../../hooks/useSorting';
+import { useSorting } from '../../../hooks/state/useSorting';
 import SortableHeader from '../SortableHeader';
-import usePagination from '../../../hooks/usePagination';
+import usePagination from '../../../hooks/ui/usePagination';
 
 interface AdminOrderListProps {
   orders: Order[];

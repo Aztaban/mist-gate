@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useGetPostsQuery } from '../../features/apiSlices/postsApiSlice';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/state/useAuth';
 import SinglePost from './SinglePost';
 import { ReactElement, MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';

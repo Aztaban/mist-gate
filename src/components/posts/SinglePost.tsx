@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { dateFormat } from '../../utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/state/useAuth';
 
 type PropsType = {
   post: Post;

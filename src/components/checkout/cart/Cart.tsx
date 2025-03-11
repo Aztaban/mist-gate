@@ -8,7 +8,7 @@ import {
 import { calculateOrderPrices } from '../../../utils/utils';
 import { NavLink, useNavigate } from 'react-router-dom';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../hooks/state/useAuth';
 
 interface CartProps {
   onNext: () => void;

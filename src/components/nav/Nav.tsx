@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
-import { useLogout } from '../../hooks/useLogout';
+import useAuth from '../../hooks/state/useAuth';
+import { useLogout } from '../../hooks/api/useLogout';
 import { forwardRef } from 'react';
 
 interface NavProps {

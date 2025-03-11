@@ -5,7 +5,7 @@ import Select from '../../common/Select';
 import { useUpdateOrderMutation } from '../../../features/apiSlices/ordersApiSlice';
 import { ShippingMethod } from '../../../config/shippingConfig';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../hooks/state/useAuth';
 
 interface OrderActionsProps {
   order: Order;

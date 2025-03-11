@@ -1,5 +1,5 @@
 import OrderLineItem from './OrderLineItem';
-import usePagination from '../../hooks/usePagination';
+import usePagination from '../../hooks/ui/usePagination';
 import { Order } from '../../types';
 import { ReactElement } from 'react';
 

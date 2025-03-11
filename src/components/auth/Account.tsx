@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/state/useAuth';
 import OrdersList from '../orders/OrdersList';
 import { useGetOrdersForUserQuery } from '../../features/apiSlices/ordersApiSlice';
 import UserSettings from '../user/UserSettings';

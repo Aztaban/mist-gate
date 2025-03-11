@@ -6,7 +6,7 @@ import {
   setCheckout,
   selectCheckout,
 } from '../../../features/slices/checkoutSlice';
-import { validateAddress } from '../../../hooks/useValidateAddress';
+import { validateAddress } from '../../../hooks/validation/useValidateAddress';
 import {
   useGetUserQuery,
   useUpdateUserPhoneMutation,
