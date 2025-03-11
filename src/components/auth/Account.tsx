@@ -11,9 +11,9 @@ const Account = (): ReactElement => {
   return (
     <article className="checkout-main">
       <h2 className="header-wraper">{username}'s Account</h2>
-      <UserSettings />
-      <h2>Orders</h2>
       <OrdersList orders={orders}/>
+      <h2>User Settings</h2>
+      <UserSettings />
     </article>
   );
 };
