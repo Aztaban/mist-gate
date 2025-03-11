@@ -3,11 +3,19 @@ import { ShippingAddress } from '../../types';
 import { useUpdateUserAddressMutation } from '../../features/apiSlices/userApiSlice';
 
 interface AddressFormProps {
-  initialAddress: ShippingAddress;
+  initialAddress: ShippingAddress | null
 }
 
+const emptyAddress: ShippingAddress = {
+  name: '',
+  street: '',
+  city: '',
+  postalCode: '',
+  country: '',
+};
+
 const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
-  const [address, setAddress] = useState<ShippingAddress>(initialAddress);
+  const [address, setAddress] = useState<ShippingAddress>(initialAddress ?? emptyAddress);
 
   const [updateUserAddress] = useUpdateUserAddressMutation();
 
@@ -24,7 +32,7 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
   };
 
   useEffect(() => {
-    setAddress(initialAddress); // Update if initialAddress changes
+    setAddress(initialAddress ?? emptyAddress); // Update if initialAddress changes
   }, [initialAddress]);
 
   return (
@@ -69,7 +77,7 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
         onChange={handleChange}
       />
 
-      <button type="submit" disabled={address === initialAddress} >Save Address</button>
+      <button type="submit" disabled={address === initialAddress}>Save Address</button>
     </form>
   );
 };

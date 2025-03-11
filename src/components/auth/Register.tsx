@@ -1,228 +1,32 @@
-import { useRef, useState, useEffect, FormEvent, ReactElement } from 'react';
+import { useState } from 'react';
 import { useRegisterMutation } from '../../features/apiSlices/authApiSlice';
-import { NavLink } from 'react-router-dom';
-import { USER_REGEX, EMAIL_REGEX, PWD_REGEX } from '../../config';
+import RegisterForm from './forms/RegisterForm';
 
-const Register = (): ReactElement => {
-  const userRef = useRef<HTMLInputElement>(null);
-  const errRef = useRef<HTMLParagraphElement>(null);
-
-  const [username, setUsername] = useState<string>('');
-  const [validName, setValidName] = useState<boolean>(false);
-  const [userFocus, setUserFocus] = useState<boolean>(false);
-
-  const [email, setEmail] = useState<string>('');
-  const [validEmail, setValidEmail] = useState<boolean>(false);
-  const [emailFocus, setEmailFocus] = useState<boolean>(false);
-
-  const [pwd, setPwd] = useState<string>('');
-  const [validPwd, setValidPwd] = useState<boolean>(false);
-  const [pwdFocus, setPwdFocus] = useState<boolean>(false);
-
-  const [matchPwd, setMatchPwd] = useState<string>('');
-  const [validMatch, setValidMatch] = useState<boolean>(false);
-  const [matchFocus, setMatchFocus] = useState<boolean>(false);
-
-  const [errMsg, setErrMsg] = useState<string>('');
-  const [success, setSuccess] = useState<boolean>(false);
-
+const Register = () => {
   const [registerMutation] = useRegisterMutation();
+  const [errMsg, setErrMsg] = useState('');
 
-  useEffect(() => {
-    if (userRef.current) userRef.current.focus();
-  }, []);
-
-  useEffect(() => {
-    const result = USER_REGEX.test(username);
-    setValidName(result);
-  }, [username]);
-
-  useEffect(() => {
-    setValidEmail(EMAIL_REGEX.test(email));
-  }, [email]);
-
-  useEffect(() => {
-    const result = PWD_REGEX.test(pwd);
-    setValidPwd(result);
-    const match = pwd === matchPwd;
-    setValidMatch(match);
-  }, [pwd, matchPwd]);
-
-  useEffect(() => {
-    setErrMsg('');
-  }, [username, email, pwd, matchPwd]);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    const v1 = USER_REGEX.test(username);
-    const v2 = PWD_REGEX.test(pwd);
-    const v3 = EMAIL_REGEX.test(email);
-
-    if (!v1 || !v2 || !v3) {
-      setErrMsg('Invalid Entry');
-      return;
-    }
+  const handleRegister = async (
+    username: string,
+    email: string,
+    password: string
+  ) => {
     try {
-      await registerMutation({ username, email, pwd }).unwrap();
-      setSuccess(true);
-      setErrMsg('');
+      await registerMutation({ username, email, pwd: password }).unwrap();
+      window.location.href = '/login'; // Redirect after success
     } catch (error: any) {
-      if (!error.data) {
-        setErrMsg('No Server Response');
-      } else if (error.originalStatus === 409) {
-        setErrMsg('Username Taken');
-      } else {
-        setErrMsg('Registration Failed');
-      }
-      if (errRef.current) errRef.current.focus();
+      setErrMsg(error?.data?.message || 'Registration Failed');
     }
   };
 
-  const content = (
-    <>
-      {success ? (
-        <section className="login">
-          <h2>Account has been created!</h2>
-          <p>
-            <a href="/login">Sign in</a>
-          </p>
-        </section>
-      ) : (
-        <section className="login">
-          <h2 className="news__header">Register</h2>
-          <main>
-            <p
-              ref={errRef}
-              className={errMsg ? 'errmsg' : 'offscreen'}
-              aria-live="assertive"
-            >
-              {errMsg}
-            </p>
-
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="username">Username: </label>
-              <input
-                type="text"
-                id="username"
-                ref={userRef}
-                autoComplete="off"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
-                required
-                aria-invalid={validName ? 'false' : 'true'}
-                aria-describedby="uidnote"
-                onFocus={() => setUserFocus(true)}
-                onBlur={() => setUserFocus(false)}
-              />
-              <p
-                id="uidnote"
-                className={
-                  userFocus && username && !validName ? 'instructions' : 'offscreen'
-                }
-              >
-                4 to 24 characters.
-                <br />
-                Must begin with a letter. <br />
-                Letters, numbers, underscores, hyphens allowed.
-              </p>
-
-              <label htmlFor="email">Email: </label>
-              <input
-                type="email"
-                id="email"
-                autoComplete="off"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-                required
-                aria-invalid={validEmail ? 'false' : 'true'}
-                aria-describedby="emailnote"
-                onFocus={() => setEmailFocus(true)}
-                onBlur={() => setEmailFocus(false)}
-              />
-              <p
-                id="emailnote"
-                className={
-                  emailFocus && email && !validEmail
-                    ? 'instructions'
-                    : 'offscreen'
-                }
-              >
-                Must be a valid email format (e.g., user@example.com).
-              </p>
-
-              <label htmlFor="password">
-                Password:
-                <span className={validPwd ? 'valid' : 'hide'}></span>
-                <span className={validPwd || !pwd ? 'hide' : 'invalid'}></span>
-              </label>
-              <p
-                id="pwdnote"
-                className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}
-              >
-                8 to 24 characters.
-                <br />
-                Must begin with a letter. <br />
-                Must include uppercase and lowercase letters, a number and a
-                special character. <br />
-                Allowed special characters:
-                <span aria-label="exclamation mark"> ! </span>
-                <span aria-label="at symbol">@ </span>
-                <span aria-label="hashtag"># </span>
-                <span aria-label="dollar sign">$</span>
-                <span aria-label="percent">% </span>
-              </p>
-              <input
-                type="password"
-                id="password"
-                onChange={(e) => setPwd(e.target.value)}
-                value={pwd}
-                required
-                autoComplete="new-password"
-                aria-invalid={validPwd ? 'false' : 'true'}
-                aria-describedby="pwdnote"
-                onFocus={() => setPwdFocus(true)}
-                onBlur={() => setPwdFocus(false)}
-              />
-
-              <label htmlFor="confirmPwd">Confirm Password:</label>
-              <input
-                type="password"
-                id="confirm_pwd"
-                onChange={(e) => setMatchPwd(e.target.value)}
-                value={matchPwd}
-                required
-                autoComplete="new-password"
-                aria-invalid={validMatch ? 'false' : 'true'}
-                aria-describedby="confirmnote"
-                onFocus={() => setMatchFocus(true)}
-                onBlur={() => setMatchFocus(false)}
-              />
-              <p
-                id="confirmnote"
-                className={
-                  matchFocus && !validMatch ? 'instructions red' : 'offscreen'
-                }
-              >
-                Must match the first input field.
-              </p>
-              <button
-                type="submit"
-                className="btn save-btn"
-                disabled={!validName || !validPwd || !validMatch ? true : false}
-              >
-                Register
-              </button>
-              <button type="button" className="btn back-btn">
-                <NavLink to="/login">Back to login</NavLink>
-              </button>
-            </form>
-          </main>
-        </section>
-      )}
-    </>
+  return (
+    <section className="login">
+      <h2>Register</h2>
+      <main>
+        <RegisterForm onSubmit={handleRegister} errMsg={errMsg} />
+      </main>
+    </section>
   );
-
-  return content;
 };
 
 export default Register;
