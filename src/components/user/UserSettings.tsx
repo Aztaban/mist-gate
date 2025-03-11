@@ -1,7 +1,8 @@
 import { ReactElement } from 'react';
 import { useGetUserQuery } from '../../features/apiSlices/userApiSlice';
-import { User, ShippingAddress } from '../../types';
+import { ShippingAddress } from '../../types';
 import AddressForm from './AddressForm';
+import UserInfo from './UserInfo';
 
 const UserSettings = (): ReactElement => {
   const { data: user, isLoading, error } = useGetUserQuery();
@@ -12,25 +13,7 @@ const UserSettings = (): ReactElement => {
 
   return (
     <section className="user-settings">
-      <div className="user-info">
-        <label>Username:</label>
-        <p>{user.username}</p>
-
-        <label>Email:</label>
-        <p>{user.email}</p>
-        <button>Change Email</button>
-        <div></div>
-
-        <label>Telephone Number:</label>
-        <p>{user.phoneNumber}</p>
-
-        <button>Change Number</button>
-        <div></div>
-
-        <label>Password:</label>
-        <p>********</p>
-        <button>Change Password</button>
-      </div>
+      <UserInfo user={user}/>
       <AddressForm initialAddress={user.address as ShippingAddress} />
     </section>
   );
