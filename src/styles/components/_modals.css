@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,6 +30,41 @@
   margin-bottom: 0.7rem;
 }
 
+.modal-pwd {
+  background: var(--SECONDARY-COLOR);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--BORDER-RADIUS);
+  border: var(--BORDERS-PRIMARY);
+  gap: 0.5rem;
+  animation: primaryMistMovement 5s ease-in-out infinite;
+}
+
+.modal-pwd h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.modal-pwd label {
+  width: 100%;
+}
+
+.modal-pwd input {
+  height: 2rem;
+  padding: 10px;
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.modal-pwd input,
+.modal-pwd label {
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
 .modal-input {
   width: 100%;
   padding: 8px;
@@ -40,11 +75,12 @@
 
 .modal-actions {
   display: flex;
+  margin-top: 1rem;
   justify-content: space-between;
 }
 
 .modal-confirm {
-  background: green;
+  background-color: green;
   color: white;
   padding: 8px 16px;
   border: none;

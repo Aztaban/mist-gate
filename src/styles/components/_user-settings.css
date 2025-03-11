@@ -35,7 +35,6 @@
 .address-form button {
   padding: 0.5rem;
   border-radius: var(--BORDER-RADIUS);
-  background-color: var(--PRIMARY-COLOR);
   border: var(--BORDERS-SECONDARY);
   cursor: pointer;
 }
@@ -91,7 +90,6 @@
 }
 
 .user-info p {
-  padding: 0.1rem;
   align-self: center;
 }
 
