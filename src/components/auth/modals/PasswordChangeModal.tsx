@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PasswordValidation from '../validations/PasswordValidation';
+import { useUpdatePasswordMutation } from '../../../features/apiSlices/authApiSlice';
 
 interface PasswordChangeModalProps {
   onClose: () => void;
@@ -9,9 +10,15 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
 
-  const handleSubmit = () => {
+  const [updatePassword] = useUpdatePasswordMutation();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
-      // Handle password change logic here
+      console.log('currentPassword', currentPassword, 'newPassword', newPassword);
+
+      await updatePassword({ password: currentPassword, newPassword }).unwrap();
+      alert('Password updated successfully!');
     } catch (err) {
       console.error('Failed to update product:', err);
     }

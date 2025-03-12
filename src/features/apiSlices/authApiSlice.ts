@@ -1,6 +1,10 @@
 import { apiSlice } from '../apiSlice';
 import { logOut, setCredentials } from '../slices/authSlice';
-import { AuthResponse, LoginCredentialsType, RegisterCredentialsType } from '../../types';
+import {
+  AuthResponse,
+  LoginCredentialsType,
+  RegisterCredentialsType,
+} from '../../types';
 import { EMAIL_REGEX, USER_REGEX } from '../../config';
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -11,7 +15,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         const isUser = USER_REGEX.test(login);
 
         if (!isEmail && !isUser) {
-          throw new Error('Invalid login format'); 
+          throw new Error('Invalid login format');
         }
 
         const body = isEmail ? { email: login, pwd } : { user: login, pwd };
@@ -73,6 +77,16 @@ export const authApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
+    updatePassword: builder.mutation<
+      void,
+      { password: string; newPassword: string }
+    >({
+      query: ({ password, newPassword }) => ({
+        url: '/users/user/password',
+        method: 'PUT',
+        body: { password, newPassword },
+      }),
+    }),
   }),
 });
 
@@ -81,4 +95,5 @@ export const {
   useRegisterMutation,
   useSendLogoutMutation,
   useRefreshMutation,
+  useUpdatePasswordMutation,
 } = authApiSlice;
