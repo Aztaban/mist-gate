@@ -19,7 +19,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
     getUser: builder.query<User, void>({
       query: () => '/users/user',
       providesTags: (result) =>
-        result ? [{ type: 'User', id: result.id }] : [],
+        result ? [{ type: 'User', id: 'CURRENT' }] : [],
     }),
 
     // Get orders for the current user
@@ -52,7 +52,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: { address },
       }),
-      invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
+      invalidatesTags: (_result, _error, _arg) => [{ type: 'User', id: 'CURRENT' }],
     }),
     updateUserPhone: builder.mutation<User, { phoneNumber: string }>({
       query: ({ phoneNumber }) => ({
@@ -60,7 +60,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: { phoneNumber },
       }),
-      invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
+      invalidatesTags: (_result, _error, _arg) => [{ type: 'User', id: 'CURRENT' }],
     }),
     updateUserEmail: builder.mutation<User, { email: string }>({
       query: ({ email }) => ({
@@ -68,7 +68,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: { email },
       }),
-      invalidatesTags: [{ type: 'User', id: 'CURRENT' }],
+      invalidatesTags: (_result, _error, _arg) => [{ type: 'User', id: 'CURRENT' }],
     }),
 
     // Toggle user status (Admin only)
