@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Product } from '../../../types';
 import { getImageUrl } from '../../../utils/utils';
 import { eurFormat } from '../../../utils/utils';
-import RestockModal from './RestockModal';
-import PriceChangeModal from './PriceChangeModal';
-import ProductImageUpadteModal from './ProductImageUpdateModal';
+import RestockModal from './modals/RestockModal';
+import PriceChangeModal from './modals/PriceChangeModal';
+import ProductImageUpadteModal from './modals/ProductImageUpdateModal';
 
 interface AdminProductDetailProps {
   product: Product;

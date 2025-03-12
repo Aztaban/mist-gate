@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useUpdateProductMutation } from '../../../features/apiSlices/productApiSlice';
+import { useUpdateProductMutation } from '../../../../features/apiSlices/productApiSlice';
+import ModalButtons from '../../../auth/modals/ModalButtons';
 
 interface RestockModalProps {
   currentStock: number;
@@ -60,15 +61,7 @@ const RestockModal = ({
           onChange={handleChange}
           className="modal-input"
         />
-
-        <div className="modal-actions">
-          <button onClick={handleSubmit} className="modal-confirm">
-            Confirm
-          </button>
-          <button onClick={onClose} className="modal-cancel">
-            Cancel
-          </button>
-        </div>
+        <ModalButtons handleSubmit={handleSubmit} onClose={onClose} />
       </div>
     </div>
   );

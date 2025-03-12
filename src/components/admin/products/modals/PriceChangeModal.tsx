@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { eurFormat } from "../../../utils/utils";
-import { useUpdateProductMutation } from "../../../features/apiSlices/productApiSlice";
-import PriceInput from "../../common/PriceInput";
+import { useState } from 'react';
+import { eurFormat } from '../../../../utils/utils';
+import { useUpdateProductMutation } from '../../../../features/apiSlices/productApiSlice';
+import PriceInput from '../../../common/PriceInput';
+import ModalButtons from '../../../auth/modals/ModalButtons';
 
 interface PriceChangeModalProps {
   currentPrice: number;
@@ -9,7 +10,11 @@ interface PriceChangeModalProps {
   onClose: () => void;
 }
 
-const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModalProps) => {
+const PriceChangeModal = ({
+  currentPrice,
+  productId,
+  onClose,
+}: PriceChangeModalProps) => {
   const [updateProduct] = useUpdateProductMutation();
   const [price, setPrice] = useState(currentPrice);
 
@@ -20,24 +25,22 @@ const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModal
       console.error('Failed to update product:', err);
     }
     onClose();
-  }
+  };
 
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Change Price</h2>
-        <p>Current Price: <strong>{eurFormat(currentPrice)}</strong></p>
+        <p>
+          Current Price: <strong>{eurFormat(currentPrice)}</strong>
+        </p>
 
         <label>New Price:</label>
         <PriceInput value={price} onChange={setPrice} className="modal-input" />
-
-        <div className="modal-actions">
-          <button onClick={handleSubmit} className="modal-confirm">Confirm</button>
-          <button onClick={onClose} className="modal-cancel">Cancel</button>
-        </div>
+        <ModalButtons handleSubmit={handleSubmit} onClose={onClose} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PriceChangeModal
+export default PriceChangeModal;

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PasswordValidation from '../validations/PasswordValidation';
 import { useUpdatePasswordMutation } from '../../../features/apiSlices/authApiSlice';
+import ModalButtons from './ModalButtons';
 
 interface PasswordChangeModalProps {
   onClose: () => void;
@@ -15,8 +16,6 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      console.log('currentPassword', currentPassword, 'newPassword', newPassword);
-
       await updatePassword({ password: currentPassword, newPassword }).unwrap();
       alert('Password updated successfully!');
     } catch (err) {
@@ -38,14 +37,7 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
           onChange={(e) => setCurrentPassword(e.target.value)}
         />
         <PasswordValidation onPasswordChange={setNewPassword} />
-        <div className="modal-actions">
-          <button onClick={handleSubmit} className="btn modal-confirm">
-            Confirm
-          </button>
-          <button onClick={onClose} className="btn modal-cancel">
-            Cancel
-          </button>
-        </div>
+        <ModalButtons handleSubmit={handleSubmit} onClose={onClose} />
       </div>
     </div>
   );

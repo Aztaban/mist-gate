@@ -1,6 +1,7 @@
-import { useState } from "react"
-import { useUpdateProductImageMutation } from "../../../features/apiSlices/productApiSlice"
-import { getImageUrl } from "../../../utils/utils";
+import { useState } from 'react';
+import { useUpdateProductImageMutation } from '../../../../features/apiSlices/productApiSlice';
+import { getImageUrl } from '../../../../utils/utils';
+import ModalButtons from '../../../auth/modals/ModalButtons';
 
 interface ImageUpdateModalProps {
   productId: string;
@@ -8,11 +9,16 @@ interface ImageUpdateModalProps {
   onClose: () => void;
 }
 
-const ProductImageUpdateModal = ({ productId, currentImage, onClose}: ImageUpdateModalProps) => {
+const ProductImageUpdateModal = ({
+  productId,
+  currentImage,
+  onClose,
+}: ImageUpdateModalProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
-  const [updatedProductImage, { isLoading, error}] = useUpdateProductImageMutation();
+  const [updatedProductImage, { isLoading, error }] =
+    useUpdateProductImageMutation();
 
   console.log(productId);
 
@@ -22,7 +28,7 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose}: ImageUpdat
       setSelectedFile(file);
       setPreview(URL.createObjectURL(file)); // Generate a preview URL
     }
-  }
+  };
 
   const handleUpload = async () => {
     if (!selectedFile) {
@@ -32,12 +38,15 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose}: ImageUpdat
 
     try {
       console.log(productId);
-      await updatedProductImage({ id: productId, image: selectedFile }).unwrap();
+      await updatedProductImage({
+        id: productId,
+        image: selectedFile,
+      }).unwrap();
       onClose();
     } catch (err) {
       console.error('Failed to update product image:', err);
     }
-  }
+  };
 
   return (
     <div className="modal-overlay">
@@ -47,18 +56,11 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose}: ImageUpdat
           <img src={preview || getImageUrl(currentImage)} alt="Product Image" />
         </div>
         <input type="file" accept="image/*" onChange={handleFieldChange} />
-        <div className="modal-actions">
-        <button onClick={handleUpload} className="modal-confirm">
-            Confirm
-          </button>
-          <button onClick={onClose} disabled={isLoading} className="modal-cancel">
-            Cancel
-          </button>
-        </div>
+        <ModalButtons handleSubmit={handleUpload} onClose={onClose} />
         {error && <p className="text-red-500 mt-2">Error updating image.</p>}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductImageUpdateModal
+export default ProductImageUpdateModal;
