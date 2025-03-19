@@ -4,7 +4,7 @@ import { eurFormat, getImageUrl } from '@utils';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '@features/slices/checkoutSlice';
 import { OrderItem } from '@types';
-import QuantityInput from '@components/common/QuantityInput';
+import QuantityInput from '@components/common/inputs/QuantityInput';
 
 const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
   const dispatch = useDispatch();

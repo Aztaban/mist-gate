@@ -6,7 +6,7 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-const EmailValidation: React.FC<Props> = ({ value, onChange }) => {
+const ValidatedEmailInput: React.FC<Props> = ({ value, onChange }) => {
   const [emailFocus, setEmailFocus] = useState(false);
   const validEmail = EMAIL_REGEX.test(value);
 
@@ -31,4 +31,4 @@ const EmailValidation: React.FC<Props> = ({ value, onChange }) => {
   );
 };
 
-export default EmailValidation;
+export default ValidatedEmailInput;

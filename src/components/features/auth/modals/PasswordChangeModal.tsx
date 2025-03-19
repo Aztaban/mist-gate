@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import PasswordValidation from '../validations/PasswordValidation';
+import ValidatedPasswordInput from '@components/common/inputs/ValidatedPasswordInput';
 import { useUpdatePasswordMutation } from '@features/apiSlices/authApiSlice';
 import ModalButtons from './ModalButtons';
 
@@ -56,7 +56,7 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
-            <PasswordValidation onPasswordChange={setNewPassword} />
+            <ValidatedPasswordInput onPasswordChange={setNewPassword} />
 
             {status === 'error' && <p>Invalid Password. Please try again.</p>}
 

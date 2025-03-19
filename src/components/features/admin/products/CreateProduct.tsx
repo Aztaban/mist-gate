@@ -9,7 +9,7 @@ import { uploadImageAndGetPath } from '@hooks/ui/useUploadImage';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '@features/slices/checkoutSlice';
 import { productCategories } from '@config';
-import PriceInput from '@components/common/PriceInput';
+import PriceInput from '@components/common/inputs/PriceInput';
 
 const CreateProduct = () => {
   const navigate = useNavigate();

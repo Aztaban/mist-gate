@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { eurFormat } from '@utils/currency';
 import { useUpdateProductMutation } from '@features/apiSlices/productApiSlice';
-import PriceInput from '@components/common/PriceInput';
+import PriceInput from '@components/common/inputs/PriceInput';
 import ModalButtons from '../../../auth/modals/ModalButtons';
 
 interface PriceChangeModalProps {

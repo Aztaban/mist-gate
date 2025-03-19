@@ -6,7 +6,7 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-const UsernameValidation: React.FC<Props> = ({ value, onChange }) => {
+const ValidatedUsernameInput: React.FC<Props> = ({ value, onChange }) => {
   const [userFocus, setUserFocus] = useState(false);
   const validUsername = USER_REGEX.test(value);
 
@@ -31,4 +31,4 @@ const UsernameValidation: React.FC<Props> = ({ value, onChange }) => {
   );
 };
 
-export default UsernameValidation;
+export default ValidatedUsernameInput;

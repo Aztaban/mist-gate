@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react';
-import UsernameValidation from '../validations/UsernameValidation';
-import EmailValidation from '../validations/EmailValidation';
-import PasswordValidation from '../validations/PasswordValidation';
+import ValidatedUsernameInput from '@components/common/inputs/ValidatedUsernameInput';
+import ValidatedEmailInput from '@components/common/inputs/ValidateEmailInput';
+import ValidatedPasswordInput from '@components/common/inputs/ValidatedPasswordInput';
 import { NavLink } from 'react-router-dom';
 
 interface RegisterFormProps {
@@ -24,9 +24,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, errMsg }) => {
     <form onSubmit={handleSubmit}>
       {errMsg && <p className="errmsg">{errMsg}</p>}
 
-      <UsernameValidation value={username} onChange={setUsername} />
-      <EmailValidation value={email} onChange={setEmail} />
-      <PasswordValidation onPasswordChange={setPassword} />
+      <ValidatedUsernameInput value={username} onChange={setUsername} />
+      <ValidatedEmailInput value={email} onChange={setEmail} />
+      <ValidatedPasswordInput onPasswordChange={setPassword} />
 
       <button
         type="submit"

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import EmailValidation from '../validations/EmailValidation';
+import ValidatedEmailInput from '@components/common/inputs/ValidateEmailInput';
 import { useUpdateUserEmailMutation } from '@features/apiSlices/userApiSlice';
 import ModalButtons from './ModalButtons';
 
@@ -47,7 +47,7 @@ const EmailChangeModal = ({ onClose, email }: EmailChangeModalProps) => {
           <>
             <label>Current Email:</label>
             <p>{email}</p>
-            <EmailValidation value={newEmail} onChange={setNewEmail} />
+            <ValidatedEmailInput value={newEmail} onChange={setNewEmail} />
 
             {status === 'error' && <p>Invalid email. Please try again.</p>}
 
