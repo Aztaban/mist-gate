@@ -1,4 +1,4 @@
-import { ShippingAddress } from "../../types";
+import { ShippingAddress } from "@types";
 
 export const validateAddress = (
   address: ShippingAddress | null

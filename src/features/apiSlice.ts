@@ -8,7 +8,7 @@ import {
 import { RootState } from './store';
 import { setCredentials } from './slices/authSlice';
 import { logOut } from './slices/authSlice';
-import { setPersistState } from '../utils/utils';
+import { setPersistState } from '@utils';
 
 interface AccessTokenResponse {
   accessToken: string;

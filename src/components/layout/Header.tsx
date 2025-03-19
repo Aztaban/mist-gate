@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Nav from '../nav/Nav';
 import CartButton from '../nav/CartButton';
 import LogoutButton from '../nav/LogoutButton';
-import useAuth from '../../hooks/state/useAuth';
+import useAuth from '@hooks/state/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 

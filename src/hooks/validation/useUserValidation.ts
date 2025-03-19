@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { USER_REGEX, EMAIL_REGEX } from "../../config";
+import { USER_REGEX, EMAIL_REGEX } from "@config";
 
 export const useUserValidation = (initialUsername = "", initialEmail = "") => {
   const [username, setUsername] = useState(initialUsername);

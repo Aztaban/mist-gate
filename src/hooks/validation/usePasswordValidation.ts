@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PWD_REGEX } from "../../config";
+import { PWD_REGEX } from "@config";
 
 export const usePasswordValidation = () => {
   const [password, setPassword] = useState("");

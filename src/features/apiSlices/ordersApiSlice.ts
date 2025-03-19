@@ -1,5 +1,5 @@
 import { apiSlice } from '../apiSlice';
-import { Order, CreateOrder, PaymentIntentResponse } from '../../types';
+import { Order, CreateOrder, PaymentIntentResponse } from '@types';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

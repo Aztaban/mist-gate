@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { ShippingAddress, OrderItem, CreateOrder } from '../../types';
-import { ShippingMethod } from '../../config';
+import { ShippingAddress, OrderItem, CreateOrder } from '@types';
+import { ShippingMethod } from '@config';
 
 const loadCheckoutState = (): CheckoutState => {
   try {

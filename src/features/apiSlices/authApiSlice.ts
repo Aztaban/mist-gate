@@ -4,7 +4,7 @@ import {
   AuthResponse,
   LoginCredentialsType,
   RegisterCredentialsType,
-} from '../../types';
+} from '@types';
 import { EMAIL_REGEX, USER_REGEX } from '../../config';
 
 export const authApiSlice = apiSlice.injectEndpoints({

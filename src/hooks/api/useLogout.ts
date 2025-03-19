@@ -1,5 +1,5 @@
-import { useSendLogoutMutation } from "../../features/apiSlices/authApiSlice";
-import { setPersistState } from "../../utils/utils";
+import { useSendLogoutMutation } from "@features/apiSlices/authApiSlice";
+import { setPersistState } from "@utils";
 
 export const useLogout = () => {
   const [sendLogout] = useSendLogoutMutation();

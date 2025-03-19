@@ -1,4 +1,4 @@
-import PostsBoard from '../posts/PostsBoard';
+import PostsBoard from "@components/features/posts/PostsBoard";
 
 const Home = () => {
   return (
