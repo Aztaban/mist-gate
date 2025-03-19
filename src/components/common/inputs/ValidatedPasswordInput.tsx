@@ -5,7 +5,7 @@ interface Props {
   onPasswordChange: (value: string) => void;
 }
 
-const PasswordValidation: React.FC<Props> = ({
+const ValidatedPasswordInput: React.FC<Props> = ({
   onPasswordChange,
 }) => {
   const {
@@ -58,4 +58,4 @@ const PasswordValidation: React.FC<Props> = ({
   );
 };
 
-export default PasswordValidation;
+export default ValidatedPasswordInput;
