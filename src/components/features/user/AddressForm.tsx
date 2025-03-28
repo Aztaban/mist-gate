@@ -3,7 +3,7 @@ import { ShippingAddress } from '@types';
 import { useUpdateUserAddressMutation } from '@features/apiSlices/userApiSlice';
 
 interface AddressFormProps {
-  initialAddress: ShippingAddress | null
+  initialAddress: ShippingAddress | null;
 }
 
 const emptyAddress: ShippingAddress = {
@@ -15,7 +15,9 @@ const emptyAddress: ShippingAddress = {
 };
 
 const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
-  const [address, setAddress] = useState<ShippingAddress>(initialAddress ?? emptyAddress);
+  const [address, setAddress] = useState<ShippingAddress>(
+    initialAddress ?? emptyAddress
+  );
   const [updateUserAddress] = useUpdateUserAddressMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,16 +28,18 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
     }));
   };
 
-  const handleDelete = async() => {
-    const confirmDelete = window.confirm("Are you sure you want to delete your address?");
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm(
+      'Are you sure you want to delete your address?'
+    );
     if (!confirmDelete) return;
 
     try {
-      await updateUserAddress({address: emptyAddress}).unwrap();
+      await updateUserAddress({ address: emptyAddress }).unwrap();
       setAddress(emptyAddress);
       alert('Address deleted successfully!');
     } catch (error) {
-      console.error('Failed to delete address:', error);  
+      console.error('Failed to delete address:', error);
       alert('Failed to delete address');
     }
   };
@@ -43,21 +47,20 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await updateUserAddress({address}).unwrap();
+      await updateUserAddress({ address }).unwrap();
       alert('Address saved successfully!');
     } catch (error) {
-      console.error('Failed to save address:', error);  
+      console.error('Failed to save address:', error);
       alert('Failed to save address');
     }
   };
 
-  const isAddressEmpty = (
+  const isAddressEmpty =
     address.name === '' &&
     address.street === '' &&
     address.city === '' &&
     address.postalCode === '' &&
-    address.country === ''
-  );
+    address.country === '';
 
   useEffect(() => {
     setAddress(initialAddress ?? emptyAddress); // Update if initialAddress changes
@@ -105,8 +108,17 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
         onChange={handleChange}
       />
 
-      <button type="submit" disabled={address === initialAddress}>Save Address</button>
-      <button className="del-btn" type="button" disabled={isAddressEmpty} onClick={handleDelete}>Delete Address</button>
+      <button type="submit" disabled={address === initialAddress}>
+        Save Address
+      </button>
+      <button
+        className="del-btn"
+        type="button"
+        disabled={isAddressEmpty}
+        onClick={handleDelete}
+      >
+        Delete Address
+      </button>
     </form>
   );
 };
