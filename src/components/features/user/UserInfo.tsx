@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react';
 import { User } from '@types';
 import PasswordChangeModal from '../auth/modals/PasswordChangeModal';
 import EmailChangeModal from '../auth/modals/EmailChangeModal';
+import PhoneNumberChangeModal from '../auth/modals/phoneNumberChangeModal';
 
 interface UserInfoProps {
   user: User;
@@ -24,7 +25,7 @@ const UserInfo = ({ user }: UserInfoProps): ReactElement => {
       <label>Telephone Number:</label>
       <p>{user.phoneNumber}</p>
 
-      <button>Change Number</button>
+      <button onClick={() => setOpenModal("phone")}>Change Number</button>
       <div></div>
 
       <label>Password:</label>
@@ -33,6 +34,7 @@ const UserInfo = ({ user }: UserInfoProps): ReactElement => {
 
       {openModal === "password" && <PasswordChangeModal onClose={() => setOpenModal(null)} />}
       {openModal === "email" && <EmailChangeModal email={user.email} onClose={() => setOpenModal(null)} />}
+      {openModal === "phone" && <PhoneNumberChangeModal currentPhoneNumber={user.phoneNumber || ""} onClose={() => setOpenModal(null)} />}
     </div>
   );
 };
