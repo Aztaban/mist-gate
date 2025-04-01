@@ -25,7 +25,7 @@ const AdminProductsPage = () => {
       <h2 className="header-wraper">
         <p>Admin Products</p>
         <button className="btn back-btn">
-          <NavLink to={'/admin/products/product'}>New Product</NavLink>
+          <NavLink to={'/admin/products/new'}>New Product</NavLink>
         </button>
         <input
           type="text"
