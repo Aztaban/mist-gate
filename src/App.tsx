@@ -1,75 +1,44 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-import Home from './components/layout/Home';
-import About from './components/layout/About';
-import Login from '@components/features/auth/Login';
-import Shop from '@components/features/shop/Shop';
-import Account from '@components/features/auth/Account';
-import PostsList from '@components/features/posts/PostsList';
-import AddPostForm from '@components/features/posts/AddPostForm';
-import EditPostForm from '@components/features/posts/EditPostForm';
-import SingleProductPage from '@components/features/shop/SingleProductPage';
-import Payment from '@components/features/checkout/payment/Payment';
-import Register from '@components/features/auth/Register';
 import RequireAuth from '@components/features/auth/RequireAuth';
 import PersistLogin from '@components/features/auth/PersistLogin';
-import AdminDashboard from '@components/features/admin/AdminDashboard';
-import AdminOrdersPage from '@components/features/admin/orders/AdminOrdersPage';
-import AdminProductsPage from '@components/features/admin/products/AdminProductsPage';
-import SingleOrderPage from '@components/features/orders/SingleOrderPage';
-import CreateProduct from '@components/features/admin/products/CreateProduct';
 import { ROLES } from '@config/roles';
-import Checkout from '@components/features/checkout/Checkout';
-import AdminSingleProduct from '@components/features/admin/products/AdminSingleProduct';
+
+import PublicRoutes from 'routes/PublicRoutes';
+import PostRoutes from 'routes/PostRoutes';
+import ShopRoutes from 'routes/ShopRoutes';
+import CheckoutRoutes from 'routes/CheckoutRoutes';
+import UserRoutes from 'routes/UserRoutes';
+import AdminRoutes from 'routes/AdminRoutes';
 
 function App() {
   const content = (
     <Routes>
       <Route element={<PersistLogin />}>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
+          {/* Public Routes */}
+          <Route index element={<PublicRoutes.Home />} />
+          <Route path="about" element={<PublicRoutes.About />} />
+          <Route path="login" element={<PublicRoutes.Login />} />
+          <Route path="register" element={<PublicRoutes.Register />} />
 
-          <Route path="posts">
-            <Route index element={<PostsList />} />
-            <Route path="newPost" element={<AddPostForm />} />
-            <Route path="edit/:postId" element={<EditPostForm />} />
-          </Route>
+          {/* Feature routes (some public) */}
+          {PostRoutes()}
+          {ShopRoutes()}
+          {CheckoutRoutes()}
 
-          <Route path="shop">
-            <Route index element={<Shop />} />
-            <Route path="product/:productId" element={<SingleProductPage />} />
-          </Route>
-
-          <Route path="checkout">
-            <Route index element={<Checkout />} />
-            <Route element={<RequireAuth allowedRoles={[ROLES.User]} />}>
-              <Route path="payment/:orderId" element={<Payment />} />
-            </Route>
-          </Route>
-
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-
+          {/* Protected for all logged-in users */}
           <Route
             element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
           >
-            <Route path="account" element={<Account />} />
-            <Route path="order/:orderId" element={<SingleOrderPage />} />
+            {UserRoutes()}
           </Route>
 
+          {/* Admin only */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
-            <Route path="admin">
-              <Route index element={<AdminDashboard />} />
-              <Route path="products">
-                <Route index element={<AdminProductsPage />} />
-                <Route path="product" element={<CreateProduct />} />
-                <Route path="edit/:productId" element={<AdminSingleProduct />} />
-              </Route>
-              <Route path="orders" element={<AdminOrdersPage />} />
-            </Route>
+            {AdminRoutes()}
           </Route>
-
+          {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Route>
