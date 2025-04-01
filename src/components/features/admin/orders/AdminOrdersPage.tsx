@@ -8,6 +8,7 @@ const AdminOrdersPage = () => {
   
   // Filter orders based on search input
   const filteredOrders = useMemo(() => {
+    if (!Array.isArray(orders)) return [];
     return orders.filter((order) =>
       order.orderNo.toString().toLowerCase().includes(search.toLowerCase()) ||
       order.user.username.toLowerCase().includes(search.toLowerCase())
@@ -33,7 +34,11 @@ const AdminOrdersPage = () => {
           className="search-bar"
         />
       </h2>
-      <AdminOrderList orders={filteredOrders} />
+      {filteredOrders.length === 0 ? (
+        <p>No orders found.</p>
+      ) : (
+        <AdminOrderList orders={filteredOrders} />
+      )}
     </article>
   );
 };
