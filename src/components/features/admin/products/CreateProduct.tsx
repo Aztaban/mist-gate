@@ -1,14 +1,14 @@
-import { MouseEvent, ChangeEvent, FormEvent, useState, useRef } from 'react';
+import { MouseEvent, ChangeEvent, FormEvent, useState, useMemo } from 'react';
 import {
   useAddNewProductMutation,
   useUploadImageMutation,
 } from '@features/apiSlices/productApiSlice';
 import { Product } from '@types';
 import { useNavigate } from 'react-router-dom';
-import { uploadImageAndGetPath } from '@hooks/ui/useUploadImage';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '@features/slices/checkoutSlice';
 import { productCategories } from '@config';
+import { useImageUpload } from '@hooks/ui/useUploadImage';
 import PriceInput from '@components/common/inputs/PriceInput';
 
 const CreateProduct = () => {
@@ -16,7 +16,15 @@ const CreateProduct = () => {
   const dispatch = useDispatch();
   const [addNewProduct, { isLoading }] = useAddNewProductMutation();
   const [uploadImage] = useUploadImageMutation();
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const {
+    selectedFile,
+    previewUrl,
+    error: imageError,
+    handleFileChange,
+    reset: resetImage,
+  } = useImageUpload();
+
   const [formData, setFormData] = useState<Partial<Product>>({
     name: '',
     productType: '',
@@ -24,19 +32,23 @@ const CreateProduct = () => {
     countInStock: 0,
     details: { author: '', releaseDate: '', description: '' },
   });
-  const imageRef = useRef<File | null>(null);
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      console.log('file', file);
-      imageRef.current = file;
-      setPreviewUrl(URL.createObjectURL(file));
-      console.log('image set', imageRef.current);
-    }
-  };
+  const canSave = useMemo(() => {
+    return (
+      [
+        formData.name,
+        formData.productType,
+        Number.isInteger(formData.price),
+        selectedFile,
+        formData.details?.author,
+        formData.details?.description,
+      ].every(Boolean) && !isLoading
+    );
+  }, [formData, selectedFile, isLoading]);
 
-  const handleGeneralChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleGeneralChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -59,64 +71,38 @@ const CreateProduct = () => {
     }));
   };
 
-  const handleDetailsChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleDetailsChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     const detailKey = name.split('.')[1] as keyof Product['details'];
-  
+
     setFormData((prev) => ({
       ...prev,
       details: {
-        ...(prev.details ?? { author: '', releaseDate: '', description: '' }),
+        ...(prev.details ?? {}),
         [detailKey]: value,
       },
     }));
   };
 
-  const canSave =
-    [
-      formData.name,
-      formData.productType && formData.productType !== '',
-      formData.price,
-      imageRef.current,
-      formData.details?.author,
-      formData.details?.description,
-    ].every(Boolean) && !isLoading;
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const currentImage = imageRef.current;
-
-    if (!currentImage) {
-      alert('Please upload an image.');
-      return;
-    }
-
-    if (
-      !Number.isInteger(formData.price) ||
-      !Number.isInteger(formData.countInStock)
-    ) {
-      alert('Price and Stock Count must be whole numbers.');
+    if (!selectedFile) {
+      alert('Please select an image.');
       return;
     }
 
     try {
-      if (canSave) {
-        const image = await uploadImageAndGetPath(currentImage, uploadImage);
-        console.log('Image uploaded: ', image);
-
-        const updatedFormData = {
-          ...formData,
-          image,
-        };
-
-        await addNewProduct(updatedFormData).unwrap();
-        dispatch(clearCart());
-        navigate('/admin/products');
-      }
+      const { image } = await uploadImage(selectedFile).unwrap();
+      const finalData = { ...formData, image };
+      await addNewProduct(finalData).unwrap();
+      dispatch(clearCart());
+      navigate('/admin/products');
     } catch (err: unknown) {
       if (err instanceof Error) {
-        console.error('Failed to save the post', err.message);
+        console.error('Failed to save the product: ', err.message);
       }
     }
   };
@@ -156,24 +142,33 @@ const CreateProduct = () => {
             ))}
           </select>
           <label htmlFor="price">Product Price:</label>
-          <PriceInput value={formData.price || 0} onChange={handlePriceChange} />
+          <PriceInput
+            value={formData.price || 0}
+            onChange={handlePriceChange}
+          />
 
           <label htmlFor="productType">Product Image:</label>
 
-          {previewUrl && (
+          {previewUrl ? (
             <img
               src={previewUrl}
               alt="Preview"
               className="admin-order-form-img"
             />
+          ) : (
+            <p>
+              Recommended resolution: at least <strong>300×300px</strong>.
+              Maximum size: <strong>2MB</strong>.
+            </p>
           )}
           <input
             type="file"
             id="image"
             name="image"
-            onChange={handleImageChange}
+            onChange={handleFileChange}
             accept="image/*"
           />
+          {imageError && <div className="errMsg">{imageError}</div>}
           <label htmlFor="countInStock">Items in Stock:</label>
           <input
             type="number"
@@ -213,7 +208,7 @@ const CreateProduct = () => {
             rows={6}
           />
         </fieldset>
-        <div className='checkout-buttons'>
+        <div className="checkout-buttons">
           <button
             type="button"
             className="btn"
