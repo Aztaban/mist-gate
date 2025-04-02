@@ -16,7 +16,7 @@ const Account = (): ReactElement => {
   return (
     <article className="checkout-main">
       <h2 className="header-wraper">{username}'s Account</h2>
-      {!isAdmin || isEditor && (
+      {!isAdmin || !isEditor && (
         <>
           <OrdersList orders={sortedOrders} />
           <h2 className="header-wraper">User Settings</h2>

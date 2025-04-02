@@ -55,7 +55,7 @@ const OrderActions = ({ order }: OrderActionsProps) => {
 
   return (
     <>
-      {useAuth().isAdmin && (
+      {useAuth().isAdmin || useAuth().isEditor && (
         <section className="admin-tools">
           <h3 className="header-wrapper">Admin Tools</h3>
 
