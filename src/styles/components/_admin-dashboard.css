@@ -1,0 +1,31 @@
+
+  .admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 1200px;
+    box-sizing: border-box;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: 1fr 1fr; 
+    }
+  }
+  
+  .dashboard-grid > * {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+  }
+

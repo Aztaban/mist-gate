@@ -1,0 +1,40 @@
+.admin-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 0.5rem;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.admin-table th {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.text-align-left {  
+  text-align: left;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.admin-table td {
+  white-space: nowrap;
+}
