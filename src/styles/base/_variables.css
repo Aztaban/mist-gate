@@ -2,7 +2,7 @@
   /* FONTS */
   --FF: sans-serif;
   --FF-HEADINGS: 'New Amsterdam', cursive;
-  --FS: clamp(1rem, 2.2vh, 1.5rem);
+  --FS: clamp(1rem, 1.5vw, 1.25rem);
 
   /* MAIN COLORS */
   --PRIMARY-COLOR-DARK: rgb(218, 198, 88);

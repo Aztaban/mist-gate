@@ -21,6 +21,8 @@
 @import './components/_post.css';
 @import './components/_quantity.css';
 @import './components/_user-settings.css';
+@import './components/_admin-dashboard.css';
+@import './components/_admin-datatable.css';
 
 /* Import layout styles */
 @import './layout/_main.css';
