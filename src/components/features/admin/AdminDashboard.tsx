@@ -1,32 +1,70 @@
 import { useGetAllOrdersQuery } from '@features/apiSlices/ordersApiSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectOrders, setOrders } from '@features/slices/ordersSlice';
-import { useEffect } from 'react';
+import { useGetProductsQuery } from '@features/apiSlices/productApiSlice';
+import AdminStatusBar from './dashhboard/AdminStatusBar';
+import AdminDataTable from './dashhboard/AdminDataTable';
+import UsersManager from './dashhboard/UsersManager';
+import CategoryManager from './dashhboard/Categorymanager';
+import { eurFormat } from '@utils';
 
 const AdminDashboard = () => {
-  const dispatch = useDispatch();
   const { data: ordersData, isError, isLoading } = useGetAllOrdersQuery();
-  const orders = useSelector(selectOrders);
+  const {
+    data: productsData,
+    isError: productsError,
+    isLoading: productsLoading,
+  } = useGetProductsQuery();
 
-  useEffect(() => {
-    if (ordersData) {
-      dispatch(setOrders(ordersData));
-    }
-  }, [ordersData, dispatch]);
+  if (isLoading || productsLoading) return <p>Loading...</p>;
+  if (isError || productsError) return <p>Error loading data.</p>;
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching data</div>;
+  const processingOrders = (ordersData || []).filter(
+    (order) => order.status === 'processing'
+  );
+
+  //  Get 5 products with lowest stock
+  const lowStockProducts = [...(productsData || [])]
+    .sort((a, b) => a.countInStock - b.countInStock)
+    .slice(0, 5);
+
+  const lowsStockWarning = (productsData || []).filter(
+    (product) => product.countInStock < 5
+  );
+
+  const topSellingProducts = [...(productsData || [])]
+    .sort((a, b) => b.unitsSold - a.unitsSold) // Sort by countInStock in descending order to get top selling products
+    .slice(0, 5);
 
   return (
-    <article className="account">
-      <h2 className="header-wraper">Admin Dashboard</h2>
-      <ul>
-        {orders && orders.map((order) => (
-          <li key={order.id}>
-            Order #{order.orderNo} - Total: {order.totalPrice}
-          </li>
-        ))}
-      </ul>
+    <article className="admin-dashboard">
+      <div className="dashboard-grid">
+        <AdminStatusBar
+          processingCount={processingOrders.length}
+          outOfStockCount={lowsStockWarning.length}
+        />
+        <AdminDataTable
+          title="Latest Orders"
+          data={processingOrders.slice(0, 5) || []}
+          columns={['orderNo', 'totalPrice', 'isPaid', 'status']}
+          columnFormatters={{ totalPrice: (value) => eurFormat(value) }}
+          linkPath={(order) => `/order/${order.id}`}
+        />
+        <AdminDataTable
+          title="Top selling products"
+          data={topSellingProducts || []}
+          columns={['name', 'unitsSold', 'price']}
+          columnFormatters={{ price: (value) => eurFormat(value) }}
+          linkPath={(product) => `/admin/products/edit/${product.id}`}
+        />
+        <AdminDataTable
+          title="Products stocks"
+          data={lowStockProducts || []}
+          columns={['name', 'countInStock', 'price']}
+          columnFormatters={{ price: (value) => eurFormat(value) }}
+          linkPath={(product) => `/admin/products/edit/${product.id}`}
+        />
+      </div>
+      <UsersManager />
+      <CategoryManager />
     </article>
   );
 };
