@@ -35,7 +35,7 @@ function App() {
           </Route>
 
           {/* Admin only */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor]} />}>
             {AdminRoutes()}
           </Route>
           {/* Fallback */}
