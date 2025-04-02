@@ -1,4 +1,4 @@
-import { ShippingAddress } from "../types";
+import { ShippingAddress } from "./user";
 import { ShippingMethod, OrderStatus } from "../config";
 
 export type OrderItem = {
