@@ -35,7 +35,7 @@ const AdminDataTable: React.FC<AdminDataTableProps> = ({
             {data.map((item) => (
               <tr key={item.id || item._id || Math.random()}>
                 {columns.map((column, colIndex) => (
-                  <td key={column} className={colIndex === 0 ? '' : 'text-align-center'}>
+                  <td key={column} className={colIndex === 0 ? '' : 'text-align-right'}>
                     {columnFormatters?.[column] ? (
                       columnFormatters[column](item[column], item)
                     ) : typeof item[column] === 'boolean' ? (
