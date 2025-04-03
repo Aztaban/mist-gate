@@ -23,6 +23,7 @@
 @import './components/_user-settings.css';
 @import './components/_admin-dashboard.css';
 @import './components/_admin-datatable.css';
+@import './components/_user-manager.css';
 
 /* Import layout styles */
 @import './layout/_main.css';
