@@ -8,18 +8,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => '/users',
       providesTags: (result) =>
         result
-          ? [
-              ...result.map((user) => ({ type: 'User', id: user.id } as const)),
-              { type: 'User', id: 'LIST' },
-            ]
+          ? [...result.map((user) => ({ type: 'User', id: user.id } as const)), { type: 'User', id: 'LIST' }]
           : [{ type: 'User', id: 'LIST' }],
     }),
 
     // Get current authenticated user
     getUser: builder.query<User, void>({
       query: () => '/users/user',
-      providesTags: (result) =>
-        result ? [{ type: 'User', id: 'CURRENT' }] : [],
+      providesTags: (result) => (result ? [{ type: 'User', id: 'CURRENT' }] : []),
     }),
 
     // Get orders for the current user
@@ -27,12 +23,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
       query: () => '/users/user/orders',
       providesTags: (result) =>
         result
-          ? [
-              ...result.map(
-                (order) => ({ type: 'Order', id: order.id } as const)
-              ),
-              { type: 'Order', id: 'LIST' },
-            ]
+          ? [...result.map((order) => ({ type: 'Order', id: order.id } as const)), { type: 'Order', id: 'LIST' }]
           : [{ type: 'Order', id: 'LIST' }],
     }),
 
@@ -42,11 +33,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
       providesTags: (_result, _error, userId) => [{ type: 'User', id: userId }],
     }),
 
-    // Update user 
-    updateUserAddress: builder.mutation<
-      ShippingAddress,
-      { address: ShippingAddress }
-    >({
+    // Update user
+    updateUserAddress: builder.mutation<ShippingAddress, { address: ShippingAddress }>({
       query: ({ address }) => ({
         url: `/users/user/address`,
         method: 'PATCH',
@@ -72,25 +60,21 @@ export const userApiSlice = apiSlice.injectEndpoints({
     }),
 
     // Toggle user status (Admin only)
-    toggleUserStatus: builder.mutation<User, { userId: string }>({
+    toggleUserStatus: builder.mutation<void, { userId: string }>({
       query: ({ userId }) => ({
         url: `/users/${userId}/toggle-status`,
         method: 'PATCH',
       }),
-      invalidatesTags: (_result, _error, { userId }) => [
-        { type: 'User', id: userId },
-      ],
+      invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
     }),
 
     // Toggle editor role (Admin only)
-    toggleEditorRole: builder.mutation<User, { userId: string }>({
+    toggleEditorRole: builder.mutation<void, { userId: string }>({
       query: ({ userId }) => ({
         url: `/users/${userId}/toggle-editor`,
         method: 'PATCH',
       }),
-      invalidatesTags: (_result, _error, { userId }) => [
-        { type: 'User', id: userId },
-      ],
+      invalidatesTags: (_result, _error, { userId }) => [{ type: 'User', id: userId }],
     }),
   }),
 });
