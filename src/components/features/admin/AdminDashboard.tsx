@@ -3,32 +3,19 @@ import { useGetProductsQuery } from '@features/apiSlices/productApiSlice';
 import AdminStatusBar from './dashhboard/AdminStatusBar';
 import AdminDataTable from './dashhboard/AdminDataTable';
 import UsersManager from './dashhboard/UsersManager';
-import CategoryManager from './dashhboard/Categorymanager';
+import CategoryManager from './dashhboard/CategoryManager';
 import { eurFormat } from '@utils';
 
 const AdminDashboard = () => {
   const { data: ordersData, isError, isLoading } = useGetAllOrdersQuery();
-  const {
-    data: productsData,
-    isError: productsError,
-    isLoading: productsLoading,
-  } = useGetProductsQuery();
+  const { data: productsData, isError: productsError, isLoading: productsLoading } = useGetProductsQuery();
 
   if (isLoading || productsLoading) return <p>Loading...</p>;
   if (isError || productsError) return <p>Error loading data.</p>;
 
-  const processingOrders = (ordersData || []).filter(
-    (order) => order.status === 'processing'
-  );
-
-  //  Get 5 products with lowest stock
-  const lowStockProducts = [...(productsData || [])]
-    .sort((a, b) => a.countInStock - b.countInStock)
-    .slice(0, 5);
-
-  const lowsStockWarning = (productsData || []).filter(
-    (product) => product.countInStock < 5
-  );
+  const processingOrders = (ordersData || []).filter((order) => order.status === 'processing');
+  const lowStockProducts = [...(productsData || [])].sort((a, b) => a.countInStock - b.countInStock).slice(0, 5);
+  const lowsStockWarning = (productsData || []).filter((product) => product.countInStock < 5);
 
   const topSellingProducts = [...(productsData || [])]
     .sort((a, b) => b.unitsSold - a.unitsSold) // Sort by countInStock in descending order to get top selling products
@@ -37,10 +24,7 @@ const AdminDashboard = () => {
   return (
     <article className="admin-dashboard">
       <div className="dashboard-grid">
-        <AdminStatusBar
-          processingCount={processingOrders.length}
-          outOfStockCount={lowsStockWarning.length}
-        />
+        <AdminStatusBar processingCount={processingOrders.length} outOfStockCount={lowsStockWarning.length} />
         <AdminDataTable
           title="Latest Orders"
           data={processingOrders.slice(0, 5) || []}
