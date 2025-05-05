@@ -7,17 +7,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
-  const { isAdmin, isLogedIn } = useAuth();
+  const { isAdmin, isEditor, isLogedIn } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLElement>(null);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
   const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-    if (
-      menuRef.current &&
-      !menuRef.current.contains(event.target as Node)
-    ) {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsMenuOpen(false);
     }
   };
@@ -42,10 +39,10 @@ const Header = () => {
       <button className="hamburger" onClick={toggleMenu}>
         <FontAwesomeIcon icon={faBars} />
       </button>
-      <h1>{isAdmin ? 'Mist Admin' : 'Mist Gate'}</h1>
-        <Nav isMenuOpen={isMenuOpen} closeMenu={() => setIsMenuOpen(false)} ref={menuRef} />
+      <h1>{isAdmin || isEditor ? 'Mist Admin' : 'Mist Gate'}</h1>
+      <Nav isMenuOpen={isMenuOpen} closeMenu={() => setIsMenuOpen(false)} ref={menuRef} />
       <div className="buttons-header">
-        {!isAdmin ? <CartButton /> : null}
+        {!isAdmin && !isEditor ? <CartButton /> : null}
         {isLogedIn ? <LogoutButton /> : null}
       </div>
     </>
