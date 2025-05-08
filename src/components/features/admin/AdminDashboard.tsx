@@ -5,10 +5,12 @@ import AdminDataTable from './dashhboard/AdminDataTable';
 import UsersManager from './dashhboard/UsersManager';
 import CategoryManager from './dashhboard/CategoryManager';
 import { eurFormat } from '@utils';
+import useAuth from '@hooks/state/useAuth';
 
 const AdminDashboard = () => {
   const { data: ordersData, isError, isLoading } = useGetAllOrdersQuery();
   const { data: productsData, isError: productsError, isLoading: productsLoading } = useGetProductsQuery();
+  const { isAdmin } = useAuth();
 
   if (isLoading || productsLoading) return <p>Loading...</p>;
   if (isError || productsError) return <p>Error loading data.</p>;
@@ -47,7 +49,7 @@ const AdminDashboard = () => {
           linkPath={(product) => `/admin/products/edit/${product.id}`}
         />
       </div>
-      <UsersManager />
+      {isAdmin && <UsersManager />}
       <CategoryManager />
     </article>
   );
