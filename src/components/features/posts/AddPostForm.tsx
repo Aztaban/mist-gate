@@ -11,10 +11,8 @@ const AddPostForm = () => {
   const [content, setContent] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
 
-  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value);
-  const onContentChanged = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setContent(e.target.value);
+  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
+  const onContentChanged = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
 
   const canSave = [title, content].every(Boolean) && !isLoading;
 
@@ -45,7 +43,7 @@ const AddPostForm = () => {
     <section className="edit__post">
       <h2>Add a New Post</h2>
       <form onSubmit={onSavePostClicked}>
-        {error && <p className='error-message'>{error}</p>}
+        {error && <p className="error-message">{error}</p>}
         <label htmlFor="postTitle">Post Title:</label>
         <input
           type="text"
@@ -63,21 +61,11 @@ const AddPostForm = () => {
           onChange={onContentChanged}
           disabled={isLoading}
         />
-        <div>
-          <button
-            type="submit"
-            className="btn save-btn"
-            disabled={!canSave}
-            aria-disabled={!canSave}
-          >
+        <div className="edit__post-btns">
+          <button type="submit" className="btn save-btn" disabled={!canSave} aria-disabled={!canSave}>
             {isLoading ? 'Saving...' : 'Save Post'}
           </button>
-          <button
-            type="button"
-            className="btn back-btn"
-            onClick={onBackBtnClicked}
-            disabled={isLoading}
-          >
+          <button type="button" className="btn back-btn" onClick={onBackBtnClicked} disabled={isLoading}>
             back to posts
           </button>
         </div>

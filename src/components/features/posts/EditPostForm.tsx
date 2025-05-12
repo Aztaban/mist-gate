@@ -1,10 +1,6 @@
 import { useEffect, useState, ChangeEvent, MouseEvent } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {
-  useUpdatePostMutation,
-  useDeletePostMutation,
-  useGetPostByIdQuery,
-} from '@features/apiSlices/postsApiSlice';
+import { useUpdatePostMutation, useDeletePostMutation, useGetPostByIdQuery } from '@features/apiSlices/postsApiSlice';
 import useAuth from '@hooks/state/useAuth';
 
 const EditPostForm = () => {
@@ -15,11 +11,7 @@ const EditPostForm = () => {
   const [updatePost, { isLoading }] = useUpdatePostMutation();
   const [deletePost] = useDeletePostMutation();
 
-  const {
-    data: post,
-    isLoading: isLoadingPost,
-    isSuccess,
-  } = useGetPostByIdQuery(postId || '');
+  const { data: post, isLoading: isLoadingPost, isSuccess } = useGetPostByIdQuery(postId || '');
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -41,10 +33,8 @@ const EditPostForm = () => {
     );
   }
 
-  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) =>
-    setTitle(e.target.value);
-  const onContentChanged = (e: ChangeEvent<HTMLTextAreaElement>) =>
-    setContent(e.target.value);
+  const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
+  const onContentChanged = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
 
   const canSave = [title, content].every(Boolean) && !isLoading;
 
@@ -89,43 +79,19 @@ const EditPostForm = () => {
       <h2>Edit Post</h2>
       <form>
         <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-        />
+        <input type="text" id="postTitle" name="postTitle" value={title} onChange={onTitleChanged} />
 
         <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-        />
-        <div>
-          <button
-            type="button"
-            className="btn save-btn"
-            onClick={onSavePostClicked}
-            disabled={!canSave}
-          >
+        <textarea id="postContent" name="postContent" value={content} onChange={onContentChanged} />
+        <div className="edit__post-btns">
+          <button type="button" className="btn save-btn" onClick={onSavePostClicked} disabled={!canSave}>
             Save Post
           </button>
-          <button
-            type="button"
-            className="btn back-btn"
-            onClick={onBackBtnClicked}
-          >
+          <button type="button" className="btn back-btn" onClick={onBackBtnClicked}>
             back to posts
           </button>
           {isAdmin ? (
-            <button
-              className="btn del-btn"
-              type="button"
-              onClick={handleDeleteClick}
-            >
+            <button className="btn del-btn" type="button" onClick={handleDeleteClick}>
               Delete Post
             </button>
           ) : null}
