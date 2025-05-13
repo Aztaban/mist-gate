@@ -27,13 +27,13 @@ const baseQuery = fetchBaseQuery({
     }
     return headers;
   },
- });
+});
 
-const baseQueryWithReauth: BaseQueryFn<
-  any,
-  refreshResponse,
-  FetchBaseQueryError
-> = async (args: any, api: BaseQueryApi, extraOptions) => {
+const baseQueryWithReauth: BaseQueryFn<any, refreshResponse, FetchBaseQueryError> = async (
+  args: any,
+  api: BaseQueryApi,
+  extraOptions
+) => {
   if (args.url === '/auth/register' || args.url === '/auth/login') {
     return baseQuery(args, api, extraOptions); // Proceed without token refresh
   }
@@ -47,16 +47,14 @@ const baseQueryWithReauth: BaseQueryFn<
     //console.log(result.error.data)
   }
 
-  if (result?.error?.status === "PARSING_ERROR") {
+  if (result?.error?.status === 'PARSING_ERROR') {
     console.log('sending refresh token');
     // send refresh token to get new access token
     const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
     if (refreshResult.data) {
       const accessTokenResponse = refreshResult.data as AccessTokenResponse;
       // store the new token
-      api.dispatch(
-        setCredentials({ accessToken: accessTokenResponse.accessToken })
-      );
+      api.dispatch(setCredentials({ accessToken: accessTokenResponse.accessToken }));
 
       // retry original query with new access token
       result = await baseQuery(args, api, extraOptions);
@@ -69,6 +67,6 @@ const baseQueryWithReauth: BaseQueryFn<
 
 export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Post', 'Product', 'Order', 'User'],
+  tagTypes: ['Post', 'Product', 'Order', 'User', 'Category'],
   endpoints: (_builder) => ({}),
 });
