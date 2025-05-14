@@ -9,7 +9,7 @@ import useAuth from '@hooks/state/useAuth';
 
 const AdminDashboard = () => {
   const { data: ordersData, isError, isLoading } = useGetAllOrdersQuery();
-  const { data: productsData, isError: productsError, isLoading: productsLoading } = useGetProductsQuery();
+  const { data: productsData = [], isError: productsError, isLoading: productsLoading } = useGetProductsQuery();
   const { isAdmin } = useAuth();
 
   if (isLoading || productsLoading) return <p>Loading...</p>;
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
         />
       </div>
       {isAdmin && <UsersManager />}
-      <CategoryManager />
+      <CategoryManager products={productsData} />
     </article>
   );
 };
