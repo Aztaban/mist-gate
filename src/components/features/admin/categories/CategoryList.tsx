@@ -24,7 +24,7 @@ const CategoryList = ({ onSelectCategory }: Props) => {
         className="search-bar"
       />
 
-      {filteredCategories.length === 0 || search === '' ? (
+      {filteredCategories.length === 0 ? (
         <p>No categories found.</p>
       ) : (
         <ul>
