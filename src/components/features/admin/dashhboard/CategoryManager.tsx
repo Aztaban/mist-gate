@@ -15,7 +15,11 @@ const CategoryManager = ({ products }: Props) => {
       <h2>Category Manager</h2>
       <div className="users-grid">
         <CategoryList onSelectCategory={setSelectedCategory} />
-        <CategoryForm selectedCategory={selectedCategory} products={products} />
+        <CategoryForm
+          selectedCategory={selectedCategory}
+          clearSelection={() => setSelectedCategory(null)}
+          products={products}
+        />
       </div>
     </div>
   );

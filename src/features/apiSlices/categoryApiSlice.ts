@@ -7,7 +7,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       query: () => '/categories',
       providesTags: ['Category'],
     }),
-    addNewCategory: builder.mutation<Category, Partial<Category>>({
+    addNewCategory: builder.mutation<Category, { name: string }>({
       query: (newCategory) => ({
         url: '/categories',
         method: 'POST',
@@ -23,8 +23,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Category'],
     }),
-    deleteCategory: builder.mutation<{ message: string }, { id: string }>({
-      query: ({ id }) => ({
+    deleteCategory: builder.mutation<{ message: string }, string>({
+      query: (id) => ({
         url: `/categories/${id}`,
         method: 'DELETE',
       }),

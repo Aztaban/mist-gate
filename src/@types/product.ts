@@ -1,3 +1,5 @@
+import { Category } from './category';
+
 export interface ProductDetails {
   author: string;
   releaseDate: string;
@@ -7,7 +9,7 @@ export interface ProductDetails {
 export interface Product {
   id: string;
   name: string;
-  productType: string;
+  category?: Category;
   price: number;
   image: string;
   countInStock: number;
