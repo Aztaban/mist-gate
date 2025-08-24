@@ -1,5 +1,5 @@
 import { apiSlice } from '../apiSlice';
-import { Product } from '@types';
+import { Product, CreateProductPayload, UpdateProductPayload, UpdateProductResponse } from '@types';
 
 export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,11 +13,13 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
             }))
           : [{ type: 'Product', id: 'List' }],
     }),
+
     getProductById: builder.query<Product, string>({
       query: (productId) => `/products/${productId}`,
       providesTags: (_result, _error, id) => [{ type: 'Product', id }],
     }),
-    addNewProduct: builder.mutation<void, Partial<Product>>({
+
+    addNewProduct: builder.mutation<void, CreateProductPayload>({
       query: (newProduct) => ({
         url: '/products',
         method: 'POST',
@@ -25,19 +27,16 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: 'Product', id: 'List' }],
     }),
-    updateProduct: builder.mutation<
-      void,
-      { id: string; updates: Partial<Product> }
-    >({
+
+    updateProduct: builder.mutation<UpdateProductResponse, { id: string; updates: UpdateProductPayload }>({
       query: ({ id, updates }) => ({
         url: `/products/${id}`,
         method: 'PATCH',
         body: updates,
       }),
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Product', id: arg.id },
-      ],
+      invalidatesTags: (_result, _error, arg) => [{ type: 'Product', id: arg.id }],
     }),
+
     uploadImage: builder.mutation<{ image: string }, File>({
       query: (image) => {
         const formData = new FormData();
@@ -49,10 +48,8 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
-    updateProductImage: builder.mutation<
-      { image: string },
-      { id: string; image: File }
-    >({
+
+    updateProductImage: builder.mutation<{ image: string }, { id: string; image: File }>({
       query: ({ id, image }) => {
         const formData = new FormData();
         formData.append('image', image);
@@ -63,9 +60,7 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
           body: formData,
         };
       },
-      invalidatesTags: (_result, _error, arg) => [
-        { type: 'Product', id: arg.id },
-      ],
+      invalidatesTags: (_result, _error, arg) => [{ type: 'Product', id: arg.id }],
     }),
   }),
 });

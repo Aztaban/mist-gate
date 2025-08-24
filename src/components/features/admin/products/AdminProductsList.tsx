@@ -1,30 +1,38 @@
-import { ReactElement } from 'react';
+import { ReactElement, useMemo } from 'react';
 import { Product } from '@types';
 import AdminProductsLineItem from './AdminProductsLineItem';
 import { useSorting } from '@hooks/state/useSorting';
-import { useCategoryFilter } from '@hooks/filters/useCategoryFilter';
-import { productCategories } from '@config';
+import { useIdFilter } from '@hooks/filters/useIdFilter';
 import Dropdown from '@components/common/Dropdown';
 import SortableHeader from '../SortableHeader';
 import usePagination from '@hooks/ui/usePagination';
+import { useGetCategoriesQuery } from '@features/apiSlices/categoryApiSlice';
 
 interface AdminProductsListProps {
   products: Product[];
 }
 
-const AdminProductsList = ({
-  products,
-}: AdminProductsListProps): ReactElement => {
-  const { filteredData, selectedCategories, handleCategoryFilterChange } =
-    useCategoryFilter(products, 'productType');
+const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement => {
+  const { data: categories = [] } = useGetCategoriesQuery();
+
+  const categoryOptions = useMemo(() => categories.map((c) => ({ label: c.name, value: c.id })), [categories]);
+
+  const {
+    filteredData,
+    selectedIds: selectedCategories,
+    handleChange: handleCategoryFilterChange,
+  } = useIdFilter(products, (p) => p.category);
+
   const { sortedData, sortConfig, handleSort } = useSorting(filteredData);
   const { paginatedData, paginationControls } = usePagination<Product>({
     data: sortedData,
     itemsPerPage: 15,
-  } );
+  });
+
+  const categoryNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
 
   if (!products || products.length === 0) {
-    return <p>No products to found.</p>;
+    return <p>No products found.</p>;
   }
 
   return (
@@ -63,7 +71,7 @@ const AdminProductsList = ({
             <th>
               <Dropdown
                 title="Category"
-                options={productCategories}
+                options={categoryOptions}
                 selectedOptions={selectedCategories}
                 onOptionChange={handleCategoryFilterChange}
               />
@@ -74,7 +82,11 @@ const AdminProductsList = ({
 
         <tbody>
           {paginatedData.map((product) => (
-            <AdminProductsLineItem key={product.id} product={product} />
+            <AdminProductsLineItem
+              key={product.id}
+              product={product}
+              categoryName={categoryNameById.get(product.category) ?? '—'}
+            />
           ))}
         </tbody>
       </table>

@@ -5,30 +5,36 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCategories: builder.query<Category[], void>({
       query: () => '/categories',
-      providesTags: ['Category'],
+      providesTags: (result) =>
+        result
+          ? [{ type: 'Category' as const, id: 'List' }, ...result.map((c) => ({ type: 'Category' as const, id: c.id }))]
+          : [{ type: 'Category' as const, id: 'List' }],
     }),
+
     addNewCategory: builder.mutation<Category, { name: string }>({
       query: (newCategory) => ({
         url: '/categories',
         method: 'POST',
         body: newCategory,
       }),
-      invalidatesTags: ['Category'],
+      invalidatesTags: [{ type: 'Category', id: 'List' }],
     }),
+
     updateCategory: builder.mutation<Category, { id: string; name: string }>({
-      query: (category) => ({
-        url: `/categories/${category.id}`,
+      query: ({ id, name }) => ({
+        url: `/categories/${id}`,
         method: 'PATCH',
-        body: category,
+        body: { name },
       }),
-      invalidatesTags: ['Category'],
+      invalidatesTags: (_result, _err, arg) => [{ type: 'Category', id: arg.id }],
     }),
+
     deleteCategory: builder.mutation<{ message: string }, string>({
       query: (id) => ({
         url: `/categories/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['Category'],
+      invalidatesTags: [{ type: 'Category', id: 'List' }],
     }),
   }),
 });

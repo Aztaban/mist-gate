@@ -1,66 +1,50 @@
 import { MouseEvent, ChangeEvent, FormEvent, useState, useMemo } from 'react';
-import {
-  useAddNewProductMutation,
-  useUploadImageMutation,
-} from '@features/apiSlices/productApiSlice';
-import { Product } from '@types';
+import { useAddNewProductMutation, useUploadImageMutation } from '@features/apiSlices/productApiSlice';
+import { CreateProductPayload } from '@types';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { clearCart } from '@features/slices/checkoutSlice';
-import { productCategories } from '@config';
 import { useImageUpload } from '@hooks/ui/useUploadImage';
 import PriceInput from '@components/common/inputs/PriceInput';
+import { useGetCategoriesQuery } from '@features/apiSlices/categoryApiSlice';
 
 const CreateProduct = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [addNewProduct, { isLoading }] = useAddNewProductMutation();
   const [uploadImage] = useUploadImageMutation();
+  const { data: categories = [], isLoading: catsLoading, isError: catsError } = useGetCategoriesQuery();
 
-  const {
-    selectedFile,
-    previewUrl,
-    error: imageError,
-    handleFileChange,
-    reset: resetImage,
-  } = useImageUpload();
+  const { selectedFile, previewUrl, error: imageError, handleFileChange, reset: resetImage } = useImageUpload();
 
-  const [formData, setFormData] = useState<Partial<Product>>({
+  const [formData, setFormData] = useState<CreateProductPayload>({
     name: '',
-    productType: '',
+    category: '', // categoryId
     price: 0,
+    image: '', // set after upload
     countInStock: 0,
     details: { author: '', releaseDate: '', description: '' },
   });
 
   const canSave = useMemo(() => {
     return (
-      [
-        formData.name,
-        formData.productType,
-        Number.isInteger(formData.price),
-        selectedFile,
-        formData.details?.author,
-        formData.details?.description,
-      ].every(Boolean) && !isLoading
+      !!formData.name?.trim() &&
+      !!formData.category && // category id
+      typeof formData.price === 'number' &&
+      formData.price >= 0 &&
+      !!formData.details?.author?.trim() &&
+      !!selectedFile && // require image file
+      !isLoading
     );
   }, [formData, selectedFile, isLoading]);
 
-  const handleGeneralChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
+  const handleGeneralChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'category' ? value : value,
     }));
   };
 
   const handlePriceChange = (value: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      price: value, // Ensuring it's stored in cents
-    }));
+    setFormData((prev) => ({ ...prev, price: value }));
   };
 
   const handleStockChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -71,39 +55,58 @@ const CreateProduct = () => {
     }));
   };
 
-  const handleDetailsChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    const detailKey = name.split('.')[1] as keyof Product['details'];
-
+  const handleDetailsChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target; // name like "details.author"
+    const key = name.split('.')[1] as keyof CreateProductPayload['details'];
     setFormData((prev) => ({
       ...prev,
       details: {
-        ...(prev.details ?? {}),
-        [detailKey]: value,
+        ...(prev.details ?? { author: '' }),
+        [key]: value,
       },
     }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
+    console.log(categories);
     if (!selectedFile) {
       alert('Please select an image.');
       return;
     }
 
     try {
+      // 1) upload image
       const { image } = await uploadImage(selectedFile).unwrap();
-      const finalData = { ...formData, image };
-      await addNewProduct(finalData).unwrap();
-      dispatch(clearCart());
+
+      // 2) create product
+      const payload: CreateProductPayload = {
+        ...formData,
+        image,
+        // normalize empty strings to undefined for optional fields
+        details: {
+          author: formData.details?.author?.trim() ?? '',
+          releaseDate: formData.details?.releaseDate || undefined,
+          description: formData.details?.description || undefined,
+        },
+      };
+      console.log('Submitting payload:', payload.category, payload);
+      await addNewProduct(payload).unwrap();
+      // reset local UI
+      resetImage();
+      setFormData({
+        name: '',
+        category: '',
+        price: 0,
+        image: '',
+        countInStock: 0,
+        details: { author: '', releaseDate: '', description: '' },
+      });
+
       navigate('/admin/products');
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        console.error('Failed to save the product: ', err.message);
-      }
+    } catch (err: any) {
+      alert(err?.data?.message ?? 'Failed to save the product');
+      console.error('Failed to save the product:', err);
     }
   };
 
@@ -118,6 +121,7 @@ const CreateProduct = () => {
       <form onSubmit={handleSubmit} className="admin-order-form">
         <fieldset disabled={isLoading}>
           <legend>New Product</legend>
+
           <label htmlFor="name">Product Name:</label>
           <input
             type="text"
@@ -127,48 +131,37 @@ const CreateProduct = () => {
             onChange={handleGeneralChange}
             placeholder="Product Name"
           />
-          <label htmlFor="productType">Product Type:</label>
-          <select
-            id="productType"
-            name="productType"
-            onChange={handleGeneralChange}
-            value={formData.productType}
-          >
-            <option value="">Select a product type</option>
-            {productCategories.map((productType) => (
-              <option key={productType} value={productType}>
-                {productType}
-              </option>
-            ))}
-          </select>
+
+          <label htmlFor="category">Category:</label>
+          {catsLoading ? (
+            <span>Loading categories…</span>
+          ) : catsError ? (
+            <span className="errMsg">Failed to load categories</span>
+          ) : (
+            <select id="category" name="category" onChange={handleGeneralChange} value={formData.category}>
+              <option value="">Select a category</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+          )}
+
           <label htmlFor="price">Product Price:</label>
-          <PriceInput
-            value={formData.price || 0}
-            onChange={handlePriceChange}
-          />
+          <PriceInput value={formData.price || 0} onChange={handlePriceChange} />
 
-          <label htmlFor="productType">Product Image:</label>
-
+          <label htmlFor="image">Product Image:</label>
           {previewUrl ? (
-            <img
-              src={previewUrl}
-              alt="Preview"
-              className="admin-order-form-img"
-            />
+            <img src={previewUrl} alt="Preview" className="admin-order-form-img" />
           ) : (
             <p>
-              Recommended resolution: at least <strong>300×300px</strong>.
-              Maximum size: <strong>2MB</strong>.
+              Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.
             </p>
           )}
-          <input
-            type="file"
-            id="image"
-            name="image"
-            onChange={handleFileChange}
-            accept="image/*"
-          />
+          <input type="file" id="image" name="image" onChange={handleFileChange} accept="image/*" />
           {imageError && <div className="errMsg">{imageError}</div>}
+
           <label htmlFor="countInStock">Items in Stock:</label>
           <input
             type="number"
@@ -177,10 +170,14 @@ const CreateProduct = () => {
             value={formData.countInStock}
             onChange={handleStockChange}
             placeholder="countInStock"
+            min={0}
+            step={1}
           />
         </fieldset>
+
         <fieldset disabled={isLoading}>
           <legend>Details</legend>
+
           <label htmlFor="details.author">Author:</label>
           <input
             type="text"
@@ -190,6 +187,7 @@ const CreateProduct = () => {
             onChange={handleDetailsChange}
             placeholder="Author"
           />
+
           <label htmlFor="details.releaseDate">Release Date:</label>
           <input
             type="date"
@@ -198,6 +196,7 @@ const CreateProduct = () => {
             value={formData.details?.releaseDate}
             onChange={handleDetailsChange}
           />
+
           <label htmlFor="details.description">Description:</label>
           <textarea
             id="details.description"
@@ -208,21 +207,12 @@ const CreateProduct = () => {
             rows={6}
           />
         </fieldset>
+
         <div className="checkout-buttons">
-          <button
-            type="button"
-            className="btn"
-            onClick={onBackBtnClicked}
-            disabled={isLoading}
-          >
+          <button type="button" className="btn" onClick={onBackBtnClicked} disabled={isLoading}>
             back to products
           </button>
-          <button
-            type="submit"
-            className="btn back-btn"
-            disabled={!canSave}
-            aria-disabled={!canSave}
-          >
+          <button type="submit" className="btn back-btn" disabled={!canSave} aria-disabled={!canSave}>
             {isLoading ? 'Loading...' : 'Create Product'}
           </button>
         </div>

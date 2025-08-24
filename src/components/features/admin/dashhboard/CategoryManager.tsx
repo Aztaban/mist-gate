@@ -4,10 +4,10 @@ import CategoryList from '../categories/CategoryList';
 import { Category, Product } from '@types';
 
 interface Props {
-  products: Product[];
+  products?: Product[];
 }
 
-const CategoryManager = ({ products }: Props) => {
+const CategoryManager = ({ products = [] }: Props) => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
 
   return (
@@ -16,6 +16,7 @@ const CategoryManager = ({ products }: Props) => {
       <div className="users-grid">
         <CategoryList onSelectCategory={setSelectedCategory} />
         <CategoryForm
+          key={selectedCategory?.id ?? 'new'}
           selectedCategory={selectedCategory}
           clearSelection={() => setSelectedCategory(null)}
           products={products}

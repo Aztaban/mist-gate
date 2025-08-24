@@ -5,14 +5,13 @@ import { eurFormat } from '@utils';
 
 interface AdminProductsLineItemProps {
   product: Product;
+  categoryName: string;
 }
 
-const AdminProductsLineItem = ({
-  product,
-}: AdminProductsLineItemProps): ReactElement => {
+const AdminProductsLineItem = ({ product, categoryName }: AdminProductsLineItemProps): ReactElement => {
   return (
     <tr>
-      <td className='admin-product-link'>
+      <td className="admin-product-link">
         <NavLink to={`/admin/products/edit/${product.id}`}>
           <p>{product.name}</p>
         </NavLink>
@@ -20,7 +19,7 @@ const AdminProductsLineItem = ({
       <td>{product.countInStock}</td>
       <td>{product.unitsSold}</td>
       <td>{eurFormat(product.price)}</td>
-      <td>{product.productType}</td>
+      <td>{categoryName}</td>
       <td>
         <NavLink to={`/admin/products/edit/${product.id}`}>
           <button className="btn save-btn">Product</button>
