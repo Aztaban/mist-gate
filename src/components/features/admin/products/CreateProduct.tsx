@@ -69,7 +69,6 @@ const CreateProduct = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(categories);
     if (!selectedFile) {
       alert('Please select an image.');
       return;
@@ -90,7 +89,7 @@ const CreateProduct = () => {
           description: formData.details?.description || undefined,
         },
       };
-      console.log('Submitting payload:', payload.category, payload);
+
       await addNewProduct(payload).unwrap();
       // reset local UI
       resetImage();
