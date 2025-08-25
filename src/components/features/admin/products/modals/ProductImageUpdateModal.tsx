@@ -9,11 +9,7 @@ interface ImageUpdateModalProps {
   onClose: () => void;
 }
 
-const ProductImageUpdateModal = ({
-  productId,
-  currentImage,
-  onClose,
-}: ImageUpdateModalProps) => {
+const ProductImageUpdateModal = ({ productId, currentImage, onClose }: ImageUpdateModalProps) => {
   const {
     selectedFile,
     previewUrl,
@@ -22,8 +18,7 @@ const ProductImageUpdateModal = ({
     reset,
   } = useImageUpload({ maxSizeMb: 2, minWidth: 300, minHeight: 300 });
 
-  const [updatedProductImage, { isLoading, error }] =
-    useUpdateProductImageMutation();
+  const [updatedProductImage, { error }] = useUpdateProductImageMutation();
 
   const handleUpload = async () => {
     if (!selectedFile) {
@@ -53,14 +48,10 @@ const ProductImageUpdateModal = ({
       <div className="modal-content">
         <h2>Update Product Image</h2>
         <div>
-          <img
-            src={previewUrl || getImageUrl(currentImage)}
-            alt="Product Image"
-          />
+          <img src={previewUrl || getImageUrl(currentImage)} alt="Product Image" />
         </div>
         <p>
-          Recommended resolution: at least <strong>300×300px</strong>. Maximum
-          size: <strong>2MB</strong>.
+          Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.
         </p>
         <input type="file" accept="image/*" onChange={handleFileChange} />
         {imageError && <p className="error">{imageError}</p>}

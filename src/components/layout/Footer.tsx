@@ -3,9 +3,15 @@ const Footer = () => {
 
   return (
     <footer>
-      <p>&copy; {date} Copyright Aztaban</p>
+      <p>
+        &copy; {date} Copyright{' '}
+        <a className="footer__link" href="https://github.com/Aztaban">
+          {' '}
+          Aztaban
+        </a>
+      </p>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
