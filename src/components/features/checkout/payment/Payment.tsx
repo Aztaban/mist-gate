@@ -1,62 +1,63 @@
+// Payment.tsx
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js'; // from
+import { loadStripe, StripeElementsOptions, Stripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentForm from './PaymentForm';
 import { useCreatePaymentIntentMutation } from '@features/apiSlices/ordersApiSlice';
 
-/* const stripePromise = loadStripe(
-  'pk_test_51QWjvXCZIku0UrWjZPigapLxS1RnTRWA1SbAxN9V1jYYoHx6jRvqQSRe2bclRlp8qlOIWfNk6v64iBSHe5F5Ee3500PdYicYji'
-); */
+const STRIPE_ENABLED = import.meta.env.VITE_ENABLE_STRIPE === 'true' && !!import.meta.env.VITE_STRIPE_PK;
 
-const Payment = () => {
+// Important: type this union so TS is happy even when disabled
+const stripePromise: Promise<Stripe | null> | null = STRIPE_ENABLED
+  ? loadStripe(import.meta.env.VITE_STRIPE_PK as string)
+  : null;
+
+export default function Payment() {
   const { orderId } = useParams();
   const [createPaymentIntent] = useCreatePaymentIntentMutation();
-
-  const [clientSecret, setClientSecret] = useState<string>('');
+  const [clientSecret, setClientSecret] = useState('');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  if (!orderId) {
-    return <div>Loading...</div>;
+  // Hard exit early when disabled — safe to use this component anywhere
+  if (!STRIPE_ENABLED) {
+    return <p>Payments are currently disabled.</p>;
   }
+
+  if (!orderId) return <div>Loading...</div>;
 
   useEffect(() => {
     const fetchPaymentIntent = async () => {
       try {
-        const response = await createPaymentIntent(orderId).unwrap();
-        setClientSecret(response.clientSecret);
-      } catch (error: any) {
-        console.error('Error fetching payment intent:', error);
-        setErrorMessage(error.data.error || 'An unexpected error occurred');
+        const res = await createPaymentIntent(orderId).unwrap();
+        setClientSecret(res.clientSecret);
+      } catch (e: any) {
+        setErrorMessage(e?.data?.error || 'An unexpected error occurred');
       }
     };
-
     fetchPaymentIntent();
   }, [orderId, createPaymentIntent]);
 
-  if (!stripePromise) return <div>Loading...</div>;
+  // Don’t render <Elements> unless both are ready
+  if (!stripePromise) return <div>Loading…</div>;
 
-  const stripeOptions: StripeElementsOptions = {
+  const options: StripeElementsOptions = {
     clientSecret,
-    appearance: {
-      theme: 'stripe',
-    },
+    appearance: { theme: 'stripe' },
     loader: 'auto',
   };
 
   return (
     <article>
       {clientSecret ? (
-        <Elements stripe={stripePromise} options={stripeOptions}>
+        <Elements stripe={stripePromise} options={options}>
           <PaymentForm orderId={orderId} />
         </Elements>
       ) : errorMessage ? (
         <p>{errorMessage}</p>
       ) : (
-        <div>Loading payment details...</div>
+        <div>Loading payment details…</div>
       )}
     </article>
   );
-};
-
-export default Payment;
+}

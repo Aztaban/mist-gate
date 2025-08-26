@@ -17,7 +17,7 @@ interface AccessTokenResponse {
 type refreshResponse = AccessTokenResponse | unknown;
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://10.0.1.22:3500', //https://accent-earnings-moisture-tony.trycloudflare.com
+  baseUrl: 'https://accent-earnings-moisture-tony.trycloudflare.com',
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;
