@@ -3,16 +3,10 @@ import { useGetProductByIdQuery } from '@features/apiSlices/productApiSlice';
 import ProductCart from './ProductCart';
 import ProductDetails from './ProductDetails';
 import ProductBar from './ProductBar';
-import { getImageUrl } from '@utils';
 
 const SingleProductPage = () => {
   const { productId } = useParams();
-  const {
-    data: product,
-    isLoading,
-    isSuccess,
-    isError,
-  } = useGetProductByIdQuery(productId || '');
+  const { data: product, isLoading, isSuccess, isError } = useGetProductByIdQuery(productId || '');
 
   let content = <p>nothing</p>;
 
@@ -27,18 +21,19 @@ const SingleProductPage = () => {
   }
 
   if (isSuccess) {
-    content = (<>
-      <article className="product__page">
-        <img src={getImageUrl(product.image)} alt={product.name}/>
+    content = (
+      <>
+        <article className="product__page">
+          <img src={product.imageUrl} alt={product.name} />
 
-        <div className="product__page-div">
-          <h2>{product.name}</h2>
-          <ProductDetails product={product} />
-          <ProductCart isCart={true} product={product} />
-        </div>
-      </article>
-    <ProductBar productId={product.id} />
-    </>
+          <div className="product__page-div">
+            <h2>{product.name}</h2>
+            <ProductDetails product={product} />
+            <ProductCart isCart={true} product={product} />
+          </div>
+        </article>
+        <ProductBar productId={product.id} />
+      </>
     );
   }
 

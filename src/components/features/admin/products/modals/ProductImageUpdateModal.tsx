@@ -1,5 +1,4 @@
 import { useUpdateProductImageMutation } from '@features/apiSlices/productApiSlice';
-import { getImageUrl } from '@utils/images';
 import ModalButtons from '../../../auth/modals/ModalButtons';
 import { useImageUpload } from '@hooks/ui/useUploadImage';
 
@@ -43,12 +42,14 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose }: ImageUpda
     onClose();
   };
 
+  const src = previewUrl || currentImage;
+
   return (
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>Update Product Image</h2>
         <div>
-          <img src={previewUrl || getImageUrl(currentImage)} alt="Product Image" />
+          <img src={src} alt="Product Image" />
         </div>
         <p>
           Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.

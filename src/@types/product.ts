@@ -15,6 +15,7 @@ export interface Product {
   countInStock: number;
   unitsSold: number;
   details: ProductDetails;
+  imageUrl: string;
 }
 
 export interface ProductExpanded extends Omit<Product, 'category'> {

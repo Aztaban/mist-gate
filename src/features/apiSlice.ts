@@ -10,6 +10,8 @@ import { setCredentials } from './slices/authSlice';
 import { logOut } from './slices/authSlice';
 import { setPersistState } from '@utils';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 interface AccessTokenResponse {
   accessToken: string;
 }
@@ -17,7 +19,7 @@ interface AccessTokenResponse {
 type refreshResponse = AccessTokenResponse | unknown;
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://accent-earnings-moisture-tony.trycloudflare.com',
+  baseUrl: API_BASE_URL,
   credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token;

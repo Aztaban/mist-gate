@@ -1,12 +1,10 @@
 import PostsBoard from '@components/features/posts/PostsBoard';
-import front2 from '@/images/front2.jpg';
-import front from '@/images/front.jpg';
 
 const Home = () => {
   return (
     <>
       <section className="home__section">
-        <img className="secondary-mist image-left" src={front2} alt="warrior" />
+        <img className="secondary-mist image-left" src="src\images\front2.jpg" alt="warrior" />
         <article>
           <h2>Eternal Mist</h2>
           <p>
@@ -21,7 +19,7 @@ const Home = () => {
       </section>
 
       <section className="home__section">
-        <img className="primary-mist image-right" src={front} alt="first" />
+        <img className="primary-mist image-right" src="src\images\front.jpg" alt="first" />
         <article>
           <h2>Innovative Mechanics, Next-Gen Graphiccs</h2>
           <p>

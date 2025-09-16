@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Product } from '@types';
-import { getImageUrl, eurFormat } from '@utils';
+import { eurFormat } from '@utils';
 import { useGetCategoriesQuery } from '@features/apiSlices/categoryApiSlice';
 import RestockModal from './modals/RestockModal';
 import PriceChangeModal from './modals/PriceChangeModal';
@@ -54,7 +54,7 @@ const AdminProductDetail = ({ product }: AdminProductDetailProps): JSX.Element =
       </div>
 
       <div className="image-container">
-        <img src={getImageUrl(product.image)} alt={product.name} />
+        <img src={product.imageUrl} alt={product.name} />
         <button className="btn save-btn" onClick={() => setActiveModal('image')}>
           Change Image
         </button>

@@ -1,6 +1,5 @@
 import { Product } from '@types';
 import ProductCart from './ProductCart';
-import { getImageUrl } from '@utils';
 import { useNavigate } from 'react-router-dom';
 
 interface ProductBarItemProps {
@@ -14,8 +13,8 @@ const ProductBarItem = ({ product }: ProductBarItemProps) => {
 
   return (
     <div className="product-bar-item" onClick={handleNavigate}>
-        <img src={getImageUrl(product.image)} alt={product.name} />
-        <h2>{product.name}</h2>
+      <img src={product.imageUrl} alt={product.name} />
+      <h2>{product.name}</h2>
       <ProductCart isCart={false} product={product} />
     </div>
   );
