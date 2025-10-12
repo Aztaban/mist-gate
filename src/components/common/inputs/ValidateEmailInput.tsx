@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { EMAIL_REGEX } from "@config";
+import { useState } from 'react';
+import { EMAIL_REGEX } from '@config';
 
 interface Props {
   value: string;
   onChange: (value: string) => void;
+  showInvalid?: boolean;
 }
 
-const ValidatedEmailInput: React.FC<Props> = ({ value, onChange }) => {
-  const [emailFocus, setEmailFocus] = useState(false);
-  const validEmail = EMAIL_REGEX.test(value);
+const ValidatedEmailInput: React.FC<Props> = ({ value, onChange, showInvalid = false }) => {
+  const [focus, setFocus] = useState(false);
+  const [touched, setTouched] = useState(false);
+  const valid = EMAIL_REGEX.test(value);
+  const isInvalid = !valid && (showInvalid || (touched && !focus && value.length > 0));
 
   return (
     <>
@@ -19,12 +22,16 @@ const ValidatedEmailInput: React.FC<Props> = ({ value, onChange }) => {
         autoComplete="off"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        aria-invalid={validEmail ? "false" : "true"}
+        onFocus={() => setFocus(true)}
+        onBlur={() => {
+          setFocus(false);
+          setTouched(true);
+        }}
+        className={isInvalid ? 'is-invalid' : undefined}
+        aria-invalid={isInvalid ? 'true' : 'false'}
         aria-describedby="emailnote"
-        onFocus={() => setEmailFocus(true)}
-        onBlur={() => setEmailFocus(false)}
       />
-      <p id="emailnote" className={emailFocus && value && !validEmail ? "instructions" : "offscreen"}>
+      <p id="emailnote" className={isInvalid ? 'instructions red' : 'offscreen'}>
         Must be a valid email format (e.g., user@example.com).
       </p>
     </>

@@ -1,3 +1,4 @@
+// Login.tsx
 import { useState, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLoginMutation } from '@features/apiSlices/authApiSlice';
@@ -6,7 +7,7 @@ import LoginForm from './forms/LoginForm';
 
 const Login = (): ReactElement => {
   const [useLogin] = useLoginMutation();
-  const [errMsg, setErrMsg] = useState<string>('');
+  const [errMsg, setErrMsg] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (login: string, password: string) => {
@@ -15,28 +16,23 @@ const Login = (): ReactElement => {
       setPersistState(true);
       navigate(isAdmin ? '/admin' : '/account');
     } catch (error: any) {
-      if (!error.status) {
-        setErrMsg('No Server Response');
-      } else if (error.status === 400) {
-        setErrMsg('Missing Username or Password');
-      } else if (error.status === 401) {
-        setErrMsg('Wrong initials');
-      } else {
-        setErrMsg(error.data || 'Login Failed');
-      }
+      if (!error.status) setErrMsg('No Server Response');
+      else if (error.status === 400) setErrMsg('Missing Username or Password');
+      else if (error.status === 401) setErrMsg('Wrong initials');
+      else setErrMsg(error.data || 'Login Failed');
     }
   };
 
-  const content = (
-    <section className="login">
-      <h2 className="news__header">Login</h2>
-      <main>
-        <LoginForm onSubmit={handleLogin} errMsg={errMsg} />
-      </main>
+  return (
+    <section className="auth">
+      <div className="auth__panel">
+        <h2 className="auth__title">Login</h2>
+        <form className="auth__form" onSubmit={(e) => e.preventDefault()}>
+          <LoginForm onSubmit={handleLogin} errMsg={errMsg} />
+        </form>
+      </div>
     </section>
   );
-
-  return content;
 };
 
 export default Login;

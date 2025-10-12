@@ -1,57 +1,66 @@
-import { useEffect } from "react";
-import { usePasswordValidation } from "@hooks/validation/usePasswordValidation";
+import { useEffect, useState } from 'react';
+import { usePasswordValidation } from '@hooks/validation/usePasswordValidation';
 
 interface Props {
   onPasswordChange: (value: string) => void;
+  showInvalid?: boolean;
 }
 
-const ValidatedPasswordInput: React.FC<Props> = ({
-  onPasswordChange,
-}) => {
-  const {
-    password,
-    setPassword,
-    confirmPassword,
-    setConfirmPassword,
-    validPassword,
-    validMatch,
-    errorMessage,
-  } = usePasswordValidation();
+const ValidatedPasswordInput: React.FC<Props> = ({ onPasswordChange, showInvalid = false }) => {
+  const { password, setPassword, confirmPassword, setConfirmPassword, validPassword, validMatch, errorMessage } =
+    usePasswordValidation();
 
-  // Pass the password to the parent only if it is valid and matches confirmation
+  const [pwdFocus, setPwdFocus] = useState(false);
+  const [pwdTouched, setPwdTouched] = useState(false);
+  const [cFocus, setCFocus] = useState(false);
+  const [cTouched, setCTouched] = useState(false);
+
+  const pwdInvalid = !validPassword && (showInvalid || (pwdTouched && !pwdFocus && password.length > 0));
+  const cInvalid = !validMatch && (showInvalid || (cTouched && !cFocus && confirmPassword.length > 0));
+
   useEffect(() => {
-    onPasswordChange(validPassword && validMatch ? password : "");
+    onPasswordChange(validPassword && validMatch ? password : '');
   }, [password, confirmPassword, validPassword, validMatch, onPasswordChange]);
 
   return (
     <>
-      {/* Password Input */}
       <label htmlFor="password">Password:</label>
       <input
         type="password"
         id="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        aria-invalid={validPassword ? "false" : "true"}
+        onFocus={() => setPwdFocus(true)}
+        onBlur={() => {
+          setPwdFocus(false);
+          setPwdTouched(true);
+        }}
+        className={pwdInvalid ? 'is-invalid' : undefined}
+        aria-invalid={pwdInvalid ? 'true' : 'false'}
         aria-describedby="pwdnote"
         autoComplete="new-password"
       />
-      <p id="pwdnote" className={password && !validPassword ? "instructions" : "offscreen"}>
+      <p id="pwdnote" className={pwdInvalid ? 'instructions red' : 'offscreen'}>
         {errorMessage}
       </p>
 
-      {/* Confirm Password Input */}
       <label htmlFor="confirmPassword">Confirm Password:</label>
       <input
         type="password"
         id="confirmPassword"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
-        aria-invalid={validMatch ? "false" : "true"}
-        autoComplete="new-password"
+        onFocus={() => setCFocus(true)}
+        onBlur={() => {
+          setCFocus(false);
+          setCTouched(true);
+        }}
+        className={cInvalid ? 'is-invalid' : undefined}
+        aria-invalid={cInvalid ? 'true' : 'false'}
         aria-describedby="confirmnote"
+        autoComplete="new-password"
       />
-      <p id="confirmnote" className={confirmPassword && !validMatch ? "instructions red" : "offscreen"}>
+      <p id="confirmnote" className={cInvalid ? 'instructions red' : 'offscreen'}>
         Must match the first input field.
       </p>
     </>

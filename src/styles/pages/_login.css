@@ -1,0 +1,163 @@
+/* =========================
+   Auth (Login & Register)
+   ========================= */
+
+/* Center *horizontally*; keep near top; do not force page height */
+.auth {
+  display: flex;
+  justify-content: center; /* center the card left-to-right */
+  align-items: flex-start; /* keep near the top */
+  padding: 1.5rem 1rem 2rem; /* comfy top; small sides */
+}
+
+/* The floating glass card */
+.auth__panel {
+  position: relative;
+  width: min(520px, 100%);
+  margin-top: clamp(2.5rem, 9vh, 5.5rem); /* vertical offset only here */
+  background: rgba(15, 15, 15, 0.68);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.35);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  animation: auth-fade 0.35s ease-out;
+}
+
+/* Floating title pill */
+.auth__title {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--font-logo);
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 2.1vw, 1.1rem);
+  color: #fff;
+  background: rgba(10, 10, 10, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(212, 184, 106, 0.22);
+}
+
+/* Form layout inside the card */
+.auth__form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+.form__field {
+  display: grid;
+  gap: 0.4rem;
+}
+.form__field label {
+  color: var(--header-fg);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Inputs */
+.auth__form input,
+.auth__form textarea,
+.auth__form select {
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  color: #111;
+}
+.auth__form input::placeholder {
+  color: #666;
+}
+
+.auth__form :is(input, textarea, select):focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  background: #fff;
+}
+
+.auth__form .is-invalid {
+  border-color: rgba(255, 67, 67, 0.7);
+  box-shadow: 0 0 0 2px rgba(255, 67, 67, 0.15) inset;
+}
+
+/* Actions */
+.form__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+/* Buttons (reuse your .btn base) */
+.btn--brand {
+  border: 1px solid rgba(212, 184, 106, 0.45);
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.28), rgba(212, 184, 106, 0.15));
+  color: #111;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+}
+.btn--brand:hover {
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.38), rgba(212, 184, 106, 0.22));
+}
+
+.btn--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+}
+.btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Inline help / error notes */
+.instructions {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: #333;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  padding: 0.4rem 0.55rem;
+}
+.instructions.red {
+  color: #b30000;
+  background: rgba(255, 67, 67, 0.12);
+  border-color: rgba(255, 67, 67, 0.35);
+}
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Fade-in */
+@keyframes auth-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Small screens: full width while staying near the top */
+@media (max-width: 640px) {
+  .auth {
+    padding-top: 1.25rem;
+  }
+  .auth__panel {
+    width: 100%;
+    border-radius: 12px;
+  }
+}
