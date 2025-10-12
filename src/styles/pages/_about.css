@@ -1,8 +1,4 @@
 .about {
-  composes: page-stack;
-} /* if you don't use CSS Modules, just keep both rules */
-
-.about {
   display: grid;
   gap: clamp(1rem, 2vw, 1.5rem);
 }
