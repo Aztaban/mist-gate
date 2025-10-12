@@ -20,6 +20,7 @@ function App() {
           {/* Public Routes */}
           <Route index element={<Shop />} />
           <Route path="about" element={<PublicRoutes.About />} />
+          <Route path="license" element={<PublicRoutes.License />} />
           <Route path="login" element={<PublicRoutes.Login />} />
           <Route path="register" element={<PublicRoutes.Register />} />
 

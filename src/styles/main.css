@@ -22,6 +22,7 @@
 @import './pages/_about.css';
 @import './pages/_news.css';
 @import './pages/_utils.css';
+@import './pages/_license.css';
 
 /*/* Import component styles */
 /*@import './components/_admin-tools.css';
