@@ -18,6 +18,9 @@
 /*Import utility styles */
 @import './utils/_animations.css';
 
+/* Import page-specific styles */
+@import './pages/_about.css';
+
 /*/* Import component styles */
 /*@import './components/_admin-tools.css';
 /*@import './components/_buttons.css';
@@ -40,7 +43,6 @@
 /*@import './layout/_main.css';
 /*@import './layout/_section.css';
 
-/*Import page-specific styles
 /*@import './pages/_address.css';
 /*@import './pages/_admin-orders.css';
 /*@import './pages/_admin-products.css';

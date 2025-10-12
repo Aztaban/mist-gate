@@ -1,0 +1,76 @@
+.about {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Hero */
+.about__hero {
+  background: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+}
+.about__title {
+  font-family: var(--font-logo);
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  margin: 0 0 0.25rem 0;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+.about__lede {
+  color: var(--color-muted);
+  max-width: 60ch;
+}
+
+/* Sections */
+.about__section {
+  background: rgba(15, 15, 15, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: clamp(1rem, 2.5vw, 2rem);
+}
+.about__section h2 {
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.02em;
+  color: var(--header-fg);
+}
+
+/* Bullets */
+.about__bullets {
+  margin: 0.25rem 0 0 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.about__bullets li::marker {
+  color: var(--brand);
+}
+
+/* Highlights grid */
+.about__highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-top: 0.5rem;
+}
+.about__card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.9rem;
+}
+.about__card h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.05rem;
+  color: var(--brand);
+}
+
+/* Footer note */
+.about__footer {
+  text-align: center;
+  padding: 0.5rem 0 0 0;
+}

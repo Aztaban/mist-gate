@@ -34,6 +34,39 @@
   gap: 0.75rem;
 }
 
+/* Divider between nav links and logout */
+.site-header__divider {
+  align-self: stretch; /* makes it match the height of adjacent flex items */
+  width: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  margin-inline: 0.5rem;
+}
+
+/* Logout button */
+.logout__icon {
+  background: none;
+  border: none;
+  color: var(--header-fg);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.35rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
+}
+
+.logout__icon:hover {
+  color: var(--brand);
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.logout__icon:active {
+  transform: translateY(0);
+  opacity: 0.75;
+}
+
 /* compact layout on small screens */
 @media (max-width: 720px) {
   .site-header__inner {

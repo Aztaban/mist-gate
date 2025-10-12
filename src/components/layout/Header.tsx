@@ -25,7 +25,13 @@ const Header = () => {
           ) : (
             <UserNav showInlineLogout={isLogedIn} username={username} />
           )}
-          {isLogedIn ? <LogoutButton /> : null}
+
+          {isLogedIn && (
+            <>
+              <span className="site-header__divider" aria-hidden="true" />
+              <LogoutButton />
+            </>
+          )}
         </div>
       </div>
     </header>
