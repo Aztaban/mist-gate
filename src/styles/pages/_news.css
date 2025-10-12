@@ -1,0 +1,67 @@
+/* Inside main, no extra outer panel/margins */
+.news {
+  display: grid;
+  gap: clamp(0.75rem, 1.6vw, 1rem);
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+/* Header: either use the bar… */
+.news__header.section-bar {
+  /* combine with surface-dark for the bar style if desired */
+}
+.news__header.section-bar.surface-dark {
+}
+
+/* …or the hero title + rule */
+.news__header.rule-accent {
+  margin: 0.35rem 0 1rem;
+}
+.news__title.title-hero {
+}
+
+/* List */
+.news__list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  gap: clamp(0.6rem, 1.4vw, 0.9rem);
+}
+
+/* Post cards */
+.post__home.surface-post {
+  padding: 1rem 1.1rem;
+}
+.post__home:hover {
+  background: rgba(15, 15, 15, 0.7);
+  transform: translateY(-1px);
+}
+
+.post__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+.post__header h3.title-post.title-post--underline {
+}
+
+/* Date/body */
+.post__home-date {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+.post__home p {
+  margin: 0;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+/* Admin icon */
+.news__btn.icon-btn {
+  border-color: rgba(255, 255, 255, 0.25);
+}

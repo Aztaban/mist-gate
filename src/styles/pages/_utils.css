@@ -1,0 +1,103 @@
+/* ===== Page utilities (shared across About/News/etc.) ===== */
+
+/* stack spacing inside <main> */
+.page-stack {
+  display: grid;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+/* dark glass surface */
+.surface-dark {
+  background: rgba(15, 15, 15, 0.62);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+/* post/card surface */
+.surface-post {
+  background: rgba(10, 10, 10, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgb(0 0 0 / 0.32);
+}
+
+/* section header bar (About-style) */
+.section-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  position: relative;
+}
+.section-bar__title {
+  margin: 0;
+  font-family: var(--font-logo);
+  letter-spacing: 0.08em;
+  color: #fff;
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.35);
+}
+.section-bar::after {
+  content: '';
+  position: absolute;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.5rem;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.28) 20%,
+    var(--brand) 50%,
+    rgba(255, 255, 255, 0.28) 80%,
+    transparent
+  );
+  opacity: 0.8;
+}
+
+/* stronger post titles */
+.title-post {
+  margin: 0;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+}
+.title-post--underline::after {
+  content: '';
+  display: block;
+  margin-top: 0.25rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), rgba(255, 255, 255, 0.35));
+  opacity: 0.65;
+}
+
+/* icon button */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--footer-fg, #ddd);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
+}
+.icon-btn:hover {
+  color: var(--brand);
+  background: rgba(255, 255, 255, 0.1);
+}
+.icon-btn:active {
+  transform: translateY(1px);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}

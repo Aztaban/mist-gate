@@ -20,6 +20,8 @@
 
 /* Import page-specific styles */
 @import './pages/_about.css';
+@import './pages/_news.css';
+@import './pages/_utils.css';
 
 /*/* Import component styles */
 /*@import './components/_admin-tools.css';
