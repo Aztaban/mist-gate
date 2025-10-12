@@ -14,7 +14,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
   useEffect(() => {
     userRef.current?.focus();
   }, []);
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!login || !pwd) return;
@@ -24,7 +23,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
   return (
     <form className="auth__form" onSubmit={handleSubmit}>
       {errMsg && (
-        <p className="errmsg" aria-live="assertive">
+        <p className="errmsg" role="alert" aria-live="assertive">
           {errMsg}
         </p>
       )}
@@ -32,9 +31,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
       <div className="form__field">
         <label htmlFor="login">Login</label>
         <input
-          type="text"
           id="login"
           ref={userRef}
+          type="text"
           value={login}
           onChange={(e) => setLogin(e.target.value)}
           autoComplete="off"
@@ -45,8 +44,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
       <div className="form__field">
         <label htmlFor="password">Password</label>
         <input
-          type="password"
           id="password"
+          type="password"
           value={pwd}
           onChange={(e) => setPwd(e.target.value)}
           autoComplete="off"
