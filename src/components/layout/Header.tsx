@@ -1,54 +1,27 @@
-import { useState, useRef, useEffect } from 'react';
-import Nav from '../nav/Nav';
-import CartButton from '../nav/CartButton';
 import LogoutButton from '../nav/LogoutButton';
 import useAuth from '@hooks/state/useAuth';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
+import AdminNav from '../nav/AdminNav';
+import UserNav from '../nav/UserNav';
+import HeaderSearch from '../nav/HeaderSearch';
 
 const Header = () => {
-  const { isAdmin, isEditor, isLogedIn } = useAuth();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLElement>(null);
+  const { isAdmin, isEditor, isLogedIn, username } = useAuth();
+  const isAdminLike = isAdmin || isEditor;
 
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  return (
+    <header>
+      <h1>
+        <NavLink to="shop" end>
+          {isAdminLike ? 'Mist Admin' : 'Mist Gate'}
+        </NavLink>
+      </h1>
 
-  const handleOutsideClick = (event: MouseEvent | TouchEvent) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setIsMenuOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleOutsideClick);
-      document.addEventListener('touchstart', handleOutsideClick);
-    } else {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('touchstart', handleOutsideClick);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-      document.removeEventListener('touchstart', handleOutsideClick);
-    };
-  }, [isMenuOpen]);
-
-  const headerContent = (
-    <>
-      <button className="hamburger" onClick={toggleMenu}>
-        <FontAwesomeIcon icon={faBars} />
-      </button>
-      <h1>{isAdmin || isEditor ? 'Mist Admin' : 'Mist Gate'}</h1>
-      <Nav isMenuOpen={isMenuOpen} closeMenu={() => setIsMenuOpen(false)} ref={menuRef} />
-      <div className="buttons-header">
-        {!isAdmin && !isEditor ? <CartButton /> : null}
-        {isLogedIn ? <LogoutButton /> : null}
-      </div>
-    </>
+      {!isAdminLike ? <HeaderSearch /> : null}
+      {isAdminLike ? <AdminNav username={username} /> : <UserNav showInlineLogout={isLogedIn} username={username} />}
+      {isLogedIn ? <LogoutButton /> : null}
+    </header>
   );
-
-  return <header>{headerContent}</header>;
 };
 
 export default Header;

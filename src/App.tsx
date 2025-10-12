@@ -10,6 +10,7 @@ import ShopRoutes from 'routes/ShopRoutes';
 import CheckoutRoutes from 'routes/CheckoutRoutes';
 import UserRoutes from 'routes/UserRoutes';
 import AdminRoutes from 'routes/AdminRoutes';
+import Shop from '@components/features/shop/Shop';
 
 function App() {
   const content = (
@@ -17,7 +18,7 @@ function App() {
       <Route element={<PersistLogin />}>
         <Route path="/" element={<Layout />}>
           {/* Public Routes */}
-          <Route index element={<PublicRoutes.Home />} />
+          <Route index element={<Shop />} />
           <Route path="about" element={<PublicRoutes.About />} />
           <Route path="login" element={<PublicRoutes.Login />} />
           <Route path="register" element={<PublicRoutes.Register />} />
@@ -28,16 +29,10 @@ function App() {
           {CheckoutRoutes()}
 
           {/* Protected for all logged-in users */}
-          <Route
-            element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}
-          >
-            {UserRoutes()}
-          </Route>
+          <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>{UserRoutes()}</Route>
 
           {/* Admin only */}
-          <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor]} />}>
-            {AdminRoutes()}
-          </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Editor]} />}>{AdminRoutes()}</Route>
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
