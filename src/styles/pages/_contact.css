@@ -1,0 +1,133 @@
+/* Contact page uses shared utilities: page-stack, surface-dark, section-bar, icon-btn, etc. */
+
+.contact {
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.contact__meta {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.contact__panel {
+  padding: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* Form */
+.contact__form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+@media (max-width: 680px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form__field {
+  display: grid;
+  gap: 0.35rem;
+}
+.form__field label {
+  color: var(--header-fg);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.contact__form input,
+.contact__form textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  color: var(--color-text);
+}
+.contact__form input::placeholder,
+.contact__form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Button */
+.btn {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, color 0.2s, border-color 0.2s;
+}
+.btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn--brand {
+  border-color: rgba(212, 184, 106, 0.45);
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.25), rgba(212, 184, 106, 0.15));
+}
+.btn--brand:hover {
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.35), rgba(212, 184, 106, 0.2));
+}
+
+/* Status text */
+.form__status {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.form__status--error {
+  color: #ffb4b4;
+}
+.form__status--success {
+  color: #c7f5c4;
+}
+
+/* Hide honeypot field */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact__h2 {
+  margin: 0 0 0.6rem;
+  letter-spacing: 0.02em;
+  color: var(--header-fg);
+}
+.contact__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.contact__list li::marker {
+  color: var(--brand);
+}
