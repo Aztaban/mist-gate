@@ -1,9 +1,13 @@
-footer {
-  padding: 1rem;
-  background-color: var(--HEADER-BGCOLOR);
-  color: var(--HEADER-COLOR);
-  padding: var(--PADDING-TB) var(--PADDING-SIDE);
-  text-align: center;
-  font-family: var(--FF-HEADINGS);
-  margin-top: auto;
+.site-footer {
+  background: var(--footer-bg);
+  color: var(--footer-fg);
+  border-top: 1px solid var(--color-border);
+}
+.site-footer__inner {
+  padding-block: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.95rem;
 }

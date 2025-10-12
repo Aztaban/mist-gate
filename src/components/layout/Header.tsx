@@ -10,16 +10,24 @@ const Header = () => {
   const isAdminLike = isAdmin || isEditor;
 
   return (
-    <header>
-      <h1>
-        <NavLink to="shop" end>
-          {isAdminLike ? 'Mist Admin' : 'Mist Gate'}
-        </NavLink>
-      </h1>
+    <header className="site-header full-bleed">
+      <div className="site-header__inner container">
+        <h1 className="logo">
+          <NavLink to="shop" end>
+            {isAdminLike ? 'Mist Admin' : 'Mist Gate'}
+          </NavLink>
+        </h1>
 
-      {!isAdminLike ? <HeaderSearch /> : null}
-      {isAdminLike ? <AdminNav username={username} /> : <UserNav showInlineLogout={isLogedIn} username={username} />}
-      {isLogedIn ? <LogoutButton /> : null}
+        {!isAdminLike ? <HeaderSearch className="site-header__search" /> : null}
+        <div className="site-header__right">
+          {isAdminLike ? (
+            <AdminNav username={username} />
+          ) : (
+            <UserNav showInlineLogout={isLogedIn} username={username} />
+          )}
+          {isLogedIn ? <LogoutButton /> : null}
+        </div>
+      </div>
     </header>
   );
 };

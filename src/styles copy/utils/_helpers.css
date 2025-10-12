@@ -1,0 +1,63 @@
+.offscreen {
+  position: absolute;
+  left: -10000px;
+}
+
+.hidden-ss-flex {
+  display: none;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.black-and-gold-text {
+  text-shadow: var(--TEXT-SHADOW-PRIMARY);
+}
+
+.errmsg {
+  background-color: var(--ERROR-BGCOLOR);
+  color: var(--ERROR-COLOR);
+  font-weight: bold;
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  margin-bottom: 0.5rem;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--PRIMARY-COLOR);
+  color: var(--SECONDARY-COLOR-DARK);
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  border: solid 1px var(--SECONDARY-COLOR-DARK);
+}
+
+.red {
+  background-color: var(--ERROR-BGCOLOR);
+  color: var(--ERROR-COLOR);
+}
+
+.search-bar {
+  padding: 0.5rem;
+  border-radius: var(--BORDER-RADIUS);
+  font-family: var(--FF);
+  font-size: large;
+}
+
+.green-color {
+  color: green;
+}
+
+.red-color {
+  color: red;
+}
+
+@media (min-width: 550px) {
+  .hidden-ss-flex {
+    display: inline;
+  }
+}

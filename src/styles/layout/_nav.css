@@ -1,0 +1,33 @@
+/* header text buttons */
+.normal-menu a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.45em 0.75rem; /* vertical rhythm */
+  line-height: 1; /* avoid tall line boxes */
+  font-weight: 500;
+  color: var(--header-fg);
+  opacity: 0.9;
+  transition: color 0.2s, opacity 0.2s;
+}
+.normal-menu a:hover {
+  opacity: 1;
+  color: var(--brand);
+}
+.normal-menu a[aria-current='page'] {
+  color: var(--brand);
+}
+
+/* separators: simple and auto-height */
+.normal-menu .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.normal-menu .nav-links li + li {
+  border-left: 1px solid rgb(255 255 255 / 0.2);
+  padding-left: 0.75rem;
+}

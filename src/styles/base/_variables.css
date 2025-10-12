@@ -1,67 +1,34 @@
 :root {
-  /* FONTS */
-  --FF: sans-serif;
-  --FF-HEADINGS: 'New Amsterdam', cursive;
-  --FS: clamp(1rem, 1.5vw, 1.25rem);
+  /* fonts */
+  --font-base: system-ui, -apple-system, 'Segoe UI', Roboto, Inter, sans-serif;
+  --font-logo: 'New Amsterdam', ui-serif, Georgia, serif;
 
-  /* MAIN COLORS */
-  --PRIMARY-COLOR-DARK: rgb(218, 198, 88);
-  --PRIMARY-COLOR: rgb(224, 216, 169);
-  --PRIMARY-COLOR-LIGHT: rgb(231, 228, 210);
-  --SECONDARY-COLOR-DARK: rgb(0, 0, 0);
-  --SECONDARY-COLOR: rgb(27, 25, 23);
-  --SECONDARY-COLOR-LIGHT: rgb(66, 66, 66);
-  --ERROR-BGCOLOR: lightpink;
-  --ERROR-COLOR: firebrick;
+  /* sizes */
+  --fs-base: clamp(16px, 1.1vw, 18px);
+  --container-max: 1400px;
+  --gutter: clamp(16px, 2vw, 24px);
+  --radius: 10px;
 
-  /* MIST COLORS*/
-  --PRIMARY-COLOR-DARK-MIST: rgba(218, 198, 88, 0.4);
-  --PRIMARY-COLOR-MIST: rgba(224, 216, 169, 0.25);
-  --PRIMARY-COLOR-LIGHT-MIST: rgba(231, 228, 210, 0.15);
-  --SECONDARY-COLOR-DARK-MIST: rgba(0, 0, 0, 0.8);
-  --SECONDARY-COLOR-MIST: rgba(27, 25, 23, 0.45);
-  --SECONDARY-COLOR-LIGHT-MIST: rgba(112, 109, 104, 0.35);
+  /* colors */
+  --color-bg: #0f0f0f;
+  --color-text: #e9e6d1;
+  --color-muted: #b7b29a;
+  --color-surface: #151515;
+  --color-border: #2a2a2a;
 
-  /* COLORS */
-  --FONT-COLOR: var(--SECONDARY-COLOR-DARK);
-  --BORDER-COLOR: var(--PRIMARY-COLOR-DARK);
-  --LINK-ACTIVE: var(--PRIMARY-COLOR-DARK);
-  --LINK-COLOR: var(--PRIMARY-COLOR);
-  --LINK-HOVER: var(--PRIMARY-COLOR-DARK);
-  --HEADER-BGCOLOR: var(--SECONDARY-COLOR);
-  --HEADER-COLOR: var(--PRIMARY-COLOR-DARK);
-  --TEXT-SHADOW-SECONDARY: -1px -1px 0 var(--SECONDARY-COLOR),
-    1px -1px 0 var(--SECONDARY-COLOR), -1px 1px 0 var(--SECONDARY-COLOR),
-    1px 1px 0 var(--SECONDARY-COLOR);
-  --TEXT-SHADOW-PRIMARY: -1px -1px 0 var(--PRIMARY-COLOR-DARK),
-    1px -1px 0 var(--PRIMARY-COLOR-DARK), -1px 1px 0 var(--PRIMARY-COLOR-DARK),
-    1px 1px 0 var(--PRIMARY-COLOR-DARK);
-  --SECTION-BGCOLOR-LIGHT: rgba(26, 24, 24, 1);
-  --SECTION-BGCOLOR: rgba(255, 255, 255, 0.8);
+  /* header/footer */
+  --header-bg: #0f0f0f;
+  --header-fg: #e7e3c9;
+  --footer-bg: #0f0f0f;
+  --footer-fg: #bdb9a3;
 
-  /* MIST */
-  --PRIMARY-MIST: 0 10px 25px var(--PRIMARY-COLOR-DARK-MIST),
-    0 20px 30px var(--PRIMARY-COLOR-MIST),
-    0 30px 40px var(--PRIMARY-COLOR-LIGHT-MIST);
-  --PRIMARY-MIST-LIGHT: 0px 8px 18px var(--PRIMARY-COLOR-DARK-MIST),
-    -20px 10px 20px var(--PRIMARY-COLOR-MIST),
-    0px 15px 25px var(--PRIMARY-COLOR-LIGHT-MIST);
-  --SECONDARY-MIST: 0 10px 25px var(--SECONDARY-COLOR-DARK-MIST),
-    0 20px 30px var(--SECONDARY-COLOR-MIST),
-    0 30px 40px var(--SECONDARY-COLOR-LIGHT-MIST);
-  --SECONDARY-MIST-LIGHT: 0px 5px 12px var(--SECONDARY-COLOR-DARK-MIST),
-    -20px 10px 20px var(--SECONDARY-COLOR-MIST),
-    0px 15px 25px var(--SECONDARY-COLOR-LIGHT-MIST);
+  --surface-blur: 6px;
+  --surface-bg: rgba(255, 255, 255, 0.08);
+  --surface-border: rgba(255, 255, 255, 0.15);
 
-  /* BORDERS */
-  --BORDERS-PRIMARY: 1px solid var(--PRIMARY-COLOR-DARK);
-  --BORDERS-SECONDARY: 1px solid var(--SECONDARY-COLOR);
-  --BORDER-RADIUS: 8px;
+  /* accent */
+  --brand: #d4b86a;
 
-  /* STANDARD PADDING */
-  --PADDING-TB: 0.25em;
-  --PADDING-SIDE: 2.5%;
-
-  /* STANDARD MARGIN */
-  --MARGIN: clamp(1em, 2.5vh, 1.5em) 0;
+  /* effects */
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.25);
 }

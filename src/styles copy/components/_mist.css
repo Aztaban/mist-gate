@@ -39,7 +39,7 @@
 }
 
 .fog__img--first {
-  background: url(../../images/fog-1.png);
+  background: url(../images/fog-1.png);
   background-repeat: repeat-x;
   background-size: contain;
   background-position: center;
@@ -47,7 +47,7 @@
 }
 
 .fog__img--second {
-  background: url(../../images/fog-2.png);
+  background: url(../images/fog-2.png);
   background-repeat: repeat-x;
   background-size: contain;
   background-position: center;

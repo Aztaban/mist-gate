@@ -1,14 +1,25 @@
-html {
-  scroll-behavior: smooth;
-  font-size: var(--FS);
-  font-family: var(--FF);
+main.app {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  padding: clamp(1rem, 2vw, 2rem);
+  border-radius: 0; /* or keep a small one if you like */
+  margin: 0 auto; /* no gap between header/footer */
 }
 
-body {
-  color: var(--FONT-COLOR);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
+main.app {
+  backdrop-filter: blur(var(--surface-blur));
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+}
+
+.glass_card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: clamp(1rem, 2vw, 2rem);
+  margin-block: clamp(1.5rem, 3vh, 2.5rem); /* space from header/footer */
 }

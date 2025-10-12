@@ -1,0 +1,52 @@
+.header-search form {
+  display: block;
+}
+.site-header__search {
+  display: flex;
+  align-items: center;
+}
+.site-header__search input[type='search'] {
+  padding: 0.45em 0.75rem; /* matches links */
+  line-height: 1.2; /* comfortable caret height */
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--header-fg);
+  width: clamp(200px, 45vw, 620px);
+}
+
+/* Optional popover skeleton (hidden by default in your component) */
+.search-popover {
+  position: absolute; /* parent should be relative if you want to anchor it */
+  z-index: 20;
+  margin-top: 0.25rem;
+  width: clamp(240px, 50vw, 560px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+}
+.skeleton {
+  border-radius: 6px;
+  height: 34px;
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.04) 25%,
+    rgb(255 255 255 / 0.07) 37%,
+    rgb(255 255 255 / 0.04) 63%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.4s infinite;
+  margin-bottom: 0.5rem;
+}
+.search-view-all {
+  height: 28px;
+}
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

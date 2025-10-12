@@ -1,35 +1,59 @@
 *,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
+*::before,
+*::after {
   box-sizing: border-box;
 }
-
-html,
-body {
+* {
   margin: 0;
-  padding: 0;
-  scrollbar-width: none;
 }
-
-img {
+html {
+  font-size: var(--fs-base);
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  /* your mist background image */
+  background: url(/images/mist-bg.jpg) no-repeat center/cover fixed;
+}
+img,
+svg,
+video {
   display: block;
   max-width: 100%;
   height: auto;
 }
-
-main {
-  width: 100%;
-  flex-grow: 1;
-}
-
 input,
 button,
-textarea {
+textarea,
+select {
   font: inherit;
+  color: inherit;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+main {
+  flex: 1;
 }
 
-a:any-link {
-  text-decoration: none;
+.container {
+  width: min(100% - 2 * var(--gutter), var(--container-max));
+  margin-inline: auto;
+}
+.full-bleed {
+  width: 100%;
+}
+.muted {
+  color: var(--color-muted);
 }
