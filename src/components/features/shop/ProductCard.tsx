@@ -1,14 +1,33 @@
-// ProductCard.tsx
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '@features/slices/checkoutSlice';
+import { RootState } from '@features/store';
 import { Product } from '@types';
-import { eurFormat } from '@utils'; // <- wherever you exported it
+import { eurFormat } from '@utils';
 
 type Props = {
   product: Product;
-  onAdd?: (p: Product) => void;
 };
 
-export default function ProductCard({ product, onAdd }: Props) {
+export default function ProductCard({ product }: Props) {
+  const dispatch = useDispatch();
+
+  // Check if this product is already in the cart
+  const inCart = useSelector((state: RootState) => state.checkout.products.some((item) => item.product === product.id));
+
+  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+
+    dispatch(
+      addToCart({
+        product: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: 1,
+      })
+    );
+  };
+
   const href = `/shop/product/${product.id}`;
   const img = product.imageUrl || product.image;
 
@@ -26,14 +45,22 @@ export default function ProductCard({ product, onAdd }: Props) {
 
         <div className="pcard__meta">
           <span className="pcard__price">{eurFormat(product.price)}</span>
-          <button
-            type="button"
-            className="btn btn--brand btn--sm"
-            onClick={() => onAdd?.(product)}
-            disabled={!product.countInStock}
-            aria-disabled={!product.countInStock}>
-            {product.countInStock ? 'Add to cart' : 'Out'}
-          </button>
+
+          {product.countInStock < 1 ? (
+            // Disabled "Out of stock" button look-alike
+            <span className="btn btn--disabled btn--sm" aria-disabled="true">
+              Out of Stock
+            </span>
+          ) : inCart ? (
+            // NavLink instead of button for "In Cart"
+            <NavLink to="/checkout" className="btn btn--in-cart btn--sm">
+              In Cart
+            </NavLink>
+          ) : (
+            <button type="button" className="btn btn--brand btn--sm" onClick={handleAddToCart}>
+              Add to Cart
+            </button>
+          )}
         </div>
       </div>
     </article>

@@ -111,7 +111,8 @@
 }
 
 /* CTA button: bright, readable */
-.pcard__meta .btn {
+/* applies only to the Add to Cart button */
+.pcard__meta .btn--brand {
   color: #111;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -124,20 +125,34 @@
   box-shadow: 0 2px 0 rgba(120, 95, 35, 0.45), 0 8px 18px rgba(0, 0, 0, 0.35);
   transition: transform 0.08s, box-shadow 0.2s, background 0.2s;
 }
-.pcard__meta .btn:hover {
+.pcard__meta .btn--brand:hover {
   background: linear-gradient(180deg, #f1dc93 0%, #e2c86f 100%);
   transform: translateY(-1px);
   box-shadow: 0 3px 0 rgba(120, 95, 35, 0.45), 0 12px 22px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
-.pcard__meta .btn:active {
+.pcard__meta .btn--brand:active {
   transform: translateY(0);
   background: linear-gradient(180deg, #e3c76c 0%, #d4b557 100%);
   box-shadow: 0 1px 0 rgba(120, 95, 35, 0.5), 0 6px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
-.pcard__meta .btn:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(212, 184, 106, 0.55), 0 8px 18px rgba(0, 0, 0, 0.35);
+
+.btn--in-cart {
+  background: linear-gradient(180deg, #3c2e08 0%, #5a4510 100%);
+  color: #110e04;
+  border: 1px solid #d4b85a;
+  box-shadow: 0 2px 0 rgba(120, 95, 35, 0.45), 0 8px 18px rgba(0, 0, 0, 0.35);
+  text-align: center;
+  font-weight: 700;
+}
+.btn--in-cart:hover {
+  background: linear-gradient(180deg, #5a4510 0%, #7c5e1a 100%);
+  color: #fff6cf;
+  box-shadow: 0 3px 0 rgba(120, 95, 35, 0.55), 0 12px 22px rgba(0, 0, 0, 0.4);
+  transform: translateY(-1px);
+}
+.btn--in-cart:active {
+  transform: translateY(0);
+  background: linear-gradient(180deg, #4b390d 0%, #6d5316 100%);
 }
 
 /* Slight tighten on phones (still container!) */

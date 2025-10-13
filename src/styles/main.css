@@ -17,7 +17,6 @@
 @import './components/_products.css';
 
 /*Import utility styles */
-@import './utils/_animations.css';
 
 /* Import page-specific styles */
 @import './pages/_about.css';
