@@ -42,6 +42,8 @@ footer {
 html {
   font-size: var(--fs-base);
   scroll-behavior: smooth;
+  overflow-y: scroll; /* keep layout stable */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Make the page a vertical flex column */
@@ -49,12 +51,16 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-
+  overflow-y: auto;
   font-family: var(--font-base);
   color: var(--color-text);
   background: var(--color-bg);
   /* mist background */
   background: url(/images/mist-bg.jpg) no-repeat center/cover fixed;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Middle content stretches; footer gets pushed down */
