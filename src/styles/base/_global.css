@@ -1,35 +1,90 @@
-#root {
+/* ==============================
+   APP SURFACE (container glass)
+   ============================== */
+
+/* One centered glass container on every page */
+.app {
+  /* sizing */
+  --content-max: 1200px;
+  --pad-x: clamp(0.75rem, 2.2vw, 1.25rem);
+  --pad-y: clamp(0.9rem, 2vw, 1.5rem);
+
+  /* glass skin */
+  --surface-bg: rgba(255, 255, 255, 0.06);
+  --surface-border: rgba(255, 255, 255, 0.14);
+  --surface-blur: 10px;
+
+  box-sizing: border-box;
+  width: min(100%, var(--content-max));
+  margin-inline: auto;
+
   display: flex;
   flex-direction: column;
-  flex: 1;
-}
 
-main.app {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(10px);
-  padding: clamp(1rem, 2vw, 2rem);
-  border-radius: 0; /* or keep a small one if you like */
-  margin: 0 auto; /* no gap between header/footer */
-  padding: 2rem;
-}
-
-main.app {
-  backdrop-filter: blur(var(--surface-blur));
   background: var(--surface-bg);
   border: 1px solid var(--surface-border);
+  backdrop-filter: blur(var(--surface-blur));
+  -webkit-backdrop-filter: blur(var(--surface-blur));
+  padding: var(--pad-y) var(--pad-x);
 }
 
-.glass_card {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-  padding: clamp(1rem, 2vw, 2rem);
-  margin-block: clamp(1.5rem, 3vh, 2.5rem); /* space from header/footer */
+:root {
+  /* use the same max as your header (adjust here if you ever change it) */
+  --site-max: 1400px;
+}
+
+/* Make the app surface use the same max width as the header */
+.app {
+  --content-max: var(--site-max);
+  width: min(100%, var(--content-max));
+  margin-inline: auto; /* keep it centered */
+}
+
+.auth {
+  flex: 1 1 auto; /* take all space inside .app */
+  min-height: 0;
+  display: grid;
+  place-items: center; /* center the panel both axes */
+  padding-block: clamp(1rem, 6vh, 3rem); /* a little breathing room */
+}
+
+/* If your header uses a .container with 1400px, keep both aligned */
+.header .container,
+.app {
+  max-width: var(--site-max);
+}
+
+/* Ensure inner Shop wrapper doesn’t introduce its own cap */
+.main__products {
+  max-width: none;
+}
+
+/* Slightly tighter on tablets, keep container look */
+@media (max-width: 1024px) {
+  .app {
+    --content-max: 1100px;
+    --pad-x: clamp(0.75rem, 2vw, 1rem);
+    --pad-y: clamp(0.8rem, 1.8vw, 1.25rem);
+    border-radius: 10px;
+  }
+}
+
+/* Phones: still a container, NOT full-bleed */
+@media (max-width: 640px) {
+  .app {
+    --content-max: 100%;
+    --pad-x: 0.75rem;
+    --pad-y: 0.9rem;
+    border-radius: 8px;
+  }
+}
+
+/* Optional: if you ever need a page *without* the glass container */
+.app--plain {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  padding: 0 !important;
 }

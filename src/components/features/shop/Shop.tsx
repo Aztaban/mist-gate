@@ -1,14 +1,9 @@
-import ProductList from './ProductList';
+import ProductGrid from './ProductGrid';
 
-const Shop = () => {
-
-  const content = (
-    <main className="main__products">
-      <ProductList />
+export default function Shop() {
+  return (
+    <main className="shop container">
+      <ProductGrid />
     </main>
   );
-
-  return content;
-};
-
-export default Shop;
+}
