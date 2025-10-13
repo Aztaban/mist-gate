@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router-dom';
 
 const Footer = () => {
-  const date = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer full-bleed">
+    <footer className="site-footer full-bleed" role="contentinfo">
       <div className="site-footer__inner container">
         <div className="footer__col footer__col--links">
           <h3 className="footer__heading">Explore</h3>
-          <ul className="footer__list">
+          <ul className="footer__list" role="list">
             <li>
               <NavLink to="/about">About</NavLink>
             </li>
@@ -26,7 +26,7 @@ const Footer = () => {
 
         <div className="footer__col footer__col--contact">
           <h3 className="footer__heading">Contact</h3>
-          <ul className="footer__list">
+          <ul className="footer__list" role="list">
             <li>123 Misty Lane, Fogtown</li>
             <li>
               <a href="mailto:info@mistgate.com">info@mistgate.com</a>
@@ -40,7 +40,7 @@ const Footer = () => {
 
       <div className="footer__bottom container">
         <p className="footer__text">
-          &copy; {date} Copyright{' '}
+          &copy; {year} Copyright{' '}
           <a className="footer__link" href="https://github.com/Aztaban" target="_blank" rel="noopener noreferrer">
             Aztaban
           </a>
