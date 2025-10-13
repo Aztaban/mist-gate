@@ -5,15 +5,11 @@
 /* One centered glass container on every page */
 .app {
   /* sizing */
-  --content-max: 1200px;
+  --content-max: var(--site-max);
   --pad-x: clamp(0.75rem, 2.2vw, 1.25rem);
   --pad-y: clamp(0.9rem, 2vw, 1.5rem);
 
-  /* glass skin */
-  --surface-bg: rgba(255, 255, 255, 0.06);
-  --surface-border: rgba(255, 255, 255, 0.14);
-  --surface-blur: 10px;
-
+  /* glass skin driven entirely by variables */
   box-sizing: border-box;
   width: min(100%, var(--content-max));
   margin-inline: auto;
@@ -28,27 +24,15 @@
   padding: var(--pad-y) var(--pad-x);
 }
 
-:root {
-  /* use the same max as your header (adjust here if you ever change it) */
-  --site-max: 1400px;
-}
-
-/* Make the app surface use the same max width as the header */
-.app {
-  --content-max: var(--site-max);
-  width: min(100%, var(--content-max));
-  margin-inline: auto; /* keep it centered */
-}
-
 .auth {
-  flex: 1 1 auto; /* take all space inside .app */
+  flex: 1 1 auto;
   min-height: 0;
   display: grid;
-  place-items: center; /* center the panel both axes */
-  padding-block: clamp(1rem, 6vh, 3rem); /* a little breathing room */
+  place-items: center;
+  padding-block: clamp(1rem, 6vh, 3rem);
 }
 
-/* If your header uses a .container with 1400px, keep both aligned */
+/* Keep header container and app aligned */
 .header .container,
 .app {
   max-width: var(--site-max);
@@ -79,7 +63,7 @@
   }
 }
 
-/* Optional: if you ever need a page *without* the glass container */
+/* Optional: a page *without* the glass container */
 .app--plain {
   background: transparent !important;
   border: 0 !important;

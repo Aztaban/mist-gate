@@ -22,8 +22,7 @@ body {
   flex-direction: column;
 }
 
-/* Your app adds one more wrapper div inside #root (as in the screenshot).
-   Make THAT the flex column that hosts header/main/footer. */
+/* Make the app wrapper the flex column that hosts header/main/footer */
 #root > div {
   display: flex;
   flex-direction: column;
@@ -54,9 +53,13 @@ body {
   overflow-y: auto;
   font-family: var(--font-base);
   color: var(--color-text);
-  background: var(--color-bg);
-  /* mist background */
-  background: url(/images/mist-bg.jpg) no-repeat center/cover fixed;
+  background-color: var(--color-bg);
+  /* site background image can be toggled via --bg-image */
+  background-image: var(--bg-image);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 body::-webkit-scrollbar {
@@ -88,7 +91,7 @@ a {
 }
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
