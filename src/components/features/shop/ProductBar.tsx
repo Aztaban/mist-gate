@@ -1,54 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
-import ProductBarItem from './ProductBarItem';
+import ProductCard from './ProductCard';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { useGetProductsQuery } from '@features/apiSlices/productApiSlice';
+import { RootState } from '@features/store';
+
+type FilterMode = 'all' | 'inCart' | 'notInCart';
 
 interface ProductBarProps {
   productId: string;
+  filterMode?: FilterMode; // default 'all'
 }
 
-const ProductBar = ({ productId }: ProductBarProps) => {
+const ProductBar = ({ productId, filterMode = 'all' }: ProductBarProps) => {
   const { data, isError, isLoading, isSuccess } = useGetProductsQuery();
-  const productBarRef = useRef<HTMLDivElement | null>(null);
-  const [visibleProducts, setVisibleProducts] = useState(1);
 
-  const otherProducts = data?.filter(product => product.id !== productId);
+  // get product ids currently in the cart
+  const cartProductIds = useSelector((s: RootState) => s.checkout.products.map((i) => i.product));
+  const cartIdSet = useMemo(() => new Set(cartProductIds), [cartProductIds]);
 
-  useEffect(() => {
-    const calculateVisibleProducts = () => {
-      if(productBarRef.current && otherProducts?.length) {
-        const barWidth = productBarRef.current.offsetWidth;
-        const itemWidth = 225;
-        const itemsThatFit = Math.floor(barWidth / itemWidth);
-        setVisibleProducts(itemsThatFit);
-      }
-    }
+  if (isError) return <p>No data found.</p>;
+  if (isLoading) return <p>Loading data...</p>;
 
-    calculateVisibleProducts();
-    window.addEventListener('resize', calculateVisibleProducts);
+  const otherProducts = (data ?? []).filter((p) => p.id !== productId);
 
-    return () => {
-      window.removeEventListener('resize', calculateVisibleProducts);
-    };
-  }, [otherProducts])
-
-  if (isError) {
-    return <p>No data found.</p>;
-  }
-
-  if (isLoading) {
-    return <p>Loading data...</p>;
-  }
+  const filtered = otherProducts.filter((p) => {
+    if (filterMode === 'inCart') return cartIdSet.has(p.id);
+    if (filterMode === 'notInCart') return !cartIdSet.has(p.id);
+    return true; // 'all'
+  });
 
   return (
-    <article ref={productBarRef} className='product-bar'>
-      {isSuccess && otherProducts?.length ? (
-        otherProducts.slice(0, visibleProducts).map(product => (
-          <ProductBarItem key={product.id} product={product} />
-        ))
-      ) : (
-        <p>No other product available.</p>
-      )}
-    </article>
+    <section className="product-bar">
+      <div className="product-bar__scroller">
+        {isSuccess && filtered.length ? (
+          filtered.map((product) => <ProductCard key={product.id} product={product} />)
+        ) : (
+          <p className="product-bar__empty">No products match this filter.</p>
+        )}
+      </div>
+    </section>
   );
 };
 
