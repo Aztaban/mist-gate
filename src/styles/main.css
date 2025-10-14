@@ -25,6 +25,7 @@
 @import './pages/_license.css';
 @import './pages/_contact.css';
 @import './pages/_login.css';
+@import './pages/_account.css';
 
 /*/* Import component styles */
 /*@import './components/_admin-tools.css';

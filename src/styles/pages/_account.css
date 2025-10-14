@@ -1,0 +1,227 @@
+/* ==============================
+   Account / User Settings UI
+   ============================== */
+
+/* Same width as header/app + stacked sections */
+/* =========================
+   Orders table — dark glass
+   ========================= */
+.checkout-main .admin-products-list {
+  /* dark glass like your panels */
+  background: rgba(12, 12, 12, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* header row */
+.checkout-main .admin-products-list thead th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--header-fg);
+  padding: 0.8rem 1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* body cells + hover */
+.checkout-main .admin-products-list td {
+  padding: 0.75rem 1rem;
+  color: var(--color-text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.checkout-main .admin-products-list tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* alignment helpers (unchanged) */
+.checkout-main .admin-products-list .text-right {
+  text-align: right;
+}
+.checkout-main .admin-products-list .text-center {
+  text-align: center;
+}
+.checkout-main .admin-products-list .green-color {
+  color: #9be38a;
+}
+
+/* centered, muted empty state */
+.checkout-main .admin-products-list tbody tr.empty td {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  color: var(--color-muted);
+  font-style: italic;
+  background: transparent; /* keep glass visible */
+}
+
+/* ===== User settings (fill width & equal height) ===== */
+.user-settings {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr); /* left fixed, right flexible */
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+  align-items: stretch; /* equalize panel heights */
+}
+
+/* Panels */
+
+/* panels */
+.user-info,
+.address-form {
+  background: rgba(15, 15, 15, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* left panel: label | value ; button under value */
+.user-info {
+  height: 100%;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  column-gap: 0.75rem;
+  row-gap: 0.4rem;
+  align-content: start;
+}
+.user-info label {
+  color: var(--header-fg);
+  font-weight: 600;
+  align-self: center;
+}
+.user-info p {
+  margin: 0;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.user-info button {
+  grid-column: 2 / 3;
+  justify-self: start;
+  margin: 0.15rem 0 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+.user-info button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+.user-info button:active {
+  transform: translateY(1px);
+}
+.user-info > div {
+  display: none;
+} /* hide spacer divs */
+
+/* right panel: full width column, tidy grid */
+.address-form {
+  width: 100%;
+  justify-self: stretch;
+  align-self: stretch;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.75rem;
+}
+.address-form h3 {
+  grid-column: 1 / -1;
+  margin: 0 0 0.25rem 0;
+  color: var(--header-fg);
+  font-size: 1.1rem;
+}
+.address-form label {
+  grid-column: span 12;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+.address-form input {
+  grid-column: span 12;
+  width: 100%;
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  background: #fff;
+  color: #111;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+}
+.address-form input:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+/* desktop distribution */
+@media (min-width: 921px) {
+  .address-form label[for='name'] + input {
+    grid-column: span 4;
+  }
+  .address-form label[for='street'] + input {
+    grid-column: span 8;
+  }
+  .address-form label[for='city'] + input {
+    grid-column: span 5;
+  }
+  .address-form label[for='postalCode'] + input {
+    grid-column: span 3;
+  }
+  .address-form label[for='country'] + input {
+    grid-column: span 4;
+  }
+}
+
+.admin-products-list tbody tr.empty td {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+/* actions */
+.address-form button {
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+}
+.address-form button[type='submit'] {
+  color: #111;
+  font-weight: 700;
+  background: linear-gradient(180deg, #e8cf7a 0%, #d9b85a 100%);
+  border: 1px solid #e6ce83;
+  box-shadow: 0 2px 0 rgba(120, 95, 35, 0.45), 0 8px 18px rgba(0, 0, 0, 0.35);
+  grid-column: span 3;
+}
+.address-form .del-btn {
+  color: #fff;
+  border-color: rgba(255, 120, 120, 0.35);
+  background: rgba(255, 120, 120, 0.12);
+  grid-column: span 3;
+}
+.address-form .del-btn:hover {
+  background: rgba(255, 120, 120, 0.18);
+}
+.address-form button[type='submit'],
+.address-form .del-btn {
+  justify-self: start;
+}
+
+/* responsive stack */
+@media (max-width: 920px) {
+  .user-settings {
+    grid-template-columns: 1fr;
+  }
+  .address-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .address-form button[type='submit'],
+  .address-form .del-btn {
+    grid-column: span 1;
+  }
+}

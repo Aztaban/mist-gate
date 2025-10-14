@@ -7,10 +7,10 @@ interface OrdersListProps {
   orders: Order[] | null;
 }
 
-const OrdersList = ({orders}: OrdersListProps): ReactElement => {
+const OrdersList = ({ orders }: OrdersListProps): ReactElement => {
   if (!orders || orders.length === 0) {
     return (
-      <table className="admin-products-list">
+      <table className="admin-products-list admin-products-list--empty">
         <thead>
           <tr>
             <th>Order Number</th>
@@ -20,8 +20,10 @@ const OrdersList = ({orders}: OrdersListProps): ReactElement => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colSpan={4} className="text-center">No Orders Found.</td>
+          <tr className="empty">
+            <td colSpan={4} className="text-center">
+              No Orders Found.
+            </td>
           </tr>
         </tbody>
       </table>
