@@ -38,7 +38,7 @@ const SingleProductPage = () => {
       </article>
 
       {/* Bottom bar / related */}
-      <ProductBar productId={product.id} filterMode="notInCart" />
+      <ProductBar productId={product.id} />
     </section>
   );
 };
