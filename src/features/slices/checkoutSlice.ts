@@ -49,25 +49,20 @@ const checkoutSlice = createSlice({
   reducers: {
     addToCart(state, action: PayloadAction<OrderItem>) {
       const newItem = action.payload;
-      const existingItem = state.products.find(
-        (item) => item.product === newItem.product
-      );
+      const existingItem = state.products.find((item) => item.product === newItem.product);
 
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
         state.products.push({ ...newItem, quantity: 1 });
       }
+      saveCheckoutState(state);
     },
     removeFromCart(state, action: PayloadAction<{ product: string }>) {
-      state.products = state.products.filter(
-        (item) => item.product !== action.payload.product
-      );
+      state.products = state.products.filter((item) => item.product !== action.payload.product);
+      saveCheckoutState(state);
     },
-    updateQuantity(
-      state,
-      action: PayloadAction<{ product: string; quantity: number }>
-    ) {
+    updateQuantity(state, action: PayloadAction<{ product: string; quantity: number }>) {
       const { product, quantity } = action.payload;
       const item = state.products.find((item) => item.product === product);
 
@@ -80,6 +75,8 @@ const checkoutSlice = createSlice({
       state.shippingAddress = null;
       state.shippingMethod = ShippingMethod.Standard;
       state.phoneNumber = '';
+      state.orderId = null;
+      localStorage.removeItem('checkout');
     },
     setCheckout: (
       state,
@@ -97,28 +94,14 @@ const checkoutSlice = createSlice({
       state.orderId = action.payload;
     },
   },
-  extraReducers: (builder) => {
-    builder.addDefaultCase((state) => {
-      saveCheckoutState(state);
-    });
-  },
 });
 
 export const selectCartItems = (state: RootState) => state.checkout.products;
-export const selectShippingAddress = (state: RootState) =>
-  state.checkout.shippingAddress;
-export const selectShippingMethod = (state: RootState) =>
-  state.checkout.shippingMethod;
+export const selectShippingAddress = (state: RootState) => state.checkout.shippingAddress;
+export const selectShippingMethod = (state: RootState) => state.checkout.shippingMethod;
 export const selectCheckout = (state: RootState) => state.checkout;
 export const selectOrderId = (state: RootState) => state.checkout.orderId;
 
-export const {
-  addToCart,
-  removeFromCart,
-  updateQuantity,
-  clearCart,
-  setCheckout,
-  setOrderId,
-} = checkoutSlice.actions;
+export const { addToCart, removeFromCart, updateQuantity, clearCart, setCheckout, setOrderId } = checkoutSlice.actions;
 
 export default checkoutSlice.reducer;
