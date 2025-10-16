@@ -20,9 +20,7 @@ const Register = () => {
     <section className="auth">
       <div className="auth__panel">
         <h2 className="auth__title">Register</h2>
-        <form className="auth__form" onSubmit={(e) => e.preventDefault()}>
-          <RegisterForm onSubmit={handleRegister} errMsg={errMsg} />
-        </form>
+        <RegisterForm onSubmit={handleRegister} errMsg={errMsg} />
       </div>
     </section>
   );
