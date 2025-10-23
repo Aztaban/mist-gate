@@ -1,27 +1,31 @@
-/* License page uses shared utilities:
-   - surface-dark
-   - page-stack
-   - section-bar / section-bar__title
-*/
+/* =======================================
+   License Page (visual parity)
+   ======================================= */
+:root {
+  --license-gap: clamp(0.9rem, 2vw, 1.25rem);
+  --license-meta-fg: var(--color-muted);
+  --license-sec-pad: clamp(1rem, 2.5vw, 2rem);
+  --license-h2-fg: var(--header-fg);
+}
 
 .license {
   display: grid;
-  gap: clamp(0.9rem, 2vw, 1.25rem);
+  gap: var(--license-gap);
 }
 
 .license__meta {
-  color: var(--color-muted);
+  color: var(--license-meta-fg);
   font-size: 0.95rem;
 }
 
 .license__section {
-  padding: clamp(1rem, 2.5vw, 2rem);
+  padding: var(--license-sec-pad);
 }
 
 .license__h2 {
   margin: 0 0 0.6rem 0;
   letter-spacing: 0.02em;
-  color: var(--header-fg);
+  color: var(--license-h2-fg);
   font-size: clamp(1.05rem, 2.2vw, 1.25rem);
 }
 

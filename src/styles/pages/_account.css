@@ -1,20 +1,63 @@
-/* ==============================
-   Account / User Settings UI
-   ============================== */
+/* =======================================
+   Account / User Settings (visual parity)
+   ======================================= */
+:root {
+  /* table surface */
+  --acct-table-bg: rgba(12, 12, 12, 0.7);
+  --acct-table-border: rgba(255, 255, 255, 0.16);
+  --acct-table-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  --acct-table-blur: 4px;
+  --acct-table-radius: var(--radius);
 
-/* Same width as header/app + stacked sections */
-/* =========================
-   Orders table — dark glass
-   ========================= */
+  /* table header */
+  --acct-th-fg: var(--header-fg);
+  --acct-th-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  --acct-th-divider: rgba(255, 255, 255, 0.12);
+
+  /* table body */
+  --acct-td-fg: var(--color-text);
+  --acct-td-divider: rgba(255, 255, 255, 0.08);
+  --acct-row-hover: rgba(255, 255, 255, 0.03);
+
+  /* panels (left/right) */
+  --acct-panel-bg: rgba(15, 15, 15, 0.68);
+  --acct-panel-border: rgba(255, 255, 255, 0.16);
+  --acct-panel-radius: var(--radius);
+  --acct-panel-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  --acct-panel-blur: 4px;
+
+  /* labels & headings */
+  --acct-label-fg: var(--header-fg);
+  --acct-muted: var(--color-muted);
+  --acct-body-fg: var(--color-text);
+
+  /* buttons in panels */
+  --acct-btn-border: rgba(255, 255, 255, 0.18);
+  --acct-btn-bg: rgba(255, 255, 255, 0.08);
+  --acct-btn-bg-hover: rgba(255, 255, 255, 0.12);
+
+  /* address form fields */
+  --acct-input-bg: #fff;
+  --acct-input-fg: #111;
+  --acct-input-border: rgba(0, 0, 0, 0.14);
+
+  /* actions */
+  --acct-submit-grad: linear-gradient(180deg, #e8cf7a 0%, #d9b85a 100%);
+  --acct-submit-border: #e6ce83;
+  --acct-submit-shadow: 0 2px 0 rgba(120, 95, 35, 0.45), 0 8px 18px rgba(0, 0, 0, 0.35);
+  --acct-danger-border: rgba(255, 120, 120, 0.35);
+  --acct-danger-bg: rgba(255, 120, 120, 0.12);
+  --acct-danger-bg-hover: rgba(255, 120, 120, 0.18);
+}
+
 .checkout-main .admin-products-list {
-  /* dark glass like your panels */
-  background: rgba(12, 12, 12, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius);
+  background: var(--acct-table-bg);
+  border: 1px solid var(--acct-table-border);
+  border-radius: var(--acct-table-radius);
   overflow: hidden;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  box-shadow: var(--acct-table-shadow);
+  backdrop-filter: blur(var(--acct-table-blur));
+  -webkit-backdrop-filter: blur(var(--acct-table-blur));
   width: 100%;
   border-collapse: collapse;
 }
@@ -23,20 +66,20 @@
 .checkout-main .admin-products-list thead th {
   text-align: left;
   font-weight: 600;
-  color: var(--header-fg);
+  color: var(--acct-th-fg);
   padding: 0.8rem 1rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--acct-th-bg);
+  border-bottom: 1px solid var(--acct-th-divider);
 }
 
 /* body cells + hover */
 .checkout-main .admin-products-list td {
   padding: 0.75rem 1rem;
-  color: var(--color-text);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--acct-td-fg);
+  border-bottom: 1px solid var(--acct-td-divider);
 }
 .checkout-main .admin-products-list tbody tr:hover td {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--acct-row-hover);
 }
 
 /* alignment helpers (unchanged) */
@@ -54,30 +97,28 @@
 .checkout-main .admin-products-list tbody tr.empty td {
   text-align: center;
   padding: 1.25rem 1rem;
-  color: var(--color-muted);
+  color: var(--acct-muted);
   font-style: italic;
-  background: transparent; /* keep glass visible */
+  background: transparent;
 }
 
 /* ===== User settings (fill width & equal height) ===== */
 .user-settings {
   display: grid;
-  grid-template-columns: 420px minmax(0, 1fr); /* left fixed, right flexible */
+  grid-template-columns: 420px minmax(0, 1fr);
   gap: clamp(0.9rem, 2vw, 1.25rem);
-  align-items: stretch; /* equalize panel heights */
+  align-items: stretch;
 }
-
-/* Panels */
 
 /* panels */
 .user-info,
 .address-form {
-  background: rgba(15, 15, 15, 0.68);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: var(--acct-panel-bg);
+  border: 1px solid var(--acct-panel-border);
+  border-radius: var(--acct-panel-radius);
+  box-shadow: var(--acct-panel-shadow);
+  backdrop-filter: blur(var(--acct-panel-blur));
+  -webkit-backdrop-filter: blur(var(--acct-panel-blur));
 }
 
 /* left panel: label | value ; button under value */
@@ -91,13 +132,13 @@
   align-content: start;
 }
 .user-info label {
-  color: var(--header-fg);
+  color: var(--acct-label-fg);
   font-weight: 600;
   align-self: center;
 }
 .user-info p {
   margin: 0;
-  color: var(--color-text);
+  color: var(--acct-body-fg);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -108,13 +149,13 @@
   margin: 0.15rem 0 0.75rem;
   padding: 0.5rem 0.75rem;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--acct-btn-border);
+  background: var(--acct-btn-bg);
   color: #fff;
   transition: background 0.15s ease, transform 0.05s ease;
 }
 .user-info button:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--acct-btn-bg-hover);
 }
 .user-info button:active {
   transform: translateY(1px);
@@ -136,12 +177,12 @@
 .address-form h3 {
   grid-column: 1 / -1;
   margin: 0 0 0.25rem 0;
-  color: var(--header-fg);
+  color: var(--acct-label-fg);
   font-size: 1.1rem;
 }
 .address-form label {
   grid-column: span 12;
-  color: var(--color-muted);
+  color: var(--acct-muted);
   font-weight: 600;
 }
 .address-form input {
@@ -149,63 +190,38 @@
   width: 100%;
   border-radius: 10px;
   padding: 0.6rem 0.75rem;
-  background: #fff;
-  color: #111;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: var(--acct-input-bg);
+  color: var(--acct-input-fg);
+  border: 1px solid var(--acct-input-border);
 }
 .address-form input:focus {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
-}
-/* desktop distribution */
-@media (min-width: 921px) {
-  .address-form label[for='name'] + input {
-    grid-column: span 4;
-  }
-  .address-form label[for='street'] + input {
-    grid-column: span 8;
-  }
-  .address-form label[for='city'] + input {
-    grid-column: span 5;
-  }
-  .address-form label[for='postalCode'] + input {
-    grid-column: span 3;
-  }
-  .address-form label[for='country'] + input {
-    grid-column: span 4;
-  }
-}
-
-.admin-products-list tbody tr.empty td {
-  text-align: center;
-  padding: 1.25rem 1rem;
-  color: var(--color-muted);
-  font-style: italic;
 }
 
 /* actions */
 .address-form button {
   padding: 0.55rem 0.9rem;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid var(--acct-btn-border);
   background: rgba(255, 255, 255, 0.06);
 }
 .address-form button[type='submit'] {
   color: #111;
   font-weight: 700;
-  background: linear-gradient(180deg, #e8cf7a 0%, #d9b85a 100%);
-  border: 1px solid #e6ce83;
-  box-shadow: 0 2px 0 rgba(120, 95, 35, 0.45), 0 8px 18px rgba(0, 0, 0, 0.35);
+  background: var(--acct-submit-grad);
+  border: 1px solid var(--acct-submit-border);
+  box-shadow: var(--acct-submit-shadow);
   grid-column: span 3;
 }
 .address-form .del-btn {
   color: #fff;
-  border-color: rgba(255, 120, 120, 0.35);
-  background: rgba(255, 120, 120, 0.12);
+  border-color: var(--acct-danger-border);
+  background: var(--acct-danger-bg);
   grid-column: span 3;
 }
 .address-form .del-btn:hover {
-  background: rgba(255, 120, 120, 0.18);
+  background: var(--acct-danger-bg-hover);
 }
 .address-form button[type='submit'],
 .address-form .del-btn {
@@ -223,5 +239,24 @@
   .address-form button[type='submit'],
   .address-form .del-btn {
     grid-column: span 1;
+  }
+}
+
+/* desktop distribution */
+@media (min-width: 921px) {
+  .address-form label[for='name'] + input {
+    grid-column: span 4;
+  }
+  .address-form label[for='street'] + input {
+    grid-column: span 8;
+  }
+  .address-form label[for='city'] + input {
+    grid-column: span 5;
+  }
+  .address-form label[for='postalCode'] + input {
+    grid-column: span 3;
+  }
+  .address-form label[for='country'] + input {
+    grid-column: span 4;
   }
 }

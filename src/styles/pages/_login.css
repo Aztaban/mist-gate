@@ -1,31 +1,65 @@
-/* =========================
-   Auth (Login & Register)
-   ========================= */
+/* =======================================
+   Auth / Login (visual parity)
+   ======================================= */
+:root {
+  /* card */
+  --auth-card-bg: rgba(15, 15, 15, 0.68);
+  --auth-card-border: rgba(255, 255, 255, 0.12);
+  --auth-card-blur: 10px;
+  --auth-card-radius: 14px;
+  --auth-card-shadow: 0 12px 38px rgba(0, 0, 0, 0.35);
 
-/* Center *horizontally*; keep near top; do not force page height */
-.auth {
-  display: flex;
-  justify-content: center; /* center the card left-to-right */
-  align-items: flex-start; /* keep near the top */
-  padding: 1.5rem 1rem 2rem; /* comfy top; small sides */
+  /* title pill */
+  --auth-pill-bg: rgba(10, 10, 10, 0.85);
+  --auth-pill-border: rgba(255, 255, 255, 0.22);
+  --auth-pill-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(212, 184, 106, 0.22);
+
+  /* inputs */
+  --auth-input-bg: #fff;
+  --auth-input-fg: #111;
+  --auth-input-border: rgba(0, 0, 0, 0.18);
+  --auth-input-ph: #666;
+  --auth-invalid-border: rgba(255, 67, 67, 0.7);
+  --auth-invalid-shadow: 0 0 0 2px rgba(255, 67, 67, 0.15) inset;
+
+  /* buttons */
+  --auth-brand-grad: linear-gradient(180deg, rgba(212, 184, 106, 0.28), rgba(212, 184, 106, 0.15));
+  --auth-brand-grad-hover: linear-gradient(180deg, rgba(212, 184, 106, 0.38), rgba(212, 184, 106, 0.22));
+  --auth-ghost-border: rgba(255, 255, 255, 0.28);
+  --auth-ghost-bg: rgba(255, 255, 255, 0.06);
+  --auth-ghost-bg-hover: rgba(255, 255, 255, 0.1);
+
+  /* notes */
+  --auth-note-fg: #333;
+  --auth-note-bg: rgba(255, 255, 255, 0.6);
+  --auth-note-border: rgba(0, 0, 0, 0.12);
+  --auth-note-radius: 8px;
+  --auth-note-red: #b30000;
+  --auth-note-red-bg: rgba(255, 67, 67, 0.12);
+  --auth-note-red-border: rgba(255, 67, 67, 0.35);
 }
 
-/* The floating glass card */
+.auth {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem 1rem 2rem;
+}
+
 .auth__panel {
   position: relative;
   width: min(520px, 100%);
-  margin-top: clamp(2.5rem, 9vh, 5.5rem); /* vertical offset only here */
-  background: rgba(15, 15, 15, 0.68);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  box-shadow: 0 12px 38px rgba(0, 0, 0, 0.35);
+  margin-top: clamp(2.5rem, 9vh, 5.5rem);
+  background: var(--auth-card-bg);
+  backdrop-filter: blur(var(--auth-card-blur));
+  -webkit-backdrop-filter: blur(var(--auth-card-blur));
+  border: 1px solid var(--auth-card-border);
+  border-radius: var(--auth-card-radius);
+  box-shadow: var(--auth-card-shadow);
   padding: clamp(1.2rem, 3vw, 2rem);
   animation: auth-fade 0.35s ease-out;
 }
 
-/* Floating title pill */
 .auth__title {
   position: absolute;
   left: 50%;
@@ -39,12 +73,11 @@
   text-transform: uppercase;
   font-size: clamp(1rem, 2.1vw, 1.1rem);
   color: #fff;
-  background: rgba(10, 10, 10, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(212, 184, 106, 0.22);
+  background: var(--auth-pill-bg);
+  border: 1px solid var(--auth-pill-border);
+  box-shadow: var(--auth-pill-shadow);
 }
 
-/* Form layout inside the card */
 .auth__form {
   display: grid;
   gap: 0.85rem;
@@ -60,33 +93,30 @@
   font-size: 0.95rem;
 }
 
-/* Inputs */
 .auth__form input,
 .auth__form textarea,
 .auth__form select {
   width: 100%;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: var(--auth-input-bg);
+  border: 1px solid var(--auth-input-border);
   border-radius: 10px;
   padding: 0.65rem 0.75rem;
-  color: #111;
+  color: var(--auth-input-fg);
 }
 .auth__form input::placeholder {
-  color: #666;
+  color: var(--auth-input-ph);
 }
 
 .auth__form :is(input, textarea, select):focus {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
-  background: #fff;
+  background: var(--auth-input-bg);
 }
-
 .auth__form .is-invalid {
-  border-color: rgba(255, 67, 67, 0.7);
-  box-shadow: 0 0 0 2px rgba(255, 67, 67, 0.15) inset;
+  border-color: var(--auth-invalid-border);
+  box-shadow: var(--auth-invalid-shadow);
 }
 
-/* Actions */
 .form__actions {
   display: flex;
   gap: 0.6rem;
@@ -95,51 +125,48 @@
   margin-top: 0.25rem;
 }
 
-/* Buttons (reuse your .btn base) */
 .btn--brand {
   border: 1px solid rgba(212, 184, 106, 0.45);
-  background: linear-gradient(180deg, rgba(212, 184, 106, 0.28), rgba(212, 184, 106, 0.15));
+  background: var(--auth-brand-grad);
   color: #111;
   border-radius: 10px;
   padding: 0.6rem 1rem;
 }
 .btn--brand:hover {
-  background: linear-gradient(180deg, rgba(212, 184, 106, 0.38), rgba(212, 184, 106, 0.22));
+  background: var(--auth-brand-grad-hover);
 }
 
 .btn--ghost {
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--auth-ghost-border);
+  background: var(--auth-ghost-bg);
   color: #fff;
   border-radius: 10px;
   padding: 0.6rem 1rem;
 }
 .btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--auth-ghost-bg-hover);
 }
 
-/* Inline help / error notes */
 .instructions {
   margin: 0.25rem 0 0;
   font-size: 0.85rem;
   line-height: 1.35;
-  color: #333;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 8px;
+  color: var(--auth-note-fg);
+  background: var(--auth-note-bg);
+  border: 1px solid var(--auth-note-border);
+  border-radius: var(--auth-note-radius);
   padding: 0.4rem 0.55rem;
 }
 .instructions.red {
-  color: #b30000;
-  background: rgba(255, 67, 67, 0.12);
-  border-color: rgba(255, 67, 67, 0.35);
+  color: var(--auth-note-red);
+  background: var(--auth-note-red-bg);
+  border-color: var(--auth-note-red-border);
 }
 .offscreen {
   position: absolute;
   left: -9999px;
 }
 
-/* Fade-in */
 @keyframes auth-fade {
   from {
     opacity: 0;
@@ -151,7 +178,6 @@
   }
 }
 
-/* Small screens: full width while staying near the top */
 @media (max-width: 640px) {
   .auth {
     padding-top: 1.25rem;

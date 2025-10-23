@@ -1,18 +1,28 @@
-/* Inside main, no extra outer panel/margins */
+/* =======================================
+   News Page (visual parity)
+   ======================================= */
+:root {
+  --news-gap: clamp(0.75rem, 1.6vw, 1rem);
+  --news-card-pad: 1rem 1.1rem;
+  --news-hover-bg: rgba(15, 15, 15, 0.7);
+  --news-date-fg: var(--color-muted);
+  --news-body-fg: var(--color-text);
+  --news-btn-border: rgba(255, 255, 255, 0.25);
+}
+
 .news {
   display: grid;
-  gap: clamp(0.75rem, 1.6vw, 1rem);
+  gap: var(--news-gap);
   padding: 0;
   margin: 0;
   background: transparent;
 }
 
-/* …or the hero title + rule */
+/* hero/title rule area stays as-is */
 .news__header.rule-accent {
   margin: 0.35rem 0 1rem;
 }
 
-/* List */
 .news__list {
   list-style: none;
   padding: 0;
@@ -23,10 +33,10 @@
 
 /* Post cards */
 .post__home.surface-post {
-  padding: 1rem 1.1rem;
+  padding: var(--news-card-pad);
 }
 .post__home:hover {
-  background: rgba(15, 15, 15, 0.7);
+  background: var(--news-hover-bg);
   transform: translateY(-1px);
 }
 
@@ -42,15 +52,15 @@
 .post__home-date {
   margin: 0 0 0.5rem;
   font-size: 0.9rem;
-  color: var(--color-muted);
+  color: var(--news-date-fg);
 }
 .post__home p {
   margin: 0;
   line-height: 1.55;
-  color: var(--color-text);
+  color: var(--news-body-fg);
 }
 
 /* Admin icon */
 .news__btn.icon-btn {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: var(--news-btn-border);
 }

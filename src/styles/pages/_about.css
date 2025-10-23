@@ -1,3 +1,25 @@
+/* =======================================
+   About Page (visual parity)
+   ======================================= */
+:root {
+  /* panels */
+  --about-panel-bg: rgba(15, 15, 15, 0.7);
+  --about-panel-bg-2: rgba(15, 15, 15, 0.6);
+  --about-panel-border: rgba(255, 255, 255, 0.12);
+  --about-panel-blur: 6px;
+  --about-panel-radius: 12px;
+
+  /* card */
+  --about-card-bg: rgba(255, 255, 255, 0.04);
+  --about-card-border: rgba(255, 255, 255, 0.12);
+  --about-card-radius: 10px;
+
+  /* text */
+  --about-title-fg: var(--header-fg);
+  --about-muted: var(--color-muted);
+  --about-brand: var(--brand);
+}
+
 .about {
   display: grid;
   gap: clamp(1rem, 2vw, 1.5rem);
@@ -5,14 +27,11 @@
 
 .about__hero {
   padding: clamp(1rem, 2.5vw, 2rem);
-}
-.about__hero {
-  /* use shared dark surface */
-  background: rgba(15, 15, 15, 0.7);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  background: var(--about-panel-bg);
+  backdrop-filter: blur(var(--about-panel-blur));
+  -webkit-backdrop-filter: blur(var(--about-panel-blur));
+  border: 1px solid var(--about-panel-border);
+  border-radius: var(--about-panel-radius);
 }
 
 .about__title {
@@ -23,22 +42,22 @@
   font-size: clamp(1.6rem, 3vw, 2.25rem);
 }
 .about__lede {
-  color: var(--color-muted);
+  color: var(--about-muted);
   max-width: 60ch;
 }
 
 .about__section {
-  background: rgba(15, 15, 15, 0.6);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  background: var(--about-panel-bg-2);
+  backdrop-filter: blur(var(--about-panel-blur));
+  -webkit-backdrop-filter: blur(var(--about-panel-blur));
+  border: 1px solid var(--about-panel-border);
+  border-radius: var(--about-panel-radius);
   padding: clamp(1rem, 2.5vw, 2rem);
 }
 .about__section h2 {
   margin: 0 0 0.5rem 0;
   letter-spacing: 0.02em;
-  color: var(--header-fg);
+  color: var(--about-title-fg);
 }
 
 .about__bullets {
@@ -48,7 +67,7 @@
   gap: 0.35rem;
 }
 .about__bullets li::marker {
-  color: var(--brand);
+  color: var(--about-brand);
 }
 
 .about__highlights {
@@ -58,15 +77,15 @@
   margin-top: 0.5rem;
 }
 .about__card {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
+  background: var(--about-card-bg);
+  border: 1px solid var(--about-card-border);
+  border-radius: var(--about-card-radius);
   padding: 0.9rem;
 }
 .about__card h3 {
   margin: 0 0 0.25rem;
   font-size: 1.05rem;
-  color: var(--brand);
+  color: var(--about-brand);
 }
 
 .about__footer {

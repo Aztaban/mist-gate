@@ -1,20 +1,48 @@
-/* Contact page uses shared utilities: page-stack, surface-dark, section-bar, icon-btn, etc. */
+/* =======================================
+   Contact Page (visual parity)
+   ======================================= */
+:root {
+  --contact-gap: clamp(0.9rem, 2vw, 1.25rem);
+  --contact-meta-fg: var(--color-muted);
+
+  /* panel */
+  --contact-panel-pad: clamp(1rem, 2.5vw, 2rem);
+
+  /* form fields */
+  --contact-input-bg: rgba(255, 255, 255, 0.06);
+  --contact-input-border: rgba(255, 255, 255, 0.18);
+  --contact-input-radius: 10px;
+  --contact-input-fg: var(--color-text);
+  --contact-input-ph: rgba(255, 255, 255, 0.55);
+  --contact-input-bg-focus: rgba(255, 255, 255, 0.08);
+
+  /* buttons */
+  --contact-btn-border: rgba(255, 255, 255, 0.25);
+  --contact-btn-bg: rgba(255, 255, 255, 0.08);
+  --contact-btn-bg-hover: rgba(255, 255, 255, 0.12);
+  --contact-btn-fg: #fff;
+  --contact-brand-grad: linear-gradient(180deg, rgba(212, 184, 106, 0.25), rgba(212, 184, 106, 0.15));
+  --contact-brand-grad-hover: linear-gradient(180deg, rgba(212, 184, 106, 0.35), rgba(212, 184, 106, 0.2));
+
+  /* statuses */
+  --contact-error: #ffb4b4;
+  --contact-success: #c7f5c4;
+}
 
 .contact {
   display: grid;
-  gap: clamp(0.9rem, 2vw, 1.25rem);
+  gap: var(--contact-gap);
 }
 
 .contact__meta {
-  color: var(--color-muted);
+  color: var(--contact-meta-fg);
   font-size: 0.95rem;
 }
 
 .contact__panel {
-  padding: clamp(1rem, 2.5vw, 2rem);
+  padding: var(--contact-panel-pad);
 }
 
-/* Form */
 .contact__form {
   display: grid;
   gap: 0.9rem;
@@ -43,21 +71,22 @@
 
 .contact__form input,
 .contact__form textarea {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 10px;
+  background: var(--contact-input-bg);
+  border: 1px solid var(--contact-input-border);
+  border-radius: var(--contact-input-radius);
   padding: 0.65rem 0.75rem;
-  color: var(--color-text);
+  color: var(--contact-input-fg);
 }
 .contact__form input::placeholder,
 .contact__form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--contact-input-ph);
 }
+
 .contact__form input:focus,
 .contact__form textarea:focus {
   outline: 2px solid var(--brand);
   outline-offset: 2px;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--contact-input-bg-focus);
 }
 
 .form__actions {
@@ -67,18 +96,18 @@
   flex-wrap: wrap;
 }
 
-/* Button */
+/* Buttons (base + brand variant) */
 .btn {
   padding: 0.6rem 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  border: 1px solid var(--contact-btn-border);
+  background: var(--contact-btn-bg);
+  color: var(--contact-btn-fg);
   cursor: pointer;
   transition: background 0.2s, transform 0.15s, color 0.2s, border-color 0.2s;
 }
 .btn:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--contact-btn-bg-hover);
 }
 .btn:active {
   transform: translateY(1px);
@@ -90,10 +119,10 @@
 
 .btn--brand {
   border-color: rgba(212, 184, 106, 0.45);
-  background: linear-gradient(180deg, rgba(212, 184, 106, 0.25), rgba(212, 184, 106, 0.15));
+  background: var(--contact-brand-grad);
 }
 .btn--brand:hover {
-  background: linear-gradient(180deg, rgba(212, 184, 106, 0.35), rgba(212, 184, 106, 0.2));
+  background: var(--contact-brand-grad-hover);
 }
 
 /* Status text */
@@ -102,10 +131,10 @@
   font-size: 0.95rem;
 }
 .form__status--error {
-  color: #ffb4b4;
+  color: var(--contact-error);
 }
 .form__status--success {
-  color: #c7f5c4;
+  color: var(--contact-success);
 }
 
 /* Hide honeypot field */
