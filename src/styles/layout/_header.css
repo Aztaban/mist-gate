@@ -1,7 +1,22 @@
+/* =======================================
+   Header Layout – Local Variables
+   ======================================= */
+:root {
+  --header-bg: var(--color-bg);
+  --header-fg: var(--color-text);
+  --header-border: rgba(255, 255, 255, 0.25);
+  --header-shadow: var(--shadow-soft);
+  --header-hover: var(--brand);
+  --header-gap: 0.75rem;
+}
+
+/* =======================================
+   Header container
+   ======================================= */
 .site-header {
   background: var(--header-bg);
   color: var(--header-fg);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--header-shadow);
 }
 
 .site-header__inner {
@@ -12,37 +27,42 @@
   padding-block: 0.5rem;
 }
 
-/* logo only uses the fancy font */
+/* =======================================
+   Logo
+   ======================================= */
 .logo {
-  margin: 0; /* kill h1 default margins */
-  line-height: 1; /* remove extra vertical wobble */
+  margin: 0;
+  line-height: 1;
   font-family: var(--font-logo);
   font-size: clamp(1.5rem, 2.5vw, 2rem);
   letter-spacing: 0.06em;
   display: flex;
-  align-items: center; /* align with row center */
+  align-items: center;
 }
-
 .logo a:hover {
   opacity: 0.9;
 }
 
-/* right side (nav + logout) */
+/* =======================================
+   Header right section
+   ======================================= */
 .site-header__right {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--header-gap);
 }
 
-/* Divider between nav links and logout */
+/* Divider */
 .site-header__divider {
-  align-self: stretch; /* makes it match the height of adjacent flex items */
+  align-self: stretch;
   width: 1px;
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--header-border);
   margin-inline: 0.5rem;
 }
 
-/* Logout button */
+/* =======================================
+   Logout button
+   ======================================= */
 .logout__icon {
   background: none;
   border: none;
@@ -55,19 +75,19 @@
   justify-content: center;
   transition: color 0.2s ease, opacity 0.2s ease, transform 0.15s ease;
 }
-
 .logout__icon:hover {
-  color: var(--brand);
+  color: var(--header-hover);
   opacity: 0.9;
   transform: translateY(-1px);
 }
-
 .logout__icon:active {
   transform: translateY(0);
   opacity: 0.75;
 }
 
-/* compact layout on small screens */
+/* =======================================
+   Responsive layout
+   ======================================= */
 @media (max-width: 720px) {
   .site-header__inner {
     grid-template-columns: 1fr auto;

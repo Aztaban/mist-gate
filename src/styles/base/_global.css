@@ -1,19 +1,14 @@
 /* ==============================
    APP SURFACE (container glass)
    ============================== */
-
-/* One centered glass container on every page */
 .app {
-  /* sizing */
   --content-max: var(--site-max);
   --pad-x: clamp(0.75rem, 2.2vw, 1.25rem);
   --pad-y: clamp(0.9rem, 2vw, 1.5rem);
 
-  /* glass skin driven entirely by variables */
   box-sizing: border-box;
   width: min(100%, var(--content-max));
   margin-inline: auto;
-
   display: flex;
   flex-direction: column;
 
@@ -26,7 +21,6 @@
 
 .auth {
   flex: 1 1 auto;
-  min-height: 0;
   display: grid;
   place-items: center;
   padding-block: clamp(1rem, 6vh, 3rem);
@@ -38,32 +32,30 @@
   max-width: var(--site-max);
 }
 
-/* Ensure inner Shop wrapper doesn’t introduce its own cap */
+/* Inner product section */
 .main__products {
   max-width: none;
 }
 
-/* Slightly tighter on tablets, keep container look */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
   .app {
     --content-max: 1100px;
     --pad-x: clamp(0.75rem, 2vw, 1rem);
     --pad-y: clamp(0.8rem, 1.8vw, 1.25rem);
-    border-radius: 10px;
+    border-radius: var(--radius);
   }
 }
-
-/* Phones: still a container, NOT full-bleed */
 @media (max-width: 640px) {
   .app {
     --content-max: 100%;
     --pad-x: 0.75rem;
     --pad-y: 0.9rem;
-    border-radius: 8px;
+    border-radius: calc(var(--radius) - 2px);
   }
 }
 
-/* Optional: a page *without* the glass container */
+/* Optional plain page */
 .app--plain {
   background: transparent !important;
   border: 0 !important;
@@ -73,16 +65,18 @@
   padding: 0 !important;
 }
 
+/* Page stack layout */
 .page-stack {
   display: grid;
   gap: clamp(0.9rem, 2vw, 1.25rem);
 }
 
+/* Surface variants */
 .surface-dark {
-  background: rgba(15, 15, 15, 0.68);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--gradient-dark);
+  border: 1px solid var(--overlay-medium);
   border-radius: var(--radius);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  box-shadow: var(--shadow-strong);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
@@ -93,11 +87,12 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding: 0.55rem 0.9rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
-  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: var(--gradient-light);
+  border: 1px solid var(--overlay-medium);
   border-radius: calc(var(--radius) - 4px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 14px var(--overlay-strong-dark), inset 0 1px 0 var(--overlay-medium);
 }
+
 .section-bar__title {
   margin: 0;
   font-family: var(--font-logo);

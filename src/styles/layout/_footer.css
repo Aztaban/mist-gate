@@ -1,23 +1,26 @@
+/* =======================================
+   Footer Layout – Local Variables
+   ======================================= */
+:root {
+  --footer-bg: var(--color-bg);
+  --footer-fg: var(--color-text);
+  --footer-border: var(--color-border);
+  --footer-heading: var(--color-text);
+  --footer-link: var(--brand);
+  --footer-link-hover: var(--footer-fg);
+  --footer-divider: rgba(255, 255, 255, 0.1);
+}
+
+/* =======================================
+   Footer container
+   ======================================= */
 .site-footer {
   background: var(--footer-bg);
   color: var(--footer-fg);
-  border-top: 1px solid var(--color-border);
-}
-.site-footer__inner {
-  padding-block: 1.1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.95rem;
+  border-top: 1px solid var(--footer-border);
 }
 
-.site-footer {
-  background: var(--footer-bg);
-  color: var(--footer-fg);
-  border-top: 1px solid var(--color-border);
-}
-
+/* Inner grid */
 .site-footer__inner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -26,20 +29,28 @@
   font-size: 0.95rem;
 }
 
-/* two columns */
+/* =======================================
+   Columns
+   ======================================= */
 .footer__col {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/* =======================================
+   Headings
+   ======================================= */
 .footer__heading {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
-  color: var(--footer-fg);
+  color: var(--footer-heading);
 }
 
+/* =======================================
+   Lists
+   ======================================= */
 .footer__list {
   list-style: none;
   padding: 0;
@@ -48,44 +59,43 @@
   flex-direction: column;
   gap: 0.25rem;
 }
-
 .footer__list a {
   color: var(--footer-fg);
   text-decoration: none;
   opacity: 0.9;
   transition: opacity 0.2s ease, color 0.2s ease;
 }
-
 .footer__list a:hover {
-  color: var(--brand);
+  color: var(--footer-link);
   opacity: 1;
 }
 
-/* bottom copyright line */
+/* =======================================
+   Bottom line
+   ======================================= */
 .footer__bottom {
   text-align: center;
   padding-block: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--footer-divider);
 }
-
 .footer__text {
   margin: 0;
   font-size: 0.85rem;
   opacity: 0.85;
 }
-
 .footer__link {
-  color: var(--brand);
+  color: var(--footer-link);
   font-weight: 500;
   transition: color 0.2s ease, opacity 0.2s ease;
 }
-
 .footer__link:hover {
-  color: var(--footer-fg);
+  color: var(--footer-link-hover);
   opacity: 0.9;
 }
 
-/* responsive touch */
+/* =======================================
+   Responsive touch
+   ======================================= */
 @media (max-width: 600px) {
   .site-footer__inner {
     grid-template-columns: 1fr;

@@ -1,33 +1,59 @@
-/* header text buttons */
+/* =======================================
+   Navigation Bar – Local Variables
+   ======================================= */
+:root {
+  --nav-bg: var(--header-bg);
+  --nav-fg: var(--header-fg);
+  --nav-border: rgba(255, 255, 255, 0.2);
+  --nav-hover: var(--brand);
+  --nav-active: var(--brand);
+  --nav-gap: 0.5rem;
+}
+
+/* =======================================
+   Normal navigation layout
+   ======================================= */
+.normal-menu {
+  background: var(--nav-bg);
+  color: var(--nav-fg);
+}
+
+/* =======================================
+   Links
+   ======================================= */
 .normal-menu a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.45em 0.75rem; /* vertical rhythm */
-  line-height: 1; /* avoid tall line boxes */
+  padding: 0.45em 0.75rem;
+  line-height: 1;
   font-weight: 500;
-  color: var(--header-fg);
+  color: var(--nav-fg);
   opacity: 0.9;
   transition: color 0.2s, opacity 0.2s;
 }
 .normal-menu a:hover {
   opacity: 1;
-  color: var(--brand);
+  color: var(--nav-hover);
 }
 .normal-menu a[aria-current='page'] {
-  color: var(--brand);
+  color: var(--nav-active);
 }
 
-/* separators: simple and auto-height */
+/* =======================================
+   List container
+   ======================================= */
 .normal-menu .nav-links {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--nav-gap);
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
+/* Divider between links */
 .normal-menu .nav-links li + li {
-  border-left: 1px solid rgb(255 255 255 / 0.2);
+  border-left: 1px solid var(--nav-border);
   padding-left: 0.75rem;
 }

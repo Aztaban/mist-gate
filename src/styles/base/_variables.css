@@ -5,42 +5,53 @@
 
   --fs-base: clamp(16px, 1.1vw, 18px);
   --container-max: 1400px;
-  --site-max: var(--container-max); /* one source of truth */
+  --site-max: var(--container-max);
   --gutter: clamp(16px, 2vw, 24px);
   --radius: 10px;
 
-  /* ========== Minimal color system (edit these to re-theme) ========== */
-  /* Core palette (as few as possible) */
-  --bg: #0f0f0f; /* page background */
-  --fg: #e9e6d1; /* main text */
-  --muted: #b7b29a; /* secondary text */
-  --surface: #151515; /* cards/panels (solid) */
-  --border: #2a2a2a; /* hairlines/borders */
-  --brand: #d4b86a; /* accent / focus / links */
+  /* ========== Core color palette ========== */
+  --bg: #0f0f0f;
+  --fg: #e9e6d1;
+  --muted: #b7b29a;
+  --surface: #151515;
+  --border: #2a2a2a;
+  --brand: #d4b86a;
 
-  /* Aliases for backward compatibility with existing code */
+  /* Aliases for convenience */
   --color-bg: var(--bg);
   --color-text: var(--fg);
   --color-muted: var(--muted);
   --color-surface: var(--surface);
   --color-border: var(--border);
 
-  /* ========== Glass surface controls ========== */
-  --surface-blur: 10px; /* unified (was 6 in variables, 10 in global) */
+  /* ========== Glass surface defaults ========== */
+  --surface-blur: 10px;
   --surface-bg: rgba(255, 255, 255, 0.06);
   --surface-border: rgba(255, 255, 255, 0.14);
 
-  /* ========== Header/Footer colors from same tokens ========== */
+  /* ========== Header / Footer defaults ========== */
   --header-bg: var(--bg);
-  --header-fg: #e7e3c9; /* can set to var(--fg) if you want one color */
+  --header-fg: #e7e3c9;
   --footer-bg: var(--bg);
   --footer-fg: #bdb9a3;
+
+  /* ========== Overlays / Gradients ========== */
+  --overlay-light: rgba(255, 255, 255, 0.1);
+  --overlay-medium: rgba(255, 255, 255, 0.2);
+  --overlay-strong: rgba(255, 255, 255, 0.3);
+
+  --overlay-dark: rgba(0, 0, 0, 0.2);
+  --overlay-darker: rgba(0, 0, 0, 0.4);
+  --overlay-strong-dark: rgba(0, 0, 0, 0.6);
+
+  --gradient-light: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
+  --gradient-dark: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
 
   /* ========== Effects ========== */
   --focus-ring: var(--brand);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.25);
+  --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.28);
 
-  /* ========== Optional background image hook ========== */
-  /* Swap or set to 'none' to remove site-wide */
+  /* ========== Background image ========== */
   --bg-image: url(/images/mist-bg.jpg);
 }
