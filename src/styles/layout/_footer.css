@@ -8,7 +8,7 @@
   --footer-heading: var(--color-text);
   --footer-link: var(--brand);
   --footer-link-hover: var(--footer-fg);
-  --footer-divider: rgba(255, 255, 255, 0.1);
+  --footer-divider: var(--overlay-medium);
 }
 
 /* =======================================

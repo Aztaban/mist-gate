@@ -4,7 +4,7 @@
 :root {
   --nav-bg: var(--header-bg);
   --nav-fg: var(--header-fg);
-  --nav-border: rgba(255, 255, 255, 0.2);
+  --nav-border: var(--overlay-medium);
   --nav-hover: var(--brand);
   --nav-active: var(--brand);
   --nav-gap: 0.5rem;

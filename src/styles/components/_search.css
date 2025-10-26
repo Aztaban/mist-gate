@@ -1,12 +1,9 @@
-/* =======================================
-   Search Component – Local Variables
-   ======================================= */
 :root {
-  --search-bg: var(--color-surface);
+  --search-bg: var(--surface);
   --search-border: var(--color-border);
-  --search-fg: var(--header-fg);
+  --search-fg: var(--color-text);
   --search-placeholder: var(--color-muted);
-  --search-highlight: var(--brand);
+  --search-highlight: var(--color-brand);
 }
 
 /* Search form */

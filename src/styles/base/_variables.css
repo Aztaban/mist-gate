@@ -10,30 +10,28 @@
   --radius: 10px;
 
   /* ========== Core color palette ========== */
-  --bg: #0f0f0f;
-  --fg: #e9e6d1;
+  --primary: #0f0f0f;
+  --secondary: #e9e6d1;
   --muted: #b7b29a;
   --surface: #151515;
   --border: #2a2a2a;
   --brand: #d4b86a;
 
   /* Aliases for convenience */
-  --color-bg: var(--bg);
-  --color-text: var(--fg);
+  --color-bg: var(--primary);
+  --color-text: var(--secondary);
   --color-muted: var(--muted);
-  --color-surface: var(--surface);
   --color-border: var(--border);
+  --color-brand: var(--brand);
 
   /* ========== Glass surface defaults ========== */
   --surface-blur: 10px;
   --surface-bg: rgba(255, 255, 255, 0.06);
   --surface-border: rgba(255, 255, 255, 0.14);
 
-  /* ========== Header / Footer defaults ========== */
-  --header-bg: var(--bg);
-  --header-fg: #e7e3c9;
-  --footer-bg: var(--bg);
-  --footer-fg: #bdb9a3;
+  --glass-dark-bg: var(--gradient-dark);
+  --glass-dark-border: var(--overlay-medium);
+  --glass-dark-blur: 4px;
 
   /* ========== Overlays / Gradients ========== */
   --overlay-light: rgba(255, 255, 255, 0.1);
@@ -45,13 +43,10 @@
   --overlay-strong-dark: rgba(0, 0, 0, 0.6);
 
   --gradient-light: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
-  --gradient-dark: linear-gradient(180deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+  --gradient-dark: rgba(0, 255, 255, 100);
 
   /* ========== Effects ========== */
   --focus-ring: var(--brand);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.25);
   --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.28);
-
-  /* ========== Background image ========== */
-  --bg-image: url(/images/mist-bg.jpg);
 }
