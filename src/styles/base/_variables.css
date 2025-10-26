@@ -8,6 +8,7 @@
   --site-max: var(--container-max);
   --gutter: clamp(16px, 2vw, 24px);
   --radius: 10px;
+  --blur: 4px;
 
   /* ========== Core color palette ========== */
   --primary: #0f0f0f;
@@ -21,31 +22,29 @@
   --color-bg: var(--primary);
   --color-text: var(--secondary);
   --color-muted: var(--muted);
-  --color-border: var(--border);
   --color-brand: var(--brand);
 
-  /* ========== Glass surface defaults ========== */
-  --surface-blur: 10px;
-  --surface-bg: rgba(255, 255, 255, 0.06);
-  --surface-border: rgba(255, 255, 255, 0.14);
-
-  --glass-dark-bg: var(--gradient-dark);
-  --glass-dark-border: var(--overlay-medium);
-  --glass-dark-blur: 4px;
-
   /* ========== Overlays / Gradients ========== */
-  --overlay-light: rgba(255, 255, 255, 0.1);
-  --overlay-medium: rgba(255, 255, 255, 0.2);
-  --overlay-strong: rgba(255, 255, 255, 0.3);
+  --overlay-light: rgba(255, 255, 255, 0.06);
+  --overlay-medium: rgba(255, 255, 255, 0.14);
+  --overlay-strong: rgba(255, 255, 255, 0.2);
 
   --overlay-dark: rgba(0, 0, 0, 0.2);
   --overlay-darker: rgba(0, 0, 0, 0.4);
   --overlay-strong-dark: rgba(0, 0, 0, 0.6);
 
-  --gradient-light: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.06));
-  --gradient-dark: rgba(0, 255, 255, 100);
+  --gradient-light: linear-gradient(180deg, var(--overlay-strong), var(--overlay-light));
+
+  /* ========== Glass surface defaults ========== */
+  --surface-blur: 10px;
+  --surface-bg: var(--overlay-light);
+  --surface-border: var(--overlay-medium);
+
+  --glass-dark-bg: var(--overlay-strong);
+  --glass-dark-blur: var(--blur);
 
   /* ========== Effects ========== */
+  --border: 1px solid var(--overlay-medium);
   --focus-ring: var(--brand);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.25);
   --shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.28);

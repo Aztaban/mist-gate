@@ -25,7 +25,7 @@
   --mist-z-fog-image: 3;
 
   /* === Optional overrides === */
-  --mist-bg-color: var(--color-bg, #000);
+  --mist-bg-color: var(--color-bg);
 }
 
 /* =======================================

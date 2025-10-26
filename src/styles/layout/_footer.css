@@ -4,7 +4,7 @@
 :root {
   --footer-bg: var(--color-bg);
   --footer-fg: var(--color-text);
-  --footer-border: var(--color-border);
+  --footer-border: var(--border);
   --footer-heading: var(--color-text);
   --footer-link: var(--brand);
   --footer-link-hover: var(--footer-fg);
@@ -17,7 +17,7 @@
 .site-footer {
   background: var(--footer-bg);
   color: var(--footer-fg);
-  border-top: 1px solid var(--footer-border);
+  border-top: var(--footer-border);
 }
 
 /* Inner grid */
