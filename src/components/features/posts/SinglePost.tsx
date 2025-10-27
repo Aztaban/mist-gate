@@ -20,7 +20,7 @@ const SinglePost = ({ post }: PropsType) => {
   };
 
   let content = (
-    <article className="post__home surface-post">
+    <article className="post__home surface-dark">
       <div className="post__header">
         <h3 className="title-post title-post--underline">{post.title}</h3>
         {isEditor || isAdmin ? (

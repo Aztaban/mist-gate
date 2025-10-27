@@ -1,45 +1,65 @@
 /* =======================================
-   News Page (visual parity)
+   News Page (visual parity + cleanup)
    ======================================= */
+
 :root {
-  --news-gap: clamp(0.75rem, 1.6vw, 1rem);
   --news-card-pad: 1rem 1.1rem;
-  --news-hover-bg: rgba(15, 15, 15, 0.7);
-  --news-date-fg: var(--color-muted);
+
+  /* Color system */
+  --news-hover-bg: var(--overlay-darkest);
+  --news-date-fg: var(--color-h2); /* different tone than body */
   --news-body-fg: var(--color-text);
-  --news-btn-border: rgba(255, 255, 255, 0.25);
 }
 
+/* ===============================
+   Layout
+   =============================== */
 .news {
   display: grid;
-  gap: var(--news-gap);
-  padding: 0;
-  margin: 0;
+  gap: clamp(1rem, 2vw, 1.35rem); /* more breathing room */
   background: transparent;
-}
-
-/* hero/title rule area stays as-is */
-.news__header.rule-accent {
-  margin: 0.35rem 0 1rem;
 }
 
 .news__list {
   list-style: none;
   padding: 0;
-  margin: 0.75rem 0 0;
+  margin: 0;
   display: grid;
-  gap: clamp(0.6rem, 1.4vw, 0.9rem);
+  gap: clamp(1rem, 2vw, 1.35rem); /* matches card gap visually */
 }
 
-/* Post cards */
-.post__home.surface-post {
-  padding: var(--news-card-pad);
+.news__list > *:not(:last-child)::after {
+  content: '';
+  display: block;
+  margin-top: clamp(0.8rem, 1.5vw, 1.1rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--overlay-darker), transparent);
 }
+
+/* ===============================
+   Header / Title
+   =============================== */
+.news__header.rule-accent {
+  margin: 0.35rem 0 1rem;
+}
+
+/* ===============================
+   Post Cards
+   =============================== */
+.post__home {
+  padding: var(--news-card-pad);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
 .post__home:hover {
   background: var(--news-hover-bg);
   transform: translateY(-1px);
+  box-shadow: var(--shadow-strong);
 }
 
+/* Title & header layout */
 .post__header {
   display: flex;
   align-items: center;
@@ -48,19 +68,49 @@
   margin-bottom: 0.35rem;
 }
 
-/* Date/body */
-.post__home-date {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: var(--news-date-fg);
+.title-post {
+  margin: 0;
+  color: var(--color-title);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-shadow: var(--shadow-soft);
 }
+
+.title-post--underline::after {
+  content: '';
+  display: block;
+  margin-top: 0.25rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), rgba(255, 255, 255, 0.35));
+  opacity: 0.65;
+}
+
+/* Date & body */
 .post__home p {
   margin: 0;
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--news-body-fg);
 }
 
-/* Admin icon */
-.news__btn.icon-btn {
-  border-color: var(--news-btn-border);
+.post__home-date {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--news-date-fg) !important;
+}
+
+/* ===============================
+   Admin Icon
+   =============================== */
+.news__btn {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 4px;
+  padding: 0.2rem;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.news__btn:hover {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
 }

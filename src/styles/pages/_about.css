@@ -1,65 +1,6 @@
-/* =======================================
-   About Page (visual parity)
-   ======================================= */
-:root {
-  /* panels */
-  --about-panel-bg: rgba(15, 15, 15, 0.7);
-  --about-panel-bg-2: rgba(15, 15, 15, 0.6);
-  --about-panel-border: rgba(255, 255, 255, 0.12);
-  --about-panel-blur: 6px;
-  --about-panel-radius: 12px;
+/* _about.css */
 
-  /* card */
-  --about-card-bg: rgba(255, 255, 255, 0.04);
-  --about-card-border: rgba(255, 255, 255, 0.12);
-  --about-card-radius: 10px;
-
-  /* text */
-  --about-title-fg: var(--header-fg);
-  --about-muted: var(--color-muted);
-  --about-brand: var(--brand);
-}
-
-.about {
-  display: grid;
-  gap: clamp(1rem, 2vw, 1.5rem);
-}
-
-.about__hero {
-  padding: clamp(1rem, 2.5vw, 2rem);
-  background: var(--about-panel-bg);
-  backdrop-filter: blur(var(--about-panel-blur));
-  -webkit-backdrop-filter: blur(var(--about-panel-blur));
-  border: 1px solid var(--about-panel-border);
-  border-radius: var(--about-panel-radius);
-}
-
-.about__title {
-  font-family: var(--font-logo);
-  letter-spacing: 0.06em;
-  line-height: 1.1;
-  margin: 0 0 0.25rem 0;
-  font-size: clamp(1.6rem, 3vw, 2.25rem);
-}
-.about__lede {
-  color: var(--about-muted);
-  max-width: 60ch;
-}
-
-.about__section {
-  background: var(--about-panel-bg-2);
-  backdrop-filter: blur(var(--about-panel-blur));
-  -webkit-backdrop-filter: blur(var(--about-panel-blur));
-  border: 1px solid var(--about-panel-border);
-  border-radius: var(--about-panel-radius);
-  padding: clamp(1rem, 2.5vw, 2rem);
-}
-.about__section h2 {
-  margin: 0 0 0.5rem 0;
-  letter-spacing: 0.02em;
-  color: var(--about-title-fg);
-}
-
+/* Keep cards, grid, bullets — these are unique */
 .about__bullets {
   margin: 0.25rem 0 0;
   padding-left: 1rem;
@@ -67,7 +8,7 @@
   gap: 0.35rem;
 }
 .about__bullets li::marker {
-  color: var(--about-brand);
+  color: var(--color-brand);
 }
 
 .about__highlights {
@@ -76,19 +17,36 @@
   gap: clamp(0.75rem, 2vw, 1rem);
   margin-top: 0.5rem;
 }
+
 .about__card {
-  background: var(--about-card-bg);
-  border: 1px solid var(--about-card-border);
-  border-radius: var(--about-card-radius);
+  background: rgba(255, 255, 255, 0.04);
+  border: var(--border);
+  border-radius: var(--radius);
   padding: 0.9rem;
 }
 .about__card h3 {
   margin: 0 0 0.25rem;
   font-size: 1.05rem;
-  color: var(--about-brand);
+  color: var(--color-brand);
 }
 
 .about__footer {
   text-align: center;
-  padding-top: 0.5rem;
+  padding: 1rem;
+}
+
+.text-link {
+  color: var(--color-brand);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.text-link:hover {
+  color: var(--color-title);
+}
+
+.text-link:hover::after {
+  opacity: 1;
 }

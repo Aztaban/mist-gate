@@ -37,6 +37,7 @@
   --overlay-dark: rgba(0, 0, 0, 0.2);
   --overlay-darker: rgba(0, 0, 0, 0.4);
   --overlay-strong-dark: rgba(0, 0, 0, 0.6);
+  --overlay-darkest: rgba(0, 0, 0, 0.8);
 
   --gradient-light: linear-gradient(180deg, var(--overlay-strong), var(--overlay-light));
 
