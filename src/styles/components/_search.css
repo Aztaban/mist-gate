@@ -1,7 +1,7 @@
 :root {
   --search-bg: var(--surface);
   --search-border: var(--border);
-  --search-fg: var(--color-text);
+  --search-fg: var(--color-h2);
   --search-placeholder: var(--color-muted);
   --search-highlight: var(--color-brand);
 }

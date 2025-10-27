@@ -15,7 +15,7 @@
   --acct-th-divider: rgba(255, 255, 255, 0.12);
 
   /* table body */
-  --acct-td-fg: var(--color-text);
+  --acct-td-fg: var(--color-h2);
   --acct-td-divider: rgba(255, 255, 255, 0.08);
   --acct-row-hover: rgba(255, 255, 255, 0.03);
 
@@ -29,7 +29,7 @@
   /* labels & headings */
   --acct-label-fg: var(--header-fg);
   --acct-muted: var(--color-muted);
-  --acct-body-fg: var(--color-text);
+  --acct-body-fg: var(--color-h2);
 
   /* buttons in panels */
   --acct-btn-border: rgba(255, 255, 255, 0.18);

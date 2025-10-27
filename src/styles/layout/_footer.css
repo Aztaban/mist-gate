@@ -5,7 +5,7 @@
   --footer-bg: var(--color-bg);
   --footer-fg: var(--color-text);
   --footer-border: var(--border);
-  --footer-heading: var(--color-text);
+  --footer-heading: var(--color-h2);
   --footer-link: var(--brand);
   --footer-link-hover: var(--footer-fg);
   --footer-divider: var(--overlay-medium);

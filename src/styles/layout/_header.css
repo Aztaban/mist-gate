@@ -3,7 +3,7 @@
    ======================================= */
 :root {
   --header-bg: var(--color-bg);
-  --header-fg: var(--color-text);
+  --header-fg: var(--color-h2);
   --header-border: var(--overlay-medium);
   --header-shadow: var(--shadow-soft);
   --header-hover: var(--brand);
