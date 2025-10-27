@@ -1,29 +1,5 @@
 /* ===== Page utilities (shared across About/News/etc.) ===== */
 
-/* post/card surface */
-.surface-post {
-  background: rgba(10, 10, 10, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 10px;
-  box-shadow: 0 3px 15px rgb(0 0 0 / 0.32);
-}
-/* stronger post titles */
-.title-post {
-  margin: 0;
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
-}
-.title-post--underline::after {
-  content: '';
-  display: block;
-  margin-top: 0.25rem;
-  height: 2px;
-  background: linear-gradient(90deg, var(--brand), rgba(255, 255, 255, 0.35));
-  opacity: 0.65;
-}
-
 /* icon button */
 .icon-btn {
   display: inline-flex;
