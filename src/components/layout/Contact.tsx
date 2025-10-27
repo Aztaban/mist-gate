@@ -92,7 +92,7 @@ const Contact = () => {
         </span>
       </header>
 
-      <article className="surface-dark contact__panel">
+      <article className="surface-dark section">
         <form className="contact__form" onSubmit={onSubmit} noValidate>
           {/* Honeypot */}
           <input
@@ -160,8 +160,8 @@ const Contact = () => {
         </form>
       </article>
 
-      <article className="surface-dark contact__panel">
-        <h2 className="contact__h2">Other ways to reach us</h2>
+      <article className="surface-dark section">
+        <h2 className="section-title">Other ways to reach us</h2>
         <ul className="contact__list">
           <li>
             <strong>Address:</strong> 123 Misty Lane, Fogtown

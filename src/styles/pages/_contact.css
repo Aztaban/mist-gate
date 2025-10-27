@@ -1,28 +1,18 @@
 /* =======================================
-   Contact Page (visual parity)
+   Contact Page (unique form styles only)
    ======================================= */
+
 :root {
   --contact-gap: clamp(0.9rem, 2vw, 1.25rem);
   --contact-meta-fg: var(--color-muted);
 
-  /* panel */
-  --contact-panel-pad: clamp(1rem, 2.5vw, 2rem);
-
   /* form fields */
-  --contact-input-bg: rgba(255, 255, 255, 0.06);
-  --contact-input-border: rgba(255, 255, 255, 0.18);
-  --contact-input-radius: 10px;
+  --contact-input-bg: var(--overlay-light);
+  --contact-input-border: var(--overlay-strong);
+  --contact-input-radius: var(--radius);
   --contact-input-fg: var(--color-text);
   --contact-input-ph: rgba(255, 255, 255, 0.55);
-  --contact-input-bg-focus: rgba(255, 255, 255, 0.08);
-
-  /* buttons */
-  --contact-btn-border: rgba(255, 255, 255, 0.25);
-  --contact-btn-bg: rgba(255, 255, 255, 0.08);
-  --contact-btn-bg-hover: rgba(255, 255, 255, 0.12);
-  --contact-btn-fg: #fff;
-  --contact-brand-grad: linear-gradient(180deg, rgba(212, 184, 106, 0.25), rgba(212, 184, 106, 0.15));
-  --contact-brand-grad-hover: linear-gradient(180deg, rgba(212, 184, 106, 0.35), rgba(212, 184, 106, 0.2));
+  --contact-input-bg-focus: var(--overlay-light);
 
   /* statuses */
   --contact-error: #ffb4b4;
@@ -34,15 +24,13 @@
   gap: var(--contact-gap);
 }
 
+/* meta note under header */
 .contact__meta {
   color: var(--contact-meta-fg);
   font-size: 0.95rem;
 }
 
-.contact__panel {
-  padding: var(--contact-panel-pad);
-}
-
+/* form layout */
 .contact__form {
   display: grid;
   gap: 0.9rem;
@@ -59,16 +47,18 @@
   }
 }
 
+/* fields */
 .form__field {
   display: grid;
   gap: 0.35rem;
 }
 .form__field label {
-  color: var(--header-fg);
+  color: var(--color-h2);
   font-weight: 600;
   font-size: 0.95rem;
 }
 
+/* inputs */
 .contact__form input,
 .contact__form textarea {
   background: var(--contact-input-bg);
@@ -81,7 +71,6 @@
 .contact__form textarea::placeholder {
   color: var(--contact-input-ph);
 }
-
 .contact__form input:focus,
 .contact__form textarea:focus {
   outline: 2px solid var(--brand);
@@ -89,6 +78,7 @@
   background: var(--contact-input-bg-focus);
 }
 
+/* actions */
 .form__actions {
   display: flex;
   align-items: center;
@@ -96,36 +86,7 @@
   flex-wrap: wrap;
 }
 
-/* Buttons (base + brand variant) */
-.btn {
-  padding: 0.6rem 1rem;
-  border-radius: 10px;
-  border: 1px solid var(--contact-btn-border);
-  background: var(--contact-btn-bg);
-  color: var(--contact-btn-fg);
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s, color 0.2s, border-color 0.2s;
-}
-.btn:hover {
-  background: var(--contact-btn-bg-hover);
-}
-.btn:active {
-  transform: translateY(1px);
-}
-.btn[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.btn--brand {
-  border-color: rgba(212, 184, 106, 0.45);
-  background: var(--contact-brand-grad);
-}
-.btn--brand:hover {
-  background: var(--contact-brand-grad-hover);
-}
-
-/* Status text */
+/* statuses */
 .form__status {
   margin: 0;
   font-size: 0.95rem;
@@ -137,20 +98,7 @@
   color: var(--contact-success);
 }
 
-/* Hide honeypot field */
-.hp {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
-.contact__h2 {
-  margin: 0 0 0.6rem;
-  letter-spacing: 0.02em;
-  color: var(--header-fg);
-}
+/* contact info list */
 .contact__list {
   margin: 0;
   padding-left: 1.1rem;
@@ -159,4 +107,13 @@
 }
 .contact__list li::marker {
   color: var(--brand);
+}
+
+/* hide honeypot */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
