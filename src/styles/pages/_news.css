@@ -81,7 +81,7 @@
   display: block;
   margin-top: 0.25rem;
   height: 2px;
-  background: linear-gradient(90deg, var(--brand), rgba(255, 255, 255, 0.35));
+  background: linear-gradient(90deg, var(--brand), rgba(var(--white-rgb), 0.35));
   opacity: 0.65;
 }
 
@@ -102,7 +102,7 @@
    Admin Icon
    =============================== */
 .news__btn {
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(var(--white-rgb), 0.25);
   border-radius: 4px;
   padding: 0.2rem;
   cursor: pointer;

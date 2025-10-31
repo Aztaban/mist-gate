@@ -18,11 +18,11 @@ input,
 textarea,
 select {
   width: 100%;
-  background: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: var(--white);
+  border: var(--border);
   border-radius: var(--radius);
   padding: 0.65rem 0.75rem;
-  color: #111;
+  color: var(--primary);
   font-family: var(--font-base);
 }
 

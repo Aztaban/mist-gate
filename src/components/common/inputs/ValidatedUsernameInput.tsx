@@ -14,7 +14,7 @@ const ValidatedUsernameInput: React.FC<Props> = ({ value, onChange, showInvalid 
   const isInvalid = !valid && (showInvalid || (touched && !focus && value.length > 0));
 
   return (
-    <>
+    <div className="form__field">
       <label htmlFor="username">Username:</label>
       <input
         type="text"
@@ -34,7 +34,7 @@ const ValidatedUsernameInput: React.FC<Props> = ({ value, onChange, showInvalid 
       <p id="uidnote" className={isInvalid ? 'instructions red' : 'offscreen'}>
         4 to 24 characters. Must begin with a letter. Letters, numbers, underscores, hyphens allowed.
       </p>
-    </>
+    </div>
   );
 };
 

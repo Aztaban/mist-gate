@@ -14,7 +14,7 @@ const ValidatedEmailInput: React.FC<Props> = ({ value, onChange, showInvalid = f
   const isInvalid = !valid && (showInvalid || (touched && !focus && value.length > 0));
 
   return (
-    <>
+    <div className="form__field">
       <label htmlFor="email">Email:</label>
       <input
         type="email"
@@ -34,7 +34,7 @@ const ValidatedEmailInput: React.FC<Props> = ({ value, onChange, showInvalid = f
       <p id="emailnote" className={isInvalid ? 'instructions red' : 'offscreen'}>
         Must be a valid email format (e.g., user@example.com).
       </p>
-    </>
+    </div>
   );
 };
 

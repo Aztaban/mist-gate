@@ -19,14 +19,6 @@
   padding: var(--pad-y) var(--pad-x);
 }
 
-.auth {
-  /* move to login */
-  flex: 1 1 auto;
-  display: grid;
-  place-items: center;
-  padding-block: clamp(1rem, 6vh, 3rem);
-}
-
 /* Keep header container and app aligned */
 .header .container,
 .app {
@@ -101,9 +93,9 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.28) 20%,
+    rgba(var(--white-rgb), 0.28) 20%,
     var(--brand) 50%,
-    rgba(255, 255, 255, 0.28) 80%,
+    rgba(var(--white-rgb), 0.28) 80%,
     transparent
   );
   opacity: 0.8;

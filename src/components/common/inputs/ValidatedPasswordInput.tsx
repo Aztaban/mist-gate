@@ -24,45 +24,48 @@ const ValidatedPasswordInput: React.FC<Props> = ({ onPasswordChange, showInvalid
 
   return (
     <>
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        onFocus={() => setPwdFocus(true)}
-        onBlur={() => {
-          setPwdFocus(false);
-          setPwdTouched(true);
-        }}
-        className={pwdInvalid ? 'is-invalid' : undefined}
-        aria-invalid={pwdInvalid ? 'true' : 'false'}
-        aria-describedby="pwdnote"
-        autoComplete="new-password"
-      />
-      <p id="pwdnote" className={pwdInvalid ? 'instructions red' : 'offscreen'}>
-        {errorMessage}
-      </p>
-
-      <label htmlFor="confirmPassword">Confirm Password:</label>
-      <input
-        type="password"
-        id="confirmPassword"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        onFocus={() => setCFocus(true)}
-        onBlur={() => {
-          setCFocus(false);
-          setCTouched(true);
-        }}
-        className={cInvalid ? 'is-invalid' : undefined}
-        aria-invalid={cInvalid ? 'true' : 'false'}
-        aria-describedby="confirmnote"
-        autoComplete="new-password"
-      />
-      <p id="confirmnote" className={cInvalid ? 'instructions red' : 'offscreen'}>
-        Must match the first input field.
-      </p>
+      <div className="form__field">
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onFocus={() => setPwdFocus(true)}
+          onBlur={() => {
+            setPwdFocus(false);
+            setPwdTouched(true);
+          }}
+          className={pwdInvalid ? 'is-invalid' : undefined}
+          aria-invalid={pwdInvalid ? 'true' : 'false'}
+          aria-describedby="pwdnote"
+          autoComplete="new-password"
+        />
+        <p id="pwdnote" className={pwdInvalid ? 'instructions red' : 'offscreen'}>
+          {errorMessage}
+        </p>
+      </div>
+      <div className="form__field">
+        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          onFocus={() => setCFocus(true)}
+          onBlur={() => {
+            setCFocus(false);
+            setCTouched(true);
+          }}
+          className={cInvalid ? 'is-invalid' : undefined}
+          aria-invalid={cInvalid ? 'true' : 'false'}
+          aria-describedby="confirmnote"
+          autoComplete="new-password"
+        />
+        <p id="confirmnote" className={cInvalid ? 'instructions red' : 'offscreen'}>
+          Must match the first input field.
+        </p>
+      </div>
     </>
   );
 };

@@ -11,7 +11,7 @@
   --contact-input-border: var(--overlay-strong);
   --contact-input-radius: var(--radius);
   --contact-input-fg: var(--color-text);
-  --contact-input-ph: rgba(255, 255, 255, 0.55);
+  --contact-input-ph: rgba(var(--white-rgb), 0.55);
   --contact-input-bg-focus: var(--overlay-light);
 
   /* statuses */
