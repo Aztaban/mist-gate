@@ -25,7 +25,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, errMsg }) => {
   return (
     <form className="auth__form" onSubmit={handleSubmit} noValidate>
       {errMsg && (
-        <p className="errmsg" role="alert">
+        <p className="instructions red" role="alert">
           {errMsg}
         </p>
       )}

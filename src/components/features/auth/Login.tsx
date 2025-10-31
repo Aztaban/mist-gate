@@ -41,8 +41,8 @@ const Login = (): ReactElement => {
   };
 
   return (
-    <section className="auth">
-      <div className="auth__panel">
+    <section className="auth page-stack">
+      <div className="auth__panel surface-dark">
         <h2 className="auth__title">Login</h2>
         {/* no outer <form> here */}
         <LoginForm onSubmit={handleLogin} errMsg={errMsg} />

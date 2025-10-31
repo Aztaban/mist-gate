@@ -17,8 +17,8 @@ const Register = () => {
   };
 
   return (
-    <section className="auth">
-      <div className="auth__panel">
+    <section className="auth page-stack">
+      <div className="auth__panel surface-dark">
         <h2 className="auth__title">Register</h2>
         <RegisterForm onSubmit={handleRegister} errMsg={errMsg} />
       </div>

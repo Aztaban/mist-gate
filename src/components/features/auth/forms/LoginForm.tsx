@@ -23,7 +23,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
   return (
     <form className="auth__form" onSubmit={handleSubmit}>
       {errMsg && (
-        <p className="errmsg" role="alert" aria-live="assertive">
+        <p className="instructions red" role="alert" aria-live="assertive">
           {errMsg}
         </p>
       )}

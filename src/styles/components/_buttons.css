@@ -1,0 +1,45 @@
+/* =======================================
+   Buttons (global)
+   ======================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-family: var(--font-base);
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: var(--radius);
+  line-height: 1;
+  padding: 0.6rem 1rem;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  user-select: none;
+}
+
+/* Brand (gold gradient) */
+.btn--brand {
+  border: var(--border-brand);
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.28), rgba(212, 184, 106, 0.15));
+  color: #111;
+}
+.btn--brand:hover {
+  background: linear-gradient(180deg, rgba(212, 184, 106, 0.38), rgba(212, 184, 106, 0.22));
+}
+
+/* Ghost (transparent white) */
+.btn--ghost {
+  border: var(--border);
+  background: var(--overlay-light);
+  color: var(--color-title);
+}
+.btn--ghost:hover {
+  background: var(--overlay-medium);
+}
+
+/* Disabled state */
+.btn:disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
