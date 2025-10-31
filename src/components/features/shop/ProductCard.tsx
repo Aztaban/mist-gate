@@ -12,12 +12,10 @@ type Props = {
 export default function ProductCard({ product }: Props) {
   const dispatch = useDispatch();
 
-  // Check if this product is already in the cart
   const inCart = useSelector((state: RootState) => state.checkout.products.some((item) => item.product === product.id));
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-
     dispatch(
       addToCart({
         product: product.id,
@@ -32,7 +30,7 @@ export default function ProductCard({ product }: Props) {
   const img = product.imageUrl || product.image;
 
   return (
-    <article className="pcard">
+    <article className="pcard surface-dark">
       <NavLink to={href} className="pcard__media" aria-label={product.name}>
         <img src={img} alt={product.name} loading="lazy" />
       </NavLink>
@@ -47,12 +45,10 @@ export default function ProductCard({ product }: Props) {
           <span className="pcard__price">{eurFormat(product.price)}</span>
 
           {product.countInStock < 1 ? (
-            // Disabled "Out of stock" button look-alike
             <span className="btn btn--disabled btn--sm" aria-disabled="true">
               Out of Stock
             </span>
           ) : inCart ? (
-            // NavLink instead of button for "In Cart"
             <NavLink to="/checkout" className="btn btn--in-cart btn--sm">
               In Cart
             </NavLink>
