@@ -39,6 +39,7 @@
 .btn--brand:hover {
   background: linear-gradient(180deg, rgba(var(--brand-rgb), 1.2) 0%, rgba(var(--brand-rgb), 1.1) 100%);
   box-shadow: 0 0 12px rgba(var(--brand-rgb), 0.45), 0 6px 18px var(--overlay-darker);
+  border: 1px solid var(--overlay-strong);
 }
 
 .btn--brand:active {

@@ -7,24 +7,23 @@ interface ProductDetailsProps {
 
 const ProductDetails = ({ product }: ProductDetailsProps) => {
   const countInStock = product.countInStock;
+  const { author, releaseDate, description } = product.details;
+
   return (
-    <div>
-      <p className="product-description">{product.details.description}</p>
-      <div className="product-details">
+    <section className="product-details-wrapper">
+      <p className="product-description">{description}</p>
+
+      <div className="product-details surface-dark">
         <p>Author:</p>
-        <p>{product.details.author}</p>
+        <p>{author || '—'}</p>
+
         <p>Release Date:</p>
-        <p>{dateFormat(product.details.releaseDate || '')}</p>
+        <p>{dateFormat(releaseDate || '')}</p>
+
         <p>Items In Stock:</p>
-        <p>
-          {countInStock > 5
-            ? '5+'
-            : countInStock < 1
-            ? 'Out of stock'
-            : countInStock}
-        </p>
+        <p>{countInStock > 5 ? '5+' : countInStock < 1 ? 'Out of stock' : countInStock}</p>
       </div>
-    </div>
+    </section>
   );
 };
 
