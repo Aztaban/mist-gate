@@ -14,8 +14,7 @@ const Account = (): ReactElement => {
   );
 
   return (
-    <article className="checkout-main page-stack">
-      {/* Top header (same look as other pages) */}
+    <section className="page-stack">
       <header className="section-bar surface-dark" aria-labelledby="acc-title">
         <h1 id="acc-title" className="section-bar__title">
           {username}&apos;s Account
@@ -25,8 +24,6 @@ const Account = (): ReactElement => {
       {!isAdmin && !isEditor && (
         <>
           <OrdersList orders={sortedOrders} />
-
-          {/* User settings header */}
           <header className="section-bar surface-dark" aria-labelledby="settings-title">
             <h2 id="settings-title" className="section-bar__title">
               User Settings
@@ -36,7 +33,7 @@ const Account = (): ReactElement => {
       )}
 
       <UserSettings />
-    </article>
+    </section>
   );
 };
 

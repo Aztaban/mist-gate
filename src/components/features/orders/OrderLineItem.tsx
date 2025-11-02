@@ -14,7 +14,7 @@ const OrderLineItem = ({ order }: OrderLineItemProps): ReactElement => {
         <NavLink to={`/order/${order.id}`}>{order.orderNo}</NavLink>
       </td>
       <td>{new Date(order.created_at).toLocaleDateString()}</td>
-      <td className="green-color text-right">{eurFormat(order.totalPrice)}</td>
+      <td className="u-text-success">{eurFormat(order.totalPrice)}</td>
       <td>{order.status.toUpperCase()}</td>
     </tr>
   );

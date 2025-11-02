@@ -10,18 +10,18 @@ interface OrdersListProps {
 const OrdersList = ({ orders }: OrdersListProps): ReactElement => {
   if (!orders || orders.length === 0) {
     return (
-      <table className="admin-products-list admin-products-list--empty">
+      <table className="surface-dark table table--compact">
         <thead>
           <tr>
             <th>Order Number</th>
             <th>Date</th>
-            <th className="text-right">Price</th>
+            <th className="u-text-right">Price</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr className="empty">
-            <td colSpan={4} className="text-center">
+          <tr className="table__empty-row">
+            <td colSpan={4} className="u-text-center">
               No Orders Found.
             </td>
           </tr>
@@ -37,12 +37,12 @@ const OrdersList = ({ orders }: OrdersListProps): ReactElement => {
 
   return (
     <>
-      <table className="admin-products-list">
+      <table className="surface-dark table table--compact">
         <thead>
           <tr>
             <th>Order Number</th>
             <th>Date</th>
-            <th className="text-right">Price</th>
+            <th>Price</th>
             <th>Status</th>
           </tr>
         </thead>

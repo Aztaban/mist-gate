@@ -1,0 +1,91 @@
+/* =======================================
+   Global Tables (glass panel look)
+   ======================================= */
+
+:root {
+  /* tweak from your existing vars so tables follow theme */
+  --table-bg: var(--overlay-darkest);
+  --table-border: var(--border-color, rgba(255, 255, 255, 0.16));
+  --table-shadow: var(--shadow-strong);
+  --table-blur: var(--blur);
+  --table-radius: var(--radius);
+
+  --table-th-fg: var(--header-fg);
+  --table-th-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  --table-th-divider: rgba(255, 255, 255, 0.12);
+
+  --table-td-fg: var(--color-h2);
+  --table-td-divider: rgba(255, 255, 255, 0.08);
+  --table-row-hover: rgba(255, 255, 255, 0.03);
+
+  --table-padding-y: 0.8rem;
+  --table-padding-x: 1rem;
+}
+
+/* Base */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+/* Header */
+.table thead th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-h2);
+  padding: 0.8rem 1rem;
+  border-bottom: var(--border);
+  white-space: nowrap;
+}
+
+/* Body */
+.table tbody td {
+  padding: 0.75rem 1rem;
+  color: var(--color-muted);
+  border-bottom: 1px solid rgba(var(--white-rgb), 0.08);
+}
+
+.table tbody tr:hover td {
+  background: var(--overlay-darker);
+}
+
+/* Empty table row */
+.table tbody tr.table__empty-row td {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  color: var(--color-muted);
+  font-style: italic;
+  background: transparent;
+}
+
+/* Size modifiers (optional) */
+.table--compact thead th {
+  padding: 0.65rem 0.85rem;
+}
+
+.table--compact tbody td {
+  padding: 0.55rem 0.85rem;
+}
+
+/* Text helpers (global-ish) */
+.u-text-right {
+  text-align: right;
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-text-success {
+  color: #9be38a !important;
+}
+
+.table a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+.table a:hover {
+  text-decoration: underline;
+}

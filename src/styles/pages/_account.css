@@ -1,76 +1,6 @@
 /* =======================================
    Account / User Settings
    ======================================= */
-
-:root {
-  /* panels & table */
-  --acct-table-bg: rgba(12, 12, 12, 0.7);
-  --acct-table-border: rgba(255, 255, 255, 0.16);
-  --acct-table-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-  --acct-table-blur: 4px;
-  --acct-table-radius: var(--radius);
-
-  --acct-th-fg: var(--header-fg);
-  --acct-th-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  --acct-th-divider: rgba(255, 255, 255, 0.12);
-
-  --acct-td-fg: var(--color-h2);
-  --acct-td-divider: rgba(255, 255, 255, 0.08);
-  --acct-row-hover: rgba(255, 255, 255, 0.03);
-
-  --acct-panel-bg: rgba(15, 15, 15, 0.68);
-  --acct-panel-border: rgba(255, 255, 255, 0.16);
-  --acct-panel-radius: var(--radius);
-  --acct-panel-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
-  --acct-panel-blur: 4px;
-}
-
-/* ========= Orders table ========= */
-.checkout-main .admin-products-list {
-  width: 100%;
-  border-collapse: collapse;
-  background: var(--acct-table-bg);
-  border: 1px solid var(--acct-table-border);
-  border-radius: var(--acct-table-radius);
-  overflow: hidden;
-  box-shadow: var(--acct-table-shadow);
-  backdrop-filter: blur(var(--acct-table-blur));
-  -webkit-backdrop-filter: blur(var(--acct-table-blur));
-}
-.checkout-main .admin-products-list thead th {
-  text-align: left;
-  font-weight: 600;
-  color: var(--acct-th-fg);
-  padding: 0.8rem 1rem;
-  background: var(--acct-th-bg);
-  border-bottom: 1px solid var(--acct-th-divider);
-}
-.checkout-main .admin-products-list td {
-  padding: 0.75rem 1rem;
-  color: var(--acct-td-fg);
-  border-bottom: 1px solid var(--acct-td-divider);
-}
-.checkout-main .admin-products-list tbody tr:hover td {
-  background: var(--acct-row-hover);
-}
-.checkout-main .admin-products-list .text-right {
-  text-align: right;
-}
-.checkout-main .admin-products-list .text-center {
-  text-align: center;
-}
-.checkout-main .admin-products-list .green-color {
-  color: #9be38a;
-}
-.checkout-main .admin-products-list tbody tr.empty td {
-  text-align: center;
-  padding: 1.25rem 1rem;
-  color: var(--color-muted);
-  font-style: italic;
-  background: transparent;
-}
-
-/* ========= Layout: User settings ========= */
 .user-settings {
   display: grid;
   /* Left grows a bit, right has more space; both can shrink */
@@ -88,17 +18,6 @@
   .user-settings {
     grid-template-columns: 1fr;
   }
-}
-
-/* Panels share the same surface look (you already add .surface-dark in JSX) */
-.user-info,
-.address-form {
-  background: var(--acct-panel-bg);
-  border: 1px solid var(--acct-panel-border);
-  border-radius: var(--acct-panel-radius);
-  box-shadow: var(--acct-panel-shadow);
-  backdrop-filter: blur(var(--acct-panel-blur));
-  -webkit-backdrop-filter: blur(var(--acct-panel-blur));
 }
 
 /* ========= User Info ========= */
