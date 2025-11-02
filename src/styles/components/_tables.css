@@ -1,27 +1,3 @@
-/* =======================================
-   Global Tables (glass panel look)
-   ======================================= */
-
-:root {
-  /* tweak from your existing vars so tables follow theme */
-  --table-bg: var(--overlay-darkest);
-  --table-border: var(--border-color, rgba(255, 255, 255, 0.16));
-  --table-shadow: var(--shadow-strong);
-  --table-blur: var(--blur);
-  --table-radius: var(--radius);
-
-  --table-th-fg: var(--header-fg);
-  --table-th-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  --table-th-divider: rgba(255, 255, 255, 0.12);
-
-  --table-td-fg: var(--color-h2);
-  --table-td-divider: rgba(255, 255, 255, 0.08);
-  --table-row-hover: rgba(255, 255, 255, 0.03);
-
-  --table-padding-y: 0.8rem;
-  --table-padding-x: 1rem;
-}
-
 /* Base */
 .table {
   width: 100%;
