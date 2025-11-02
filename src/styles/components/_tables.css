@@ -65,3 +65,37 @@
 .table a:hover {
   text-decoration: underline;
 }
+
+/* =========================
+   Pagination (global)
+   ========================= */
+.pagination {
+  --pg-gap: 0.5rem;
+  --pg-pad-y: 0.35rem;
+  --pg-pad-x: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pg-gap);
+  padding: var(--pg-pad-y) var(--pg-pad-x);
+  max-width: 100%;
+}
+
+.pagination__status {
+  color: var(--color-title);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive tweaks */
+@media (max-width: 560px) {
+  .pagination {
+    --pg-gap: 0.4rem;
+    --pg-pad-y: 0.3rem;
+    --pg-pad-x: 0.4rem;
+  }
+
+  .pagination__status {
+    font-size: 0.95rem;
+  }
+}

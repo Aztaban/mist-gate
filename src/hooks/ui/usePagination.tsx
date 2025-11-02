@@ -32,18 +32,18 @@ const usePagination = <T,>({ data, itemsPerPage = 15 }: PaginationProps<T>): Pag
     paginationControls: (
       <div className="pagination">
         <button
+          className="btn btn--sm surface-dark"
           onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
+          disabled={currentPage === 1}>
           Previous
         </button>
-        <span>
+        <span className="pagination__status btn btn--sm surface-dark">
           Page {currentPage} of {totalPages}
         </span>
         <button
+          className="btn btn--sm surface-dark"
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
+          disabled={currentPage === totalPages}>
           Next
         </button>
       </div>
