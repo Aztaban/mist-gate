@@ -74,6 +74,21 @@
 }
 
 /* =======================================
+   Delete button
+   ======================================= */
+
+.btn--del {
+  color: var(--danger-ink);
+  border-color: var(--danger-border);
+  background: var(--danger-bg);
+}
+
+.btn--del:hover {
+  background: var(--danger-bg-hover);
+  box-shadow: var(--danger-shadow);
+}
+
+/* =======================================
    Disabled look — "Out of Stock" (keep)
    ======================================= */
 .btn--disabled {

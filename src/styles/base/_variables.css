@@ -19,6 +19,7 @@
   --surface: #151515;
   --brand: #d4b86a;
   --white: #fff;
+  --danger: #ff4343;
 
   --primary-rgb: 15, 15, 15;
   --secondary-rgb: 233, 230, 209;
@@ -26,6 +27,7 @@
   --surface-rgb: 21, 21, 21;
   --brand-rgb: 212, 184, 106;
   --white-rgb: 255, 255, 255;
+  --danger-rgb: 255, 67, 67;
 
   /* Aliases for convenience */
   --color-bg: var(--primary);
@@ -34,6 +36,12 @@
   --color-muted: var(--muted);
   --color-brand: var(--brand);
   --color-title: var(--white);
+
+  --danger-ink: rgba(255, 200, 200, 0.98); /* text on danger */
+  --danger-bg: rgba(var(--danger-rgb), 0.3); /* base fill */
+  --danger-bg-hover: rgba(var(--danger-rgb), 0.4); /* hover fill / soft shadow */
+  --danger-border: rgba(var(--danger-rgb), 0.6); /* borders / focus-ring */
+  --danger-shadow: 0 0 8px rgba(255, 50, 50, 0.25);
 
   /* ========== Overlays / Gradients ========== */
   --overlay-light: rgba(var(--white-rgb), 0.06);
