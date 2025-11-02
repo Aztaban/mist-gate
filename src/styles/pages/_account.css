@@ -73,9 +73,21 @@
 /* ========= Layout: User settings ========= */
 .user-settings {
   display: grid;
-  grid-template-columns: 420px minmax(0, 1fr);
+  /* Left grows a bit, right has more space; both can shrink */
+  grid-template-columns: minmax(380px, 0.95fr) minmax(560px, 1.05fr);
   gap: clamp(0.9rem, 2vw, 1.25rem);
-  align-items: stretch;
+  align-items: start;
+  /* allow children to shrink without overflow */
+}
+.user-settings > * {
+  min-width: 0;
+}
+
+/* Stack on narrower viewports */
+@media (max-width: 1160px) {
+  .user-settings {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Panels share the same surface look (you already add .surface-dark in JSX) */
@@ -91,53 +103,70 @@
 
 /* ========= User Info ========= */
 .user-info {
-  height: 100%;
   padding: clamp(1rem, 2vw, 1.25rem);
   display: grid;
   row-gap: 0.35rem;
+  min-width: 0;
 }
 
-/* Row: label + value on one line, actions below */
+/* One-liner: label | value | button (right) */
 .user-info__row {
   display: grid;
-  grid-template-columns: 140px 1fr;
-  grid-template-areas:
-    'label value'
-    '.     actions';
+  grid-template-columns: 140px 1fr auto;
   align-items: center;
   column-gap: 0.75rem;
-  padding-block: 0.45rem;
+  padding-block: 0.55rem;
+  min-width: 0;
 }
 .user-info__row + .user-info__row {
   border-top: var(--border);
-  margin-top: 0.35rem;
-  padding-top: 0.75rem;
+  margin-top: 0.15rem;
+}
+
+/* tighter columns on tablets/phones, keep it one-line */
+@media (max-width: 980px) {
+  .user-info__row {
+    grid-template-columns: 120px 1fr auto;
+  }
+}
+
+/* On very narrow phones, put the button under (still aligned right) */
+@media (max-width: 420px) {
+  .user-info__row {
+    grid-template-columns: 110px 1fr;
+    grid-auto-rows: min-content;
+  }
+  .user-info__actions {
+    grid-column: 1 / -1;
+    justify-self: end;
+    margin-top: 0.4rem;
+  }
 }
 
 .user-info__row > label {
-  grid-area: label;
   color: var(--color-h2);
   font-weight: 600;
   line-height: 1.1;
-}
-
-/* Value color unified across rows (Username, Email, Phone, Password) */
-.user-info__text,
-.user-info__row > p {
-  grid-area: value;
-  margin: 0;
-  color: var(--color-title); /* same as titles elsewhere */
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+.user-info__text,
+.user-info__row > p {
+  margin: 0;
+  color: var(--color-title);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0; /* allow ellipsis */
+}
+
 .user-info__actions {
-  grid-area: actions;
-  justify-self: start;
+  justify-self: end; /* right aligned button */
   display: inline-flex;
   gap: 0.5rem;
-  margin-top: 0.7rem; /* gives breathing room under value */
+}
+.user-info__actions .btn {
+  white-space: nowrap;
 }
 
 /* ========= Address form (uses global form/button styles) ========= */
@@ -145,10 +174,11 @@
   display: grid;
   gap: 0.75rem;
   padding: clamp(1rem, 1.6vw, 1.25rem);
-  min-width: 0; /* prevent column overflow */
+  min-width: 0; /* critical to prevent overflow */
+  overflow: visible; /* ensures shadows/rounded corners show */
 }
 
-/* each form field uses your global .form__field + .form__control styles */
+/* fields use your global .form__field + .form__control */
 .address-form .form__field {
   display: grid;
   gap: 0.35rem;
@@ -163,10 +193,10 @@
 .address-form .form__field .form__control {
   width: 100%;
   min-width: 0;
-  padding-block: 0.55rem; /* subtle vertical rhythm */
+  padding-block: 0.55rem;
 }
 
-/* ===== Desktop field grid (keep your 12-col proportions) ===== */
+/* Desktop 12-col grid */
 @media (min-width: 920px) {
   .address-form {
     grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -203,34 +233,15 @@
   }
 }
 
-/* ========= Responsive behavior ========= */
-/* Stack panels and make Address fields full-width on small screens */
+/* Stack fields and panels on small screens */
 @media (max-width: 980px) {
-  .user-settings {
-    grid-template-columns: 1fr; /* stack */
-  }
   .address-form {
-    grid-template-columns: 1fr; /* single column fields */
+    grid-template-columns: 1fr;
   }
   .address-form > .form__field {
-    grid-column: 1 / -1; /* ensure full width per field */
+    grid-column: 1 / -1;
   }
   .address-form .form__actions {
     justify-content: flex-start;
-  }
-}
-
-/* Even tighter phones: stack label, value, actions vertically for clarity */
-@media (max-width: 600px) {
-  .user-info__row {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      'label'
-      'value'
-      'actions';
-    align-items: start;
-  }
-  .user-info__row > label {
-    margin-bottom: 0.15rem;
   }
 }
