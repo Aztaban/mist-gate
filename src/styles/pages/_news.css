@@ -7,7 +7,7 @@
 
   /* Color system */
   --news-hover-bg: var(--overlay-darkest);
-  --news-date-fg: var(--color-h2); /* different tone than body */
+  --news-date-fg: var(--color-h2);
   --news-body-fg: var(--color-text);
 }
 
@@ -16,7 +16,7 @@
    =============================== */
 .news {
   display: grid;
-  gap: clamp(1rem, 2vw, 1.35rem); /* more breathing room */
+  gap: clamp(1rem, 2vw, 1.35rem);
   background: transparent;
 }
 
@@ -25,7 +25,7 @@
   padding: 0;
   margin: 0;
   display: grid;
-  gap: clamp(1rem, 2vw, 1.35rem); /* matches card gap visually */
+  gap: clamp(1rem, 2vw, 1.35rem);
 }
 
 .news__list > *:not(:last-child)::after {
@@ -113,4 +113,74 @@
 .news__btn:hover {
   color: var(--color-brand);
   border-color: var(--color-brand);
+}
+
+/* =======================================
+   Posts editor (AddPostForm) — scoped
+   Uses your global form & button styles
+   ======================================= */
+.posts-editor {
+  display: grid;
+  gap: 1rem;
+}
+
+.posts-editor__form {
+  --field-gap: 0.5rem; /* label ↔ control */
+  --row-gap: 1rem; /* fields vertical spacing */
+  display: grid;
+  gap: var(--row-gap);
+  padding: clamp(0.9rem, 1.4vw, 1.25rem);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.posts-editor__form .form__field {
+  display: grid;
+  gap: var(--field-gap);
+}
+
+/* Label polish */
+.posts-editor__form .form__field > label {
+  margin: 0;
+  padding-inline: 0.25rem;
+  font-weight: 600;
+  color: var(--color-h2);
+  line-height: 1.15;
+}
+
+/* Use your global control style; add small vertical comfort */
+.posts-editor__form .form__control {
+  width: 100%;
+  min-width: 0;
+  padding-block: 0.6rem; /* stacks on top of your global padding nicely */
+}
+
+/* Textarea defaults */
+.posts-editor__form textarea.form__control {
+  min-height: 12rem;
+  resize: vertical;
+}
+
+/* Error (if any) */
+.posts-editor__form .form__error {
+  margin: 0 0 0.25rem;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Buttons row */
+.posts-editor__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .posts-editor__form {
+    gap: 0.9rem;
+  }
+  .posts-editor__actions {
+    justify-content: flex-start;
+  }
 }
