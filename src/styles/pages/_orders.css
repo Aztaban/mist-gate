@@ -1,28 +1,112 @@
-/* ===== Admin Orders (global table look) ===== */
+/* =======================================
+   Admin Orders – responsive table polish
+   Works with your existing markup:
+   <section class="orders-admin"> ... <table class="table ...">
+   ======================================= */
 
+/* Container spacing */
 .orders-admin {
-  gap: 1rem;
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.25rem);
 }
 
-/* Let the page breathe under the header */
-.orders-admin .section-bar {
-  margin-bottom: 0.9rem;
-}
-
-/* Keep the search on the right on wide screens, wrap nicely when tight */
-.section-bar__actions {
-  margin-left: auto;
+/* Header actions (search) */
+.orders-admin .section-bar__actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  min-width: 0;
 }
-/* Sortable header affordance (works if SortableHeader applies className) */
-.table thead .th--sortable {
-  cursor: pointer;
+.orders-admin .search-bar {
+  width: min(420px, 100%);
+}
+
+/* Table tweaks */
+.orders-admin .table {
+  table-layout: fixed; /* prevents wild column growth at small widths */
+}
+.orders-admin .table th,
+.orders-admin .table td {
+  /* a hair smaller on this page so more fits without wrapping */
+  font-size: 0.95rem;
   white-space: nowrap;
-  position: relative;
-  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.table thead .th--sortable:hover {
-  color: var(--color-title);
+
+/* Status chip is already styled globally; keep right-align on total */
+.orders-admin .table td:last-child,
+.orders-admin .table th:last-child {
+  text-align: right;
+}
+
+/* Pagination centered under the table */
+.orders-admin .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.orders-admin .pagination > button {
+  min-width: 84px;
+}
+
+/* -------------------------------
+   Responsive column visibility
+   Column order (1..7):
+   1 Order No | 2 created | 3 User | 4 Shipping | 5 Status | 6 Paid status | 7 total
+   We progressively hide the least-critical info.
+   ------------------------------- */
+
+/* <= 900px: hide Shipping (col 4) */
+@media (max-width: 900px) {
+  .orders-admin .table th:nth-child(4),
+  .orders-admin .table td:nth-child(4) {
+    display: none;
+  }
+}
+
+/* <= 720px: hide Paid status (col 6) */
+@media (max-width: 720px) {
+  .orders-admin .table th:nth-child(6),
+  .orders-admin .table td:nth-child(6) {
+    display: none;
+  }
+}
+
+/* <= 560px: hide User (col 3) and reduce padding a touch */
+@media (max-width: 560px) {
+  .orders-admin .table th,
+  .orders-admin .table td {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.9rem;
+  }
+  .orders-admin .table th:nth-child(3),
+  .orders-admin .table td:nth-child(3) {
+    display: none;
+  }
+  .orders-admin .search-bar {
+    width: 100%;
+  }
+}
+
+/* <= 460px: keep only the essentials: Order No, Date, Total
+   (hide Status as well: col 5) */
+@media (max-width: 460px) {
+  .orders-admin .table th:nth-child(5),
+  .orders-admin .table td:nth-child(5) {
+    display: none;
+  }
+}
+
+/* <= 380px: tighten a bit more */
+@media (max-width: 380px) {
+  .orders-admin .table th,
+  .orders-admin .table td {
+    font-size: 0.85rem;
+  }
+  .orders-admin .pagination > button {
+    min-width: 72px;
+  }
 }
