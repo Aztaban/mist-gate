@@ -164,3 +164,15 @@
     justify-content: flex-start;
   }
 }
+
+.orders-table {
+  width: 100%;
+}
+
+/* At ≤ 480–520px-ish, hide the Status column */
+@media (max-width: 520px) {
+  .orders-table thead th.col-status,
+  .orders-table tbody td.col-status {
+    display: none;
+  }
+}

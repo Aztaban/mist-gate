@@ -15,7 +15,7 @@ const OrderLineItem = ({ order }: OrderLineItemProps): ReactElement => {
       </td>
       <td>{new Date(order.created_at).toLocaleDateString()}</td>
       <td className="u-text-success">{eurFormat(order.totalPrice)}</td>
-      <td>{order.status.toUpperCase()}</td>
+      <td className="col-status">{order.status.toUpperCase()}</td>
     </tr>
   );
 };

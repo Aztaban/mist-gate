@@ -10,13 +10,13 @@ interface OrdersListProps {
 const OrdersList = ({ orders }: OrdersListProps): ReactElement => {
   if (!orders || orders.length === 0) {
     return (
-      <table className="surface-dark table table--compact">
+      <table className="surface-dark table table--compact orders-table">
         <thead>
           <tr>
             <th>Order Number</th>
             <th>Date</th>
             <th className="u-text-right">Price</th>
-            <th>Status</th>
+            <th className="col-status">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -37,13 +37,13 @@ const OrdersList = ({ orders }: OrdersListProps): ReactElement => {
 
   return (
     <>
-      <table className="surface-dark table table--compact">
+      <table className="surface-dark table table--compact orders-table">
         <thead>
           <tr>
             <th>Order Number</th>
             <th>Date</th>
             <th>Price</th>
-            <th>Status</th>
+            <th className="col-status">Status</th>
           </tr>
         </thead>
         <tbody>
