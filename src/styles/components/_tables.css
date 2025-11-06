@@ -79,6 +79,8 @@
   gap: var(--pg-gap);
   padding: var(--pg-pad-y) var(--pg-pad-x);
   max-width: 100%;
+  margin-top: 1rem;
+  width: 100%;
 }
 
 .pagination__status {

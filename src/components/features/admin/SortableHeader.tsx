@@ -4,6 +4,7 @@ interface SortableHeaderProps<T> {
   currentSortKey: keyof T | null;
   currentSortDirection: 'asc' | 'desc' | null;
   onSort: (key: keyof T) => void;
+  className?: string;
 }
 
 const SortableHeader = <T,>({
@@ -12,6 +13,7 @@ const SortableHeader = <T,>({
   currentSortKey,
   currentSortDirection,
   onSort,
+  className,
 }: SortableHeaderProps<T>) => {
   const getSortIcon = () => {
     if (currentSortKey !== sortKey) return '↕';
@@ -19,7 +21,7 @@ const SortableHeader = <T,>({
   };
 
   return (
-    <th onClick={() => onSort(sortKey)}>
+    <th className={className} onClick={() => onSort(sortKey)}>
       {label} {getSortIcon()}
     </th>
   );

@@ -1,0 +1,28 @@
+/* ===== Admin Orders (global table look) ===== */
+
+.orders-admin {
+  gap: 1rem;
+}
+
+/* Let the page breathe under the header */
+.orders-admin .section-bar {
+  margin-bottom: 0.9rem;
+}
+
+/* Keep the search on the right on wide screens, wrap nicely when tight */
+.section-bar__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* Sortable header affordance (works if SortableHeader applies className) */
+.table thead .th--sortable {
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  user-select: none;
+}
+.table thead .th--sortable:hover {
+  color: var(--color-title);
+}
