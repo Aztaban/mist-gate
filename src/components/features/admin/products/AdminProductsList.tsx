@@ -37,7 +37,7 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
 
   return (
     <>
-      <table className="admin-products-list">
+      <table className="table table--compact surface-dark product-table">
         <thead>
           <tr>
             <SortableHeader
@@ -68,25 +68,13 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
               currentSortDirection={sortConfig.direction}
               onSort={handleSort}
             />
-            <th>
-              <Dropdown
-                title="Category"
-                options={categoryOptions}
-                selectedOptions={selectedCategories}
-                onOptionChange={handleCategoryFilterChange}
-              />
-            </th>
             <th></th>
           </tr>
         </thead>
 
         <tbody>
           {paginatedData.map((product) => (
-            <AdminProductsLineItem
-              key={product.id}
-              product={product}
-              categoryName={categoryNameById.get(product.category) ?? '—'}
-            />
+            <AdminProductsLineItem key={product.id} product={product} />
           ))}
         </tbody>
       </table>

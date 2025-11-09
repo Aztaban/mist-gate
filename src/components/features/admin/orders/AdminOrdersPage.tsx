@@ -33,7 +33,7 @@ const AdminOrdersPage = () => {
             placeholder="username or order ID"
             value={search}
             onChange={handleSearch}
-            className="search-bar"
+            className="search-bar btn--sm"
           />
         </div>
       </header>

@@ -32,30 +32,40 @@ const AdminProductsPage = () => {
   if (isError) return <p>Error loading products.</p>;
 
   return (
-    <article className="orders-main-page">
-      <h2 className="header-wraper">
-        <p>Admin Products</p>
+    <section className="products-page">
+      <header className="section-bar surface-dark">
+        <h1 className="section-bar__title">Admin Products</h1>
 
-        {/* Use link styled as a button to avoid nesting interactive elements */}
-        <NavLink to="/admin/products/new" className="btn back-btn">
-          New Product
-        </NavLink>
+        <div className="products-toolbar">
+          <NavLink to="/admin/products/new" className="btn btn--brand btn--sm">
+            New Product
+          </NavLink>
 
-        <input
-          type="text"
-          placeholder="search by name, author, or category"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
-      </h2>
+          <div className="products-toolbar__filters">
+            <input
+              type="text"
+              placeholder="search by name, author, or category"
+              value={searchTerm}
+              onChange={handleSearch}
+              className="search-bar btn--sm"
+            />
 
+            <select id="products-category" className="form__control btn--sm">
+              <option value="">Category</option>
+              {/* inject your real categories here */}
+              <option>Fantasy</option>
+              <option>Romance</option>
+              <option>Sci-Fi</option>
+            </select>
+          </div>
+        </div>
+      </header>
       {filteredProducts.length === 0 ? (
         <p>No products match “{searchTerm}”.</p>
       ) : (
         <AdminProductsList products={filteredProducts} />
       )}
-    </article>
+    </section>
   );
 };
 
