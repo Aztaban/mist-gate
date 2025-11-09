@@ -8,25 +8,40 @@ const AdminProductsPage = () => {
   const { data: products = [], isLoading, isError } = useGetProductsQuery();
   const { data: categories = [] } = useGetCategoriesQuery();
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
-  // id -> name map for quick lookup in search
-  const catNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
+  const categoryOptions = useMemo(
+    () => [{ label: 'All categories', value: '' }, ...categories.map((c) => ({ label: c.name, value: c.id }))],
+    [categories]
+  );
 
-  const filteredProducts = useMemo(() => {
+  const finalFiltered = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
-    if (!q) return products;
 
-    return products.filter((p) => {
-      const name = p.name.toLowerCase();
-      const author = (p.details?.author ?? '').toLowerCase();
-      const categoryName = (catNameById.get(p.category) ?? '').toLowerCase();
-      return name.includes(q) || author.includes(q) || categoryName.includes(q);
+    // 1) search
+    const searchFiltered = !q
+      ? products
+      : products.filter((p) => {
+          const name = p.name.toLowerCase();
+          const author = (p.details?.author ?? '').toLowerCase();
+          return name.includes(q) || author.includes(q);
+        });
+
+    // 2) category ('' means All)
+    if (!selectedCategory) return searchFiltered;
+
+    const categoryFiltered = searchFiltered.filter((p) => {
+      return p.category.id === selectedCategory; // if mismatch, try String(p.category) === selectedCategory
     });
-  }, [products, searchTerm, catNameById]);
+
+    return categoryFiltered;
+  }, [products, searchTerm, selectedCategory]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
+
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => setSelectedCategory(e.target.value);
 
   if (isLoading) return <p>Loading products...</p>;
   if (isError) return <p>Error loading products.</p>;
@@ -44,26 +59,30 @@ const AdminProductsPage = () => {
           <div className="products-toolbar__filters">
             <input
               type="text"
-              placeholder="search by name, author, or category"
+              placeholder="search by name or author"
               value={searchTerm}
               onChange={handleSearch}
               className="search-bar btn--sm"
             />
 
-            <select id="products-category" className="form__control btn--sm">
-              <option value="">Category</option>
-              {/* inject your real categories here */}
-              <option>Fantasy</option>
-              <option>Romance</option>
-              <option>Sci-Fi</option>
+            <select
+              id="products-category"
+              className="form__control btn--sm"
+              value={selectedCategory}
+              onChange={handleCategoryChange}>
+              {categoryOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
             </select>
           </div>
         </div>
       </header>
-      {filteredProducts.length === 0 ? (
+      {finalFiltered.length === 0 ? (
         <p>No products match “{searchTerm}”.</p>
       ) : (
-        <AdminProductsList products={filteredProducts} />
+        <AdminProductsList products={finalFiltered} />
       )}
     </section>
   );
