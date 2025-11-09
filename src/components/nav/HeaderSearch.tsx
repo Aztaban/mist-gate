@@ -98,7 +98,7 @@ export default function HeaderSearch({ className }: HeaderSearchProps) {
             onMouseEnter={() => setActive(i)}
             onClick={() => {
               setOpen(false);
-              navigate(`/product/${s.id}`);
+              navigate(`/shop/product/${s.id}`);
             }}
             title={s.name}>
             <span className="search-item__title">{s.name}</span>
