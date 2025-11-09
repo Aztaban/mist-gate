@@ -57,3 +57,47 @@
   border-left: var(--nav-border);
   padding-left: 0.75rem;
 }
+
+/* Admin header only */
+@media (max-width: 700px) {
+  /* hide the logo on small screens for admin */
+  .site-header--admin .logo {
+    display: none;
+  }
+
+  /* collapse to two columns: nav fills, logout pinned right */
+  .site-header--admin .site-header__inner {
+    display: grid;
+    grid-template-columns: 1fr auto; /* nav | logout */
+    align-items: center;
+    gap: clamp(8px, 1.8vw, 16px);
+  }
+
+  /* let the admin nav take all remaining space and wrap to 2 rows */
+  .site-header--admin .site-header__right {
+    display: flex;
+    align-items: center;
+    gap: var(--header-gap);
+    width: 100%;
+  }
+  .site-header--admin .normal-menu {
+    flex: 1 1 auto; /* fills left area */
+    min-width: 0;
+  }
+  .site-header--admin .normal-menu .nav-links {
+    display: flex;
+    flex-wrap: wrap; /* two rows when needed */
+    row-gap: 4px;
+    column-gap: var(--nav-gap);
+  }
+  /* soften dividers when items wrap */
+  .site-header--admin .normal-menu .nav-links li + li {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  /* push divider + logout to the far right */
+  .site-header--admin .site-header__divider {
+    margin-left: auto; /* everything after stays right */
+  }
+}

@@ -10,7 +10,7 @@ const Header = () => {
   const isAdminLike = isAdmin || isEditor;
 
   return (
-    <header className="site-header full-bleed">
+    <header className={`site-header full-bleed ${isAdminLike ? 'site-header--admin' : ''}`}>
       <div className="site-header__inner container">
         <h1 className="logo">
           <NavLink to="shop" end>
