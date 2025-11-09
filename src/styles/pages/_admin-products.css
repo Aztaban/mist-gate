@@ -62,3 +62,43 @@
     font-size: 0.85rem;
   }
 }
+
+@media (max-width: 700px) {
+  .products-page .section-bar {
+    display: grid;
+    grid-template-columns: 1fr auto; /* title | button */
+    grid-template-areas:
+      'title btn'
+      'filters filters';
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  /* let children of toolbar participate in the grid */
+  .products-page .products-toolbar {
+    display: contents;
+  }
+
+  /* place items */
+  .products-page .section-bar__title {
+    grid-area: title;
+    margin: 0;
+  }
+  .products-page .products-toolbar > .btn {
+    grid-area: btn;
+    justify-self: end;
+  }
+  .products-page .products-toolbar__filters {
+    grid-area: filters;
+    display: grid;
+    grid-template-columns: 1fr minmax(140px, 200px); /* search | select */
+    gap: 0.5rem;
+  }
+}
+
+/* ≤460px: if needed, stack search and select */
+@media (max-width: 460px) {
+  .products-page .products-toolbar__filters {
+    grid-template-columns: 1fr; /* search on its own line, select below */
+  }
+}
