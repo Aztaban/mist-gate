@@ -28,22 +28,6 @@
   gap: 0.5rem;
 }
 
-/* Narrow laptops / tablets: hide "Items Sold" first */
-@media (max-width: 980px) {
-  .prod-col-sold,
-  .products-table thead th.prod-col-sold {
-    display: none;
-  }
-}
-
-/* Smaller tablets: hide "Category" next */
-@media (max-width: 760px) {
-  .prod-col-category,
-  .products-table thead th.prod-col-category {
-    display: none;
-  }
-}
-
 /* Phones: convert rows to stacked cards using data-labels */
 @media (max-width: 560px) {
   .products-page .section-bar {
@@ -59,11 +43,22 @@
   padding: 0.6rem 0 0.2rem;
 }
 
-@media (max-width: 640px) {
-  .products-table th:nth-child(3),
-  .products-table td:nth-child(3),
-  .products-table th:nth-child(5),
-  .products-table td:nth-child(5) {
+@media (max-width: 760px) {
+  .product-table .prod-col-sold {
     display: none;
+  }
+}
+
+/* Smaller tablets/phones: also hide the action button column */
+@media (max-width: 550px) {
+  .product-table .prod-col-actions {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .product-table th,
+  .product-table td {
+    font-size: 0.85rem;
   }
 }

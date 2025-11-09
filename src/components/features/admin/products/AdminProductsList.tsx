@@ -46,6 +46,7 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
               currentSortKey={sortConfig.key}
               currentSortDirection={sortConfig.direction}
               onSort={handleSort}
+              className="prod-col-sold"
             />
             <SortableHeader
               label="Price"
@@ -54,7 +55,7 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
               currentSortDirection={sortConfig.direction}
               onSort={handleSort}
             />
-            <th></th>
+            <th className="prod-col-actions"></th>
           </tr>
         </thead>
 

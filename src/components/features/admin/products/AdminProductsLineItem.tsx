@@ -16,9 +16,9 @@ const AdminProductsLineItem = ({ product }: AdminProductsLineItemProps): ReactEl
         </NavLink>
       </td>
       <td>{product.countInStock}</td>
-      <td>{product.unitsSold}</td>
+      <td className="prod-col-sold">{product.unitsSold}</td>
       <td className="u-text-success">{eurFormat(product.price)}</td>
-      <td>
+      <td className="prod-col-actions">
         <NavLink to={`/admin/products/edit/${product.id}`}>
           <button className="btn btn--sm btn--ghost">Product</button>
         </NavLink>
