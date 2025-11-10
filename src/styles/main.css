@@ -23,6 +23,7 @@
 /* Import page-specific styles */
 @import './pages/_admin-products.css';
 @import './pages/_products.css';
+@import './pages/_checkout.css';
 @import './pages/_about.css';
 @import './pages/_news.css';
 @import './pages/_utils.css';
