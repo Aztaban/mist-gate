@@ -228,6 +228,7 @@
   margin: 0;
 }
 .qty__input[type='number'] {
+  appearance: textfield;
   -moz-appearance: textfield;
 }
 
