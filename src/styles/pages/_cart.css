@@ -1,0 +1,323 @@
+/* ===============================
+   CART – list, totals, actions
+   =============================== */
+
+/* List wrapper */
+.cart-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.25rem;
+}
+
+/* One row */
+.cart-item {
+  display: grid;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.35rem;
+  border-bottom: var(--border);
+  grid-template-columns: 56px 1fr auto auto; /* thumb | title | unit | total */
+}
+
+/* Compact on small screens (hide unit price) */
+@media (max-width: 760px) {
+  .cart-item {
+    grid-template-columns: 48px 1fr auto; /* thumb | title | total */
+  }
+  .cart-item__unit {
+    display: none;
+  }
+}
+
+/* Remove the last divider look */
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+/* Thumb */
+.cart-item__thumb {
+  inline-size: 40px;
+  block-size: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-soft) inset;
+}
+.cart-item__thumb img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Title block (name + qty controls) */
+/* CHANGED: make this a row so name and qty sit side-by-side */
+.cart-item__title {
+  display: flex; /* was grid */
+  align-items: center;
+  gap: 0.35rem;
+}
+.cart-item__name {
+  margin: 0;
+  color: var(--color-title);
+  font-weight: 600;
+  line-height: 1.2;
+  flex: 1; /* take available space, pushes qty right */
+}
+.cart-item__meta {
+  color: var(--color-text);
+  opacity: 0.9;
+  font-size: 0.92rem;
+}
+
+/* Qty controls */
+.cart-item__qty {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto; /* keep qty at the right edge of the title cell */
+}
+.cart-item__qty .qty-btn {
+  inline-size: 28px;
+  block-size: 28px;
+  border-radius: 999px;
+  border: var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  display: grid;
+  place-items: center;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.cart-item__qty .qty-btn:hover {
+  background: var(--overlay-medium);
+}
+.cart-item__qty .qty-value {
+  min-inline-size: 28px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Prices */
+.price {
+  white-space: nowrap;
+}
+.price--muted {
+  color: var(--color-text);
+}
+.price--brand {
+  color: var(--color-brand);
+  font-weight: 700;
+}
+
+/* Unit (per-item) and line total cells */
+.cart-item__unit,
+.cart-item__total {
+  text-align: right;
+}
+
+/* ===============================
+   Totals block (matches screenshot)
+   =============================== */
+.order-totals {
+  margin-top: 0.75rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: var(--border);
+  background: rgba(255, 255, 255, 0.04);
+}
+.order-totals__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0.9rem;
+  border-top: var(--border);
+}
+.order-totals__row:first-child {
+  border-top: none;
+}
+.order-totals__label {
+  color: var(--color-text);
+  font-weight: 600;
+}
+.order-totals__value {
+  text-align: right;
+}
+.order-totals__grand {
+  background: var(--gradient-light);
+  color: var(--color-title);
+  font-weight: 800;
+}
+
+/* ===============================
+   Bottom actions (re-use checkout actions)
+   =============================== */
+.cart-actions {
+  margin-top: 1rem;
+}
+
+/* Align like other steps */
+.cart-actions.checkout-actions--right {
+  justify-content: flex-end;
+}
+.cart-actions.checkout-actions--split {
+  justify-content: space-between;
+}
+
+/* Keep buttons wrap-friendly on phones */
+@media (max-width: 560px) {
+  .cart-actions {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+}
+
+/* ===== Quantity control ===== */
+.qty {
+  display: grid;
+  grid-template-columns: auto minmax(3.5rem, 3.75rem) auto;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.qty__btn {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius);
+  border: var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.06s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.qty__btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+}
+.qty__btn:active {
+  transform: translateY(1px);
+}
+.qty__btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.qty__input {
+  text-align: center;
+  block-size: 2.25rem;
+  border-radius: var(--radius);
+  border: var(--border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--color-text);
+  box-shadow: var(--shadow-inset);
+  padding: 0 0.4rem;
+  font-weight: 600;
+}
+
+/* Remove browser number spinners */
+.qty__input::-webkit-outer-spin-button,
+.qty__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.qty__input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Dimmed state if product max=0 */
+.qty[data-disabled='true'] {
+  opacity: 0.6;
+}
+
+/* CHANGED: use a horizontal qty layout inside cart rows (not vertical) */
+.cart-item__qty .qty {
+  grid-template-columns: auto minmax(3.5rem, 3.75rem) auto;
+  grid-template-rows: none;
+  justify-items: initial;
+}
+
+/* CHANGED: undo the forced wide sizes from the vertical stack */
+.cart-item__qty .qty__btn,
+.cart-item__qty .qty__input {
+  inline-size: initial;
+}
+
+/* Slightly larger on very wide screens */
+@media (min-width: 1200px) {
+  .qty__btn {
+    inline-size: 2.4rem;
+    block-size: 2.4rem;
+  }
+  .qty__input {
+    min-inline-size: 4rem;
+  }
+}
+
+/* =========================================
+   Order Price Summary (fits your dark style)
+   ========================================= */
+.cart-bottom {
+  padding: 0; /* keep the wrapper snug */
+}
+
+.cart-summary {
+  /* card look that matches your surfaces */
+  margin: 0;
+  margin-inline-start: auto; /* sit to the right */
+  max-inline-size: 560px; /* don’t get too wide on desktop */
+  border: var(--border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow-soft) inset;
+
+  /* two-column grid: label | value */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.cart-summary p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* left column (labels) */
+.cart-summary p:nth-child(odd) {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* right column (values) */
+.cart-summary p:nth-child(even) {
+  text-align: right;
+  white-space: nowrap;
+  color: var(--color-brand);
+}
+
+/* row dividers (everything except the last pair) */
+.cart-summary p:nth-child(2n) {
+  padding-bottom: 0.55rem;
+  border-bottom: var(--border);
+}
+.cart-summary p:nth-last-child(2),
+.cart-summary p:last-child {
+  border-bottom: 0; /* remove divider from the total row */
+  padding-bottom: 0;
+}
+
+/* highlight the TOTAL row (last two <p>) */
+
+/* keep it fluid on small screens */
+@media (max-width: 700px) {
+  .cart-summary {
+    max-inline-size: 100%;
+  }
+}
