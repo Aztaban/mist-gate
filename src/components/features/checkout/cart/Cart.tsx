@@ -1,10 +1,7 @@
 import { useSelector } from 'react-redux';
 import { ReactElement } from 'react';
 import CartLineItem from './CartLineItem';
-import {
-  selectCartItems,
-  selectShippingMethod,
-} from '@features/slices/checkoutSlice';
+import { selectCartItems, selectShippingMethod } from '@features/slices/checkoutSlice';
 import { calculateOrderPrices } from '@utils';
 import { NavLink, useNavigate } from 'react-router-dom';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';
@@ -19,10 +16,7 @@ const Cart = ({ onNext }: CartProps): ReactElement => {
   const navigate = useNavigate();
   const products = useSelector(selectCartItems);
   const shippingMethod = useSelector(selectShippingMethod);
-  const { itemsPrice, shippingPrice } = calculateOrderPrices(
-    products,
-    shippingMethod
-  );
+  const { itemsPrice, shippingPrice } = calculateOrderPrices(products, shippingMethod);
 
   const handleNext = () => {
     if (isLogedIn) {
@@ -33,41 +27,38 @@ const Cart = ({ onNext }: CartProps): ReactElement => {
   };
 
   const pageContent = (
-    <>
-      <h2>1. Cart</h2>
-      {products.length ? (
-        <div className="checkout checkout-spaced">
-          <ul className="cart">
-            {products.map((item) => {
-              return <CartLineItem key={item.product} item={item} />;
-            })}
-          </ul>
-          <div className="cart-bottom">
-            <OrderPriceSummary
-              itemsPrice={itemsPrice}
-              shippingPrice={shippingPrice}
-            />
+    <section className="checkout page-stack">
+      <header className="section-bar surface-dark">
+        <h1 className="section-bar__title">1. Cart</h1>
+      </header>
+      <div className="stage cart">
+        {products.length ? (
+          <div className="checkout checkout-spaced">
+            <ul className="cart-list">
+              {products.map((item) => {
+                return <CartLineItem key={item.product} item={item} />;
+              })}
+            </ul>
+            <div className="cart-bottom">
+              <OrderPriceSummary itemsPrice={itemsPrice} shippingPrice={shippingPrice} />
+            </div>
           </div>
+        ) : (
+          <div className="checkout checkout-spaced-se">
+            <p>No Items in cart</p>
+            <p>
+              Visit our <NavLink to="/shop">SHOP</NavLink>
+            </p>
+          </div>
+        )}
+        <div className="checkout-buttons">
+          <button className="btn btn--del">Clear Cart</button>
+          <button className="btn btn--brand" onClick={handleNext} disabled={!products.length}>
+            Continue to shipping
+          </button>
         </div>
-      ) : (
-        <div className="checkout checkout-spaced-se">
-          <p>No Items in cart</p>
-          <p>
-            Visit our <NavLink to="/shop">SHOP</NavLink>
-          </p>
-        </div>
-      )}
-      <div className="checkout-buttons">
-        <div></div>
-        <button
-          className="btn back-btn"
-          onClick={handleNext}
-          disabled={!products.length}
-        >
-          Continue to shipping
-        </button>
       </div>
-    </>
+    </section>
   );
 
   return pageContent;
