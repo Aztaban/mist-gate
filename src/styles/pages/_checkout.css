@@ -248,8 +248,8 @@
 
 /* Thumb */
 .cart-item__thumb {
-  inline-size: 56px;
-  block-size: 56px;
+  inline-size: 40px;
+  block-size: 60px;
   border-radius: 6px;
   overflow: hidden;
   border: var(--border);
@@ -467,5 +467,67 @@
   }
   .qty__input {
     min-inline-size: 4rem;
+  }
+}
+
+/* =========================================
+   Order Price Summary (fits your dark style)
+   ========================================= */
+.cart-bottom {
+  padding: 0; /* keep the wrapper snug */
+}
+
+.cart-summary {
+  /* card look that matches your surfaces */
+  margin: 0;
+  margin-inline-start: auto; /* sit to the right */
+  max-inline-size: 560px; /* don’t get too wide on desktop */
+  border: var(--border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: var(--shadow-soft) inset;
+
+  /* two-column grid: label | value */
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 0.9rem;
+}
+
+.cart-summary p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* left column (labels) */
+.cart-summary p:nth-child(odd) {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* right column (values) */
+.cart-summary p:nth-child(even) {
+  text-align: right;
+  white-space: nowrap;
+  color: var(--color-brand);
+}
+
+/* row dividers (everything except the last pair) */
+.cart-summary p:nth-child(2n) {
+  padding-bottom: 0.55rem;
+  border-bottom: var(--border);
+}
+.cart-summary p:nth-last-child(2),
+.cart-summary p:last-child {
+  border-bottom: 0; /* remove divider from the total row */
+  padding-bottom: 0;
+}
+
+/* highlight the TOTAL row (last two <p>) */
+
+/* keep it fluid on small screens */
+@media (max-width: 700px) {
+  .cart-summary {
+    max-inline-size: 100%;
   }
 }

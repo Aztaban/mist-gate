@@ -39,19 +39,20 @@ const Cart = ({ onNext }: CartProps): ReactElement => {
                 return <CartLineItem key={item.product} item={item} />;
               })}
             </ul>
-            <div className="cart-bottom">
+
+            <div className="cart-bottom section surface-dark">
               <OrderPriceSummary itemsPrice={itemsPrice} shippingPrice={shippingPrice} />
             </div>
           </div>
         ) : (
-          <div className="checkout checkout-spaced-se">
+          <div className="section surface-dark">
             <p>No Items in cart</p>
             <p>
               Visit our <NavLink to="/shop">SHOP</NavLink>
             </p>
           </div>
         )}
-        <div className="checkout-buttons">
+        <div className="checkout-actions checkout-actions--split">
           <button className="btn btn--del">Clear Cart</button>
           <button className="btn btn--brand" onClick={handleNext} disabled={!products.length}>
             Continue to shipping
