@@ -4,11 +4,7 @@ import Address from '../../orders/Address';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';
 import { calculateOrderPrices } from '@utils';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectCheckout,
-  setOrderId,
-  clearCart,
-} from '@features/slices/checkoutSlice';
+import { selectCheckout, setOrderId, clearCart } from '@features/slices/checkoutSlice';
 import { useAddNewOrderMutation } from '@features/apiSlices/ordersApiSlice';
 
 interface OrderSummaryProps {
@@ -20,10 +16,7 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
   const [addNewOrder] = useAddNewOrderMutation();
   const dispatch = useDispatch();
   const order: CreateOrder = useSelector(selectCheckout);
-  const { itemsPrice, shippingPrice } = calculateOrderPrices(
-    order.products,
-    order.shippingMethod
-  );
+  const { itemsPrice, shippingPrice } = calculateOrderPrices(order.products, order.shippingMethod);
 
   const handleNext = async () => {
     try {
@@ -42,30 +35,28 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
   };
 
   return (
-    <>
-      <h2>3. Order Summary</h2>
+    <section className="checkout page-stack">
+      <header className="section-bar surface-dark">
+        <h1 className="section-bar__title">3. Order Summary</h1>
+      </header>
+
       <article className="checkout checkout-spaced">
         <OrderProducts products={order.products} />
-        <div className="cart-bottom">
-          {order.shippingAddress && (
-            <Address address={order.shippingAddress as ShippingAddress} />
-          )}
+        <div className="cart-bottom section surface-dark">
+          {order.shippingAddress && <Address address={order.shippingAddress as ShippingAddress} />}
 
-          <OrderPriceSummary
-            itemsPrice={itemsPrice}
-            shippingPrice={shippingPrice}
-          />
+          <OrderPriceSummary itemsPrice={itemsPrice} shippingPrice={shippingPrice} />
         </div>
       </article>
-      <div className="checkout-buttons">
-        <button className="btn save-btn" onClick={onPrevious}>
-          Back
+      <div className="checkout-actions checkout-actions--split">
+        <button className="btn btn--ghost" onClick={onPrevious}>
+          Address
         </button>
-        <button className="btn back-btn" onClick={handleNext}>
+        <button className="btn btn--brand" onClick={handleNext}>
           Confirm Order
         </button>
       </div>
-    </>
+    </section>
   );
 };
 

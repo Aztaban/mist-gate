@@ -6,6 +6,8 @@ import { calculateOrderPrices } from '@utils';
 import { NavLink, useNavigate } from 'react-router-dom';
 import OrderPriceSummary from '../../orders/OrderPriceSummary';
 import useAuth from '@hooks/state/useAuth';
+import { useDispatch } from 'react-redux';
+import { clearCart } from '@features/slices/checkoutSlice';
 
 interface CartProps {
   onNext: () => void;
@@ -14,6 +16,7 @@ interface CartProps {
 const Cart = ({ onNext }: CartProps): ReactElement => {
   const { isLogedIn } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const products = useSelector(selectCartItems);
   const shippingMethod = useSelector(selectShippingMethod);
   const { itemsPrice, shippingPrice } = calculateOrderPrices(products, shippingMethod);
@@ -24,6 +27,12 @@ const Cart = ({ onNext }: CartProps): ReactElement => {
     } else {
       navigate('/login');
     }
+  };
+
+  const handleClearCart = () => {
+    if (!products.length) return;
+    const ok = window.confirm('Clear your cart? This will remove all items.');
+    if (ok) dispatch(clearCart());
   };
 
   const pageContent = (
@@ -53,7 +62,9 @@ const Cart = ({ onNext }: CartProps): ReactElement => {
           </div>
         )}
         <div className="checkout-actions checkout-actions--split">
-          <button className="btn btn--del">Clear Cart</button>
+          <button className="btn btn--del" onClick={handleClearCart}>
+            Clear Cart
+          </button>
           <button className="btn btn--brand" onClick={handleNext} disabled={!products.length}>
             Continue to shipping
           </button>
