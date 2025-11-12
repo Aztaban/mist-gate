@@ -38,7 +38,7 @@ export interface CreateProductPayload {
 export interface UpdateProductPayload {
   // send only what changed
   name?: string;
-  category?: string; // categoryId
+  category?: Category; // categoryId
   price?: number;
   image?: string;
   countInStock?: number;

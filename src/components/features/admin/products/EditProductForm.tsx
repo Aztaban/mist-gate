@@ -26,7 +26,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
 
   const categoryNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
 
-  const currentCategoryName = categoryNameById.get(product.category) ?? '—';
+  const currentCategoryName = categoryNameById.get(product.category.name) ?? '—';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
           ) : (
             <select
               id="category"
-              value={modifiedFields.category ?? product.category}
+              value={modifiedFields.category?.name ?? product.category.name}
               onChange={(e) => handleFieldUpdate('category' as const, e.target.value)}>
               <option value="">— Select —</option>
               {categories.map((c) => (

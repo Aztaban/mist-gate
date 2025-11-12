@@ -44,7 +44,6 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
         <OrderProducts products={order.products} />
         <div className="cart-bottom section surface-dark">
           {order.shippingAddress && <Address address={order.shippingAddress as ShippingAddress} />}
-
           <OrderPriceSummary itemsPrice={itemsPrice} shippingPrice={shippingPrice} />
         </div>
       </article>
