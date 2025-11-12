@@ -207,3 +207,16 @@
     gap: 0.5rem;
   }
 }
+
+/* Make qty column narrow-ish */
+
+/* Hide unit price on tiny screens, like your old hidden-ss-flex */
+.hidden-ss-cell {
+  display: table-cell;
+}
+
+@media (max-width: 560px) {
+  .hidden-ss-cell {
+    display: none;
+  }
+}
