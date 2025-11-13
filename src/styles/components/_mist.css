@@ -3,14 +3,14 @@
    ======================================= */
 :root {
   /* === Base background === */
-  --mist-bg-image: url('../../images/bg-mist.jpg');
+  --mist-bg-image: url('/images/bg-mist.jpg');
   --mist-bg-position: 50%;
   --mist-bg-repeat: no-repeat;
   --mist-bg-size: cover;
 
   /* === Fog layers === */
-  --fog-1-image: url('../../images/fog-1.png');
-  --fog-2-image: url('../../images/fog-2.png');
+  --fog-1-image: url('/images/fog-1.png');
+  --fog-2-image: url('/images/fog-2.png');
   --fog-repeat: repeat-x;
   --fog-size: contain;
   --fog-position: center;

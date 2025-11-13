@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useUpdateProductMutation } from '@features/apiSlices/productApiSlice';
 import { useGetCategoriesQuery } from '@features/apiSlices/categoryApiSlice';
 import { Product, ProductDetails, UpdateProductPayload } from '@types';
@@ -15,6 +15,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
   // track only modified fields
   const [modifiedFields, setModifiedFields] = useState<Partial<Product>>({});
   const [modifiedDetails, setModifiedDetails] = useState<Partial<ProductDetails>>({});
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(product.category.id);
 
   const handleFieldUpdate = (field: keyof Product, value: any) => {
     setModifiedFields((prev) => ({ ...prev, [field]: value }));
@@ -24,20 +25,27 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
     setModifiedDetails((prev) => ({ ...prev, [field]: value }));
   };
 
-  const categoryNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
-
-  const currentCategoryName = categoryNameById.get(product.category.name) ?? '—';
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!product) return;
 
-    const updates: UpdateProductPayload = { ...modifiedFields };
-    if (Object.keys(modifiedDetails).length > 0) {
-      (updates as any).details = modifiedDetails;
+    const updates: UpdateProductPayload = {};
+
+    if (modifiedFields.name && modifiedFields.name !== product.name) {
+      updates.name = modifiedFields.name;
     }
 
-    if (Object.keys(updates).length === 0) {
+    if (selectedCategoryId !== product.category.id) {
+      updates.category = selectedCategoryId;
+    }
+
+    if (Object.keys(modifiedDetails).length > 0) {
+      updates.details = { ...modifiedDetails };
+    }
+
+    const hasBaseUpdates = Object.keys(updates).some((k) => k !== 'details');
+    const hasDetailsUpdates = !!updates.details && Object.keys(updates.details).length > 0;
+
+    if (!hasBaseUpdates && !hasDetailsUpdates) {
       onClose();
       return;
     }
@@ -71,10 +79,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
           ) : catsError ? (
             <p className="errMsg">Failed to load categories.</p>
           ) : (
-            <select
-              id="category"
-              value={modifiedFields.category?.name ?? product.category.name}
-              onChange={(e) => handleFieldUpdate('category' as const, e.target.value)}>
+            <select id="category" value={selectedCategoryId} onChange={(e) => setSelectedCategoryId(e.target.value)}>
               <option value="">— Select —</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -83,9 +88,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
               ))}
             </select>
           )}
-          {modifiedFields.category && modifiedFields.category !== product.category && (
-            <p>Previous: {currentCategoryName}</p>
-          )}
+          {selectedCategoryId !== product.category.id && <p>Previous: {product.category.name}</p>}
 
           <label htmlFor="details.author">Author:</label>
           <input
