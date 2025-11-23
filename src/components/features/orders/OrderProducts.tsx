@@ -29,7 +29,7 @@ const OrderProducts = ({ products }: OrderProductsProps) => {
         <tr>
           <td>Total</td>
           <td>{totalQuantity}</td>
-          <td></td>
+          <td className="hidden-ss-cell"></td>
           <td className="u-text-success">{eurFormat(totalPrice)}</td>
         </tr>
       </tfoot>

@@ -6,22 +6,15 @@ interface OrderSummaryProps {
 
 const OrderSummary = ({ order }: OrderSummaryProps) => {
   return (
-    <div className="cart-summary">
+    <div className="cart-summary surface-dark">
       <p>Created on:</p>
       <p>{new Date(order.created_at).toLocaleDateString()}</p>
       <p>Order status:</p>
       <p>{order.status.toUpperCase()}</p>
       <p>Shipping Method:</p>
-      <p>
-        {order.shippingMethod
-          ? order.shippingMethod.toUpperCase()
-          : 'NO DATA'}
-      </p>
+      <p>{order.shippingMethod ? order.shippingMethod.toUpperCase() : 'NO DATA'}</p>
       <p>Paid status:</p>
-      <p
-      >
-        {order.isPaid ? 'Paid' : 'Not Paid'}
-      </p>
+      <p>{order.isPaid ? 'Paid' : 'Not Paid'}</p>
     </div>
   );
 };

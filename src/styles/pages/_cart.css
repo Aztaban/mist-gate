@@ -275,8 +275,6 @@
   max-inline-size: 560px; /* don’t get too wide on desktop */
   border: var(--border);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: var(--shadow-soft) inset;
 
   /* two-column grid: label | value */
   display: grid;

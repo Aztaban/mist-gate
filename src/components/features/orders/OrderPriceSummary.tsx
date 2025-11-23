@@ -5,13 +5,10 @@ interface OrderPriceSummaryProps {
   shippingPrice: number;
 }
 
-const OrderPriceSummary = ({
-  itemsPrice,
-  shippingPrice,
-}: OrderPriceSummaryProps) => {
+const OrderPriceSummary = ({ itemsPrice, shippingPrice }: OrderPriceSummaryProps) => {
   const totalPrice = itemsPrice + shippingPrice;
   return (
-    <div className="cart-summary cart-summary-right">
+    <div className="cart-summary surface-dark">
       <p>Items Price:</p>
       <p>{eurFormat(itemsPrice)}</p>
       <p>Shipping Price:</p>

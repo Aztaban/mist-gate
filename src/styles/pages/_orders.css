@@ -52,6 +52,20 @@
   min-width: 84px;
 }
 
+.order-detail-grid {
+  /* re-using the section + surface-dark wrapper from elsewhere */
+  display: grid;
+  gap: clamp(0.75rem, 1.8vw, 1.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  margin-top: 0.75rem;
+}
+
+/* Make sure inner cards fill the grid instead of floating right */
+.order-detail-grid .cart-summary {
+  margin-inline-start: 0;
+  max-inline-size: 100%;
+}
+
 /* -------------------------------
    Responsive column visibility
    Column order (1..7):
@@ -108,5 +122,69 @@
   }
   .orders-admin .pagination > button {
     min-width: 72px;
+  }
+}
+
+@media (max-width: 599px) {
+  .order-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1100px) {
+  .order-detail-grid > .cart-summary:last-child {
+    grid-column: 1 / -1; /* stretch across all columns */
+  }
+}
+
+/* =======================================
+   Single order – Admin tools & buttons
+   ======================================= */
+
+.admin-tools {
+  margin-top: clamp(0.9rem, 2vw, 1.25rem);
+  padding: clamp(0.75rem, 1.8vw, 1.25rem);
+  border-radius: var(--radius);
+  border: var(--border);
+  background: var(--glass-dark-bg);
+  box-shadow: var(--shadow-strong);
+  color: var(--color-text);
+}
+
+.admin-tools .header-wrapper {
+  margin: 0 0 0.6rem;
+  font-size: var(--fs-h2);
+  color: var(--color-h2);
+  letter-spacing: 0.03em;
+}
+
+/* Stack the selects + button nicely */
+.admin-tools form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Keep the save button aligned with the fields */
+.admin-tools .save-btn {
+  justify-self: flex-start;
+}
+
+/* Bottom action row (Go Back) – reuses checkout/cart patterns */
+.checkout-buttons {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Slightly looser on small screens */
+@media (max-width: 560px) {
+  .admin-tools {
+    padding-inline: 0.75rem;
+  }
+
+  .checkout-buttons {
+    justify-content: space-between;
   }
 }

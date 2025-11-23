@@ -6,16 +6,12 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
     getAllOrders: builder.query<Order[], void>({
       query: () => '/orders',
       providesTags: (result) =>
-        result
-          ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
-          : [{ type: 'Order', id: 'LIST' }],
+        result ? result.map((order) => ({ type: 'Order', id: order.id.toString() })) : [{ type: 'Order', id: 'LIST' }],
     }),
     getOrdersForUser: builder.query<Order[], void>({
       query: () => '/users/user/orders',
       providesTags: (result) =>
-        result
-          ? result.map((order) => ({ type: 'Order', id: order.id.toString() }))
-          : [{ type: 'Order', id: 'LIST' }],
+        result ? result.map((order) => ({ type: 'Order', id: order.id.toString() })) : [{ type: 'Order', id: 'LIST' }],
     }),
     getOrderById: builder.query<Order, string>({
       query: (orderId) => `/orders/${orderId}`,
@@ -35,19 +31,23 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         method: 'PATCH',
         body: updates,
       }),
-      invalidatesTags: (_result, _error, { orderId }) => [{ type: 'Order', id: orderId }],  
+      invalidatesTags: (_result, _error, { orderId }) => [{ type: 'Order', id: orderId }],
     }),
     createPaymentIntent: builder.mutation<PaymentIntentResponse, string>({
-      query: ( orderId ) => ({
+      query: (orderId) => ({
         url: `/orders/${orderId}/payment-intent`,
         method: 'POST',
       }),
     }),
     markOrderPaid: builder.mutation<void, string>({
-      query: ( orderId ) => ({
+      query: (orderId) => ({
         url: `/orders/${orderId}/mark-paid`,
         method: 'PUT',
       }),
+      invalidatesTags: (_result, _error, orderId) => [
+        { type: 'Order', id: orderId }, // single-order pages
+        { type: 'Order', id: 'LIST' }, // optional: refresh lists too
+      ],
     }),
   }),
 });
@@ -59,5 +59,5 @@ export const {
   useAddNewOrderMutation,
   useUpdateOrderMutation,
   useCreatePaymentIntentMutation,
-  useMarkOrderPaidMutation
+  useMarkOrderPaidMutation,
 } = extendedApiSlice;
