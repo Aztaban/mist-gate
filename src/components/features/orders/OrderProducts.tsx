@@ -16,8 +16,8 @@ const OrderProducts = ({ products }: OrderProductsProps) => {
         <tr>
           <th>Product</th>
           <th>Quantity</th>
-          <th className="hidden-ss-cell">Unit Price</th>
-          <th>Total Price</th>
+          <th className="hidden-ss-cell u-text-right">Unit Price</th>
+          <th className="u-text-right">Total Price</th>
         </tr>
       </thead>
       <tbody>
@@ -30,7 +30,7 @@ const OrderProducts = ({ products }: OrderProductsProps) => {
           <td>Total</td>
           <td>{totalQuantity}</td>
           <td className="hidden-ss-cell"></td>
-          <td className="u-text-success">{eurFormat(totalPrice)}</td>
+          <td className="u-text-success u-text-right">{eurFormat(totalPrice)}</td>
         </tr>
       </tfoot>
     </table>

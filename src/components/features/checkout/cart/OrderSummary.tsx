@@ -19,12 +19,15 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
   const { itemsPrice, shippingPrice } = calculateOrderPrices(order.products, order.shippingMethod);
 
   const handleNext = async () => {
+    if (!confirm('Are you sure you want to place this order?')) return;
     try {
       const orderId = await addNewOrder(order).unwrap();
+      console.log('orderId', orderId);
+      console.log('order', order);
 
       if (orderId) {
-        dispatch(setOrderId(orderId));
         dispatch(clearCart());
+        dispatch(setOrderId(orderId));
         onNext();
       } else {
         console.error('Order creation succeeded, but no orderId was returned.');

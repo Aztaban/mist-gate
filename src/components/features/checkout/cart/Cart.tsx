@@ -62,12 +62,20 @@ const Cart = ({ onNext }: CartProps): ReactElement => {
           </div>
         )}
         <div className="checkout-actions checkout-actions--split">
-          <button className="btn btn--del" onClick={handleClearCart}>
-            Clear Cart
-          </button>
-          <button className="btn btn--brand" onClick={handleNext} disabled={!products.length}>
-            Continue to shipping
-          </button>
+          {!products.length ? (
+            <button className="btn btn--brand">
+              <NavLink to="/shop">Visit SHOP</NavLink>
+            </button>
+          ) : (
+            <>
+              <button className="btn btn--del" onClick={handleClearCart}>
+                Clear Cart
+              </button>
+              <button className="btn btn--brand" onClick={handleNext} disabled={!products.length}>
+                Continue to shipping
+              </button>
+            </>
+          )}
         </div>
       </div>
     </section>

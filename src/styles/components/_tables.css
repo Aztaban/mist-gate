@@ -48,7 +48,7 @@
 
 /* Text helpers (global-ish) */
 .u-text-right {
-  text-align: right;
+  text-align: right !important;
 }
 
 .u-text-center {

@@ -15,8 +15,8 @@ const OrderProductLineItem = ({ product }: OrderProductLineItemProps) => {
         <NavLink to={`/shop/product/${product.product}`}>{product.name}</NavLink>
       </td>
       <td>{product.quantity}</td>
-      <td className="hidden-ss-cell">{eurFormat(product.price)}</td>
-      <td>{eurFormat(lineTotal)}</td>
+      <td className="hidden-ss-cell u-text-right">{eurFormat(product.price)}</td>
+      <td className="u-text-right">{eurFormat(lineTotal)}</td>
     </tr>
   );
 };
