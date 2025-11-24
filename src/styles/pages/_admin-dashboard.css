@@ -1,0 +1,110 @@
+/* ===== Admin dashboard layout ===== */
+
+.admin-dashboard {
+  margin-top: 1.25rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 2.2vw, 1.5rem);
+  align-items: flex-start;
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.dashboard-grid > * {
+  min-width: 0;
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ===== Generic admin panel ===== */
+
+.admin-panel {
+  border-radius: var(--radius);
+  border: var(--border);
+  background: var(--glass-dark-bg);
+  box-shadow: var(--shadow-strong);
+  overflow: hidden;
+}
+
+/* header */
+.admin-panel__header {
+  padding: 0.55rem 0.95rem;
+  border-bottom: var(--border);
+  background: linear-gradient(180deg, rgba(var(--brand-rgb), 0.08), rgba(var(--primary-rgb), 0.2));
+}
+
+.admin-panel__title {
+  margin: 0;
+  font-family: var(--font-logo);
+  font-size: var(--fs-h1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-title);
+}
+
+/* body */
+.admin-panel__body {
+  padding: 0.8rem 1rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  line-height: 1.45;
+}
+
+.admin-panel__meta {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.admin-panel__meta--empty {
+  font-style: italic;
+}
+
+/* ===== Status bar specifics ===== */
+
+.admin-status p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.admin-status p:last-child {
+  margin-bottom: 0;
+}
+
+.admin-status__icon {
+  flex: 0 0 auto;
+  line-height: 1.2;
+}
+
+.admin-status__link {
+  color: var(--color-brand);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.admin-status__link:hover {
+  text-decoration: underline;
+}
+
+/* ===== Tables inside panels ===== */
+
+.admin-table {
+  /* just a hook in case you want extra tweaks */
+}
+
+.admin-panel--table .table tbody td {
+  font-size: 0.93rem;
+}
+
+/* tiny tweak for links in tables */
+.admin-table a {
+  font-weight: 500;
+}

@@ -21,6 +21,7 @@
 /*Import utility styles */
 
 /* Import page-specific styles */
+@import './pages/_admin-dashboard.css';
 @import './pages/_admin-products.css';
 @import './pages/_products.css';
 @import './pages/_checkout.css';
