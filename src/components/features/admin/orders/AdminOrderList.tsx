@@ -18,8 +18,8 @@ const AdminOrderList = ({ orders }: AdminOrderListProps): ReactElement => {
 
   if (!orders || orders.length === 0) {
     return (
-      <div className="surface-dark">
-        <p className="muted">No orders found.</p>
+      <div className="surface-dark section">
+        <p>No orders found.</p>
       </div>
     );
   }

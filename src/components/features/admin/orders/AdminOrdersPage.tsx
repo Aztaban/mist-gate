@@ -37,12 +37,7 @@ const AdminOrdersPage = () => {
           />
         </div>
       </header>
-
-      {filteredOrders.length === 0 ? (
-        <p className="muted">No orders found.</p>
-      ) : (
-        <AdminOrderList orders={filteredOrders} />
-      )}
+      <AdminOrderList orders={filteredOrders} />
     </section>
   );
 };

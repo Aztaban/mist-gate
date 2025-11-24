@@ -22,8 +22,6 @@ const OrderSummary = ({ onNext, onPrevious }: OrderSummaryProps) => {
     if (!confirm('Are you sure you want to place this order?')) return;
     try {
       const orderId = await addNewOrder(order).unwrap();
-      console.log('orderId', orderId);
-      console.log('order', order);
 
       if (orderId) {
         dispatch(clearCart());
