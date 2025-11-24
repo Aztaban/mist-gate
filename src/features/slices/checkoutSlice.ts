@@ -101,6 +101,8 @@ export const selectShippingAddress = (state: RootState) => state.checkout.shippi
 export const selectShippingMethod = (state: RootState) => state.checkout.shippingMethod;
 export const selectCheckout = (state: RootState) => state.checkout;
 export const selectOrderId = (state: RootState) => state.checkout.orderId;
+export const selectCartItemCount = (state: RootState) =>
+  state.checkout.products.reduce((total, item) => total + item.quantity, 0);
 
 export const { addToCart, removeFromCart, updateQuantity, clearCart, setCheckout, setOrderId } = checkoutSlice.actions;
 

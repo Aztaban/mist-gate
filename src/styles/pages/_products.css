@@ -73,6 +73,7 @@
   object-fit: contain;
   border-radius: calc(var(--radius) - 4px);
   display: block;
+  padding: 0 5px;
 }
 
 /* Body */
