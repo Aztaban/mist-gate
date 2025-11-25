@@ -9,29 +9,27 @@ interface Props {
 }
 
 const CategoryFormActions = ({ selectedCategory, onSubmit, onDelete, productCount, disabled = false }: Props) => {
-  const canDelete = selectedCategory && productCount === 0 && !disabled;
+  const canDelete = !!selectedCategory && productCount === 0 && !disabled;
 
   return (
-    <div style={{ marginTop: '1rem' }}>
-      <button type="button" onClick={onSubmit} disabled={disabled}>
+    <div className="form__actions category-form__actions">
+      <button type="button" onClick={onSubmit} disabled={disabled} className="btn btn--brand btn--sm">
         {selectedCategory ? 'Save Changes' : 'Create Category'}
       </button>
 
       {selectedCategory && (
-        <div style={{ marginTop: '0.5rem' }}>
+        <div className="category-form__delete">
           <button
             type="button"
             onClick={onDelete}
             disabled={!canDelete}
-            style={{ marginRight: '0.5rem' }}
+            className="btn btn--del btn--sm"
             aria-disabled={!canDelete}>
-            Delete
+            Delete Category
           </button>
+
           <span
-            style={{
-              fontSize: '0.9rem',
-              color: productCount > 0 ? 'red' : 'inherit',
-            }}>
+            className={productCount > 0 ? 'category-form__hint category-form__hint--danger' : 'category-form__hint'}>
             {productCount > 0
               ? `Cannot delete: ${productCount} product${productCount > 1 ? 's' : ''} in this category`
               : 'No products in this category'}

@@ -33,7 +33,6 @@ const CategoryForm = ({ selectedCategory, products, clearSelection }: Props) => 
     setName(selectedCategory?.name || '');
   }, [selectedCategory]);
 
-  // Build counts once for current products list
   const countsByCategoryId = useMemo(() => {
     const map = new Map<string, number>();
     for (const p of products) {
@@ -45,7 +44,6 @@ const CategoryForm = ({ selectedCategory, products, clearSelection }: Props) => 
   }, [products]);
 
   const productCount = selectedCategory ? countsByCategoryId.get(selectedCategory.id) ?? 0 : 0;
-
   const busy = adding || updating || deleting;
 
   const handleSubmit = async () => {
@@ -68,7 +66,6 @@ const CategoryForm = ({ selectedCategory, products, clearSelection }: Props) => 
   const handleDelete = async () => {
     if (!selectedCategory) return;
 
-    // Client-side guard; server also blocks with 409 if products exist
     if (productCount > 0) {
       alert('Cannot delete category with products.');
       return;
@@ -79,33 +76,36 @@ const CategoryForm = ({ selectedCategory, products, clearSelection }: Props) => 
       clearSelection();
       setName('');
     } catch (err: any) {
-      // If BE returns 409, show a clear message
       alert(err?.data?.message ?? 'Delete failed');
     }
   };
 
   return (
-    <div>
-      {selectedCategory && (
-        <div style={{ textAlign: 'right', marginBottom: '0.5rem' }}>
-          <button onClick={clearSelection} disabled={busy}>
+    <section className="surface-dark section category-panel">
+      <header className="section-bar section-bar--sub">
+        <h3 className="section-bar__title section-bar__title--sm">
+          {selectedCategory ? 'Edit Category' : 'Create Category'}
+        </h3>
+
+        {selectedCategory && (
+          <button className="btn btn--sm btn--brand" type="button" onClick={clearSelection} disabled={busy}>
             + New Category
           </button>
-        </div>
-      )}
+        )}
+      </header>
 
-      <h3>{selectedCategory ? 'Edit Category' : 'Create New Category'}</h3>
+      <div className="category-panel__body">
+        <CategoryFormFields name={name} setName={setName} disabled={busy} />
 
-      <CategoryFormFields name={name} setName={setName} disabled={busy} />
-
-      <CategoryFormActions
-        selectedCategory={selectedCategory}
-        onSubmit={handleSubmit}
-        onDelete={handleDelete}
-        productCount={productCount}
-        disabled={busy}
-      />
-    </div>
+        <CategoryFormActions
+          selectedCategory={selectedCategory}
+          onSubmit={handleSubmit}
+          onDelete={handleDelete}
+          productCount={productCount}
+          disabled={busy}
+        />
+      </div>
+    </section>
   );
 };
 

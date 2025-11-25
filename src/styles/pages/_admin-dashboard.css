@@ -221,3 +221,70 @@
   align-items: center;
   justify-content: space-between;
 }
+
+/* ===== Category panel (right side in Category Manager) ===== */
+
+.category-panel {
+  padding: 0.9rem 1rem 1rem; /* slightly smaller than generic .section */
+}
+
+/* smaller variant of the section-bar used inside panels */
+.section-bar--sub {
+  padding: 0.45rem 0.85rem;
+}
+
+.section-bar--sub::after {
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.3rem;
+}
+
+/* title smaller than big dashboard headers */
+.section-bar__title--sm {
+  font-size: var(--fs-h2);
+  letter-spacing: 0.06em;
+}
+
+/* inner body spacing */
+.category-panel__body {
+  padding: 0.75rem 0.9rem 0.25rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+/* ===== Category form styles ===== */
+
+.category-form__field {
+  max-width: 420px;
+}
+
+.category-form__input {
+  width: 100%;
+  max-width: 100%;
+}
+
+.category-form__helper {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.category-form__actions {
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+.category-form__delete {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.7rem;
+  align-items: center;
+}
+
+.category-form__hint {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.category-form__hint--danger {
+  color: #ff4f4f;
+}
