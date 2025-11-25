@@ -96,10 +96,6 @@
 
 /* ===== Tables inside panels ===== */
 
-.admin-table {
-  /* just a hook in case you want extra tweaks */
-}
-
 .admin-panel--table .table tbody td {
   font-size: 0.93rem;
 }

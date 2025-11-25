@@ -25,9 +25,9 @@ const CategoryList = ({ onSelectCategory, limit = 5 }: Props) => {
       <input
         type="text"
         placeholder="search category"
+        className="header-search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="search-bar"
         aria-label="Search category"
       />
 
