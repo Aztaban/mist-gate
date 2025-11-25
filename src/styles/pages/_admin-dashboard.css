@@ -108,3 +108,116 @@
 .admin-table a {
   font-weight: 500;
 }
+
+/* ===== Manager pages (Users / Categories) ===== */
+
+.users-manager {
+  margin-top: 1.25rem;
+}
+
+/* shared grid for list + detail */
+.manager-grid,
+.users-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 2vw, 1.4rem);
+  align-items: flex-start;
+}
+
+.manager-grid__col {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .manager-grid,
+  .users-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* left column: search + list of users */
+.search-user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem 0.9rem;
+  border-radius: calc(var(--radius) - 2px);
+  background: rgba(var(--surface-rgb), 0.85);
+  border: var(--border);
+}
+
+.search-bar {
+  max-width: 18rem;
+}
+
+.search-user p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.search-user ul {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-user li {
+  padding: 0.35rem 0.45rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-user li:hover,
+.search-user li:focus-visible {
+  background: rgba(var(--secondary-rgb), 0.08);
+  color: var(--color-title);
+}
+
+/* right column: placeholder when nothing selected */
+.users-placeholder {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* nested card with user details */
+.user-card {
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem 1rem;
+  background: rgba(var(--surface-rgb), 0.9);
+  border: var(--border);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.4rem;
+  align-content: flex-start;
+}
+
+.user-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.user-card p + p {
+  margin-top: 0.25rem;
+}
+
+.user-card strong {
+  color: var(--color-title);
+}
+
+.user-card .btn {
+  margin-top: 0.45rem;
+  min-width: 10rem;
+}
+
+.flex-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
