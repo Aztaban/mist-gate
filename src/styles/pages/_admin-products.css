@@ -302,3 +302,133 @@
     text-align: left;
   }
 }
+
+/* ============ Generic admin modal ============ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+}
+
+.modal-content {
+  width: min(480px, 100%);
+  background: var(--glass-dark-bg);
+  border-radius: var(--radius);
+  border: var(--border);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(var(--glass-dark-blur));
+  -webkit-backdrop-filter: blur(var(--glass-dark-blur));
+  padding: clamp(1rem, 2vw, 1.4rem);
+  display: grid;
+  gap: 0.75rem;
+  color: var(--color-text);
+  animation: modal-pop 140ms ease-out;
+}
+
+.modal-content h2 {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-logo);
+  font-size: var(--fs-h2);
+  letter-spacing: 0.06em;
+  color: var(--color-title);
+}
+
+.modal-content p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.modal-input,
+.modal-content input[type='text'],
+.modal-content input[type='file'],
+.modal-content textarea,
+.modal-content select {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+/* images inside image modal */
+.modal-content img {
+  max-width: 220px;
+  width: 100%;
+  border-radius: calc(var(--radius) - 4px);
+  border: var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* button row inside ModalButtons */
+.modal-content .form__actions,
+.modal-content .modal-buttons {
+  margin-top: 0.75rem;
+}
+
+/* helper text */
+.field-helper {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+/* small screens */
+@media (max-width: 540px) {
+  .modal-content {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.modal-actions .btn {
+  min-width: 7rem;
+}
+
+/* side-by-side current vs new image in the image modal */
+.modal-image-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-image-pane {
+  text-align: center;
+}
+
+/* reuse generic modal img styling, just ensure it fits */
+.modal-image-pane img {
+  max-width: 220px;
+  width: 100%;
+  border-radius: calc(var(--radius) - 4px);
+  border: var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+/* stack panes on narrow screens */
+@media (max-width: 600px) {
+  .modal-image-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

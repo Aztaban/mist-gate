@@ -9,15 +9,14 @@ interface ImageUpdateModalProps {
 }
 
 const ProductImageUpdateModal = ({ productId, currentImage, onClose }: ImageUpdateModalProps) => {
-  const {
-    selectedFile,
-    previewUrl,
-    error: imageError,
-    handleFileChange,
-    reset,
-  } = useImageUpload({ maxSizeMb: 2, minWidth: 300, minHeight: 300 });
+  const { selectedFile, previewUrl, error: imageError, handleFileChange, reset } = useImageUpload();
 
-  const [updatedProductImage, { error }] = useUpdateProductImageMutation();
+  const [updateImage, { isLoading, error }] = useUpdateProductImageMutation();
+
+  const handleClose = () => {
+    reset();
+    onClose();
+  };
 
   const handleUpload = async () => {
     if (!selectedFile) {
@@ -26,38 +25,55 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose }: ImageUpda
     }
 
     try {
-      await updatedProductImage({
+      await updateImage({
         id: productId,
         image: selectedFile,
       }).unwrap();
-      reset();
-      onClose();
+      handleClose();
     } catch (err) {
-      console.error(imageError || 'Failed to update product image.');
+      console.error('Failed to update image:', err);
     }
   };
 
-  const handleClose = () => {
-    reset();
-    onClose();
-  };
-
-  const src = previewUrl || currentImage;
-
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" role="dialog" aria-modal="true">
       <div className="modal-content">
-        <h2>Update Product Image</h2>
-        <div>
-          <img src={src} alt="Product Image" />
+        <h2>Change Image</h2>
+
+        <div className="modal-image-grid">
+          <div className="modal-image-pane">
+            <p className="field-helper">Current image</p>
+            <img src={currentImage} alt="Current product" />
+          </div>
+
+          <div className="modal-image-pane">
+            <p className="field-helper">{previewUrl ? 'New image' : 'Preview'}</p>
+            {previewUrl ? (
+              <img src={previewUrl} alt="Preview" />
+            ) : (
+              <p className="product-editor__media-hint">Select an image to see a preview.</p>
+            )}
+          </div>
         </div>
+
         <p>
           Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.
         </p>
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        {imageError && <p className="error">{imageError}</p>}
-        <ModalButtons handleSubmit={handleUpload} onClose={handleClose} />
-        {error && <p className="error">Error updating image.</p>}
+
+        <div className="form__field">
+          <label htmlFor="image-upload">Upload image</label>
+          <input id="image-upload" type="file" accept="image/*" onChange={handleFileChange} />
+        </div>
+
+        {imageError && <p className="errMsg">{imageError}</p>}
+        {error && <p className="errMsg">Error updating image.</p>}
+
+        <ModalButtons
+          handleSubmit={handleUpload}
+          onClose={handleClose}
+          isSubmitting={isLoading}
+          confirmLabel="Upload"
+        />
       </div>
     </div>
   );
