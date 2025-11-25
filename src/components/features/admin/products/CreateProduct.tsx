@@ -16,9 +16,9 @@ const CreateProduct = () => {
 
   const [formData, setFormData] = useState<CreateProductPayload>({
     name: '',
-    category: '', // categoryId
+    category: '',
     price: 0,
-    image: '', // set after upload
+    image: '',
     countInStock: 0,
     details: { author: '', releaseDate: '', description: '' },
   });
@@ -26,11 +26,11 @@ const CreateProduct = () => {
   const canSave = useMemo(() => {
     return (
       !!formData.name?.trim() &&
-      !!formData.category && // category id
+      !!formData.category &&
       typeof formData.price === 'number' &&
       formData.price >= 0 &&
       !!formData.details?.author?.trim() &&
-      !!selectedFile && // require image file
+      !!selectedFile &&
       !isLoading
     );
   }, [formData, selectedFile, isLoading]);
@@ -39,7 +39,7 @@ const CreateProduct = () => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === 'category' ? value : value,
+      [name]: value,
     }));
   };
 
@@ -82,7 +82,6 @@ const CreateProduct = () => {
       const payload: CreateProductPayload = {
         ...formData,
         image,
-        // normalize empty strings to undefined for optional fields
         details: {
           author: formData.details?.author?.trim() ?? '',
           releaseDate: formData.details?.releaseDate || undefined,
@@ -91,7 +90,7 @@ const CreateProduct = () => {
       };
 
       await addNewProduct(payload).unwrap();
-      // reset local UI
+
       resetImage();
       setFormData({
         name: '',
@@ -109,113 +108,172 @@ const CreateProduct = () => {
     }
   };
 
-  const onBackBtnClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+  const onBackBtnClicked = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigate(-1);
   };
 
   return (
-    <div className="admin-order">
-      <h2>Add a New Product</h2>
-      <form onSubmit={handleSubmit} className="admin-order-form">
-        <fieldset disabled={isLoading}>
-          <legend>New Product</legend>
+    <div className="page-stack">
+      <section className="surface-dark section product-editor">
+        <header className="section-bar section-bar--sub">
+          <h2 className="section-bar__title section-bar__title--sm">Add a New Product</h2>
 
-          <label htmlFor="name">Product Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleGeneralChange}
-            placeholder="Product Name"
-          />
-
-          <label htmlFor="category">Category:</label>
-          {catsLoading ? (
-            <span>Loading categories…</span>
-          ) : catsError ? (
-            <span className="errMsg">Failed to load categories</span>
-          ) : (
-            <select id="category" name="category" onChange={handleGeneralChange} value={formData.category}>
-              <option value="">Select a category</option>
-              {categories.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          )}
-
-          <label htmlFor="price">Product Price:</label>
-          <PriceInput value={formData.price || 0} onChange={handlePriceChange} />
-
-          <label htmlFor="image">Product Image:</label>
-          {previewUrl ? (
-            <img src={previewUrl} alt="Preview" className="admin-order-form-img" />
-          ) : (
-            <p>
-              Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.
-            </p>
-          )}
-          <input type="file" id="image" name="image" onChange={handleFileChange} accept="image/*" />
-          {imageError && <div className="errMsg">{imageError}</div>}
-
-          <label htmlFor="countInStock">Items in Stock:</label>
-          <input
-            type="number"
-            id="countInStock"
-            name="countInStock"
-            value={formData.countInStock}
-            onChange={handleStockChange}
-            placeholder="countInStock"
-            min={0}
-            step={1}
-          />
-        </fieldset>
-
-        <fieldset disabled={isLoading}>
-          <legend>Details</legend>
-
-          <label htmlFor="details.author">Author:</label>
-          <input
-            type="text"
-            id="details.author"
-            name="details.author"
-            value={formData.details?.author}
-            onChange={handleDetailsChange}
-            placeholder="Author"
-          />
-
-          <label htmlFor="details.releaseDate">Release Date:</label>
-          <input
-            type="date"
-            id="details.releaseDate"
-            name="details.releaseDate"
-            value={formData.details?.releaseDate}
-            onChange={handleDetailsChange}
-          />
-
-          <label htmlFor="details.description">Description:</label>
-          <textarea
-            id="details.description"
-            name="details.description"
-            value={formData.details?.description}
-            onChange={handleDetailsChange}
-            placeholder="Product Description"
-            rows={6}
-          />
-        </fieldset>
-
-        <div className="checkout-buttons">
-          <button type="button" className="btn" onClick={onBackBtnClicked} disabled={isLoading}>
-            back to products
+          <button type="button" className="btn btn--ghost btn--sm" onClick={onBackBtnClicked} disabled={isLoading}>
+            Back to products
           </button>
-          <button type="submit" className="btn back-btn" disabled={!canSave} aria-disabled={!canSave}>
-            {isLoading ? 'Loading...' : 'Create Product'}
-          </button>
-        </div>
-      </form>
+        </header>
+
+        <form onSubmit={handleSubmit} className="product-editor__form">
+          <div className="product-editor__grid">
+            {/* LEFT: main info */}
+            <div className="product-editor__col product-editor__col--main">
+              <div className="product-editor__group">
+                <h3 className="product-editor__group-title">Basics</h3>
+
+                <div className="form__field">
+                  <label htmlFor="name">Product Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleGeneralChange}
+                    placeholder="Product name"
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="form__field">
+                  <label htmlFor="category">Category</label>
+                  {catsLoading ? (
+                    <span>Loading categories…</span>
+                  ) : catsError ? (
+                    <span className="errMsg">Failed to load categories</span>
+                  ) : (
+                    <select
+                      id="category"
+                      name="category"
+                      onChange={handleGeneralChange}
+                      value={formData.category}
+                      disabled={isLoading}>
+                      <option value="">Select a category</option>
+                      {categories.map((c) => (
+                        <option key={c.id} value={c.id}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+
+                <div className="form__field">
+                  <label htmlFor="price">Price</label>
+                  <PriceInput value={formData.price || 0} onChange={handlePriceChange} />
+                </div>
+
+                <div className="form__field">
+                  <label htmlFor="countInStock">Items in Stock</label>
+                  <input
+                    type="number"
+                    id="countInStock"
+                    name="countInStock"
+                    value={formData.countInStock}
+                    onChange={handleStockChange}
+                    min={0}
+                    step={1}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="product-editor__group">
+                <h3 className="product-editor__group-title">Details</h3>
+
+                <div className="form__field">
+                  <label htmlFor="details.author">Author</label>
+                  <input
+                    type="text"
+                    id="details.author"
+                    name="details.author"
+                    value={formData.details?.author}
+                    onChange={handleDetailsChange}
+                    placeholder="Author"
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="form__field">
+                  <label htmlFor="details.releaseDate">Release Date</label>
+                  <input
+                    type="date"
+                    id="details.releaseDate"
+                    name="details.releaseDate"
+                    value={formData.details?.releaseDate}
+                    onChange={handleDetailsChange}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="form__field">
+                  <label htmlFor="details.description">Description</label>
+                  <textarea
+                    id="details.description"
+                    name="details.description"
+                    value={formData.details?.description}
+                    onChange={handleDetailsChange}
+                    placeholder="Product description"
+                    rows={6}
+                    disabled={isLoading}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT: image */}
+            <aside className="product-editor__col product-editor__col--media">
+              <h3 className="product-editor__group-title">Product Image</h3>
+
+              <div className="product-editor__media">
+                {previewUrl ? (
+                  <img src={previewUrl} alt="Preview" />
+                ) : (
+                  <p className="product-editor__media-hint">
+                    Recommended resolution: <strong>at least 300×300px</strong>. Maximum size: <strong>2MB</strong>.
+                  </p>
+                )}
+              </div>
+
+              <div className="form__field">
+                <label htmlFor="image">Upload image</label>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  onChange={handleFileChange}
+                  accept="image/*"
+                  disabled={isLoading}
+                />
+              </div>
+
+              {imageError && <p className="errMsg product-editor__error">{imageError}</p>}
+            </aside>
+          </div>
+
+          <div className="product-editor__actions form__actions">
+            <button type="button" className="btn btn--ghost" onClick={onBackBtnClicked} disabled={isLoading}>
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className={`btn btn--brand ${!canSave ? 'btn--disabled' : ''}`}
+              disabled={!canSave}
+              aria-disabled={!canSave}>
+              {isLoading ? 'Saving…' : 'Create Product'}
+            </button>
+          </div>
+        </form>
+      </section>
     </div>
   );
 };

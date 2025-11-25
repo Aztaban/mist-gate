@@ -102,3 +102,203 @@
     grid-template-columns: 1fr; /* search on its own line, select below */
   }
 }
+
+/* ============ Product Editor (create / edit) ============ */
+
+/* remove default .section padding, we handle inside */
+.product-editor.section {
+  padding: 0;
+}
+
+/* slightly smaller header than main dashboard ones */
+.section-bar--sub {
+  padding: 0.5rem 0.9rem;
+}
+.section-bar__title--sm {
+  font-size: var(--fs-h2);
+  letter-spacing: 0.06em;
+}
+
+/* form wrapper */
+.product-editor__form {
+  padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.9rem, 2vw, 1.4rem) clamp(1.1rem, 2vw, 1.6rem);
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+/* main layout: fields | image */
+.product-editor__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.9fr);
+  gap: clamp(1rem, 2.2vw, 1.5rem);
+  align-items: flex-start;
+}
+
+.product-editor__col {
+  min-width: 0;
+}
+
+/* stack on narrow screens */
+@media (max-width: 900px) {
+  .product-editor__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* inner groups (Basics / Details / right panel header) */
+.product-editor__group {
+  background: var(--overlay-darkest);
+  border-radius: calc(var(--radius) - 4px);
+  border: var(--border);
+  padding: 0.85rem 0.95rem 1rem;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.65rem;
+}
+
+.product-editor__group + .product-editor__group {
+  margin-top: 0.9rem;
+}
+
+.product-editor__group-title {
+  margin: 0 0 0.4rem 0;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-title);
+}
+
+/* image panel */
+.product-editor__col--media {
+  background: var(--overlay-dark);
+  border-radius: calc(var(--radius) - 4px);
+  border: var(--border);
+  padding: 0.85rem 0.95rem 1rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.product-editor__media {
+  background: var(--overlay-strong-dark);
+  border-radius: calc(var(--radius) - 4px);
+  border: var(--border);
+  padding: 0.7rem;
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.product-editor__media img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.product-editor__media-hint {
+  margin: 0;
+  font-size: 0.9rem;
+  text-align: center;
+  color: var(--color-text);
+}
+
+/* error text below image input */
+.product-editor__error {
+  margin-top: 0.25rem;
+}
+
+/* actions row */
+.product-editor__actions {
+  justify-content: flex-end;
+  padding-top: 0.3rem;
+  border-top: 1px solid var(--surface-border);
+}
+
+/* Header button group in section bar */
+.section-bar__actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Detail page form wrapper (uses same base product-editor styles) */
+.product-editor--detail .product-editor__form {
+  padding: clamp(0.8rem, 2vw, 1.2rem) clamp(0.9rem, 2vw, 1.4rem) clamp(1.1rem, 2vw, 1.6rem);
+}
+
+.product-editor__form--detail {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.4rem);
+}
+
+/* make sure grid lines up nicely */
+.product-editor__grid--detail {
+  align-items: flex-start;
+}
+
+/* Overview field layout */
+.product-detail__field {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.product-detail__field + .product-detail__field {
+  margin-top: 0.4rem;
+}
+
+.product-detail__label {
+  font-weight: 600;
+  color: var(--color-h2);
+  min-width: 7rem;
+}
+
+.product-detail__value {
+  flex: 1;
+  text-align: right;
+  color: var(--color-text);
+}
+
+/* description can wrap */
+.product-detail__field--description {
+  align-items: flex-start;
+}
+
+.product-detail__value--multiline {
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+/* Right side: stack image + pricing */
+.admin-product-detail__side {
+  display: grid;
+  gap: 0.7rem;
+  align-content: flex-start;
+}
+
+.admin-product-detail__image-btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.product-detail__actions {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* On narrow screens, put label and value under each other */
+@media (max-width: 640px) {
+  .product-detail__field {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .product-detail__value {
+    text-align: left;
+  }
+}
