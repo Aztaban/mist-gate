@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useUpdateProductMutation } from '@features/apiSlices/productApiSlice';
-import ModalButtons from '../../../auth/modals/ModalButtons';
+import ModalButtons from '@components/features/auth/modals/ModalButtons';
 
 interface RestockModalProps {
   currentStock: number;
@@ -16,7 +16,9 @@ const RestockModal = ({ currentStock, productId, onClose }: RestockModalProps) =
     setAdjustment(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const diff = parseInt(adjustment, 10);
 
     if (isNaN(diff) || diff === 0) {
@@ -46,22 +48,25 @@ const RestockModal = ({ currentStock, productId, onClose }: RestockModalProps) =
     <div className="modal-overlay" role="dialog" aria-modal="true">
       <div className="modal-content">
         <h2>Restock Product</h2>
-        <p>
-          Current stock: <strong>{currentStock}</strong>
-        </p>
 
-        <label htmlFor="stock-adjustment">Stock adjustment</label>
-        <input
-          id="stock-adjustment"
-          type="text"
-          value={adjustment}
-          onChange={handleChange}
-          className="modal-input"
-          placeholder="+10 or -3"
-        />
-        <p className="field-helper">Positive numbers add stock, negative numbers reduce it.</p>
+        <form onSubmit={handleSubmit}>
+          <p>
+            Current stock: <strong>{currentStock}</strong>
+          </p>
 
-        <ModalButtons handleSubmit={handleSubmit} onClose={onClose} isSubmitting={isLoading} />
+          <label htmlFor="stock-adjustment">Stock adjustment</label>
+          <input
+            id="stock-adjustment"
+            type="text"
+            value={adjustment}
+            onChange={handleChange}
+            className="modal-input"
+            placeholder="+10 or -3"
+          />
+          <p className="field-helper">Positive numbers add stock, negative numbers reduce it.</p>
+
+          <ModalButtons onClose={onClose} isSubmitting={isLoading} />
+        </form>
       </div>
     </div>
   );

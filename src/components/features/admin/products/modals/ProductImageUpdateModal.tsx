@@ -1,5 +1,6 @@
+import { FormEvent } from 'react';
 import { useUpdateProductImageMutation } from '@features/apiSlices/productApiSlice';
-import ModalButtons from '../../../auth/modals/ModalButtons';
+import ModalButtons from '@components/features/auth/modals/ModalButtons';
 import { useImageUpload } from '@hooks/ui/useUploadImage';
 
 interface ImageUpdateModalProps {
@@ -18,7 +19,9 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose }: ImageUpda
     onClose();
   };
 
-  const handleUpload = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (!selectedFile) {
       alert('Please select an image.');
       return;
@@ -40,40 +43,37 @@ const ProductImageUpdateModal = ({ productId, currentImage, onClose }: ImageUpda
       <div className="modal-content">
         <h2>Change Image</h2>
 
-        <div className="modal-image-grid">
-          <div className="modal-image-pane">
-            <p className="field-helper">Current image</p>
-            <img src={currentImage} alt="Current product" />
+        <form onSubmit={handleSubmit}>
+          <div className="modal-image-grid">
+            <div className="modal-image-pane">
+              <p className="field-helper">Current image</p>
+              <img src={currentImage} alt="Current product" />
+            </div>
+
+            <div className="modal-image-pane">
+              <p className="field-helper">{previewUrl ? 'New image' : 'Preview'}</p>
+              {previewUrl ? (
+                <img src={previewUrl} alt="Preview" />
+              ) : (
+                <p className="product-editor__media-hint">Select an image to see a preview.</p>
+              )}
+            </div>
           </div>
 
-          <div className="modal-image-pane">
-            <p className="field-helper">{previewUrl ? 'New image' : 'Preview'}</p>
-            {previewUrl ? (
-              <img src={previewUrl} alt="Preview" />
-            ) : (
-              <p className="product-editor__media-hint">Select an image to see a preview.</p>
-            )}
+          <p className="field-helper">
+            Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.
+          </p>
+
+          <div className="form__field">
+            <label htmlFor="image-upload">Upload image</label>
+            <input id="image-upload" type="file" accept="image/*" onChange={handleFileChange} />
           </div>
-        </div>
 
-        <p>
-          Recommended resolution: at least <strong>300×300px</strong>. Maximum size: <strong>2MB</strong>.
-        </p>
+          {imageError && <p className="errMsg">{imageError}</p>}
+          {error && <p className="errMsg">Error updating image.</p>}
 
-        <div className="form__field">
-          <label htmlFor="image-upload">Upload image</label>
-          <input id="image-upload" type="file" accept="image/*" onChange={handleFileChange} />
-        </div>
-
-        {imageError && <p className="errMsg">{imageError}</p>}
-        {error && <p className="errMsg">Error updating image.</p>}
-
-        <ModalButtons
-          handleSubmit={handleUpload}
-          onClose={handleClose}
-          isSubmitting={isLoading}
-          confirmLabel="Upload"
-        />
+          <ModalButtons onClose={handleClose} isSubmitting={isLoading} confirmLabel="Upload" />
+        </form>
       </div>
     </div>
   );

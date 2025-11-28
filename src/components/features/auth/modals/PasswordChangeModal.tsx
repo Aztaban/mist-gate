@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, MouseEvent, useState } from 'react';
 import ValidatedPasswordInput from '@components/common/inputs/ValidatedPasswordInput';
 import { useUpdatePasswordMutation } from '@features/apiSlices/authApiSlice';
 import ModalButtons from './ModalButtons';
@@ -14,7 +14,7 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
 
   const [updatePassword] = useUpdatePasswordMutation();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await updatePassword({ password: currentPassword, newPassword }).unwrap();
@@ -25,7 +25,7 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
     }
   };
 
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       onClose();
     }
@@ -34,10 +34,11 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
   return (
     <div
       className="modal-overlay"
-      onClick={status === 'success' ? handleOverlayClick : undefined}
-    >
-      <div className="modal-pwd">
-        <h3>Change Password</h3>
+      role="dialog"
+      aria-modal="true"
+      onClick={status === 'success' ? handleOverlayClick : undefined}>
+      <div className="modal-content">
+        <h2>Change Password</h2>
 
         {status === 'success' ? (
           <>
@@ -47,7 +48,7 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
             </button>
           </>
         ) : (
-          <>
+          <form onSubmit={handleSubmit}>
             <label htmlFor="currentPassword">Current Password</label>
             <input
               type="password"
@@ -55,13 +56,15 @@ const PasswordChangeModal = ({ onClose }: PasswordChangeModalProps) => {
               id="currentPassword"
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
+              className="modal-input"
             />
+
             <ValidatedPasswordInput onPasswordChange={setNewPassword} />
 
-            {status === 'error' && <p>Invalid Password. Please try again.</p>}
+            {status === 'error' && <p className="errMsg">Invalid password. Please try again.</p>}
 
-            <ModalButtons handleSubmit={handleSubmit} onClose={onClose} />
-          </>
+            <ModalButtons onClose={onClose} />
+          </form>
         )}
       </div>
     </div>

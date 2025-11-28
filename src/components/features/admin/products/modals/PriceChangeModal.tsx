@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { eurFormat } from '@utils/currency';
 import { useUpdateProductMutation } from '@features/apiSlices/productApiSlice';
 import PriceInput from '@components/common/inputs/PriceInput';
-import ModalButtons from '../../../auth/modals/ModalButtons';
+import ModalButtons from '@components/features/auth/modals/ModalButtons';
 
 interface PriceChangeModalProps {
   currentPrice: number;
@@ -14,11 +14,14 @@ const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModal
   const [price, setPrice] = useState<number>(currentPrice);
   const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (price < 0) {
       alert('Price cannot be negative.');
       return;
     }
+
     if (price === currentPrice) {
       onClose();
       return;
@@ -40,14 +43,17 @@ const PriceChangeModal = ({ currentPrice, productId, onClose }: PriceChangeModal
     <div className="modal-overlay" role="dialog" aria-modal="true">
       <div className="modal-content">
         <h2>Change Price</h2>
-        <p>
-          Current price: <strong>{eurFormat(currentPrice)}</strong>
-        </p>
 
-        <label htmlFor="new-price">New price</label>
-        <PriceInput value={price} onChange={setPrice} className="modal-input" />
+        <form onSubmit={handleSubmit}>
+          <p>
+            Current price: <strong>{eurFormat(currentPrice)}</strong>
+          </p>
 
-        <ModalButtons handleSubmit={handleSubmit} onClose={onClose} isSubmitting={isLoading} />
+          <label htmlFor="new-price">New price</label>
+          <PriceInput value={price} onChange={setPrice} className="modal-input" />
+
+          <ModalButtons onClose={onClose} isSubmitting={isLoading} />
+        </form>
       </div>
     </div>
   );

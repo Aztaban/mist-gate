@@ -1,7 +1,6 @@
-import React from 'react';
+// ModalButtons.tsx
 
 interface ModalButtonsProps {
-  handleSubmit: () => void;
   onClose: () => void;
   isSubmitting?: boolean;
   confirmLabel?: string;
@@ -9,7 +8,6 @@ interface ModalButtonsProps {
 }
 
 const ModalButtons = ({
-  handleSubmit,
   onClose,
   isSubmitting = false,
   confirmLabel = 'Confirm',
@@ -21,7 +19,8 @@ const ModalButtons = ({
         {cancelLabel}
       </button>
 
-      <button type="button" onClick={handleSubmit} className="btn btn--brand" disabled={isSubmitting}>
+      {/* This submits the nearest <form> */}
+      <button type="submit" className="btn btn--brand" disabled={isSubmitting}>
         {isSubmitting ? 'Working…' : confirmLabel}
       </button>
     </div>

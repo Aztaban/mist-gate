@@ -51,7 +51,7 @@
 
 /* body */
 .admin-panel__body {
-  padding: 0.8rem 1rem 1rem;
+  padding: 0 0.8rem 1rem 1rem;
   font-size: 0.95rem;
   color: var(--color-text);
   line-height: 1.45;
@@ -67,6 +67,10 @@
 }
 
 /* ===== Status bar specifics ===== */
+
+.admin-status {
+  padding-top: 1rem;
+}
 
 .admin-status p {
   display: flex;
