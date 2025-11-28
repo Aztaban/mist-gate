@@ -13,7 +13,7 @@ const UserSettings = (): ReactElement => {
 
   return (
     <section className="user-settings">
-      <UserInfo user={user}/>
+      <UserInfo user={user} />
       <AddressForm initialAddress={user.address as ShippingAddress} />
     </section>
   );

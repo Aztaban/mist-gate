@@ -1,0 +1,341 @@
+/* =======================================
+    Products & Catalog
+    ======================================= */
+
+:root {
+  --product-gap: clamp(0.6rem, 1.4vw, 0.9rem);
+  --product-blur: var(--blur);
+}
+
+/* =========================
+    Catalog grid
+    ========================= */
+.main__products {
+  padding-block: clamp(0.5rem, 1.4vw, 1rem);
+}
+
+.shop-grid {
+  --col-min: 180px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--col-min), 1fr));
+  gap: var(--product-gap);
+}
+
+@media (max-width: 1200px) {
+  .shop-grid {
+    --col-min: 170px;
+  }
+}
+@media (max-width: 900px) {
+  .shop-grid {
+    --col-min: 160px;
+  }
+}
+@media (max-width: 640px) {
+  .shop-grid {
+    --col-min: 150px;
+  }
+}
+@media (max-width: 420px) {
+  .shop-grid {
+    --col-min: 138px;
+  }
+}
+
+/* =========================
+    Product cards
+    ========================= */
+.pcard {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--overlay-strong-dark);
+  border: var(--border);
+  backdrop-filter: blur(var(--product-blur));
+  box-shadow: var(--shadow-strong);
+  transition: transform 0.12s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.pcard:hover {
+  transform: translateY(-2px);
+  background: var(--overlay-darkest);
+}
+
+/* Image */
+.pcard__media {
+  aspect-ratio: 2 / 3;
+  padding: 10px;
+}
+.pcard__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: calc(var(--radius) - 4px);
+  display: block;
+  padding: 0 5px;
+}
+
+/* Body */
+.pcard__body {
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.8rem 0.85rem 0.95rem;
+}
+
+.pcard__title {
+  color: var(--color-title);
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pcard__title:hover {
+  color: var(--brand);
+}
+
+.pcard__author {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Price + CTA */
+.pcard__meta {
+  margin-top: auto;
+  display: grid;
+  gap: 0.6rem;
+}
+.pcard__price {
+  color: var(--color-title);
+  font-weight: 700;
+}
+
+/* Button in cards (now uses global .btn--brand) */
+.pcard__meta .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* =========================
+    Single product
+    ========================= */
+.product-view {
+  width: min(calc(100% - 2 * var(--gutter)), var(--site-max));
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+.product__page {
+  display: grid;
+  grid-template-columns: 420px minmax(0, 1fr);
+  gap: clamp(1rem, 2.4vw, 1.5rem);
+  padding: clamp(1rem, 2.4vw, 1.5rem);
+  background: var(--overlay-darkest);
+  border: var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-strong);
+  backdrop-filter: blur(var(--blur));
+}
+
+/* ✅ Properly scale on smaller screens */
+@media (max-width: 980px) {
+  .product__page {
+    grid-template-columns: 1fr;
+  }
+
+  .product__media {
+    max-width: 320px; /* prevent oversized image */
+    margin-inline: auto; /* center image */
+  }
+
+  .product__media img {
+    width: 100%;
+    height: auto;
+    max-height: 65vh; /* keep reasonable height */
+    object-fit: contain;
+  }
+}
+
+/* Left: Image */
+.product__media {
+  background: var(--overlay-strong-dark);
+  border: var(--border);
+  border-radius: calc(var(--radius) - 6px);
+  padding: clamp(0.6rem, 1.4vw, 0.9rem);
+}
+.product__media img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Right: Body */
+.product__body {
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 0.75rem; /* clean, consistent vertical spacing */
+  background: var(--overlay-dark);
+  border: var(--border);
+  border-radius: calc(var(--radius) - 6px);
+  padding: clamp(0.9rem, 1vw, 1.3rem);
+  color: var(--color-text);
+}
+
+/* Title, description, details */
+.product__title {
+  font-family: var(--font-logo);
+  color: var(--color-title);
+  font-size: var(--fs-h1);
+  letter-spacing: 0.02em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.product-description {
+  margin: 0 0 0.45rem;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.product-details-wrapper {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.product-details {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 0.4rem 1rem;
+  font-size: 0.95rem;
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: var(--overlay-darkest);
+  box-shadow: var(--shadow-strong);
+}
+
+.product-details p:nth-child(odd) {
+  color: var(--color-h2);
+  font-weight: 600;
+}
+
+.product-details p:nth-child(even) {
+  color: var(--color-title);
+}
+
+.product-details p:nth-child(2n) {
+  margin-bottom: 0.25rem;
+}
+
+/* Price + CTA */
+.product-cart {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+}
+
+.product-price {
+  font-weight: 800;
+  color: var(--color-title);
+  font-size: var(--fs-h2);
+}
+
+/* Out of stock */
+.out-of-stock.back-btn {
+  background: var(--overlay-light);
+  border: var(--border);
+  color: var(--color-title);
+}
+
+/* =========================
+   PRODUCT BAR (layout only)
+   ========================= */
+.product-bar {
+  /* sizing */
+  --bar-card-w: clamp(190px, 22vw, 240px);
+  --bar-gap: clamp(0.6rem, 1.2vw, 0.9rem);
+
+  width: min(calc(100% - 2 * var(--gutter)), var(--site-max));
+  margin-inline: auto;
+  display: grid;
+  gap: clamp(0.6rem, 1.6vw, 0.9rem);
+}
+
+/* Horizontal scroller row */
+.product-bar__scroller {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--bar-card-w);
+  gap: var(--bar-gap);
+  overflow-x: auto;
+  padding: 0.25rem 0.25rem 0.6rem;
+  scroll-snap-type: x mandatory;
+
+  /* subtle edge fade; safe everywhere */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%);
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.product-bar__scroller::-webkit-scrollbar {
+  height: 8px;
+}
+.product-bar__scroller::-webkit-scrollbar-thumb {
+  background: var(--overlay-strong);
+  border-radius: 999px;
+}
+
+/* Use your existing card visuals 1:1 — only size them for the row */
+.product-bar__scroller .pcard {
+  width: var(--bar-card-w);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+/* Optional: slightly smaller media padding on very small screens */
+@media (max-width: 520px) {
+  .product-bar {
+    --bar-card-w: clamp(170px, 48vw, 220px);
+  }
+}
+
+/* --- One-card-per-view on small screens --- */
+@media (max-width: 600px) {
+  .product-bar__scroller {
+    /* each column = full viewport width */
+    grid-auto-columns: 100%;
+    gap: 0.6rem;
+    padding: 0 0 0.6rem;
+
+    /* snap cleanly, center each card, and make swipe feel solid */
+    scroll-snap-type: x mandatory;
+    scroll-snap-stop: always;
+    scroll-padding-inline: 0;
+    overscroll-behavior-x: contain;
+
+    /* remove edge fade so cards aren’t visually clipped */
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  /* card fills the “page” (we keep your existing pcard visuals) */
+  .product-bar__scroller .pcard {
+    width: 100%;
+    min-width: 0;
+    scroll-snap-align: center; /* centers each card when snapping */
+    margin-inline: auto; /* keeps it centered if there’s rounding */
+  }
+}

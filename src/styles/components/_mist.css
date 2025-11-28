@@ -1,17 +1,53 @@
+/* =======================================
+   Mist Background / Fog Animation
+   ======================================= */
+:root {
+  /* === Base background === */
+  --mist-bg-image: url('/images/bg-mist.jpg');
+  --mist-bg-position: 50%;
+  --mist-bg-repeat: no-repeat;
+  --mist-bg-size: cover;
+
+  /* === Fog layers === */
+  --fog-1-image: url('/images/fog-1.png');
+  --fog-2-image: url('/images/fog-2.png');
+  --fog-repeat: repeat-x;
+  --fog-size: contain;
+  --fog-position: center;
+
+  /* === Animation speeds === */
+  --fog-1-speed: 90s;
+  --fog-2-speed: 45s;
+
+  /* === Z-index hierarchy === */
+  --mist-z-bg: 1;
+  --mist-z-fog-container: 2;
+  --mist-z-fog-image: 3;
+
+  /* === Optional overrides === */
+  --mist-bg-color: var(--color-bg);
+}
+
+/* =======================================
+   Background image layer
+   ======================================= */
 .absolute-bg {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  z-index: 1;
-  background: url('../../images/bg-mist.jpg');
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
+  z-index: var(--mist-z-bg);
+  background: var(--mist-bg-color) var(--mist-bg-image);
+  background-position: var(--mist-bg-position);
+  background-repeat: var(--mist-bg-repeat);
+  background-size: var(--mist-bg-size);
   overflow: hidden;
 }
 
+/* =======================================
+   Fixed fog overlay base
+   ======================================= */
 .fog {
   position: fixed;
   top: 0;
@@ -23,42 +59,50 @@
   pointer-events: none;
 }
 
+/* =======================================
+   Container for moving fog layers
+   ======================================= */
 .fog__container {
   position: absolute;
   height: 100%;
   width: 100%;
   overflow: hidden;
-  z-index: 2;
+  z-index: var(--mist-z-fog-container);
 }
 
+/* =======================================
+   Animated fog image layers
+   ======================================= */
 .fog__img {
   position: absolute;
   height: 100vh;
   width: 300vw;
-  z-index: 3;
+  z-index: var(--mist-z-fog-image);
 }
 
 .fog__img--first {
-  background: url(../images/fog-1.png);
-  background-repeat: repeat-x;
-  background-size: contain;
-  background-position: center;
-  animation: marquee 90s linear infinite;
+  background: var(--fog-1-image);
+  background-repeat: var(--fog-repeat);
+  background-size: var(--fog-size);
+  background-position: var(--fog-position);
+  animation: marquee var(--fog-1-speed) linear infinite;
 }
 
 .fog__img--second {
-  background: url(../images/fog-2.png);
-  background-repeat: repeat-x;
-  background-size: contain;
-  background-position: center;
-  animation: marquee 45s linear infinite;
+  background: var(--fog-2-image);
+  background-repeat: var(--fog-repeat);
+  background-size: var(--fog-size);
+  background-position: var(--fog-position);
+  animation: marquee var(--fog-2-speed) linear infinite;
 }
 
+/* =======================================
+   Fog animation (marquee effect)
+   ======================================= */
 @keyframes marquee {
   0% {
     transform: translate3d(0, 0, 0);
   }
-
   100% {
     transform: translate3d(-100vw, 0, 0);
   }

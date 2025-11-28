@@ -7,70 +7,89 @@ const AddPostForm = () => {
   const [addNewPost, { isLoading }] = useAddNewPostMutation();
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState<string>('');
-  const [content, setContent] = useState<string>('');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
   const onContentChanged = (e: ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value);
 
-  const canSave = [title, content].every(Boolean) && !isLoading;
+  const canSave = [title.trim(), content.trim()].every(Boolean) && !isLoading;
 
   const onSavePostClicked = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (canSave) {
-      try {
-        await addNewPost({ title, body: content }).unwrap();
-        setTitle('');
-        setContent('');
-        refetch();
-        navigate('/posts');
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setError('Failed to save the post. Please try again.');
-          console.error('Failed to save the post', err.message);
-        }
-      }
+    if (!canSave) return;
+
+    try {
+      await addNewPost({ title: title.trim(), body: content.trim() }).unwrap();
+      setTitle('');
+      setContent('');
+      await refetch();
+      navigate('/posts');
+    } catch (err) {
+      setError('Failed to save the post. Please try again.');
+      console.error(err);
     }
   };
 
-  const onBackBtnClicked = async (e: MouseEvent<HTMLButtonElement>) => {
+  const onBackBtnClicked = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigate(-1);
   };
 
   return (
-    <section className="edit__post">
-      <h2>Add a New Post</h2>
-      <form onSubmit={onSavePostClicked}>
-        {error && <p className="error-message">{error}</p>}
-        <label htmlFor="postTitle">Post Title:</label>
-        <input
-          type="text"
-          id="postTitle"
-          name="postTitle"
-          value={title}
-          onChange={onTitleChanged}
-          disabled={isLoading}
-        />
-        <label htmlFor="postContent">Content:</label>
-        <textarea
-          id="postContent"
-          name="postContent"
-          value={content}
-          onChange={onContentChanged}
-          disabled={isLoading}
-        />
-        <div className="edit__post-btns">
-          <button type="submit" className="btn save-btn" disabled={!canSave} aria-disabled={!canSave}>
-            {isLoading ? 'Saving...' : 'Save Post'}
+    <section className="posts-editor">
+      <header className="section-bar surface-dark">
+        <h1 className="section-bar__title">Add a New Post</h1>
+      </header>
+
+      <form className="surface-dark posts-editor__form" onSubmit={onSavePostClicked} noValidate>
+        {error && (
+          <p className="form__error" role="alert">
+            {error}
+          </p>
+        )}
+
+        <div className="form__field">
+          <label htmlFor="postTitle">Post Title</label>
+          <input
+            id="postTitle"
+            name="postTitle"
+            type="text"
+            className="form__control"
+            value={title}
+            onChange={onTitleChanged}
+            disabled={isLoading}
+            placeholder="Enter a concise, catchy title"
+          />
+        </div>
+
+        <div className="form__field">
+          <label htmlFor="postContent">Content</label>
+          <textarea
+            id="postContent"
+            name="postContent"
+            className="form__control"
+            value={content}
+            onChange={onContentChanged}
+            disabled={isLoading}
+            rows={8}
+            placeholder="Write your post content…"
+          />
+        </div>
+
+        <div className="form__actions posts-editor__actions">
+          <button type="submit" className="btn btn--brand" disabled={!canSave} aria-disabled={!canSave}>
+            {isLoading ? 'Saving…' : 'Save Post'}
           </button>
-          <button type="button" className="btn back-btn" onClick={onBackBtnClicked} disabled={isLoading}>
-            back to posts
+
+          <button type="button" className="btn btn--ghost" onClick={onBackBtnClicked} disabled={isLoading}>
+            Back to posts
           </button>
         </div>
       </form>
     </section>
   );
 };
+
 export default AddPostForm;

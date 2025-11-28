@@ -8,14 +8,12 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
   const userRef = useRef<HTMLInputElement>(null);
-
-  const [login, setLogin] = useState<string>('');
-  const [pwd, setPwd] = useState<string>('');
+  const [login, setLogin] = useState('');
+  const [pwd, setPwd] = useState('');
 
   useEffect(() => {
-    if (userRef.current) userRef.current.focus();
+    userRef.current?.focus();
   }, []);
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!login || !pwd) return;
@@ -23,40 +21,46 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, errMsg }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="auth__form" onSubmit={handleSubmit}>
       {errMsg && (
-        <p className="errmsg" aria-live="assertive">
+        <p className="instructions red" role="alert" aria-live="assertive">
           {errMsg}
         </p>
       )}
 
-      <label htmlFor="login">Login:</label>
-      <input
-        type="text"
-        id="login"
-        ref={userRef}
-        value={login}
-        onChange={(e) => setLogin(e.target.value)}
-        autoComplete="off"
-        required
-      />
+      <div className="form__field">
+        <label htmlFor="login">Login</label>
+        <input
+          id="login"
+          ref={userRef}
+          type="text"
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
+          autoComplete="off"
+          required
+        />
+      </div>
 
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        value={pwd}
-        onChange={(e) => setPwd(e.target.value)}
-        autoComplete="off"
-        required
-      />
+      <div className="form__field">
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          value={pwd}
+          onChange={(e) => setPwd(e.target.value)}
+          autoComplete="off"
+          required
+        />
+      </div>
 
-      <button type="submit" className="btn save-btn" disabled={!login || !pwd}>
-        Sign In
-      </button>
-      <button type="button" className="btn back-btn">
-        <NavLink to="/register">Register</NavLink>
-      </button>
+      <div className="form__actions">
+        <button type="submit" className="btn btn--brand" disabled={!login || !pwd}>
+          Sign In
+        </button>
+        <NavLink to="/register" className="btn btn--ghost">
+          Register
+        </NavLink>
+      </div>
     </form>
   );
 };

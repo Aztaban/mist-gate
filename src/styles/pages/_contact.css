@@ -1,0 +1,119 @@
+/* =======================================
+   Contact Page (unique form styles only)
+   ======================================= */
+
+:root {
+  --contact-gap: clamp(0.9rem, 2vw, 1.25rem);
+  --contact-meta-fg: var(--color-muted);
+
+  /* form fields */
+  --contact-input-bg: var(--overlay-light);
+  --contact-input-border: var(--overlay-strong);
+  --contact-input-radius: var(--radius);
+  --contact-input-fg: var(--color-text);
+  --contact-input-ph: rgba(var(--white-rgb), 0.55);
+  --contact-input-bg-focus: var(--overlay-light);
+
+  /* statuses */
+  --contact-error: #ffb4b4;
+  --contact-success: #c7f5c4;
+}
+
+.contact {
+  display: grid;
+  gap: var(--contact-gap);
+}
+
+/* meta note under header */
+.contact__meta {
+  color: var(--contact-meta-fg);
+  font-size: 0.95rem;
+}
+
+/* form layout */
+.contact__form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.form__row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+@media (max-width: 680px) {
+  .form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* fields */
+.form__field {
+  display: grid;
+  gap: 0.35rem;
+}
+.form__field label {
+  color: var(--color-h2);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* inputs */
+.contact__form input,
+.contact__form textarea {
+  background: var(--contact-input-bg);
+  border: 1px solid var(--contact-input-border);
+  border-radius: var(--contact-input-radius);
+  padding: 0.65rem 0.75rem;
+  color: var(--contact-input-fg);
+}
+.contact__form input::placeholder,
+.contact__form textarea::placeholder {
+  color: var(--contact-input-ph);
+}
+.contact__form input:focus,
+.contact__form textarea:focus {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  background: var(--contact-input-bg-focus);
+}
+
+/* actions */
+.form__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* statuses */
+.form__status {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.form__status--error {
+  color: var(--contact-error);
+}
+.form__status--success {
+  color: var(--contact-success);
+}
+
+/* contact info list */
+.contact__list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.contact__list li::marker {
+  color: var(--brand);
+}
+
+/* hide honeypot */
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}

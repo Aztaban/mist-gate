@@ -1,0 +1,43 @@
+.checkout-main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.checkout-main h2 {
+  padding: 20px;
+  border-bottom: var(--BORDERS-SECONDARY);
+}
+
+.checkout-buttons {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: space-around;
+  border-top: var(--BORDERS-SECONDARY);
+}
+
+.checkout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  min-height: 55vh;
+}
+
+.checkout-spaced {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkout-spaced-se {
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+@media (min-width: 550px) {
+  .checkout-buttons {
+    flex-direction: row;
+  }
+}

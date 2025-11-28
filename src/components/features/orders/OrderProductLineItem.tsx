@@ -3,18 +3,22 @@ import { OrderItem } from '@types';
 import { eurFormat } from '@utils';
 
 interface OrderProductLineItemProps {
-  product: OrderItem; 
+  product: OrderItem;
 }
 
 const OrderProductLineItem = ({ product }: OrderProductLineItemProps) => {
-  return (
-    <li className='cart__item order-product-layout order-product-line-item'>
-      <span><NavLink to={`/shop/product/${product.product}`}>{product.name}</NavLink></span>
-      <span className='text-center'>{product.quantity}</span>
-      <span className='hidden-ss-flex text-right'>{eurFormat(product.price)}</span>
-      <span className='text-right'>{eurFormat(product.price * product.quantity)}</span>
-    </li>
-  )
-}
+  const lineTotal = product.price * product.quantity;
 
-export default OrderProductLineItem
+  return (
+    <tr>
+      <td>
+        <NavLink to={`/shop/product/${product.product}`}>{product.name}</NavLink>
+      </td>
+      <td>{product.quantity}</td>
+      <td className="hidden-ss-cell u-text-right">{eurFormat(product.price)}</td>
+      <td className="u-text-right">{eurFormat(lineTotal)}</td>
+    </tr>
+  );
+};
+
+export default OrderProductLineItem;

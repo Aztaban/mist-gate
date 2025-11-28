@@ -12,25 +12,45 @@ type ModalType = 'password' | 'email' | 'phone' | null;
 
 const UserInfo = ({ user }: UserInfoProps): ReactElement => {
   const [openModal, setOpenModal] = useState<ModalType>(null);
+
   return (
-    <div className="user-info">
-      <label>Username:</label>
-      <p>{user.username}</p>
+    <div className="user-info surface-dark">
+      <div className="user-info__row">
+        <label>Username</label>
+        <p className="user-info__text">{user.username}</p>
+      </div>
 
-      <label>Email:</label>
-      <p>{user.email}</p>
-      <button onClick={() => setOpenModal('email')}>Change Email</button>
-      <div></div>
+      <div className="user-info__row">
+        <label>Email</label>
 
-      <label>Telephone Number:</label>
-      <p>{user.phoneNumber}</p>
+        <p className="user-info__text">{user.email}</p>
+        <div className="user-info__actions">
+          <button className="btn btn--ghost btn--sm" onClick={() => setOpenModal('email')}>
+            Change Email
+          </button>
+        </div>
+      </div>
 
-      <button onClick={() => setOpenModal('phone')}>Change Number</button>
-      <div></div>
+      <div className="user-info__row">
+        <label>Phone Number</label>
+        <p className="user-info__text">{user.phoneNumber ?? '-'}</p>
+        <div className="user-info__actions">
+          <button className="btn btn--ghost btn--sm" onClick={() => setOpenModal('phone')}>
+            Change Number
+          </button>
+        </div>
+      </div>
 
-      <label>Password:</label>
-      <p>********</p>
-      <button onClick={() => setOpenModal('password')}>Change Password</button>
+      <div className="user-info__row">
+        <label>Password</label>
+
+        <p className="user-info__text">********</p>
+        <div className="user-info__actions">
+          <button className="btn btn--ghost btn--sm" onClick={() => setOpenModal('password')}>
+            Change Password
+          </button>
+        </div>
+      </div>
 
       {openModal === 'password' && <PasswordChangeModal onClose={() => setOpenModal(null)} />}
       {openModal === 'email' && <EmailChangeModal email={user.email} onClose={() => setOpenModal(null)} />}

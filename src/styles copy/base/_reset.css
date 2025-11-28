@@ -1,0 +1,35 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+main {
+  width: 100%;
+  flex-grow: 1;
+}
+
+input,
+button,
+textarea {
+  font: inherit;
+}
+
+a:any-link {
+  text-decoration: none;
+}

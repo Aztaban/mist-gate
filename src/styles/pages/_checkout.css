@@ -1,43 +1,222 @@
-.checkout-main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.checkout-main h2 {
-  padding: 20px;
-  border-bottom: var(--BORDERS-SECONDARY);
-}
-
-.checkout-buttons {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  justify-content: space-around;
-  border-top: var(--BORDERS-SECONDARY);
-}
+/* ===============================
+   Checkout – shared scaffolding
+   =============================== */
 
 .checkout {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  min-height: 55vh;
+  display: grid;
+  gap: clamp(0.9rem, 2vw, 1.25rem);
 }
 
-.checkout-spaced {
+/* One reusable “card” used by each step */
+.checkout-card {
+  padding: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+/* Standard step title bar (uses your globals for look) */
+.checkout .section-bar {
+  padding: 0.65rem 0.9rem;
+}
+
+/* ===============================
+   Form grid (generic)
+   =============================== */
+
+.form-grid {
+  display: grid;
+  gap: clamp(0.7rem, 1.5vw, 0.9rem);
+}
+
+/* Two columns on larger screens, fall back to one on narrow */
+@media (min-width: 900px) {
+  .form-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Utility: 3 columns if space allows */
+@media (min-width: 1100px) {
+  .form-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Label + control already styled globally via .form__field */
+.form-grid .form__field > label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-h2);
+}
+
+/* ===============================
+   Address form specifics
+   =============================== */
+
+/* Base grid for the whole address form */
+.address-grid {
+  display: grid;
+  gap: clamp(0.7rem, 1.5vw, 0.9rem);
+}
+
+/* Make it two columns where comfortable */
+@media (min-width: 900px) {
+  .address-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Full-width rows */
+.address-grid .span-2 {
+  grid-column: 1 / -1;
+}
+
+/* City / Postal / Country row: 3 columns on big, 2 on medium, 1 on small */
+.address-row-3 {
+  display: grid;
+  gap: clamp(0.6rem, 1.2vw, 0.8rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .address-row-3 {
+    grid-template-columns: 1fr 180px;
+  }
+}
+@media (min-width: 1100px) {
+  .address-row-3 {
+    grid-template-columns: 1.2fr 180px 1fr; /* City | Postal | Country */
+  }
+}
+
+/* Inline checkbox row */
+.address-inline {
+  display: flex;
   align-items: center;
+  gap: 0.6rem;
+}
+
+/* ===============================
+   Step navigation (reusable)
+   =============================== */
+
+.checkout-actions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: clamp(0.8rem, 1.8vw, 1rem);
+}
+
+/* Back on the left, primary on the right */
+.checkout-actions--split {
   justify-content: space-between;
 }
 
-.checkout-spaced-se {
-  align-items: center;
-  justify-content: space-evenly;
+/* When actions are together on the right */
+.checkout-actions--right {
+  justify-content: flex-end;
 }
 
-@media (min-width: 550px) {
-  .checkout-buttons {
-    flex-direction: row;
+/* Slightly snugger small devices */
+@media (max-width: 560px) {
+  .checkout-actions {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+/* Optional muted helper text next to controls */
+.helper {
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ===============================
+   Inline checkbox (accessible)
+   =============================== */
+
+.form-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  line-height: 1.2;
+  position: relative;
+}
+
+/* Visually hidden but still focusable/accessible native box */
+.form-check__box {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* The visible box */
+.form-check__fake {
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  border-radius: 4px;
+  border: var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: var(--shadow-soft) inset;
+  display: inline-grid;
+  place-items: center;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Focus ring mirrors your theme */
+.form-check__box:focus-visible + .form-check__fake {
+  outline: 2px solid rgba(var(--brand-rgb), 0.7);
+  outline-offset: 2px;
+}
+
+/* Checked visuals */
+.form-check__box:checked + .form-check__fake {
+  background: var(--brand);
+  border-color: var(--brand);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15) inset;
+}
+
+/* The tick */
+.form-check__fake::before {
+  content: '';
+  inline-size: 0.5rem;
+  block-size: 0.28rem;
+  border-right: 2px solid rgba(0, 0, 0, 0.85);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.85);
+  transform: rotate(45deg) scale(0);
+  transition: transform 0.12s ease;
+}
+
+.form-check__box:checked + .form-check__fake::before {
+  transform: rotate(45deg) scale(1);
+}
+
+/* Label tone */
+.form-check__label {
+  color: var(--color-text);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .form-check {
+    gap: 0.5rem;
+  }
+}
+
+/* Make qty column narrow-ish */
+
+/* Hide unit price on tiny screens, like your old hidden-ss-flex */
+.hidden-ss-cell {
+  display: table-cell;
+}
+
+@media (max-width: 560px) {
+  .hidden-ss-cell {
+    display: none;
   }
 }

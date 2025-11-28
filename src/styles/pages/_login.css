@@ -1,33 +1,96 @@
-.login {
+/* =======================================
+   Auth / Login (clean, uses globals)
+   ======================================= */
+
+.auth {
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  flex-grow: 1;
+  align-items: flex-start;
+  padding: clamp(1rem, 6vh, 3rem) 1rem;
 }
 
-.login main {
-  width: 100%;
-  max-width: 400px;
+/* Panel uses surface-dark globally */
+.auth__panel {
+  position: relative;
+  width: min(520px, 100%);
+  margin-top: clamp(2.5rem, 9vh, 5.5rem);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  animation: auth-fade 0.35s ease-out;
 }
 
-.login form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
+/* Floating title pill */
+.auth__title {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--font-logo);
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+  font-size: clamp(1rem, 2.1vw, 1.1rem);
+  color: var(--color-title);
+  background: var(--primary);
+  border: var(--border);
+  box-shadow: 0 6px 18px rgba(var(--primary-rgb), 0.35), 0 0 0 2px rgba(var(--brand-rgb), 0.22);
 }
 
-.login input {
-  font-size: 1.1rem;
-  height: 2rem;
-  padding: 10px;
-  border-radius: var(--BORDER-RADIUS);
+/* Auth form structure */
+.auth__form {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 0.5rem;
 }
 
-.login button {
-  margin-top: 40px;
+/* Notes / Helper text */
+.instructions {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: #333;
+  background: rgba(var(--white-rgb), 0.6);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.55rem;
+}
+
+.instructions.red {
+  color: var(--danger-ink);
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+  border-radius: var(--radius);
+  padding: 0.6rem 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-shadow: var(--shadow-soft);
+  box-shadow: var(--danger-shadow);
+}
+
+/* Accessibility utility */
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Animation */
+@keyframes auth-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 640px) {
+  .auth {
+    padding-top: 1.25rem;
+  }
+  .auth__panel {
+    width: 100%;
+  }
 }

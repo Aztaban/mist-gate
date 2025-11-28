@@ -1,4 +1,4 @@
-import { useParams, NavLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useMemo } from 'react';
 import { useGetProductByIdQuery } from '@features/apiSlices/productApiSlice';
 import AdminProductDetail from './AdminProductDetail';
@@ -16,12 +16,13 @@ const AdminSingleProduct = () => {
 
   const validId = useMemo(() => isObjectId(productId), [productId]);
 
-  // If invalid id, skip the query entirely
   const {
     data: product,
     isLoading,
     isError,
-  } = useGetProductByIdQuery(validId ? (productId as string) : '', { skip: !validId });
+  } = useGetProductByIdQuery(validId ? (productId as string) : '', {
+    skip: !validId,
+  });
 
   const [isEditing, setIsEditing] = useState(false);
 
@@ -30,28 +31,11 @@ const AdminSingleProduct = () => {
   if (isError || !product) return <p>Failed to load product details.</p>;
 
   return (
-    <article className="orders-main-page">
-      <h2 className="header-wraper">
-        <p>{!isEditing ? 'Product Detail' : 'Edit Product'}</p>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <NavLink to="/admin/products" className="btn back-btn">
-            Back
-          </NavLink>
-          {!isEditing && (
-            <button className="btn save-btn" onClick={() => setIsEditing(true)}>
-              Edit Product
-            </button>
-          )}
-        </div>
-      </h2>
-
+    <article className="page-stack">
       {!isEditing ? (
-        <AdminProductDetail product={product} />
+        <AdminProductDetail product={product} onEdit={() => setIsEditing(true)} />
       ) : (
-        <EditProductForm
-          product={product}
-          onClose={() => setIsEditing(false)} // ensure your form calls this after successful save
-        />
+        <EditProductForm product={product} onClose={() => setIsEditing(false)} />
       )}
     </article>
   );

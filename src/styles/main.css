@@ -3,44 +3,69 @@
 
 /* Import base styles */
 @import './base/_reset.css';
-@import './base/_global.css';
-@import './base/_typography.css';
 @import './base/_variables.css';
+@import './base/_global.css';
+
+/*Import layout styles */
+@import './layout/_header.css';
+@import './layout/_footer.css';
+@import './layout/_nav.css';
 
 /* Import component styles */
-@import './components/_admin-tools.css';
 @import './components/_buttons.css';
-@import './components/_cart.css';
-@import './components/_dropdown.css';
-@import './components/_image-container.css';
+@import './components/_form.css';
+@import './components/_search.css';
 @import './components/_mist.css';
+@import './components/_tables.css';
 @import './components/_modals.css';
-@import './components/_nav.css';
-@import './components/_news.css';
-@import './components/_pagination.css';
-@import './components/_post.css';
-@import './components/_quantity.css';
-@import './components/_user-settings.css';
-@import './components/_admin-dashboard.css';
-@import './components/_admin-datatable.css';
-@import './components/_user-manager.css';
 
-/* Import layout styles */
-@import './layout/_main.css';
-@import './layout/_section.css';
-@import './layout/_footer.css';
-@import './layout/_header.css';
+/*Import utility styles */
 
 /* Import page-specific styles */
-@import './pages/_address.css';
-@import './pages/_admin-orders.css';
+@import './pages/_admin-dashboard.css';
 @import './pages/_admin-products.css';
+@import './pages/_products.css';
 @import './pages/_checkout.css';
-
+@import './pages/_cart.css';
+@import './pages/_about.css';
+@import './pages/_news.css';
+@import './pages/_utils.css';
+@import './pages/_license.css';
+@import './pages/_contact.css';
 @import './pages/_login.css';
+@import './pages/_account.css';
 @import './pages/_orders.css';
-@import './pages/_product.css';
 
-/* Import utility styles */
-@import './utils/_animations.css';
-@import './utils/_helpers.css';
+/*/* Import component styles */
+/*@import './components/_admin-tools.css';
+/*@import './components/_buttons.css';
+/*@import './components/_cart.css';
+/*@import './components/_dropdown.css';
+/*@import './components/_image-container.css';
+
+/*@import './components/_modals.css';
+/*@import './components/_nav.css';
+/*@import './components/_news.css';
+/*@import './components/_pagination.css';
+/*@import './components/_post.css';
+/*@import './components/_quantity.css';
+/*@import './components/_user-settings.css';
+/*@import './components/_admin-dashboard.css';
+/*@import './components/_admin-datatable.css';
+/*@import './components/_user-manager.css';
+/*
+/*Import layout styles
+/*@import './layout/_main.css';
+/*@import './layout/_section.css';
+
+/*@import './pages/_address.css';
+/*@import './pages/_admin-orders.css';
+/*@import './pages/_admin-products.css';
+/*@import './pages/_checkout.css';
+/*
+/*@import './pages/_login.css';
+/*@import './pages/_orders.css';
+/*@import './pages/_product.css';
+/*
+/*Import utility styles
+/*@import './utils/_helpers.css'; */

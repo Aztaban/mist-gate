@@ -1,4 +1,6 @@
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCartItemCount } from '@features/slices/checkoutSlice';
 
 interface Props {
   showInlineLogout: boolean;
@@ -6,6 +8,8 @@ interface Props {
 }
 
 export default function UserNav({ showInlineLogout, username }: Props) {
+  const cartItemCount = useSelector(selectCartItemCount);
+
   return (
     <nav className="normal-menu">
       <ul className="nav-links">
@@ -23,6 +27,11 @@ export default function UserNav({ showInlineLogout, username }: Props) {
         <li>
           <NavLink to="/checkout" end>
             Cart
+            {cartItemCount > 0 && (
+              <span className="nav-badge" aria-label={`${cartItemCount} items in cart`}>
+                {cartItemCount}
+              </span>
+            )}
           </NavLink>
         </li>
       </ul>

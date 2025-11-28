@@ -15,9 +15,7 @@ const emptyAddress: ShippingAddress = {
 };
 
 const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
-  const [address, setAddress] = useState<ShippingAddress>(
-    initialAddress ?? emptyAddress
-  );
+  const [address, setAddress] = useState<ShippingAddress>(initialAddress ?? emptyAddress);
   const [updateUserAddress] = useUpdateUserAddressMutation();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,9 +27,7 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
   };
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      'Are you sure you want to delete your address?'
-    );
+    const confirmDelete = window.confirm('Are you sure you want to delete your address?');
     if (!confirmDelete) return;
 
     try {
@@ -67,58 +63,45 @@ const AddressForm = ({ initialAddress }: AddressFormProps): ReactElement => {
   }, [initialAddress]);
 
   return (
-    <form className="address-form" onSubmit={handleSave}>
-      <h3>Address:</h3>
-      <label>Name:</label>
-      <input
-        type="text"
-        name="name"
-        value={address.name}
-        onChange={handleChange}
-      />
-      <label>Street:</label>
-      <input
-        type="text"
-        name="street"
-        value={address.street}
-        onChange={handleChange}
-      />
+    <form className="address-form surface-dark" onSubmit={handleSave}>
+      <h3 className="section__subtitle">Address</h3>
 
-      <label>City:</label>
-      <input
-        type="text"
-        name="city"
-        value={address.city}
-        onChange={handleChange}
-      />
+      <div className="form__field">
+        <label htmlFor="addr_name">Name</label>
+        <input id="addr_name" name="name" value={address.name} onChange={handleChange} />
+      </div>
 
-      <label>Postal Code:</label>
-      <input
-        type="text"
-        name="postalCode"
-        value={address.postalCode}
-        onChange={handleChange}
-      />
+      <div className="form__field">
+        <label htmlFor="addr_street">Street</label>
+        <input id="addr_street" name="street" value={address.street} onChange={handleChange} />
+      </div>
 
-      <label>Country:</label>
-      <input
-        type="text"
-        name="country"
-        value={address.country}
-        onChange={handleChange}
-      />
+      <div className="form__field">
+        <label htmlFor="addr_city">City</label>
+        <input id="addr_city" name="city" value={address.city} onChange={handleChange} />
+      </div>
 
-      <button type="submit" disabled={address === initialAddress}>
-        Save Address
-      </button>
-      <button
-        className="del-btn"
-        type="button"
-        disabled={isAddressEmpty}
-        onClick={handleDelete}
-      >
-        Delete Address
-      </button>
+      <div className="form__field">
+        <label htmlFor="addr_postal">Postal Code</label>
+        <input id="addr_postal" name="postalCode" value={address.postalCode} onChange={handleChange} />
+      </div>
+
+      <div className="form__field">
+        <label htmlFor="addr_country">Country</label>
+        <input id="addr_country" name="country" value={address.country} onChange={handleChange} />
+      </div>
+
+      <div className="form__actions">
+        <button
+          className="btn btn--brand btn--sm"
+          type="submit"
+          disabled={address === (initialAddress ?? emptyAddress)}>
+          Save Address
+        </button>
+        <button className="btn btn--del btn--sm" type="button" disabled={isAddressEmpty} onClick={handleDelete}>
+          Delete Address
+        </button>
+      </div>
     </form>
   );
 };

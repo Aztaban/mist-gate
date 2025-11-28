@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useUpdateProductMutation } from '@features/apiSlices/productApiSlice';
 import { useGetCategoriesQuery } from '@features/apiSlices/categoryApiSlice';
 import { Product, ProductDetails, UpdateProductPayload } from '@types';
@@ -15,6 +15,7 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
   // track only modified fields
   const [modifiedFields, setModifiedFields] = useState<Partial<Product>>({});
   const [modifiedDetails, setModifiedDetails] = useState<Partial<ProductDetails>>({});
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>(product.category.id);
 
   const handleFieldUpdate = (field: keyof Product, value: any) => {
     setModifiedFields((prev) => ({ ...prev, [field]: value }));
@@ -24,20 +25,27 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
     setModifiedDetails((prev) => ({ ...prev, [field]: value }));
   };
 
-  const categoryNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
-
-  const currentCategoryName = categoryNameById.get(product.category) ?? '—';
-
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!product) return;
 
-    const updates: UpdateProductPayload = { ...modifiedFields };
-    if (Object.keys(modifiedDetails).length > 0) {
-      (updates as any).details = modifiedDetails;
+    const updates: UpdateProductPayload = {};
+
+    if (modifiedFields.name && modifiedFields.name !== product.name) {
+      updates.name = modifiedFields.name;
     }
 
-    if (Object.keys(updates).length === 0) {
+    if (selectedCategoryId !== product.category.id) {
+      updates.category = selectedCategoryId;
+    }
+
+    if (Object.keys(modifiedDetails).length > 0) {
+      updates.details = { ...modifiedDetails };
+    }
+
+    const hasBaseUpdates = Object.keys(updates).some((k) => k !== 'details');
+    const hasDetailsUpdates = !!updates.details && Object.keys(updates.details).length > 0;
+
+    if (!hasBaseUpdates && !hasDetailsUpdates) {
       onClose();
       return;
     }
@@ -45,93 +53,146 @@ const EditProductForm = ({ product, onClose }: EditProductFormParams) => {
     try {
       await updateProduct({ id: product.id, updates }).unwrap();
       alert('Product updated successfully!');
-      onClose(); // close only after success
+      onClose();
     } catch (err) {
       console.error('Failed to update product:', err);
       alert('Failed to update product.');
     }
   };
 
+  const nameChanged = modifiedFields.name !== undefined && modifiedFields.name !== product.name;
+  const categoryChanged = selectedCategoryId !== product.category.id;
+  const authorChanged = modifiedDetails.author !== undefined && modifiedDetails.author !== product.details.author;
+  const releaseChanged =
+    modifiedDetails.releaseDate !== undefined && modifiedDetails.releaseDate !== product.details.releaseDate;
+  const descChanged =
+    modifiedDetails.description !== undefined && modifiedDetails.description !== product.details.description;
+
   return (
-    <div className="admin-order">
-      <form onSubmit={handleSubmit} className="admin-order-form">
-        <fieldset disabled={isLoading}>
-          <label htmlFor="name">Product Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={modifiedFields.name ?? product.name}
-            onChange={(e) => handleFieldUpdate('name' as const, e.target.value)}
-          />
-          {modifiedFields.name && modifiedFields.name !== product.name && <p>Previous: {product.name}</p>}
+    <section className="surface-dark section product-editor product-editor--compact">
+      <header className="section-bar section-bar--sub">
+        <h2 className="section-bar__title section-bar__title--sm">Edit Product</h2>
 
-          <label htmlFor="category">Category:</label>
-          {catsLoading ? (
-            <p>Loading categories…</p>
-          ) : catsError ? (
-            <p className="errMsg">Failed to load categories.</p>
-          ) : (
-            <select
-              id="category"
-              value={modifiedFields.category ?? product.category}
-              onChange={(e) => handleFieldUpdate('category' as const, e.target.value)}>
-              <option value="">— Select —</option>
-              {categories.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
-            </select>
-          )}
-          {modifiedFields.category && modifiedFields.category !== product.category && (
-            <p>Previous: {currentCategoryName}</p>
-          )}
+        <button type="button" onClick={onClose} className="btn btn--ghost btn--sm" disabled={isLoading}>
+          Close
+        </button>
+      </header>
 
-          <label htmlFor="details.author">Author:</label>
-          <input
-            type="text"
-            id="details.author"
-            value={modifiedDetails.author ?? product.details.author}
-            onChange={(e) => handleDetailUpdate('author', e.target.value)}
-          />
-          {modifiedDetails.author && modifiedDetails.author !== product.details.author && (
-            <p>Previous: {product.details.author}</p>
-          )}
+      <form onSubmit={handleSubmit} className="product-editor__form product-editor__form--single">
+        <p className="product-editor__note">
+          Only changed fields will be saved. Previous values appear below when you make a change.
+        </p>
 
-          <label htmlFor="details.releaseDate">Release Date:</label>
-          <input
-            type="date"
-            id="details.releaseDate"
-            value={modifiedDetails.releaseDate ?? (product.details.releaseDate || '')}
-            onChange={(e) => handleDetailUpdate('releaseDate', e.target.value)}
-          />
-          {modifiedDetails.releaseDate && modifiedDetails.releaseDate !== product.details.releaseDate && (
-            <p>Previous: {product.details.releaseDate || '—'}</p>
-          )}
+        <div className="product-editor__group">
+          <h3 className="product-editor__group-title">Basics</h3>
 
-          <label htmlFor="details.description">Description:</label>
-          <textarea
-            id="details.description"
-            value={modifiedDetails.description ?? (product.details.description || '')}
-            onChange={(e) => handleDetailUpdate('description', e.target.value)}
-            placeholder="Product Description"
-            rows={6}
-          />
-          {modifiedDetails.description && modifiedDetails.description !== product.details.description && (
-            <p>Previous: {product.details.description || '—'}</p>
-          )}
-        </fieldset>
+          <div className="form__field">
+            <label htmlFor="name">Product Name</label>
+            <input
+              type="text"
+              id="name"
+              value={modifiedFields.name ?? product.name}
+              onChange={(e) => handleFieldUpdate('name', e.target.value)}
+              disabled={isLoading}
+            />
+            {nameChanged && (
+              <p className="field-helper field-helper--prev">
+                Previous: <span>{product.name}</span>
+              </p>
+            )}
+          </div>
 
-        <div className="checkout-buttons">
-          <button type="button" onClick={onClose} className="btn">
+          <div className="form__field">
+            <label htmlFor="category">Category</label>
+            {catsLoading ? (
+              <p>Loading categories…</p>
+            ) : catsError ? (
+              <p className="errMsg">Failed to load categories.</p>
+            ) : (
+              <select
+                id="category"
+                value={selectedCategoryId}
+                onChange={(e) => setSelectedCategoryId(e.target.value)}
+                disabled={isLoading}>
+                <option value="">— Select —</option>
+                {categories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.name}
+                  </option>
+                ))}
+              </select>
+            )}
+            {categoryChanged && (
+              <p className="field-helper field-helper--prev">
+                Previous: <span>{product.category.name}</span>
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="product-editor__group">
+          <h3 className="product-editor__group-title">Details</h3>
+
+          <div className="form__field">
+            <label htmlFor="details.author">Author</label>
+            <input
+              type="text"
+              id="details.author"
+              value={modifiedDetails.author ?? product.details.author}
+              onChange={(e) => handleDetailUpdate('author', e.target.value)}
+              disabled={isLoading}
+            />
+            {authorChanged && (
+              <p className="field-helper field-helper--prev">
+                Previous: <span>{product.details.author}</span>
+              </p>
+            )}
+          </div>
+
+          <div className="form__field">
+            <label htmlFor="details.releaseDate">Release Date</label>
+            <input
+              type="date"
+              id="details.releaseDate"
+              value={modifiedDetails.releaseDate ?? (product.details.releaseDate || '')}
+              onChange={(e) => handleDetailUpdate('releaseDate', e.target.value)}
+              disabled={isLoading}
+            />
+            {releaseChanged && (
+              <p className="field-helper field-helper--prev">
+                Previous: <span>{product.details.releaseDate || '—'}</span>
+              </p>
+            )}
+          </div>
+
+          <div className="form__field">
+            <label htmlFor="details.description">Description</label>
+            <textarea
+              id="details.description"
+              value={modifiedDetails.description ?? (product.details.description || '')}
+              onChange={(e) => handleDetailUpdate('description', e.target.value)}
+              placeholder="Product description"
+              rows={6}
+              disabled={isLoading}
+            />
+            {descChanged && (
+              <p className="field-helper field-helper--prev">
+                Previous: <span>{product.details.description || '—'}</span>
+              </p>
+            )}
+          </div>
+        </div>
+
+        <div className="product-editor__actions form__actions">
+          <button type="button" onClick={onClose} className="btn btn--ghost" disabled={isLoading}>
             Cancel
           </button>
-          <button type="submit" className="btn back-btn" disabled={isLoading}>
+          <button type="submit" className="btn btn--brand" disabled={isLoading}>
             {isLoading ? 'Saving…' : 'Save Product'}
           </button>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 

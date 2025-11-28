@@ -28,7 +28,7 @@ const EditPostForm = () => {
   if (!post) {
     return (
       <section>
-        <h2>Post not found!</h2>
+        <h2 className="section-bar surface-dark">Post not found!</h2>
       </section>
     );
   }
@@ -75,23 +75,44 @@ const EditPostForm = () => {
   };
 
   return (
-    <section className="edit__post">
-      <h2>Edit Post</h2>
-      <form>
-        <label htmlFor="postTitle">Post Title:</label>
-        <input type="text" id="postTitle" name="postTitle" value={title} onChange={onTitleChanged} />
+    <section className="posts-editor">
+      <header className="section-bar surface-dark">
+        <h1 className="section-bar__title">Edit Post</h1>
+      </header>
+      <form className="surface-dark posts-editor__form">
+        <div className="form__field">
+          <label htmlFor="postTitle">Post Title:</label>
+          <input
+            className="form__control"
+            type="text"
+            id="postTitle"
+            name="postTitle"
+            value={title}
+            onChange={onTitleChanged}
+          />
+        </div>
 
-        <label htmlFor="postContent">Content:</label>
-        <textarea id="postContent" name="postContent" value={content} onChange={onContentChanged} />
-        <div className="edit__post-btns">
-          <button type="button" className="btn save-btn" onClick={onSavePostClicked} disabled={!canSave}>
+        <div className="form__field">
+          <label htmlFor="postContent">Content:</label>
+          <textarea
+            className="form__control"
+            id="postContent"
+            name="postContent"
+            value={content}
+            rows={8}
+            onChange={onContentChanged}
+          />
+        </div>
+
+        <div className="form__actions posts-editor__actions">
+          <button type="button" className="btn btn--brand" onClick={onSavePostClicked} disabled={!canSave}>
             Save Post
           </button>
-          <button type="button" className="btn back-btn" onClick={onBackBtnClicked}>
-            back to posts
+          <button type="button" className="btn btn--ghost" onClick={onBackBtnClicked}>
+            Back to posts
           </button>
           {isAdmin ? (
-            <button className="btn del-btn" type="button" onClick={handleDeleteClick}>
+            <button className="btn btn--del" type="button" onClick={handleDeleteClick}>
               Delete Post
             </button>
           ) : null}

@@ -1,0 +1,52 @@
+/* _about.css */
+
+/* Keep cards, grid, bullets — these are unique */
+.about__bullets {
+  margin: 0.25rem 0 0;
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.35rem;
+}
+.about__bullets li::marker {
+  color: var(--color-brand);
+}
+
+.about__highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: clamp(0.75rem, 2vw, 1rem);
+  margin-top: 0.5rem;
+}
+
+.about__card {
+  background: rgba(var(--white-rgb), 0.04);
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 0.9rem;
+}
+.about__card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+  color: var(--color-brand);
+}
+
+.about__footer {
+  text-align: center;
+  padding: 1rem;
+}
+
+.text-link {
+  color: var(--color-brand);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.text-link:hover {
+  color: var(--color-title);
+}
+
+.text-link:hover::after {
+  opacity: 1;
+}

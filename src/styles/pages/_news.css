@@ -1,0 +1,186 @@
+/* =======================================
+   News Page (visual parity + cleanup)
+   ======================================= */
+
+:root {
+  --news-card-pad: 1rem 1.1rem;
+
+  /* Color system */
+  --news-hover-bg: var(--overlay-darkest);
+  --news-date-fg: var(--color-h2);
+  --news-body-fg: var(--color-text);
+}
+
+/* ===============================
+   Layout
+   =============================== */
+.news {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.35rem);
+  background: transparent;
+}
+
+.news__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+.news__list > *:not(:last-child)::after {
+  content: '';
+  display: block;
+  margin-top: clamp(0.8rem, 1.5vw, 1.1rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--overlay-darker), transparent);
+}
+
+/* ===============================
+   Header / Title
+   =============================== */
+.news__header.rule-accent {
+  margin: 0.35rem 0 1rem;
+}
+
+/* ===============================
+   Post Cards
+   =============================== */
+.post__home {
+  padding: var(--news-card-pad);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, background 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.post__home:hover {
+  background: var(--news-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* Title & header layout */
+.post__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.title-post {
+  margin: 0;
+  color: var(--color-title);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-shadow: var(--shadow-soft);
+}
+
+.title-post--underline::after {
+  content: '';
+  display: block;
+  margin-top: 0.25rem;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand), rgba(var(--white-rgb), 0.35));
+  opacity: 0.65;
+}
+
+/* Date & body */
+.post__home p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--news-body-fg);
+}
+
+.post__home-date {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--news-date-fg) !important;
+}
+
+/* ===============================
+   Admin Icon
+   =============================== */
+.news__btn {
+  border: 1px solid rgba(var(--white-rgb), 0.25);
+  border-radius: 4px;
+  padding: 0.2rem;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.news__btn:hover {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+
+/* =======================================
+   Posts editor (AddPostForm) — scoped
+   Uses your global form & button styles
+   ======================================= */
+.posts-editor {
+  display: grid;
+  gap: 1rem;
+}
+
+.posts-editor__form {
+  --field-gap: 0.5rem; /* label ↔ control */
+  --row-gap: 1rem; /* fields vertical spacing */
+  display: grid;
+  gap: var(--row-gap);
+  padding: clamp(0.9rem, 1.4vw, 1.25rem);
+  border-radius: var(--radius);
+  min-width: 0;
+}
+
+.posts-editor__form .form__field {
+  display: grid;
+  gap: var(--field-gap);
+}
+
+/* Label polish */
+.posts-editor__form .form__field > label {
+  margin: 0;
+  padding-inline: 0.25rem;
+  font-weight: 600;
+  color: var(--color-h2);
+  line-height: 1.15;
+}
+
+/* Use your global control style; add small vertical comfort */
+.posts-editor__form .form__control {
+  width: 100%;
+  min-width: 0;
+  padding-block: 0.6rem; /* stacks on top of your global padding nicely */
+}
+
+/* Textarea defaults */
+.posts-editor__form textarea.form__control {
+  min-height: 12rem;
+  resize: vertical;
+}
+
+/* Error (if any) */
+.posts-editor__form .form__error {
+  margin: 0 0 0.25rem;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Buttons row */
+.posts-editor__actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 640px) {
+  .posts-editor__form {
+    gap: 0.9rem;
+  }
+  .posts-editor__actions {
+    justify-content: flex-start;
+  }
+}

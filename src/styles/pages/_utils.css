@@ -1,0 +1,27 @@
+/* ===== Page utilities (shared across About/News/etc.) ===== */
+
+/* icon button */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--footer-fg, #ddd);
+  cursor: pointer;
+  transition: color 0.2s, background 0.2s, transform 0.15s;
+}
+.icon-btn:hover {
+  color: var(--brand);
+  background: rgba(255, 255, 255, 0.1);
+}
+.icon-btn:active {
+  transform: translateY(1px);
+}
+.icon-btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}

@@ -1,0 +1,39 @@
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  text-align: center;
+  background-color: var(--HEADER-BGCOLOR);
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+header h1 {
+  color: var(--HEADER-COLOR);
+  text-align: center;
+  letter-spacing: 5px;
+}
+
+.buttons-header {
+  display: flex;
+  gap: 30px;
+}
+
+@media (min-width: 768px) {
+  header h1 {
+    font-size: 4vw;
+  }
+
+  .buttons-header {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  header h1 {
+    font-size: 40px;
+  }
+}

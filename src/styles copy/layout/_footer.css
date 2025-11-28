@@ -1,0 +1,9 @@
+footer {
+  padding: 1rem;
+  background-color: var(--HEADER-BGCOLOR);
+  color: var(--HEADER-COLOR);
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  text-align: center;
+  font-family: var(--FF-HEADINGS);
+  margin-top: auto;
+}

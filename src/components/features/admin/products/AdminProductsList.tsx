@@ -1,35 +1,21 @@
-import { ReactElement, useMemo } from 'react';
+import { ReactElement } from 'react';
 import { Product } from '@types';
 import AdminProductsLineItem from './AdminProductsLineItem';
 import { useSorting } from '@hooks/state/useSorting';
-import { useIdFilter } from '@hooks/filters/useIdFilter';
-import Dropdown from '@components/common/Dropdown';
+
 import SortableHeader from '../SortableHeader';
 import usePagination from '@hooks/ui/usePagination';
-import { useGetCategoriesQuery } from '@features/apiSlices/categoryApiSlice';
 
 interface AdminProductsListProps {
   products: Product[];
 }
 
 const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement => {
-  const { data: categories = [] } = useGetCategoriesQuery();
-
-  const categoryOptions = useMemo(() => categories.map((c) => ({ label: c.name, value: c.id })), [categories]);
-
-  const {
-    filteredData,
-    selectedIds: selectedCategories,
-    handleChange: handleCategoryFilterChange,
-  } = useIdFilter(products, (p) => p.category);
-
-  const { sortedData, sortConfig, handleSort } = useSorting(filteredData);
+  const { sortedData, sortConfig, handleSort } = useSorting(products);
   const { paginatedData, paginationControls } = usePagination<Product>({
     data: sortedData,
     itemsPerPage: 15,
   });
-
-  const categoryNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
 
   if (!products || products.length === 0) {
     return <p>No products found.</p>;
@@ -37,7 +23,7 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
 
   return (
     <>
-      <table className="admin-products-list">
+      <table className="table table--compact surface-dark product-table">
         <thead>
           <tr>
             <SortableHeader
@@ -60,6 +46,7 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
               currentSortKey={sortConfig.key}
               currentSortDirection={sortConfig.direction}
               onSort={handleSort}
+              className="prod-col-sold"
             />
             <SortableHeader
               label="Price"
@@ -68,25 +55,13 @@ const AdminProductsList = ({ products }: AdminProductsListProps): ReactElement =
               currentSortDirection={sortConfig.direction}
               onSort={handleSort}
             />
-            <th>
-              <Dropdown
-                title="Category"
-                options={categoryOptions}
-                selectedOptions={selectedCategories}
-                onOptionChange={handleCategoryFilterChange}
-              />
-            </th>
-            <th></th>
+            <th className="prod-col-actions"></th>
           </tr>
         </thead>
 
         <tbody>
           {paginatedData.map((product) => (
-            <AdminProductsLineItem
-              key={product.id}
-              product={product}
-              categoryName={categoryNameById.get(product.category) ?? '—'}
-            />
+            <AdminProductsLineItem key={product.id} product={product} />
           ))}
         </tbody>
       </table>

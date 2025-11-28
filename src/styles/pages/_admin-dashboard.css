@@ -1,0 +1,290 @@
+/* ===== Admin dashboard layout ===== */
+
+.admin-dashboard {
+  margin-top: 1.25rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 2.2vw, 1.5rem);
+  align-items: flex-start;
+  margin-bottom: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.dashboard-grid > * {
+  min-width: 0;
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ===== Generic admin panel ===== */
+
+.admin-panel {
+  border-radius: var(--radius);
+  border: var(--border);
+  background: var(--glass-dark-bg);
+  box-shadow: var(--shadow-strong);
+  overflow: hidden;
+}
+
+/* header */
+.admin-panel__header {
+  padding: 0.55rem 0.95rem;
+  border-bottom: var(--border);
+  background: linear-gradient(180deg, rgba(var(--brand-rgb), 0.08), rgba(var(--primary-rgb), 0.2));
+}
+
+.admin-panel__title {
+  margin: 0;
+  font-family: var(--font-logo);
+  font-size: var(--fs-h1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-title);
+}
+
+/* body */
+.admin-panel__body {
+  padding: 0 0.8rem 1rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  line-height: 1.45;
+}
+
+.admin-panel__meta {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.admin-panel__meta--empty {
+  font-style: italic;
+}
+
+/* ===== Status bar specifics ===== */
+
+.admin-status {
+  padding-top: 1rem;
+}
+
+.admin-status p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.admin-status p:last-child {
+  margin-bottom: 0;
+}
+
+.admin-status__icon {
+  flex: 0 0 auto;
+  line-height: 1.2;
+}
+
+.admin-status__link {
+  color: var(--color-brand);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.admin-status__link:hover {
+  text-decoration: underline;
+}
+
+/* ===== Tables inside panels ===== */
+
+.admin-panel--table .table tbody td {
+  font-size: 0.93rem;
+}
+
+/* tiny tweak for links in tables */
+.admin-table a {
+  font-weight: 500;
+}
+
+/* ===== Manager pages (Users / Categories) ===== */
+
+.users-manager {
+  margin-top: 1.25rem;
+}
+
+/* shared grid for list + detail */
+.manager-grid,
+.users-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.1fr);
+  gap: clamp(1rem, 2vw, 1.4rem);
+  align-items: flex-start;
+}
+
+.manager-grid__col {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .manager-grid,
+  .users-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* left column: search + list of users */
+.search-user {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem 0.9rem;
+  border-radius: calc(var(--radius) - 2px);
+  background: rgba(var(--surface-rgb), 0.85);
+  border: var(--border);
+}
+
+.search-bar {
+  max-width: 18rem;
+}
+
+.search-user p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.search-user ul {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-user li {
+  padding: 0.35rem 0.45rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-user li:hover,
+.search-user li:focus-visible {
+  background: rgba(var(--secondary-rgb), 0.08);
+  color: var(--color-title);
+}
+
+/* right column: placeholder when nothing selected */
+.users-placeholder {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+/* nested card with user details */
+.user-card {
+  border-radius: var(--radius);
+  padding: 0.85rem 1rem 1rem;
+  background: rgba(var(--surface-rgb), 0.9);
+  border: var(--border);
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  gap: 0.4rem;
+  align-content: flex-start;
+}
+
+.user-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.user-card p + p {
+  margin-top: 0.25rem;
+}
+
+.user-card strong {
+  color: var(--color-title);
+}
+
+.user-card .btn {
+  margin-top: 0.45rem;
+  min-width: 10rem;
+}
+
+.flex-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ===== Category panel (right side in Category Manager) ===== */
+
+.category-panel {
+  padding: 0.9rem 1rem 1rem; /* slightly smaller than generic .section */
+}
+
+/* smaller variant of the section-bar used inside panels */
+.section-bar--sub {
+  padding: 0.45rem 0.85rem;
+}
+
+.section-bar--sub::after {
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.3rem;
+}
+
+/* title smaller than big dashboard headers */
+.section-bar__title--sm {
+  font-size: var(--fs-h2);
+  letter-spacing: 0.06em;
+}
+
+/* inner body spacing */
+.category-panel__body {
+  padding: 0.75rem 0.9rem 0.25rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+/* ===== Category form styles ===== */
+
+.category-form__field {
+  max-width: 420px;
+}
+
+.category-form__input {
+  width: 100%;
+  max-width: 100%;
+}
+
+.category-form__helper {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.category-form__actions {
+  justify-content: flex-start;
+  margin-top: 0.5rem;
+}
+
+.category-form__delete {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.7rem;
+  align-items: center;
+}
+
+.category-form__hint {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.category-form__hint--danger {
+  color: #ff4f4f;
+}

@@ -8,54 +8,83 @@ const AdminProductsPage = () => {
   const { data: products = [], isLoading, isError } = useGetProductsQuery();
   const { data: categories = [] } = useGetCategoriesQuery();
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
 
-  // id -> name map for quick lookup in search
-  const catNameById = useMemo(() => new Map(categories.map((c) => [c.id, c.name])), [categories]);
+  const categoryOptions = useMemo(
+    () => [{ label: 'All categories', value: '' }, ...categories.map((c) => ({ label: c.name, value: c.id }))],
+    [categories]
+  );
 
-  const filteredProducts = useMemo(() => {
+  const finalFiltered = useMemo(() => {
     const q = searchTerm.trim().toLowerCase();
-    if (!q) return products;
 
-    return products.filter((p) => {
-      const name = p.name.toLowerCase();
-      const author = (p.details?.author ?? '').toLowerCase();
-      const categoryName = (catNameById.get(p.category) ?? '').toLowerCase();
-      return name.includes(q) || author.includes(q) || categoryName.includes(q);
+    // 1) search
+    const searchFiltered = !q
+      ? products
+      : products.filter((p) => {
+          const name = p.name.toLowerCase();
+          const author = (p.details?.author ?? '').toLowerCase();
+          return name.includes(q) || author.includes(q);
+        });
+
+    // 2) category ('' means All)
+    if (!selectedCategory) return searchFiltered;
+
+    const categoryFiltered = searchFiltered.filter((p) => {
+      return p.category.id === selectedCategory; // if mismatch, try String(p.category) === selectedCategory
     });
-  }, [products, searchTerm, catNameById]);
+
+    return categoryFiltered;
+  }, [products, searchTerm, selectedCategory]);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
+  const handleCategoryChange = (e: ChangeEvent<HTMLSelectElement>) => setSelectedCategory(e.target.value);
+
   if (isLoading) return <p>Loading products...</p>;
   if (isError) return <p>Error loading products.</p>;
 
   return (
-    <article className="orders-main-page">
-      <h2 className="header-wraper">
-        <p>Admin Products</p>
+    <section className="products-page">
+      <header className="section-bar surface-dark">
+        <h1 className="section-bar__title">Admin Products</h1>
 
-        {/* Use link styled as a button to avoid nesting interactive elements */}
-        <NavLink to="/admin/products/new" className="btn back-btn">
-          New Product
-        </NavLink>
+        <div className="products-toolbar">
+          <NavLink to="/admin/products/new" className="btn btn--brand btn--sm">
+            New Product
+          </NavLink>
 
-        <input
-          type="text"
-          placeholder="search by name, author, or category"
-          value={searchTerm}
-          onChange={handleSearch}
-          className="search-bar"
-        />
-      </h2>
+          <div className="products-toolbar__filters">
+            <input
+              type="text"
+              placeholder="search by name or author"
+              value={searchTerm}
+              onChange={handleSearch}
+              className="search-bar btn--sm"
+            />
 
-      {filteredProducts.length === 0 ? (
+            <select
+              id="products-category"
+              className="form__control btn--sm"
+              value={selectedCategory}
+              onChange={handleCategoryChange}>
+              {categoryOptions.map((opt) => (
+                <option key={opt.value} value={opt.value}>
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+      </header>
+      {finalFiltered.length === 0 ? (
         <p>No products match “{searchTerm}”.</p>
       ) : (
-        <AdminProductsList products={filteredProducts} />
+        <AdminProductsList products={finalFiltered} />
       )}
-    </article>
+    </section>
   );
 };
 

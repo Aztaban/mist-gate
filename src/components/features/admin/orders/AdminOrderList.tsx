@@ -14,45 +14,56 @@ const AdminOrderList = ({ orders }: AdminOrderListProps): ReactElement => {
   const { paginatedData, paginationControls } = usePagination<Order>({
     data: sortedData,
     itemsPerPage: 15,
-  })
+  });
 
   if (!orders || orders.length === 0) {
-    return <p>No orders to found.</p>;
+    return (
+      <div className="surface-dark section">
+        <p>No orders found.</p>
+      </div>
+    );
   }
 
   return (
     <>
-    <table className="admin-products-list">
-      <thead>
-        <tr>
-          <th>Order Number</th>
-          <SortableHeader
-            label="created"
-            sortKey="created_at"
-            currentSortKey={sortConfig.key}
-            currentSortDirection={sortConfig.direction}
-            onSort={handleSort}
-          />
-          <th>User</th>
-          <th>Shipping</th>
-          <th>Status</th>
-          <th>Paid status</th>
-          <SortableHeader
-            label="total"
-            sortKey="totalPrice"
-            currentSortKey={sortConfig.key}
-            currentSortDirection={sortConfig.direction}
-            onSort={handleSort}
-          />
-        </tr>
-      </thead>
-      <tbody>
-        {paginatedData.map((order) => (
-          <AdminOrderLineItem key={order.id} order={order} />
-        ))}
-      </tbody>
-    </table>
-    {paginationControls}
+      <table className="table table--compact surface-dark">
+        <thead>
+          <tr>
+            <th>Order Number</th>
+
+            <SortableHeader
+              label="created"
+              sortKey="created_at"
+              currentSortKey={sortConfig.key}
+              currentSortDirection={sortConfig.direction}
+              onSort={handleSort}
+              className="th--sortable"
+            />
+
+            <th>User</th>
+            <th>Shipping</th>
+            <th>Status</th>
+            <th>Paid status</th>
+
+            <SortableHeader
+              label="total"
+              sortKey="totalPrice"
+              currentSortKey={sortConfig.key}
+              currentSortDirection={sortConfig.direction}
+              onSort={handleSort}
+              className="th--sortable u-text-right"
+            />
+          </tr>
+        </thead>
+
+        <tbody>
+          {paginatedData.map((order) => (
+            <AdminOrderLineItem key={order.id} order={order} />
+          ))}
+        </tbody>
+      </table>
+
+      {paginationControls}
     </>
   );
 };

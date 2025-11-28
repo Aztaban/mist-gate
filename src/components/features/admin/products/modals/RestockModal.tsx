@@ -1,67 +1,72 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useUpdateProductMutation } from '@features/apiSlices/productApiSlice';
-import ModalButtons from '../../../auth/modals/ModalButtons';
+import ModalButtons from '@components/features/auth/modals/ModalButtons';
 
 interface RestockModalProps {
   currentStock: number;
   productId: string;
   onClose: () => void;
 }
-const RestockModal = ({
-  currentStock,
-  productId,
-  onClose,
-}: RestockModalProps) => {
-  const [adjustment, setAdjustment] = useState<string>('');
-  const [updateProduct] = useUpdateProductMutation();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === '' || /^-?\d*$/.test(value)) {
-      setAdjustment(value);
-    }
+const RestockModal = ({ currentStock, productId, onClose }: RestockModalProps) => {
+  const [adjustment, setAdjustment] = useState<string>('');
+  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAdjustment(e.target.value);
   };
 
-  const handleSubmit = () => {
-    const adjustmentValue = Number(adjustment);
-    if (isNaN(adjustmentValue)) {
-      alert('Invalid stock adjustment value.');
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const diff = parseInt(adjustment, 10);
+
+    if (isNaN(diff) || diff === 0) {
+      alert('Please enter a non-zero number (positive or negative).');
       return;
     }
 
-    if (currentStock + adjustmentValue < 0) {
-      alert('Stock cannot be negative.');
+    const newStock = currentStock + diff;
+    if (newStock < 0) {
+      alert('Resulting stock cannot be negative.');
       return;
     }
 
     try {
-      updateProduct({
+      await updateProduct({
         id: productId,
-        updates: { countInStock: adjustmentValue },
+        updates: { countInStock: newStock },
       }).unwrap();
+      onClose();
     } catch (err) {
-      console.error('Failed to update product:', err);
-      alert('An error occurred while updating the product.');
+      console.error('Failed to restock product:', err);
+      alert('Failed to restock product.');
     }
-    onClose();
   };
 
   return (
-    <div className="modal-overlay">
+    <div className="modal-overlay" role="dialog" aria-modal="true">
       <div className="modal-content">
         <h2>Restock Product</h2>
-        <p>
-          Current Stock: <strong>{currentStock}</strong>
-        </p>
 
-        <label>Stock Adjustment:</label>
-        <input
-          type="text"
-          value={adjustment}
-          onChange={handleChange}
-          className="modal-input"
-        />
-        <ModalButtons handleSubmit={handleSubmit} onClose={onClose} />
+        <form onSubmit={handleSubmit}>
+          <p>
+            Current stock: <strong>{currentStock}</strong>
+          </p>
+
+          <label htmlFor="stock-adjustment">Stock adjustment</label>
+          <input
+            id="stock-adjustment"
+            type="text"
+            value={adjustment}
+            onChange={handleChange}
+            className="modal-input"
+            placeholder="+10 or -3"
+          />
+          <p className="field-helper">Positive numbers add stock, negative numbers reduce it.</p>
+
+          <ModalButtons onClose={onClose} isSubmitting={isLoading} />
+        </form>
       </div>
     </div>
   );

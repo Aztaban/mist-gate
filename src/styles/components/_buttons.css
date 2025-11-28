@@ -1,130 +1,111 @@
+/* =======================================
+   Buttons (global)
+   ======================================= */
+
 .btn {
-  border: var(--BORDERS-PRIMARY);
-  border-radius: var(--BORDER-RADIUS);
-  padding: var(--PADDING-TB);
-  max-width: 200px;
-  width: 100%;
-  padding: 5px;
-  align-self: center;
-  font-family: var(--FF-HEADINGS);
-  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
   cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+  user-select: none;
+  text-align: center;
+  line-height: 1;
 }
 
-.btn:disabled {
+.btn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* =======================================
+   Primary (gold) — visible like original
+   ======================================= */
+.btn--brand {
+  /* bright gold gradient; very visible on dark panels */
+  border: var(--border);
+  background: linear-gradient(180deg, rgba(var(--brand-rgb), 0.98) 0%, rgba(var(--brand-rgb), 0.85) 100%);
+  color: #111;
+  box-shadow: var(--shadow-strong);
+}
+
+.btn--brand:hover {
+  background: linear-gradient(180deg, rgba(var(--brand-rgb), 1.2) 0%, rgba(var(--brand-rgb), 1.1) 100%);
+  box-shadow: 0 0 12px rgba(var(--brand-rgb), 0.45), 0 6px 18px var(--overlay-darker);
+  border: 1px solid var(--overlay-strong);
+}
+
+.btn--brand:active {
+  transform: translateY(1px);
+}
+
+/* =======================================
+   Secondary (ghost) — for "Register" etc.
+   ======================================= */
+.btn--ghost {
+  border: var(--border);
+  background: var(--overlay-medium);
+  color: var(--color-title);
+  box-shadow: var(--shadow-strong);
+}
+.btn--ghost:hover {
+  border-color: rgba(var(--white-rgb), 0.45);
+  background: var(--overlay-strong);
+}
+
+/* =======================================
+   Positive state — "In Cart" (keep)
+   ======================================= */
+.btn--in-cart {
+  border: 1px solid rgba(120, 255, 120, 0.45);
+  background: linear-gradient(180deg, rgba(80, 200, 80, 0.3), rgba(80, 200, 80, 0.18));
+  color: #e9ffe9;
+  box-shadow: 0 3px 10px rgba(80, 200, 80, 0.28);
+}
+.btn--in-cart:hover {
+  background: linear-gradient(180deg, rgba(95, 220, 95, 0.38), rgba(80, 200, 80, 0.25));
+}
+
+/* =======================================
+   Delete button
+   ======================================= */
+
+.btn--del {
+  color: var(--danger-ink);
+  border-color: var(--danger-border);
+  background: var(--danger-bg);
+}
+
+.btn--del:hover {
+  background: var(--danger-bg-hover);
+  box-shadow: var(--danger-shadow);
+}
+
+/* =======================================
+   Disabled look — "Out of Stock" (keep)
+   ======================================= */
+.btn--disabled {
   cursor: not-allowed;
-  background-color: #e0e0e0;
-  color: var(--SECONDARY-COLOR-LIGHT);
+  opacity: 0.75;
+  border: var(--border);
+  background: var(--overlay-medium);
+  color: var(--color-text);
+  box-shadow: none;
 }
 
-.save-btn {
-  background-color: var(--PRIMARY-COLOR);
-  border-color: var(--SECONDARY-COLOR);
+/* Sizes */
+.btn--sm {
+  padding: 0.45rem 0.8rem;
+  font-size: 0.9rem;
 }
-
-.del-btn {
-  background-color: var(--ERROR-BGCOLOR);
-  color: var(--ERROR-COLOR);
-}
-
-.back-btn {
-  background-color: var(--SECONDARY-COLOR);
-  color: var(--PRIMARY-COLOR-DARK);
-}
-
-.back-btn a {
-  color: var(--PRIMARY-COLOR-DARK);
-}
-
-.news__btn {
-  padding: 0.5rem;
-  color: var(--SECONDARY-COLOR);
-  background-color: var(--PRIMARY-COLOR-DARK);
-  border-radius: 15%;
-}
-
-.news__btn.active,
-.news__btn:hover,
-.news__btn:focus-visible {
-  color: var(--PRIMARY-COLOR-DARK);
-  background-color: var(--SECONDARY-COLOR-DARK);
-  border-radius: 15%;
-}
-
-.hamburger {
-  display: flex;
-}
-
-/* hamburger,logout button and cart btn style */
-.hamburger,
-.logout__icon,
-.cart__btn {
-  justify-content: center;
-  align-items: center;
-  background-color: var(--PRIMARY-COLOR-DARK);
-  color: var(--SECONDARY-COLOR);
-  border-radius: 50%;
-  padding: 0.5rem;
-  border: var(--BORDERS-SECONDARY);
-  width: 2.5rem;
-  height: 2.5rem;
-}
-
-.logout__icon {
-  display: none;
-  cursor: pointer;
-}
-
-.cart__btn {
-  position: relative;
-  display: flex;
-}
-
-.cart__btn::after {
-  content: attr(
-    data-count
-  ); /* Use the data-count attribute to display the number */
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  padding: 0.15rem 0.3rem;
-  font-size: 0.5rem;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 15px;
-  min-height: 15px;
-  pointer-events: none;
-}
-
-.cart__btn[data-count='0']::after {
-  display: none;
-}
-
-.logout__icon:hover,
-.cart__btn:hover,
-.cart__btn:focus-visible {
-  color: var(--PRIMARY-COLOR-DARK);
-  background-color: var(--SECONDARY-COLOR-LIGHT);
-  text-shadow: none;
-}
-
-.cart__btn:hover::after,
-.cart__btn:focus-visible::after {
-  background-color: red; /* Ensure the red badge doesn't change color on hover */
-  color: white; /* Ensure text color stays white */
-}
-
-@media (min-width: 768px) {
-  .hamburger {
-    display: none;
-  }
-
-  .logout__icon {
-    display: flex;
-  }
+.btn--lg {
+  padding: 0.8rem 1.3rem;
+  font-size: 1.05rem;
 }

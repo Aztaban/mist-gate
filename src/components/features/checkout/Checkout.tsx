@@ -11,12 +11,12 @@ const Checkout = () => {
   const handlePrevious = () => setStep((prev) => prev - 1);
 
   return (
-    <article className="checkout-main">
+    <section className="section surface-dark page-stack">
       {step === 1 && <Cart onNext={handleNext} />}
       {step === 2 && <ShippingAndAddress onNext={handleNext} onPrevious={handlePrevious} />}
       {step === 3 && <OrderSummary onNext={handleNext} onPrevious={handlePrevious} />}
       {step === 4 && <OrderConfirmation />}
-    </article>
+    </section>
   );
 };
 

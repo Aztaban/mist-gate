@@ -13,31 +13,35 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSubmit, errMsg }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [wasSubmitted, setWasSubmitted] = useState(false);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    setWasSubmitted(true);
     if (!username || !email || !password) return;
     onSubmit(username, email, password);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {errMsg && <p className="errmsg">{errMsg}</p>}
+    <form className="auth__form" onSubmit={handleSubmit} noValidate>
+      {errMsg && (
+        <p className="instructions red" role="alert">
+          {errMsg}
+        </p>
+      )}
 
-      <ValidatedUsernameInput value={username} onChange={setUsername} />
-      <ValidatedEmailInput value={email} onChange={setEmail} />
-      <ValidatedPasswordInput onPasswordChange={setPassword} />
+      <ValidatedUsernameInput value={username} onChange={setUsername} showInvalid={wasSubmitted} />
+      <ValidatedEmailInput value={email} onChange={setEmail} showInvalid={wasSubmitted} />
+      <ValidatedPasswordInput onPasswordChange={setPassword} showInvalid={wasSubmitted} />
 
-      <button
-        type="submit"
-        className="btn save-btn"
-        disabled={!username || !email || !password}
-      >
-        Register
-      </button>
-      <button type="button" className="btn back-btn">
-        <NavLink to="/login">Back to login</NavLink>
-      </button>
+      <div className="form__actions">
+        <button type="submit" className="btn btn--brand" disabled={!username || !email || !password}>
+          Register
+        </button>
+        <NavLink to="/login" className="btn btn--ghost">
+          Back to login
+        </NavLink>
+      </div>
     </form>
   );
 };

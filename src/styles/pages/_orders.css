@@ -1,90 +1,190 @@
-.header-wraper {
-  background-color: transparent;
-  gap: 1rem;
-  margin: 1rem;
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
+/* =======================================
+   Admin Orders – responsive table polish
+   Works with your existing markup:
+   <section class="orders-admin"> ... <table class="table ...">
+   ======================================= */
 
-.orders-main-page {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.order-product-layout {
+/* Container spacing */
+.orders-admin {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 10px;
-  padding: 8px 0;
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+}
+
+/* Header actions (search) */
+.orders-admin .section-bar__actions {
+  display: flex;
   align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+.orders-admin .search-bar {
+  width: min(420px, 100%);
 }
 
-.order-products-header {
-  font-weight: bold;
-  border-bottom: 1px solid var(--BORDER-COLOR);
+/* Table tweaks */
+.orders-admin .table {
+  table-layout: fixed; /* prevents wild column growth at small widths */
+}
+.orders-admin .table th,
+.orders-admin .table td {
+  /* a hair smaller on this page so more fits without wrapping */
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.order-products-footer {
-  font-weight: bold;
-  border-top: 1px solid var(--BORDER-COLOR);
+/* Status chip is already styled globally; keep right-align on total */
+.orders-admin .table td:last-child,
+.orders-admin .table th:last-child {
+  text-align: right;
 }
 
-.order-product-line-item {
-  padding: 5px 0;
+/* Pagination centered under the table */
+.orders-admin .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.orders-admin .pagination > button {
+  min-width: 84px;
 }
 
-.order-products {
-  margin: 10px;
-}
-
-.orders-list {
-  margin: 10px;
-  width: 90%;
-}
-
-.order-line-item {
+.order-detail-grid {
+  /* re-using the section + surface-dark wrapper from elsewhere */
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  padding: 10px;
-  align-items: center;
-  border-bottom: var(--BORDERS-PRIMARY);
-  justify-items: center;
-  background-color: var(--PRIMARY-COLOR-LIGHT);
+  gap: clamp(0.75rem, 1.8vw, 1.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  margin-top: 0.75rem;
 }
 
-.order-line-header {
-  font-weight: bold;
-  background-color: var(--PRIMARY-COLOR);
+/* Make sure inner cards fill the grid instead of floating right */
+.order-detail-grid .cart-summary {
+  margin-inline-start: 0;
+  max-inline-size: 100%;
 }
 
-.order-line-item {
-  background-color: var(--PRIMARY-COLOR-LIGHT);
+/* -------------------------------
+   Responsive column visibility
+   Column order (1..7):
+   1 Order No | 2 created | 3 User | 4 Shipping | 5 Status | 6 Paid status | 7 total
+   We progressively hide the least-critical info.
+   ------------------------------- */
+
+/* <= 900px: hide Shipping (col 4) */
+@media (max-width: 900px) {
+  .orders-admin .table th:nth-child(4),
+  .orders-admin .table td:nth-child(4) {
+    display: none;
+  }
 }
 
-.order-line-item .text-right {
-  justify-self: flex-end;
+/* <= 720px: hide Paid status (col 6) */
+@media (max-width: 720px) {
+  .orders-admin .table th:nth-child(6),
+  .orders-admin .table td:nth-child(6) {
+    display: none;
+  }
 }
 
-.order-status {
-  font-style: italic;
+/* <= 560px: hide User (col 3) and reduce padding a touch */
+@media (max-width: 560px) {
+  .orders-admin .table th,
+  .orders-admin .table td {
+    padding: 0.55rem 0.7rem;
+    font-size: 0.9rem;
+  }
+  .orders-admin .table th:nth-child(3),
+  .orders-admin .table td:nth-child(3) {
+    display: none;
+  }
+  .orders-admin .search-bar {
+    width: 100%;
+  }
 }
 
-@media (min-width: 550px) {
-  .header-wraper {
-    flex-direction: row;
+/* <= 460px: keep only the essentials: Order No, Date, Total
+   (hide Status as well: col 5) */
+@media (max-width: 460px) {
+  .orders-admin .table th:nth-child(5),
+  .orders-admin .table td:nth-child(5) {
+    display: none;
+  }
+}
+
+/* <= 380px: tighten a bit more */
+@media (max-width: 380px) {
+  .orders-admin .table th,
+  .orders-admin .table td {
+    font-size: 0.85rem;
+  }
+  .orders-admin .pagination > button {
+    min-width: 72px;
+  }
+}
+
+@media (max-width: 599px) {
+  .order-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1100px) {
+  .order-detail-grid > .cart-summary:last-child {
+    grid-column: 1 / -1; /* stretch across all columns */
+  }
+}
+
+/* =======================================
+   Single order – Admin tools & buttons
+   ======================================= */
+
+.admin-tools {
+  margin-top: clamp(0.9rem, 2vw, 1.25rem);
+  padding: clamp(0.75rem, 1.8vw, 1.25rem);
+  border-radius: var(--radius);
+  border: var(--border);
+  background: var(--glass-dark-bg);
+  box-shadow: var(--shadow-strong);
+  color: var(--color-text);
+}
+
+.admin-tools .header-wrapper {
+  margin: 0 0 0.6rem;
+  font-size: var(--fs-h2);
+  color: var(--color-h2);
+  letter-spacing: 0.03em;
+}
+
+/* Stack the selects + button nicely */
+.admin-tools form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Keep the save button aligned with the fields */
+.admin-tools .save-btn {
+  justify-self: flex-start;
+}
+
+/* Bottom action row (Go Back) – reuses checkout/cart patterns */
+.checkout-buttons {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Slightly looser on small screens */
+@media (max-width: 560px) {
+  .admin-tools {
+    padding-inline: 0.75rem;
   }
 
-  .order-product-layout {
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-  }
-
-  .order-line-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+  .checkout-buttons {
+    justify-content: space-between;
   }
 }

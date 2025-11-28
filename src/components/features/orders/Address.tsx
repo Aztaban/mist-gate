@@ -1,4 +1,4 @@
-import { ShippingAddress } from "@types";
+import { ShippingAddress } from '@types';
 
 interface AddressProps {
   address: ShippingAddress;
@@ -6,7 +6,7 @@ interface AddressProps {
 
 const Address = ({ address }: AddressProps) => {
   return (
-    <div className="cart-summary">
+    <div className="cart-summary surface-dark">
       <p>Name:</p>
       <p>{address.name}</p>
       <p>Street:</p>

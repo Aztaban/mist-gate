@@ -1,0 +1,178 @@
+/* =======================================
+   Account / User Settings
+   ======================================= */
+.user-settings {
+  display: grid;
+  /* Left grows a bit, right has more space; both can shrink */
+  grid-template-columns: minmax(380px, 0.95fr) minmax(560px, 1.05fr);
+  gap: clamp(0.9rem, 2vw, 1.25rem);
+  align-items: start;
+  /* allow children to shrink without overflow */
+}
+.user-settings > * {
+  min-width: 0;
+}
+
+/* Stack on narrower viewports */
+@media (max-width: 1160px) {
+  .user-settings {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========= User Info ========= */
+.user-info {
+  padding: clamp(1rem, 2vw, 1.25rem);
+  display: grid;
+  row-gap: 0.35rem;
+  min-width: 0;
+}
+
+/* One-liner: label | value | button (right) */
+.user-info__row {
+  display: grid;
+  grid-template-columns: 140px 1fr auto;
+  align-items: center;
+  column-gap: 0.75rem;
+  padding-block: 0.55rem;
+  min-width: 0;
+}
+.user-info__row + .user-info__row {
+  border-top: var(--border);
+  margin-top: 0.15rem;
+}
+
+/* tighter columns on tablets/phones, keep it one-line */
+@media (max-width: 980px) {
+  .user-info__row {
+    grid-template-columns: 120px 1fr auto;
+  }
+}
+
+/* On very narrow phones, put the button under (still aligned right) */
+@media (max-width: 420px) {
+  .user-info__row {
+    grid-template-columns: 110px 1fr;
+    grid-auto-rows: min-content;
+  }
+  .user-info__actions {
+    grid-column: 1 / -1;
+    justify-self: end;
+    margin-top: 0.4rem;
+  }
+}
+
+.user-info__row > label {
+  color: var(--color-h2);
+  font-weight: 600;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.user-info__text,
+.user-info__row > p {
+  margin: 0;
+  color: var(--color-brand);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0; /* allow ellipsis */
+}
+
+.user-info__actions {
+  justify-self: end; /* right aligned button */
+  display: inline-flex;
+  gap: 0.5rem;
+}
+.user-info__actions .btn {
+  white-space: nowrap;
+}
+
+/* ========= Address form (uses global form/button styles) ========= */
+.address-form {
+  display: grid;
+  gap: 0.75rem;
+  padding: clamp(1rem, 1.6vw, 1.25rem);
+  min-width: 0; /* critical to prevent overflow */
+  overflow: visible; /* ensures shadows/rounded corners show */
+}
+
+/* fields use your global .form__field + .form__control */
+.address-form .form__field {
+  display: grid;
+  gap: 0.35rem;
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+.address-form .form__field label {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-h2);
+}
+.address-form .form__field .form__control {
+  width: 100%;
+  min-width: 0;
+  padding-block: 0.55rem;
+}
+
+/* Desktop 12-col grid */
+@media (min-width: 920px) {
+  .address-form {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  /* 1: Name (full) */
+  .address-form > .form__field:nth-of-type(1) {
+    grid-column: 1 / -1;
+  }
+
+  /* 2: Street (8/12) */
+  .address-form > .form__field:nth-of-type(2) {
+    grid-column: span 8;
+  }
+
+  /* 3: City (5/12) */
+  .address-form > .form__field:nth-of-type(3) {
+    grid-column: span 5;
+  }
+
+  /* 4: Postal (3/12) */
+  .address-form > .form__field:nth-of-type(4) {
+    grid-column: span 3;
+  }
+
+  /* 5: Country (4/12) */
+  .address-form > .form__field:nth-of-type(5) {
+    grid-column: span 4;
+  }
+
+  /* Actions full width */
+  .address-form .form__actions {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Stack fields and panels on small screens */
+@media (max-width: 980px) {
+  .address-form {
+    grid-template-columns: 1fr;
+  }
+  .address-form > .form__field {
+    grid-column: 1 / -1;
+  }
+  .address-form .form__actions {
+    justify-content: flex-start;
+  }
+}
+
+.orders-table {
+  width: 100%;
+}
+
+/* At ≤ 480–520px-ish, hide the Status column */
+@media (max-width: 520px) {
+  .orders-table thead th.col-status,
+  .orders-table tbody td.col-status {
+    display: none;
+  }
+}

@@ -1,7 +1,6 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '@features/slices/checkoutSlice';
 import { RootState } from '@features/store';
-import { useSelector } from 'react-redux';
 import { Product } from '@types';
 import { eurFormat } from '@utils';
 
@@ -12,10 +11,8 @@ interface ProductCartProps {
 
 const ProductCart = ({ product, isCart }: ProductCartProps) => {
   const dispatch = useDispatch();
-  // Check if the product is already in the cart
-  const inCart = useSelector((state: RootState) =>
-    state.checkout.products.some((item) => item.product === product.id)
-  );
+
+  const inCart = useSelector((state: RootState) => state.checkout.products.some((item) => item.product === product.id));
 
   const isOutOfStock = product.countInStock < 1;
 
@@ -34,12 +31,15 @@ const ProductCart = ({ product, isCart }: ProductCartProps) => {
   return (
     <div className={isCart ? 'product-cart' : 'product-bar-cart'}>
       <p className="product-price">{eurFormat(product.price)}</p>
+
       {isOutOfStock ? (
-        <p className='out-of-stock back-btn'>Out of Stock</p>
+        <span className="btn btn--disabled btn--sm" aria-disabled="true">
+          Out of Stock
+        </span>
       ) : inCart ? (
-        <p className='out-of-stock back-btn'>Item in Cart</p>
+        <span className="btn btn--in-cart btn--sm">Item in Cart</span>
       ) : (
-        <button className="btn save-btn" onClick={handleAddToCart}>
+        <button type="button" className="btn btn--brand btn--sm" onClick={handleAddToCart}>
           Add to Cart
         </button>
       )}

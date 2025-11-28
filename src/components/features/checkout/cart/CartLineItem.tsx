@@ -24,16 +24,32 @@ const CartLineItem = ({ item }: { item: OrderItem }): ReactElement => {
     }
   };
 
+  const unitPrice = eurFormat(item.price);
+  const lineTotal = eurFormat(item.quantity * item.price);
+
   const content = (
-    <li className="cart__item">
-      <div className="cart__item-top">
+    <li className="cart-item surface-dark">
+      <div className="cart-item__thumb">
         <img src={product.imageUrl} alt={item.name} />
-        <a href={`/shop/product/${item.product}`}> {item.name} </a>
       </div>
-      <div className="cart__item-bottom">
-        <QuantityInput quantity={item.quantity} onUpdate={handleUpdateQuantity} max={product.countInStock} />
-        {item.quantity > 1 ? <p>{eurFormat(item.price)} / pc</p> : null}
-        <p aria-label="Line Item Subtotal">{eurFormat(item.quantity * item.price)}</p>
+
+      <div className="cart-item__title">
+        <p className="cart-item__name">
+          <a href={`/shop/product/${item.product}`}>{item.name}</a>
+        </p>
+        <div className="cart-item__qty">
+          <QuantityInput quantity={item.quantity} onUpdate={handleUpdateQuantity} max={product.countInStock} />
+        </div>
+      </div>
+
+      {/* unit price (hidden on small screens via CSS) */}
+      <div className="cart-item__unit">
+        <span className="price price--muted">{unitPrice} / pc</span>
+      </div>
+
+      {/* line total */}
+      <div className="cart-item__total" aria-label="Line Item Subtotal">
+        <span className="price price--brand">{lineTotal}</span>
       </div>
     </li>
   );

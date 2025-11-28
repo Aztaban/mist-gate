@@ -24,17 +24,14 @@ const UserCard = ({ userId }: UserCardProps) => {
         user.username
       } the Editor role?`
     );
-    if (confirm) {
-      toggleEditor({ userId: user.id });
-    }
+    if (confirm) toggleEditor({ userId: user.id });
   };
+
   const handleToggleStatus = () => {
     const confirm = window.confirm(
       `Are you sure you want to ${user.isActive ? 'deactivate' : 'activate'} user ${user.username}?`
     );
-    if (confirm) {
-      toggleStatus({ userId: user.id });
-    }
+    if (confirm) toggleStatus({ userId: user.id });
   };
 
   return (
@@ -50,22 +47,27 @@ const UserCard = ({ userId }: UserCardProps) => {
           Phone: <strong>{user.phoneNumber}</strong>
         </p>
       )}
-      <p>
-        Roles: <strong>{user.roles.map((roleId) => ROLE_NAMES[roleId]).join(', ')}</strong>
-      </p>
-      {isAdmin && (
-        <button className="btn back-btn" onClick={handleToggleEditor} disabled={isTogglingEditor}>
-          {isTogglingEditor ? 'Processing...' : 'Toggle Editor Role'}
-        </button>
-      )}
-      <p>
-        Active: <strong>{user.isActive.toString()}</strong>
-      </p>
-      {isAdmin && (
-        <button className="btn back-btn" onClick={handleToggleStatus} disabled={isTogglingStatus}>
-          {isTogglingStatus ? 'Processing...' : user.isActive ? 'Deactivate' : 'Activate'}
-        </button>
-      )}
+      <div className="flex-line">
+        <p>
+          Roles: <strong>{user.roles.map((roleId) => ROLE_NAMES[roleId]).join(', ')}</strong>
+        </p>
+        {isAdmin && (
+          <button className="btn btn--brand" onClick={handleToggleEditor} disabled={isTogglingEditor}>
+            {isTogglingEditor ? 'Processing...' : 'Toggle Editor Role'}
+          </button>
+        )}
+      </div>
+
+      <div className="flex-line">
+        <p>
+          Active: <strong>{user.isActive.toString()}</strong>
+        </p>
+        {isAdmin && !user.roles.includes(ROLES.Admin) && (
+          <button className="btn btn--del" onClick={handleToggleStatus} disabled={isTogglingStatus}>
+            {isTogglingStatus ? 'Processing...' : user.isActive ? 'Deactivate' : 'Activate'}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

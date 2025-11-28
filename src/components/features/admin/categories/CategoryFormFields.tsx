@@ -1,27 +1,29 @@
 interface Props {
   name: string;
   setName: (value: string) => void;
-  disabled?: boolean; // new
+  disabled?: boolean;
 }
 
 const CategoryFormFields = ({ name, setName, disabled = false }: Props) => {
+  const remaining = 64 - name.length;
+
   return (
-    <div>
-      <label htmlFor="category-name" style={{ display: 'block', marginBottom: 4 }}>
-        Category Name
-      </label>
+    <div className="form__field category-form__field">
+      <label htmlFor="category-name">Category Name</label>
+
       <input
         type="text"
         id="category-name"
+        className="category-form__input"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        maxLength={64} // matches BE limit
+        maxLength={64}
         disabled={disabled}
         autoComplete="off"
-        placeholder="e.g. books"
-        style={{ width: '100%', maxWidth: 360 }}
+        placeholder="e.g. fantasy"
       />
-      <div style={{ fontSize: 12, opacity: 0.75, marginTop: 4 }}>{64 - name.length} characters left</div>
+
+      <div className="category-form__helper">{remaining} characters left</div>
     </div>
   );
 };

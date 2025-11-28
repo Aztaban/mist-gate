@@ -1,16 +1,27 @@
+// ModalButtons.tsx
+
 interface ModalButtonsProps {
-  handleSubmit: (e: React.FormEvent) => void;
   onClose: () => void;
+  isSubmitting?: boolean;
+  confirmLabel?: string;
+  cancelLabel?: string;
 }
 
-const ModalButtons = ({ handleSubmit, onClose }: ModalButtonsProps) => {
+const ModalButtons = ({
+  onClose,
+  isSubmitting = false,
+  confirmLabel = 'Confirm',
+  cancelLabel = 'Cancel',
+}: ModalButtonsProps) => {
   return (
-    <div className="modal-actions">
-      <button onClick={handleSubmit} className="btn modal-confirm">
-        Confirm
+    <div className="modal-actions form__actions">
+      <button type="button" onClick={onClose} className="btn btn--ghost" disabled={isSubmitting}>
+        {cancelLabel}
       </button>
-      <button onClick={onClose} className="btn modal-cancel">
-        Cancel
+
+      {/* This submits the nearest <form> */}
+      <button type="submit" className="btn btn--brand" disabled={isSubmitting}>
+        {isSubmitting ? 'Working…' : confirmLabel}
       </button>
     </div>
   );

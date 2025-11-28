@@ -1,0 +1,103 @@
+/* Base */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+/* Header */
+.table thead th,
+.table tfoot td {
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-h2);
+  padding: 0.8rem 1rem;
+  border-bottom: var(--border);
+  white-space: nowrap;
+}
+
+/* Body */
+.table tbody td {
+  padding: 0.75rem 1rem;
+  color: var(--color-muted);
+  border-bottom: 1px solid rgba(var(--white-rgb), 0.08);
+}
+
+.table tbody tr:hover td {
+  background: var(--overlay-darker);
+}
+
+/* Empty table row */
+.table tbody tr.table__empty-row td {
+  text-align: center;
+  padding: 1.25rem 1rem;
+  color: var(--color-muted);
+  font-style: italic;
+  background: transparent;
+}
+
+/* Size modifiers (optional) */
+.table--compact thead th {
+  padding: 0.65rem 0.85rem;
+}
+
+.table--compact tbody td {
+  padding: 0.55rem 0.85rem;
+}
+
+/* Text helpers (global-ish) */
+.u-text-right {
+  text-align: right !important;
+}
+
+.u-text-center {
+  text-align: center;
+}
+
+.u-text-success {
+  color: #9be38a !important;
+}
+
+.table a {
+  color: var(--color-brand);
+  text-decoration: none;
+}
+.table a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Pagination (global)
+   ========================= */
+.pagination {
+  --pg-gap: 0.5rem;
+  --pg-pad-y: 0.35rem;
+  --pg-pad-x: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--pg-gap);
+  padding: var(--pg-pad-y) var(--pg-pad-x);
+  max-width: 100%;
+  width: 100%;
+}
+
+.pagination__status {
+  color: var(--color-title);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive tweaks */
+@media (max-width: 560px) {
+  .pagination {
+    --pg-gap: 0.4rem;
+    --pg-pad-y: 0.3rem;
+    --pg-pad-x: 0.4rem;
+  }
+
+  .pagination__status {
+    font-size: 0.95rem;
+  }
+}
